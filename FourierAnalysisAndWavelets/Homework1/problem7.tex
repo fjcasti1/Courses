@@ -2,18 +2,33 @@
 
 \question{For $n>0$, let
 \begin{align*}
-f_n(t)=1
-\end{align*}
-Show that $f_n\rightarrow 0$ in $L^2[0,1]$ but that $f_n(0)$ does not
-converge to zero.
-}
-\begin{solution}
-\begin{align*}
 f_n(t)=\begin{cases} 
    \sqrt{n}, & 0\leq t\leq 1/n^2 \\
        ~~~0, & \text{otherwise}
 \end{cases}
 \end{align*}
-Show that $f_n\rightarrow 0$ in $L^2[0,1]$ but that $f_n(0)$ does not converge to zero.
+Show that $f_n\rightarrow 0$ in $L^2[0,1]$ but that $f_n(0)$ does not converge to zero.}
+\begin{solution}
+For the first proof we need to prove that
+\begin{align*}
+||f_n(t)-0||\rightarrow 0\text{ as } n\rightarrow\infty.
+\end{align*}
+Then,
+\begin{align*}
+||f_n(t)-0||&=\sqrt{\left<f_n-0,f_n-0\right>_{L^2}}\\
+&=\sqrt{\int_0^1\left[f_n(t)-0\right]^2dt}\\
+&=\sqrt{\int_0^1\left[f_n(t)\right]^2dt}\\
+&=\sqrt{\int_0^{1/n^2}ndt+\int_{1/n^2}^10dt}\\
+&=\sqrt{\frac{1}{2}n\frac{1}{n^2}}\\
+&=\sqrt{\frac{1}{2n}}.
+\end{align*}
+Hence,
+\begin{align*}
+\lim_{n\rightarrow\infty}||f_n(t)-0||=\lim_{n\rightarrow\infty}\sqrt{\frac{1}{2n}}=0.
+\end{align*}
+However,
+\begin{align*}
+\lim_{n\rightarrow\infty}f_n(0)=\lim_{n\rightarrow\infty}\sqrt{n}=\infty\neq 0.
+\end{align*}
 \end{solution}
 \end{questions}
