@@ -1,0 +1,22 @@
+\begin{questions}
+
+\question{Show that if a differentiable function , $f$, is orthogonal to
+$cos(t)$ on $L^2[0,\pi]$ then $f'$ is orthogonal to $sin(t)$ on
+$L^2[0,\pi]$.
+}
+\begin{solution}
+Since $f$ is orthogonal to $cos(t)$ we know that
+\begin{align*}
+\left<f,cos(t)\right>=\int_0^{\pi}f(t)cos(t)dt=0.
+\end{align*}
+Then,
+\begin{align*}
+\left<f',sin(t)\right>&=\int_0^{\pi}f'(t)sin(t)dt\\
+&=\int_0^{\pi}\left(\frac{d}{dt}\left[f(t)sin(t)\right]-f(t)cos(t)\right)dt\\
+&=\int_0^{\pi}d\left[f(t)sin(t)\right]-\int_0^{\pi}f(t)cos(t)dt\\
+&=\cancelto{0}{\left.f(t)sin(t)\right|_0^{\pi}}-\int_0^{\pi}f(t)cos(t)dt\\
+&=-\int_0^{\pi}f(t)cos(t)dt=0,
+\end{align*}
+where we have used that $sin(\pi)=sin(0)=0$ and the fact that $f$ is orthogonal to $cos(t)$. Hence, it has been proved that $f'$ is orthogonal to $sin(t)$ provided that $f$ is orthogonal to $cos(t)$.
+\end{solution}
+\end{questions}

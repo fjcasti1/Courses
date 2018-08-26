@@ -1,0 +1,24 @@
+\begin{questions}
+
+\question{Show that a set of orthonormal vectors is linearly
+independent.
+}
+\begin{solution}
+Consider the set of orthonormal vectors
+\begin{align*}
+S=\left\lbrace e_1,e_2,...,e_N;\left<e_j,e_k\right>=\delta_{jk}\right\rbrace,
+\end{align*}
+where $\delta_{jk}$ is the Kronecker delta. Assume that 
+\begin{align*}
+\sum_{j=1}^{N}\alpha_je_j=0.
+\end{align*}
+Taking the inner product
+\begin{align*}
+0=\left<\sum_{j=1}^{N}\alpha_je_j,e_k\right>&=\sum_{j=1}^{N}\left<\alpha_je_j,e_k\right>\\
+&=\sum_{j=1}^{N}\alpha_j\left<e_j,e_k\right>\\
+&=\sum_{j=1}^{N}\alpha_j\delta_{jk}\\
+&=\alpha_k.
+\end{align*}
+Hence, we have obtained that all the $\alpha_k=0$ and therefore it is proved that a set of orthonormal vectors is linearly independent.
+\end{solution}
+\end{questions}
