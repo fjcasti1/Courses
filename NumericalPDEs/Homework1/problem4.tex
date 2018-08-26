@@ -1,34 +1,52 @@
 \begin{questions}
 
-\question{For $n>0$, let
-\begin{align*}
-f_n(t)=\begin{cases} 
-   \sqrt{n}, & 0\leq t\leq 1/n^2 \\
-       ~~~0, & \text{otherwise}
-\end{cases}
-\end{align*}
-Show that $f_n\rightarrow 0$ in $L^2[0,1]$ but that $f_n(0)$ does not converge to zero.}
+\question{Show that the general solution to the heat equation 
+\begin{displaymath}
+	u(x, t) = \int_{-\infty}^\infty K(x -y, t) u_0(y) dy
+\end{displaymath}
+where the fundamental solution or kernel
+\begin{displaymath}
+	K(x, t) = \frac{1}{\sqrt{4 \pi \kappa t}} 
+        \exp\left\{-\frac{x^2}{4 \kappa t}\right\}
+\end{displaymath}
+does in fact satisfy $u_t = \kappa \, u_{xx}$ with $u(x, t=0) =
+u_0(x)$.  {\em Hint}: First show that $K$ satisfies the heat
+equation. Then argue that $u$ satisfies the heat equation.  Finally show that $u$ satisfies the initial conditions $u(x, t=0) = u_0(x)$.
+}
 \begin{solution}
-For the first proof we need to prove that
+First we calculate the time derivative of $K$,
 \begin{align*}
-||f_n(t)-0||\rightarrow 0\text{ as } n\rightarrow\infty.
+K_t(x,t)=\frac{x^2}{4\kappa\sqrt{4\kappa\pi}}\frac{e^{\frac{-x^2}{4\kappa t}}}{t^{5/2}}-\frac{1}{2\sqrt{4\kappa\pi}}\frac{e^{\frac{-x^2}{4\kappa t}}}{t^{3/2}}~.
 \end{align*}
-Then,
+Further we calculate the spatial derivatives,
 \begin{align*}
-||f_n(t)-0||&=\sqrt{\left<f_n-0,f_n-0\right>_{L^2}}\\
-&=\sqrt{\int_0^1\left[f_n(t)-0\right]^2dt}\\
-&=\sqrt{\int_0^1\left[f_n(t)\right]^2dt}\\
-&=\sqrt{\int_0^{1/n^2}ndt+\int_{1/n^2}^10dt}\\
-&=\sqrt{\frac{1}{2}n\frac{1}{n^2}}\\
-&=\sqrt{\frac{1}{2n}}.
+K_x(x,t)=-\frac{2x}{4\kappa t\sqrt{4\kappa\pi t}}e^{\frac{-x^2}{4\kappa t}},
 \end{align*}
-Hence,
+and
 \begin{align*}
-\lim_{n\rightarrow\infty}||f_n(t)-0||=\lim_{n\rightarrow\infty}\sqrt{\frac{1}{2n}}=0.
+K_{xx}(x,t)=\frac{x^2}{4\kappa^2\sqrt{4\kappa\pi}}\frac{e^{\frac{-x^2}{4\kappa t}}}{t^{5/2}}-\frac{1}{2\kappa\sqrt{4\kappa\pi}}\frac{e^{\frac{-x^2}{4\kappa t}}}{t^{3/2}}~.
 \end{align*}
-However,
+Finally, it is easy to check that
 \begin{align*}
-\lim_{n\rightarrow\infty}f_n(0)=\lim_{n\rightarrow\infty}\sqrt{n}=\infty\neq 0.
+\kappa K_{xx}=\frac{x^2}{4\kappa\sqrt{4\kappa\pi}}\frac{e^{\frac{-x^2}{4\kappa t}}}{t^{5/2}}-\frac{1}{2\sqrt{4\kappa\pi}}\frac{e^{\frac{-x^2}{4\kappa t}}}{t^{3/2}}=K_t(x,t),
 \end{align*}
+and that $K$ satisfies the heat equation.
+Now it is easier to check that $u$ satisfies it as well,
+\begin{align*}
+\kappa u_{xx}&=\kappa\frac{\partial^2}{\partial x^2}\int_\infty^{\infty}K(x -y, t) u_0(y) dy\\
+&=\int_\infty^{\infty}\kappa K_{xx}(x -y, t) u_0(y) dy\\
+&=\int_\infty^{\infty} K_{t}(x -y, t) u_0(y) dy\\
+&=\frac{\partial}{\partial t}\int_\infty^{\infty}K(x -y, t) u_0(y) dy\\
+&=\frac{\partial}{\partial t}u(x,t)\\
+&=u_t.
+\end{align*}
+To check that the initial condition is satisfied by this solution we take the limit,
+\begin{align*}
+\lim_{t\to 0}u(x,t)&=\lim_{t\to 0}\int_{-\infty}^\infty K(x -y, t) u_0(y) dy\\
+&=\int_{-\infty}^\infty \lim_{t\to 0}K(x -y, t) u_0(y) dy\\
+&=\int_{-\infty}^\infty \delta(x-y) u_0(y) dy\\
+&=u_0(x),
+\end{align*}
+where we have used the fact that the limit at time zero of the heat kernel is the Dirac delta and its properties.
 \end{solution}
 \end{questions}

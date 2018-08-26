@@ -1,62 +1,36 @@
+
 \begin{questions}
 
-\question{Find the $L^2[-\pi,\pi]$ projection of the function
-$f(x)=x^2$ onto the space $V_n\in L^2[-\pi,\pi]$ spanned by
-\begin{align*}
-\left\lbrace\frac{\sin(jx)}{\sqrt{2}\pi},\frac{\cos(jx)}{\sqrt{\pi}};j=1,2,...,n\right\rbrace
-\end{align*}
-for n=2. Plot these projections along with $f$ using a computer algebra
-system. Repeat for $g(x)=x^3$.
-}
+\question{Show that the TR method for the heat equation $u_t = u_{xx}$
+\begin{displaymath}
+	u^{n+1}_i = u^n_i + \frac{\Delta t}{2 \Delta x^2} 
+	\left( u^n_{i+1} - 2 u^n_i + u^n_{i-1} +
+        u^{n+1}_{i+1} - 2 u^{n+1}_i + u^{n+1}_{i-1} \right)
+\end{displaymath}
+is second-order accurate, using the definition of the local truncation.}
+
 \begin{solution}
-Let $a_j=\frac{\sin(jx)}{\sqrt{2}\pi}$ and $b_j=\frac{\cos(jx)}{\sqrt{\pi}}$. Then, the projection, $f_0$, of $f$ onto the space $V_n$ is
+
+Let $\Delta x = h$. We then substitute the true solution into the TR method and Taylor expand to find,
 \begin{align*}
-f_0=\sum_{j=1}^n\left<f,a_j\right>a_j+\sum_{j=1}^n\left<f,b_j\right>b_j,
+u(x,t + \Delta t) = u(x,t) &+ \frac{\Delta t}{2}\left( u_{xx}(x,t) + \frac{h^2}{12}u_{xxxx}(x,t) + \cdots \right)\\
+&+ \frac{\Delta t}{2}\left( u_{xx}(x,t + \Delta t) + \frac{h^2}{12}u_{xxxx}(x,t + \Delta t) + \cdots \right) + \Delta t \tau~.
 \end{align*}
-where $n=2$. First, we calculate the inner products
+
+Letting $u(x,t) = u$ and Taylor expanding again, we find,
+{\small
 \begin{align*}
-\left<f,a_j\right>=\int_{-\pi}^{\pi}x^2\frac{\sin(jx)}{\sqrt{2}\pi}dx=\frac{1}{\sqrt{2}\pi}\int_{-\pi}^{\pi}x^2\sin(jx)dx=0,
-\end{align*}
-since $x^2\sin(jx)$ is odd. Thus,
+u + \Delta t u_t + \frac{\Delta t}{2}u_{tt} + \cdots = u &+ \frac{\Delta t}{2} \left(u_{xx}(x,t) + \frac{h^2}{12}u_{xxxx}(x,t) + \cdots \right) \\
+& +\frac{\Delta t}{2}\left(u_{xx} + \Delta t u_{xxt} + \frac{\Delta t^2}{2}u_{xxtt} + \cdots \right) + \frac{\Delta t}{2}\left(u_{xxxx} + \Delta t u_{xxxxt} + \frac{\Delta t^2}{2}u_{xxxxtt} + \cdots \right) + \Delta t \tau~.
+\end{align*}}
+
+Solving for $\tau$, and noting the fact that $u_t = u_{xx}$, we get
 \begin{align*}
-\left<f,a_j\right>=0~~\forall j\in\Z.
+\tau = \frac{-u_{xxtt}}{4}\Delta t^2 + \frac{-u_{xxxx}}{12} h^2 + \cdots~.
 \end{align*}
-Now,
-\begin{align*}
-\left<f,b_j\right>=\int_{-\pi}^{\pi}x^2\frac{\cos(jx)}{\sqrt{\pi}}dx&=\frac{1}{\sqrt{\pi}}\int_{-\pi}^{\pi}x^2\cos(jx)dx\\
-&=\frac{1}{\sqrt{\pi}}\cancelto{0}{\left.\frac{x^2\sin(jx)}{j}\right|_{-\pi}^{\pi}}-\frac{2}{\sqrt{\pi}}\int_{-\pi}^{\pi}\frac{1}{j} x\sin(jx)dx\\
-&=-\frac{2}{j\sqrt{\pi}}\int_{-\pi}^{\pi}x\sin(jx)dx\\
-&=+\frac{2}{j^2\sqrt{\pi}}\left.x\cos(jx)\right|_{-\pi}^{\pi}-\frac{2}{j^2\sqrt{\pi}}\int_{-\pi}^{\pi}\cos(jx)dx\\
-&=+\frac{2}{j^2\sqrt{\pi}}\left.x\cos(jx)\right|_{-\pi}^{\pi}-\frac{2}{j^3\sqrt{\pi}}\cancelto{0}{\left.\sin(jx)\right|_{-\pi}^{\pi}}\\
-&=+\frac{2}{j^2\sqrt{\pi}}\left(\pi\cos(j\pi)+\pi\cos(-j\pi)\right)\\
-&=+\frac{4\sqrt{\pi}}{j^2}\cos(j\pi),
-\end{align*}
-where we have integrated by parts twice. Therefore,
-\begin{align*}
-f_0&=\cancelto{0}{\sum_{j=1}^n\left<f,a_j\right>a_j}+\sum_{j=1}^n\left<f,b_j\right>b_j\\
-&=\left<f,b_1\right>b_1+\left<f,b_2\right>b_2\\
-&=-4\sqrt{\pi}\frac{\cos(x)}{\sqrt{\pi}}+\sqrt{\pi}\frac{\cos(2x)}{\sqrt{\pi}}.
-\end{align*}
-Hence, the projection
-\begin{align*}
-f_0=\cos(2x)-4\cos(x).
-\end{align*}
-Further, we repeat the same process for the function $g(x)=x^3$. In this case, the parity of the function has changed from even to odd. Hence, in this case the inner products $\left<g,b_j\right>=0$ because $x^3\cos(jx)$ is an odd function.
-We calculate then the inner products
-\begin{align*}
-\left<g,a_j\right>=\int_{-\pi}^{\pi}x^3\frac{\sin(jx)}{\sqrt{2}\pi}dx&=\frac{1}{\sqrt{2}\pi}\int_{-\pi}^{\pi}x^3\sin(jx)dx\\
-&=-\frac{1}{\sqrt{2}\pi}\left.\frac{x^3\cos(jx)}{j}\right|_{-\pi}^{\pi}+\frac{1}{\sqrt{2}\pi}\frac{3}{j}\int_{-\pi}^{\pi}x^2\cos(jx)dx\\
-&=-\frac{1}{j\sqrt{2}\pi}\left(\pi^3\cos(j\pi)+\pi^3\cos(-j\pi)\right)+\frac{3}{j\sqrt{2\pi}}\int_{-\pi}^{\pi}\frac{x^2\cos(jx)}{\sqrt{\pi}} dx\\
-&=-\frac{2\pi^2}{j\sqrt{2}}\cos(j\pi)+\frac{3}{j\sqrt{2\pi}}\int_{-\pi}^{\pi}\frac{x^2\cos(jx)}{\sqrt{\pi}} dx\\
-&=-\frac{\pi^2\sqrt{2}}{j}\cos(j\pi)+\frac{3}{j\sqrt{2\pi}}\frac{4\sqrt{\pi}}{j^2}\cos(j\pi)\\
-&=\frac{6\sqrt{2}}{j^3}\cos(j\pi)-\frac{\pi^2\sqrt{2}}{j}\cos(j\pi).\\
-\end{align*}
-Similarly than with $f$, we have
-\begin{align*}
-g_0&=\sum_{j=1}^n\left<g,a_j\right>a_j+\cancelto{0}{\sum_{j=1}^n\left<g,b_j\right>b_j}\\
-&=\left<g,a_1\right>a_1+\left<g,a_2\right>a_2\\
-&=\sqrt{2}\left(\pi^2-6\right)\frac{\sin(x)}{\pi\sqrt{2}}+\frac{3-2\pi^2}{2\sqrt{2}}\frac{\sin(2x)}{\pi\sqrt{2}}\\
-&=\frac{\left(\pi^2-6\right)}{\pi}\sin(x)+\frac{3-2\pi^2}{4\pi}\sin(2x)
-\end{align*}
+
+Thus, the TR method for the heat equation is second-order accurate.
+
 \end{solution}
+
 \end{questions}
