@@ -4,19 +4,19 @@
 independent.
 }
 \begin{solution}
-Consider the set of orthonormal vectors
+Consider the set of orthonormal vectors $S=\left\lbrace e_j\right\rbrace_{j=0}^{\infty}$. Since it is orthonormal we have
 \begin{align*}
-S=\left\lbrace e_1,e_2,...,e_N;\left<e_j,e_k\right>=\delta_{jk}\right\rbrace,
+\left<e_j,e_k\right>=\delta_{jk},
 \end{align*}
 where $\delta_{jk}$ is the Kronecker delta. Assume that 
 \begin{align*}
-\sum_{j=1}^{N}\alpha_je_j=0.
+\sum_{j=1}\alpha_je_j=0.
 \end{align*}
 Taking the inner product
 \begin{align*}
-0=\left<\sum_{j=1}^{N}\alpha_je_j,e_k\right>&=\sum_{j=1}^{N}\left<\alpha_je_j,e_k\right>\\
-&=\sum_{j=1}^{N}\alpha_j\left<e_j,e_k\right>\\
-&=\sum_{j=1}^{N}\alpha_j\delta_{jk}\\
+0=\left<\sum_{j=1}\alpha_je_j,e_k\right>&=\sum_{j=1}\left<\alpha_je_j,e_k\right>\\
+&=\sum_{j=1}\alpha_j\left<e_j,e_k\right>\\
+&=\sum_{j=1}\alpha_j\delta_{jk}\\
 &=\alpha_k.
 \end{align*}
 Hence, we have obtained that all the $\alpha_k=0$ and therefore it is proved that a set of orthonormal vectors is linearly independent.

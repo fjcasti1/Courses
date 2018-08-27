@@ -3,19 +3,19 @@
 \question{Find the $L^2[-\pi,\pi]$ projection of the function
 $f(x)=x^2$ onto the space $V_n\in L^2[-\pi,\pi]$ spanned by
 \begin{align*}
-\left\lbrace\frac{\sin(jx)}{\sqrt{2}\pi},\frac{\cos(jx)}{\sqrt{\pi}};j=1,2,...,n\right\rbrace
+\left\lbrace\frac{1}{\sqrt{2\pi}},\frac{\sin(jx)}{\sqrt{\pi}},\frac{\cos(jx)}{\sqrt{\pi}};j=1,2,...,n\right\rbrace
 \end{align*}
 for n=2. Plot these projections along with $f$ using a computer algebra
 system. Repeat for $g(x)=x^3$.
 }
 \begin{solution}
-Let $a_j=\frac{\sin(jx)}{\sqrt{2}\pi}$ and $b_j=\frac{\cos(jx)}{\sqrt{\pi}}$. Then, the projection, $f_0$, of $f$ onto the space $V_n$ is
+Let $a_j=\frac{\sin(jx)}{\sqrt{\pi}}$, $b_j=\frac{\cos(jx)}{\sqrt{\pi}}$ and $c=\frac{1}{\sqrt{2\pi}}$. Then, the projection, $f_0$, of $f$ onto the space $V_n$ is
 \begin{align*}
-f_0=\sum_{j=1}^n\left<f,a_j\right>a_j+\sum_{j=1}^n\left<f,b_j\right>b_j,
+f_0=\sum_{j=1}^n\left<f,a_j\right>a_j+\sum_{j=1}^n\left<f,b_j\right>b_j+\left<f,c\right>c,
 \end{align*}
 where $n=2$. First, we calculate the inner products
 \begin{align*}
-\left<f,a_j\right>=\int_{-\pi}^{\pi}x^2\frac{\sin(jx)}{\sqrt{2}\pi}dx=\frac{1}{\sqrt{2}\pi}\int_{-\pi}^{\pi}x^2\sin(jx)dx=0,
+\left<f,a_j\right>=\int_{-\pi}^{\pi}x^2\frac{\sin(jx)}{\sqrt{\pi}}dx=\frac{1}{\sqrt{\pi}}\int_{-\pi}^{\pi}x^2\sin(jx)dx=0,
 \end{align*}
 since $x^2\sin(jx)$ is odd. Thus,
 \begin{align*}
@@ -31,32 +31,44 @@ Now,
 &=+\frac{2}{j^2\sqrt{\pi}}\left(\pi\cos(j\pi)+\pi\cos(-j\pi)\right)\\
 &=+\frac{4\sqrt{\pi}}{j^2}\cos(j\pi),
 \end{align*}
-where we have integrated by parts twice. Therefore,
+where we have integrated by parts twice. Finally, the constant term
 \begin{align*}
-f_0&=\cancelto{0}{\sum_{j=1}^n\left<f,a_j\right>a_j}+\sum_{j=1}^n\left<f,b_j\right>b_j\\
-&=\left<f,b_1\right>b_1+\left<f,b_2\right>b_2\\
-&=-4\sqrt{\pi}\frac{\cos(x)}{\sqrt{\pi}}+\sqrt{\pi}\frac{\cos(2x)}{\sqrt{\pi}}.
+\left<f,c\right>=\int_{-\pi}^{\pi}x^2\frac{1}{\sqrt{2\pi}}dx&=\frac{1}{\sqrt{2\pi}}\int_{-\pi}^{\pi}x^2dx\\
+&=\frac{1}{\sqrt{2\pi}}\left.\frac{x^3}{3}\right|_{-\pi}^{\pi} \\
+&=\frac{2}{3\sqrt{2\pi}}\pi^3,
+\end{align*}
+Therefore,
+\begin{align*}
+f_0&=\cancelto{0}{\sum_{j=1}^n\left<f,a_j\right>a_j}+\sum_{j=1}^n\left<f,b_j\right>b_j+\left<f,c\right>c\\
+&=\left<f,b_1\right>b_1+\left<f,b_2\right>b_2+\left<f,c\right>c\\
+&=-4\sqrt{\pi}\frac{\cos(x)}{\sqrt{\pi}}+\sqrt{\pi}\frac{\cos(2x)}{\sqrt{\pi}}+\frac{\pi^2}{3}.
 \end{align*}
 Hence, the projection
 \begin{align*}
-f_0=\cos(2x)-4\cos(x).
+f_0=\frac{\pi^2}{3}-4\cos(x)+\cos(2x).
 \end{align*}
 Further, we repeat the same process for the function $g(x)=x^3$. In this case, the parity of the function has changed from even to odd. Hence, in this case the inner products $\left<g,b_j\right>=0$ because $x^3\cos(jx)$ is an odd function.
 We calculate then the inner products
 \begin{align*}
-\left<g,a_j\right>=\int_{-\pi}^{\pi}x^3\frac{\sin(jx)}{\sqrt{2}\pi}dx&=\frac{1}{\sqrt{2}\pi}\int_{-\pi}^{\pi}x^3\sin(jx)dx\\
-&=-\frac{1}{\sqrt{2}\pi}\left.\frac{x^3\cos(jx)}{j}\right|_{-\pi}^{\pi}+\frac{1}{\sqrt{2}\pi}\frac{3}{j}\int_{-\pi}^{\pi}x^2\cos(jx)dx\\
-&=-\frac{1}{j\sqrt{2}\pi}\left(\pi^3\cos(j\pi)+\pi^3\cos(-j\pi)\right)+\frac{3}{j\sqrt{2\pi}}\int_{-\pi}^{\pi}\frac{x^2\cos(jx)}{\sqrt{\pi}} dx\\
-&=-\frac{2\pi^2}{j\sqrt{2}}\cos(j\pi)+\frac{3}{j\sqrt{2\pi}}\int_{-\pi}^{\pi}\frac{x^2\cos(jx)}{\sqrt{\pi}} dx\\
-&=-\frac{\pi^2\sqrt{2}}{j}\cos(j\pi)+\frac{3}{j\sqrt{2\pi}}\frac{4\sqrt{\pi}}{j^2}\cos(j\pi)\\
-&=\frac{6\sqrt{2}}{j^3}\cos(j\pi)-\frac{\pi^2\sqrt{2}}{j}\cos(j\pi).\\
+\left<g,a_j\right>=\int_{-\pi}^{\pi}x^3\frac{\sin(jx)}{\sqrt{\pi}}dx&=\frac{1}{\sqrt{\pi}}\int_{-\pi}^{\pi}x^3\sin(jx)dx\\
+&=-\frac{1}{\sqrt{\pi}}\left.\frac{x^3\cos(jx)}{j}\right|_{-\pi}^{\pi}+\frac{1}{\sqrt{\pi}}\frac{3}{j}\int_{-\pi}^{\pi}x^2\cos(jx)dx\\
+&=-\frac{1}{j\sqrt{\pi}}\left(\pi^3\cos(j\pi)+\pi^3\cos(-j\pi)\right)+\frac{3}{j\sqrt{\pi}}\int_{-\pi}^{\pi}x^2\cos(jx) dx\\
+&=-\frac{2\pi^3}{j\sqrt{\pi}}\cos(j\pi)+\frac{3}{j\sqrt{\pi}}\int_{-\pi}^{\pi}x^2\cos(jx) dx\\
+&=-\frac{2\pi^3}{j\sqrt{\pi}}\cos(j\pi)+\frac{3}{j}\frac{4\sqrt{\pi}}{j^2}\cos(j\pi)\\
+&=\frac{12\sqrt{\pi}}{j^3}\cos(j\pi)-\frac{2\pi^3}{j\sqrt{\pi}}\cos(j\pi),
+\end{align*}
+and
+\begin{align*}
+\left<g,c\right>=\int_{-\pi}^{\pi}x^3\frac{1}{\sqrt{2\pi}}dx&=\frac{1}{\sqrt{2\pi}}\int_{-\pi}^{\pi}x^3dx\\
+&=\frac{1}{\sqrt{2\pi}}\left.\frac{x^4}{4}\right|_{-\pi}^{\pi}\\
+&=0.
 \end{align*}
 Similarly than with $f$, we have
 \begin{align*}
-g_0&=\sum_{j=1}^n\left<g,a_j\right>a_j+\cancelto{0}{\sum_{j=1}^n\left<g,b_j\right>b_j}\\
+g_0&=\sum_{j=1}^n\left<g,a_j\right>a_j+\cancelto{0}{\sum_{j=1}^n\left<g,b_j\right>b_j}+\cancelto{0}{\left<g,c\right>c}\\
 &=\left<g,a_1\right>a_1+\left<g,a_2\right>a_2\\
-&=\sqrt{2}\left(\pi^2-6\right)\frac{\sin(x)}{\pi\sqrt{2}}+\frac{3-2\pi^2}{2\sqrt{2}}\frac{\sin(2x)}{\pi\sqrt{2}}\\
-&=\frac{\left(\pi^2-6\right)}{\pi}\sin(x)+\frac{3-2\pi^2}{4\pi}\sin(2x)
+&=2\sqrt{\pi}\left(\pi^2-6\right)\frac{\text{sin}(x)}{\sqrt{\pi}}+\frac{\sqrt{\pi}}{2}\left(3-2\pi^2\right)\frac{\text{sin}(x)}{\sqrt{\pi}}\\
+&=2\left(\pi^2-6\right)\text{sin}(x)+\left(\frac{3}{2}-\pi^2\right)\text{sin}(2x)
 \end{align*}
 \end{solution}
 \end{questions}

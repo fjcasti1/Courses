@@ -17,6 +17,38 @@ v_1\\v_2
 it is easy to check the properties.
 \begin{itemize}
 \item Positivity:
+We start with
+\begin{align*}
+\left<v,v\right>&=\begin{pmatrix}
+\overline{v}_1&\overline{v}_2
+\end{pmatrix}\begin{pmatrix}
+2&-i\\i&3
+\end{pmatrix}\begin{pmatrix}
+v_1\\v_2
+\end{pmatrix}\\
+&=\begin{pmatrix}
+2\overline{v}_1+i\overline{v}_2&3\overline{v}_2-i\overline{v}_1
+\end{pmatrix}\begin{pmatrix}
+v_1\\v_2
+\end{pmatrix}\\
+&=2|v_1|^2+iv_1\overline{v}_2+3|v_2|^2-i\overline{v}_1v_2\\
+&=2|v_1|^2+2\text{Re}\left\lbrace iv_1\overline{v}_2 \right\rbrace+3|v_2|^2~.
+\end{align*}
+We observe that
+\begin{align*}
+0\leq |iv_1-\overline{v}_2|^2=|v_1|^2-2\text{Re}\left\lbrace iv_1\overline{v}_2 \right\rbrace+|\overline{v}_2|^2,
+\end{align*}
+and therefore
+\begin{align*}
+2\text{Re}\left\lbrace iv_1\overline{v}_2 \right\rbrace\leq  |v_1|^2+|\overline{v}_2|^2
+\end{align*}
+Applying the previous finding to our inner product we have
+\begin{align*}
+\left<v,v\right>&=2|v_1|^2+2\text{Re}\left\lbrace iv_1\overline{v}_2 \right\rbrace+3|v_2|^2\\
+&=|v_1|^2+2|v_2|^2+|v_1|^2+2\text{Re}\left\lbrace iv_1\overline{v}_2 \right\rbrace+|v_2|^2\\
+&\geq |v_1|^2+2|v_2|^2,
+\end{align*}
+which is positive for all values of $v_1$ and $v_2$ unless $v_1=v_2=0$.
 \item Conjugate symmetry:
 \begin{align*}
 \left<v,w\right>&=\begin{pmatrix}
