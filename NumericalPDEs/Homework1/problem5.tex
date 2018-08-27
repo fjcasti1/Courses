@@ -18,18 +18,24 @@ u(x,t + \Delta t) = u(x,t) &+ \frac{\Delta t}{2}\left( u_{xx}(x,t) + \frac{h^2}{
 \end{align*}
 
 Letting $u(x,t) = u$ and Taylor expanding again, we find,
-{\small
 \begin{align*}
-u + \Delta t u_t + \frac{\Delta t}{2}u_{tt} + \cdots = u &+ \frac{\Delta t}{2} \left(u_{xx}(x,t) + \frac{h^2}{12}u_{xxxx}(x,t) + \cdots \right) \\
-& +\frac{\Delta t}{2}\left(u_{xx} + \Delta t u_{xxt} + \frac{\Delta t^2}{2}u_{xxtt} + \cdots \right) + \frac{\Delta t}{2}\left(u_{xxxx} + \Delta t u_{xxxxt} + \frac{\Delta t^2}{2}u_{xxxxtt} + \cdots \right) + \Delta t \tau~.
-\end{align*}}
-
+u + \Delta t u_t + \frac{\Delta t^2}{2}u_{tt} + \cdots = u &+ \frac{\Delta t}{2} \left(u_{xx}(x,t) + \frac{h^2}{12}u_{xxxx}(x,t) + \cdots \right) \\
+& +\frac{\Delta t}{2}\left(u_{xx} + \Delta t u_{xxt} + \frac{\Delta t^2}{2}u_{xxtt} + \cdots \right) \\
+& + \frac{\Delta th^2}{24}\left(u_{xxxx} + \Delta t u_{xxxxt} + \frac{\Delta t^2}{2}u_{xxxxtt} + \cdots \right)\\
+& + \Delta t \tau~.
+\end{align*}
+Making use of the differential equation $u_t=u_{xx}$,
+\begin{align*}
+u + \Delta t u_t + \frac{\Delta t^2}{2}u_{tt} + \cdots = u &+\Delta t u_t + \frac{\Delta t^2}{2} u_{tt}\\
+&+\frac{\Delta t h^2}{12}u_{xxxx}+\frac{\Delta t^3}{4}u_{xxtt}+\frac{\Delta t^2h^2}{24}u_{xxxxt}+\frac{\Delta t^3h^2}{48}u_{xxxxtt}\\
+& + \Delta t \tau+\dots~.
+\end{align*}
 Solving for $\tau$, and noting the fact that $u_t = u_{xx}$, we get
 \begin{align*}
 \tau = \frac{-u_{xxtt}}{4}\Delta t^2 + \frac{-u_{xxxx}}{12} h^2 + \cdots~.
 \end{align*}
 
-Thus, the TR method for the heat equation is second-order accurate.
+Hence, the TR method for the heat equation is second-order accurate.
 
 \end{solution}
 

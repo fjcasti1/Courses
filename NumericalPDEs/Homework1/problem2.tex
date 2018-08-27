@@ -5,24 +5,21 @@ $df/dx$ and $d^2 f/dx^2$ are second-order accurate.\\}
 
 \begin{solution}
 
-First lets verify for the three-point central difference formula for $df/dx$. Let $h = \Delta x$, then
+We start with the three-point stencil central difference formula for $df/dx$,
 \begin{align*}
 \left(\frac{df}{dx}\right)_i &\approx \frac{f_{i+1}-f_{i-1}}{2h} \\
 & = \frac{\left(f_i + hf'_1 + \frac{h^2}{2}f''_i + \frac{h^3}{6}f'''_i + \cdots  \right) - \left(f_i - hf'_1 + \frac{h^2}{2}f''_i - \frac{h^3}{6}f'''_i + \cdots  \right)}{2h} \\
 & = f'_i -\frac{h^2}{6}f'''_i + \cdots \\
-& = f'_i + \mathcal{O}(h^2) ~.
+& = f'_i + \mathcal{O}(h^2),
 \end{align*}
-Therefore, the three-point central difference for the first derivative in $x$ is second-order accurate.
-
-Now for $d^2 f/dx^2$,
+where $h = \Delta x$. Hence, this approximation for the first derivative is second-order accurate. We continue with the approximation for $d^2 f/dx^2$,
 \begin{align*}
 \left(\frac{d^2f}{dx^2}\right)_i &\approx \frac{f_{i+1} -2f_{i} + f_{i-1}}{h^2} \\
 & = \frac{\left(f_i + hf'_1 + \frac{h^2}{2}f''_i + \frac{h^3}{6}f'''_i + \frac{h^4}{24}f^{IV}_i + \cdots  \right) -2f_i + \left(f_i - hf'_1 + \frac{h^2}{2}f''_i - \frac{h^3}{6}f'''_i + \frac{h^4}{24}f^{IV}_i + \cdots  \right)}{h^2} \\
 & = f''_i + \frac{h^2}{12}f^{IV}_i + \cdots \\
 & = f''_i + \mathcal{O}(h^2)~.
 \end{align*}
-Thus, the three-point central difference for the second derivative in $x$ is second-order accurate.
-
+Thus, this approximation is second-order accurate.
 \end{solution}
 
 \question{(b) Verify that the one-sided difference formula
@@ -32,16 +29,14 @@ Thus, the three-point central difference for the second derivative in $x$ is sec
 is first-order accurate.}
 
 \begin{solution}
-
-We find that,
+Similarly as before,
 \begin{align*}
 \left(\frac{du}{dt}\right)^n &\approx \frac{u^{n+1} - u^n}{\Delta t} \\
 & = \frac{\left(u^n + \Delta t \dot{u}^n + \frac{(\Delta t)^2}{2}\ddot{u}^n + \cdots \right) - u^n}{\Delta t} \\
 & = \dot{u}^n + \frac{\Delta t}{2}\ddot{u}^n + \cdots \\
 & = \dot{u}^n + \mathcal{O}(\Delta t)~.
 \end{align*}
-Thus, the one-sided difference formula is first-order accurate.
-
+Hence, the one-sided difference formula is first-order accurate.
 \end{solution}
 
 \end{questions}
