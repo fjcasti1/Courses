@@ -6,3 +6,4 @@
 *.dvi
 *.eps
 *-eps-converted*
+*.m~

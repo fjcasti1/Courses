@@ -1,0 +1,49 @@
+\begin{questions}
+
+\question{ Derive the Fourier solution to the initial/boundary value problem
+for the heat equation with homogeneous Neumann boundary conditions
+\begin{displaymath}
+        u_t = u_{xx} ,~~ u_x(0, t) = 0 = u_x(\pi, t) ,~~ u(x, t=0) = u_0(x)
+\end{displaymath}
+by making a Fourier cosine expansion (since it automatically satisfies
+the boundary conditions)
+\begin{displaymath}
+        u(x, t) = \sum_{n = 0}^{\infty} a_n(t) \cos(n x)
+\end{displaymath}
+and solving for $a_n(t)$.}
+
+\begin{solution}
+
+Having the Fourier cosine series as above, we apply the PDE to find the coefficient $a_n(t)$, 
+\begin{align*}
+u_t = \sum_{n=0}^{\infty} a'_n(t)\cos(nx),
+\end{align*}
+and
+\begin{align*}
+u_{xx} = -n^2 \sum_{n=0}^{\infty}a_n(t)\cos(nx).
+\end{align*}
+Then, we obtain the following ODE,
+\begin{align*}
+a'_n(t) = -n^2a_n(t),
+\end{align*}
+which has the solution
+\begin{align*}
+a_n(t) =Ke^{-n^2t}~.
+\end{align*}
+To find $K$ we impose the initial condition 
+\begin{align*}
+u(x,0)&=\sum_{n = 0}^{\infty} a_n(0) \cos(n x)\\
+&=K\sum_{n = 0}^{\infty} \cos(n x)\\
+&=u_0(x).
+\end{align*}
+Thus,
+\begin{align*}
+K = \frac{u_0(x)}{\sum_{n=0}^{\infty}\cos(nx)}.
+\end{align*}
+Therefore, the solution $u(x,t)$ is
+\begin{align*}
+u(x,t) = u_o(x)\frac{\sum_{n=0}^{\infty}e^{-n^2t}\cos(nx)}{\sum_{n=0}^{\infty}\cos(nx)}~.
+\end{align*}
+It is not necessary to check the boundary conditions since the Fourier cosine series automatically satisfies homogeneous Neumann boundary conditions and the initial condition has to satisfy them as well.
+\end{solution}
+\end{questions}

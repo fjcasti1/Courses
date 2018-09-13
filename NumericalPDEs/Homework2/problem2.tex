@@ -1,0 +1,24 @@
+
+\begin{questions}
+
+\question{Prove that the TR method is A-stable but not L-stable for the heat
+equation $u_t = u_{xx}$.
+ }
+
+\begin{solution}
+
+Like in the first problem, we start by obtaining $g(k)$. Using the same definitions for $u_{j\pm1}^n$ and $u_{j\pm1}^{n+1}$ in terms of complex exponentials and the growth factor, and cancelling the common factor we find
+\begin{align*}
+&g(k) - g(k)\frac{\Delta t}{2\Delta x^2}\left(2\cos(k \Delta x) -2\right) = 1 + \frac{\Delta t}{2\Delta x^2}\left(2\cos(k \Delta x) -2\right),
+\end{align*}
+which give us
+\begin{align*}
+g(k) = \frac{1-\frac{\Delta t}{\Delta x^2}\left(1-\cos(k \Delta x) \right)}{1+\frac{\Delta t}{\Delta x^2}\left(1-\cos(k \Delta x) \right)}~.
+\end{align*}
+It is trivial that $|g(k)| \leq 1$ for all $\Delta t >0$, proving that the TR method is A-stable. Once we have proved that the method is A-stable, we take the following limit to check for L-stability,
+\begin{align*}
+\lim_{\Delta t \rightarrow \infty} \left|g(k)\right| = \lim_{\Delta t \rightarrow \infty} \left|\frac{1-\frac{\Delta t}{\Delta x^2}\left(1-\cos(k \Delta x) \right)}{1+\frac{\Delta t}{\Delta x^2}\left(1-\cos(k \Delta x) \right)}\right| = 1 \neq 0~.
+\end{align*}
+Hence, the TR method is not L-stable.
+\end{solution}
+\end{questions}

@@ -7,6 +7,6 @@ f(x)=e^{-x^2/10}\left(\cos 2x+2\sin 4x+0.4\cos 2x\cos 40x\right)~.
 For what values of $n$ would you expect the Fourier coefficients $a(n)$ and $b(n)$ to be significant. Why? Compute the $a(n)$ and $b(n)$ through $n=50$ and see if you are right. Plot the partial Fourier series through $n=6$ and compare with the plot of the original $f(x0$.
 }
 \begin{solution}
-
+Given the function $f$ I expect the coefficients to be significant for values of $n$ closer to 2 and 4. Maybe a bit significant closer to 40 but not as much since I believe that is a noise term. I expect this because those are the frequencies of the cosines that appear in the definition of $f$. In the following page the maple code can be found with the 50 first coefficients $a_n$ and $b_n$. I think I was right, since the major values of the coefficients appear to be when $n=2,4$. In addition they do have another peak close to 40, not as high and accurate (since it is a multiplication of two cosines). In the plot we can appreciate how six terms in the series apporximate the function $f$ well enough as long as $x\in[-4,4]$.
 \end{solution}
 \end{questions}

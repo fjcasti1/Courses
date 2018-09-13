@@ -1,0 +1,23 @@
+\begin{questions}
+
+\question{Show that the second-order accurate central discretization
+\begin{displaymath} 
+        u^{n+1}_i = u^n_i + \frac{\Delta t}{\Delta x^2} 
+	\left( \frac{1}{4} (D_{i+1} - D_{i-1}) (u_{i+1} - u_{i-1}) + 
+	D_i (u_{i+1} - 2 u_i + u_{i-1})	\right)
+\end{displaymath}
+of $u_t = D_x u_x + D u_{xx}$ is nonconservative.  (You can use $Q^n =
+\sum_{i=0}^N u^n_i \Delta x$ and $N = 4$.  Then show that the terms
+multiplying $u_2$ in $(Q^{n+1} - Q^n)/\Delta t$ do not cancel unless
+$D$ is constant.) }
+
+\begin{solution}
+
+Using the denitions given by the problem, we set $N=4$ and calculate, paying special attention at the terms multiplying $u_2^n$,
+\begin{align*}
+\frac{Q^{n+1}-Q^n}{\Delta t} &= \frac{\Delta x}{\Delta t}\left[\sum_{i=0}^4\left(u^{n+1}_i-u^n_i\right)\right] \\&= \frac{1}{\Delta x}\sum_{i=0}^4\left[\left(D_{i+1}-D_{i-1}\right)\left(u^n_{i+1}-u^n_{i-1}\right)+D_i\left(u^n_{i+1}-2u^n_i+u^n_{i-1}\right)\right] \\
+& = \frac{1}{\Delta x} = \left[ \cdots+(\frac{1}{4}D_2-\frac{1}{4}D_0+D_1-2D_2-\frac{1}{4}D_4+\frac{1}{4}D_2+D_3)u_2^n + \cdots\right]~.
+\end{align*}
+Hence, the terms multiplying the interior point $u_2$ do not cancel unless $D$ is constant. Therefore, this discretization is not nonconservative.
+\end{solution}
+\end{questions}
