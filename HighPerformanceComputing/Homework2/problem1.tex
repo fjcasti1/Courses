@@ -1,0 +1,37 @@
+\begin{questions}
+
+\question{
+(a) What is the normalized IEEE single-precision representation of the number $5.5$?
+}
+\begin{solution}
+We can find the binary representation of the number as follows. First, the integer part
+\begin{align*}
+5/2 &= 2+1;\\
+2/2 &= 1+0;\\
+1/2 &= 0+1;\\
+\end{align*}
+which implies
+\begin{align*}
+5_{10}=101_2.
+\end{align*}
+Second, the decimal part
+\begin{align*}
+0.5\times 2=1+0;
+\end{align*}
+which gives
+\begin{align*}
+0.5_{10}=0.1_2.
+\end{align*}
+Finally, we have that $5.5_{10}=101.1_2$. We express that in the normalized format and obtain
+\begin{align*}
+5.5_{10}=1.011000\dots 000\times 2^2.
+\end{align*}
+This means that $a_2=a_3=1$ and the rest of $a_j$ are zero.
+\end{solution}
+\question{
+(b) If we change the significand of $5.5$ by one ulp, by how much does the value of the floating point representation change? Express your answer as a power of $2$.
+}
+\begin{solution}
+We change the \textit{unit of last place}, $a_{23}$, from $0$ to $1$. This produces a change in the value of $\Delta x=2^{-23+2}=2^{-21}$
+\end{solution}
+\end{questions}
