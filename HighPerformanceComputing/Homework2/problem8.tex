@@ -1,6 +1,59 @@
 \begin{questions}
 
+\question{(a) What real number is represented by (+, 1.5, 0)? (−, 1.5, 1)? (+, 1.5, 2)? (−, 1.5, −1)?
+}
+\begin{solution}
+
+\end{solution}
 \question{
+(b) What is the set of representable values for l = 0, ±1, ±2, ±3, ±4?
+}
+\begin{solution}
+
+\end{solution}
+\question{
+(c) The number $G = $10^100$ is called a $googol$; $$10^G$ is a $googolplex$. Express the largest representable value of (+, s, 4) as an approximate power of $G$.
+}
+\begin{solution}
+First we have that the largest value of $(+,s,4)$ is
+\begin{align*}
+x=\approx 2^{2^{2^{2^2}}}=2^{2^{2^{4}}}=2^{2^{16}}.
+\end{align*}
+To express it as an approximate power of $G$ we have
+\begin{align*}
+x&=G^y=\left(10^{100}\right)^y=10^{100y}.
+\end{align*}
+Using logarithms we get
+\begin{align*}
+\log_{10}x=100y\Rightarrow
+y=\frac{1}{100}\log_{10}\left(2^{2^{16}}\right)=\frac{2^{16}}{100}\log_{10}\left(2\right)\approx
+197.
+\end{align*}
+\end{solution}
+\question{
+(d) Is the largest representable value of (+, s, 5) greater or less than a googolplex? Explain.
+}
+\begin{solution}
+Let $z=10^G$ and $w=(+,s,5)$. Using logarithms as before
+\begin{align*}
+\log_{10}z=10^{100}=G,
+\end{align*}
+and
+\begin{align*}
+\log_{10}w=2^{2^{16}}\log_{10}2=x\log_{10}2=G^y\log_{10}2.
+\end{align*}
+It is obvious that $\log_{10}2<<G$ and therefore
+\begin{align*}
+\log_{10}w=G^y\log_{10}2<\frac{G^y}{G}=G^{y-1}>G=\log_{10}z.
+\end{align*}
+Thus,
+\begin{align*}
+\log_{10}w=\log_{10}z\Rightarrow (+,s,5)>10^G.
+\end{align*}
+\end{solution}
+\question{
+(e) Invent your own terminology as necessary to describe the largest representable values
+of (+, s, 6) and (+, s, 7).
 }
 \begin{solution}
 
