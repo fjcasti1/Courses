@@ -1,0 +1,12 @@
+\begin{questions}
+
+\question{Consider the function
+\begin{align*}
+g(x)=e^{-x^2/8}\left(\cos 2x+2\sin 4x+0.4\cos 2x\cos 10x\right)~.
+\end{align*}
+Compute the partial Fourier series through $N=25$. Throw away any coefficients that are smaller than $0.01$ in absolute value. Plot the resulting series and compare with the original function $g(x)$. Try experimenting with different tolerances.
+}
+\begin{solution}
+In the maple code I have computed the first 25 coefficients of the series for this function. First, I have taken out those that were not larger than $0.01$ obtaining the very good approximation shown in the figure using $19$ terms (above the threshold). I have also done another try using a threshold of $0.3$ which led me to use only $4$ terms obtaining the approximation shown in the last figure. It is obviously a worse approximation but it is surprisingly good considering that only $4$ terms were used compared to the $19$ in the previous one.
+\end{solution}
+\end{questions}
