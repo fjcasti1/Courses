@@ -1,8 +1,83 @@
 \begin{questions}
 
-\question{
+\question{Establish the parts of \textsl{Theorem 2.6} that deal with the inverse Fourier transform. Establish the relationship between the Fourier transform and the Laplace transform given in the last part of this theorem.
 }
 \begin{solution}
+\begin{itemize}
+\item \textbf{1.} The inverse Fourier transform is a linear operator. 
 
+\textit{Proof:}
+\begin{align*}
+\mathcal{F}^{-1}[\alpha f+\beta g](t)&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}[\alpha f(\lambda)+\beta g(\lambda)]e^{i\lambda t}d\lambda\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}[\alpha f(\lambda)]e^{i\lambda t}d\lambda+\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}[\beta g(\lambda)]e^{i\lambda t}d\lambda\\
+&=\alpha\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} f(\lambda)e^{i\lambda t}d\lambda+\beta\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}g(\lambda)e^{i\lambda t}d\lambda\\
+&=\alpha \mathcal{F}^{-1}[f](t)+\beta \mathcal{F}^{-1}[g](t)
+\end{align*}
+\item \textbf{3.} The inverse Fourier transform of a product of $f$ with $\lambda^n$ is given by
+\begin{align*}
+\mathcal{F}^{-1}[\lambda^nf(\lambda)](t)=(-i)^n\frac{d^n}{dt^n}\left\lbrace\mathcal{F}^{-1}[f](t)\right\rbrace
+\end{align*}
+
+\textit{Proof:}
+We start with the definition of the inverse transform
+\begin{align*}
+\mathcal{F}^{-1}[\lambda^nf(\lambda)](t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\lambda^nf(\lambda)e^{i\lambda t}d\lambda.
+\end{align*}
+Using
+\begin{align*}
+\lambda^nf(\lambda)e^{i\lambda t}=(-i)^n\frac{d^n}{dt^n}\left\lbrace f(\lambda)e^{i\lambda t}\right\rbrace,
+\end{align*}
+we get
+\begin{align*}
+\mathcal{F}^{-1}[\lambda^nf(\lambda)](t)&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}(-i)^n\frac{d^n}{dt^n}\left\lbrace f(\lambda)e^{i\lambda t}\right\rbrace d\lambda\\
+&=(-i)^n\frac{d^n}{dt^n}\left\lbrace\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} f(\lambda)e^{i\lambda t} d\lambda\right\rbrace\\
+&=(-i)^n\frac{d^n}{dt^n}\left\lbrace \mathcal{F}^{-1}[f](t) \right\rbrace,
+\end{align*}
+and complete the proof.
+\item \textbf{5.} The inverse Fourier transform of the $n$th derivative of $f$ is given by
+\begin{align*}
+\mathcal{F}^{-1}[f^{(n)}(\lambda)](t)=(-it)^n\mathcal{F}^{-1}[f](t)
+\end{align*}
+\textit{Proof:}
+We start with the definition of the inverse transform
+\begin{align*}
+\mathcal{F}^{-1}[f^{(n)}(\lambda)](t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f^{(n)}(\lambda)e^{i\lambda t}d\lambda.
+\end{align*}
+Integrating by parts, using $u=e^{i\lambda t}$ and $dv=f^{(n)}(\lambda)d\lambda$, we get
+\begin{align*}
+\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f^{(n)}(\lambda)e^{i\lambda t}d\lambda=\left.\frac{1}{\sqrt{2\pi}}f^{(n-1)}(\lambda)e^{i\lambda t}\right|_{-\infty}^{\infty}-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}(it)f^{(n-1)}(\lambda)e^{i\lambda t}d\lambda.
+\end{align*}
+Since $f$ vanishes at $\pm\infty$ by hypothesis, there are no boundry terms. Hence,
+\begin{align*}
+\mathcal{F}^{-1}[f^{(n)}(\lambda)](t)&=-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}(it)f^{(n-1)}(\lambda)e^{i\lambda t}d\lambda\\
+&=-(it)\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f^{(n-1)}(\lambda)e^{i\lambda t}d\lambda\\
+&=-(it)\mathcal{F}^{-1}[f^{(n-1)}(\lambda)](t)
+\end{align*}
+where we see that there is a transfer derivatives to factors $-it$. Repeating this process $n-1$ times we obtain
+\begin{align*}
+\mathcal{F}^{-1}[f^{(n)}(\lambda)](t)&=(-it)^n\mathcal{F}^{-1}[f](t)
+\end{align*}
+\item \textbf{8.} If $f(t)=0$ for $t<0$, then
+\begin{align*}
+\mathcal{F}[f](\lambda)=\frac{1}{\sqrt{2\pi}}\mathcal{L}[f](i\lambda),
+\end{align*}
+where $\mathcal{L}[f]$ is the Laplace transform of $f$ defined by
+\begin{align*}
+\mathcal{L}[f](s)=\int_{0}^{\infty}f(t)e^{-ts}dt.
+\end{align*}
+\textit{Proof:}
+We start with the definition of the Fourier transform using the assumption that the function is zero in the left half plane,
+\begin{align*}
+\mathcal{F}[f](\lambda)&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\lambda t}dt\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\lambda t}dt.
+\end{align*}
+Using the change $s=i\lambda$ we get the desired result
+\begin{align*}
+\mathcal{F}[f](\lambda)&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\lambda t}dt\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{ts}dt\\
+&=\frac{1}{\sqrt{2\pi}}\mathcal{L}[f](s)\\
+&=\frac{1}{\sqrt{2\pi}}\mathcal{L}[f](i\lambda)\\
+\end{align*}
+\end{itemize}
 \end{solution}
 \end{questions}

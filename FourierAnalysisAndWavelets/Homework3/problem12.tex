@@ -1,8 +1,20 @@
 \begin{questions}
 
-\question{
+\question{Consider the filter given by $f\rightarrow f*h$, where
+\begin{align*}
+h(t):= \left\{
+\begin{array}{ll}
+      1/d & $if $ 0\leq t\leq d, \\
+      0 & $otherwise.$ \\
+\end{array} 
+\right.
+\end{align*}
+Compute and graph $\hat{h}(\lambda)$ for $0\leq\lambda\leq 20$, for various values of $d$. Suppose you wish to use this filter to remove signal noise with frequency larger than $30$ and retain frequencies in the range of $0$ to $5$. What values of $d$ would you use? Filter the signal
+\begin{align*}
+f(t)=e^{-t}\left(\sin5t+\sin3t+\sin t+\sin40t\right)
+\end{align*}
 }
 \begin{solution}
-
+The maple code for this problem can be found below. I defined a two variable function $h(d,t)$ to account the dependency on $d$. After that I calculate the Fourier transform $\hat{h}(d,\lambda)$ and I plot the Forier transform for $d=1,2,10$. In the first figure we can see how, increasing $d$ the graph gets compressed to the left, therefore filtering more lower frequencies. Since we want to retain the frequencies in the range of $0$ to $5$, it is clear that a $d<1$ is necessary. I tried a few values and I liked the result I obtained with $d=0.6$. In the next figure we can see the Fourier transform and in the last two figures we see the signal before and after applying the filter. We can see how the general shape is conserved although the noise has been to a some extent filtered.
 \end{solution}
 \end{questions}
