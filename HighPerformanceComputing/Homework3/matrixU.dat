@@ -1,0 +1,8 @@
+&matrixdataU
+!  Sample file for namelist input.
+!  Comments start with exclamation points and run to the end of the line
+U(1,:) = 1, 2, 5,  ! first row of A
+U(2,:) = 0, 2, 1,  ! second row of A
+U(3,:) = 0, 0, 3,  ! third row of A
+b = 1 5 14  ! right-hand side (notice that commas are optional)
+/
