@@ -88,6 +88,9 @@ for i=1:length(TOL)
         end
     end
     yc=ifft(yhatc);   %reconstruct compressed signal with ifft
+    if tol==2
+        yctol2=yc;
+    end
     plot(t,yc,'linewidth',linewidth);    % plot of original and compressed signals
 end
 h1=legend('$tol=0$','$tol=1$','$tol=2$','$tol=4$','$tol=8$');
@@ -103,3 +106,7 @@ count             %count = number of zeroed-out terms
 % we cancel double as many terms using $tol=2$. For this reason, having
 % rather the same behaviour while having less data to store, I would pick a
 % $tol=2$.
+%%
+% To finish, we compute the relative $l^2$ error of the compressed signal,
+% when using tol=2, as compared with the original signal
+e = norm(y-yctol2,2)/norm(y,2)
