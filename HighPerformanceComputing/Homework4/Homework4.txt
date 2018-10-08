@@ -1,0 +1,94 @@
+===============================
+########## PROBLEM 1 ##########
+===============================
+
+--> Part a)
+------------------
+  Option 1:
+    Command: grep ^[^#] cardinals.txt | wc -l
+    Output : 53 
+  Option 2:
+    Command: awk 'END{print NR-1}' cardinals.txt
+    Output : 53
+--> Part b)
+------------------
+  Option 1: Show the whole roster
+    Command: sort -nk3 cardinals.txt
+    Output : the roster in order by jersey number
+  Option 2: Show jersey number and name
+    Command: awk /^#/{next}'{print $3,$1,$2}' cardinals.txt | sort -nk1
+    Output : A column list with Number, First name and Last name of the
+      players, sorted by jersey number (ascending).
+--> Part c)
+------------------
+    Command: sort -nk6 cardinals.txt | tail -5
+    Output : the heaviest 5 players
+--> Part d)
+------------------
+  Option 1:
+    Command: grep Oklahoma cardinals.txt
+    Output : Information of players who went to college in Oklahoma
+  Option 2:
+    Command: awk '/^#/{print $0}$9=="Oklahoma"{print $0}' cardinals.txt
+    Output : Information of players who went to college in Oklahoma
+--> Part e)
+------------------
+  Option 1:
+    Command: grep QB cardinals.txt
+    Output : Information of players who play as quarterback 
+  Option 2:
+    Command: awk '/^#/{print $0}$4=="QB"{print $0}' cardinals.txt
+    Output : Information of players who play as quarterback
+--> Part f)
+------------------
+  Option 1:
+    Command: grep WR cardinals.txt | wc -l 
+    Output : 5
+  Option 2:
+    Command: awk 'BEGIN {count=0} $4=="WR"{count++} END{print count}' cardinals.txt
+    Output : 5
+  Option 3: 
+    Command: awk '$4=="WR"{print $0}' cardinals.txt | wc -l
+    Output : 5
+
+
+===============================
+########## PROBLEM 2 ##########
+===============================
+
+--> Part a)
+------------------
+    Command: awk '!/#/{print $7}' cardinals.txt | stats | awk '{print $1}'
+    Output : 244.755 
+--> Part b)
+------------------
+    Command: awk '!/#/{print $7}' cardinals.txt | stats | awk '{print "Min:",$2,"\nMax",$3}'
+    Output : Min: 160
+             Max: 331 
+--> Part c)
+------------------
+  Option 1:
+    Command: grep " R " cardinals.txt | wc -l
+    Output : 9
+  Option 2:
+    Command: awk '$8=="R"{print $0}' cardinals.txt | stats | awk '{print $4}'
+    Output : 9
+--> Part d)
+------------------
+    Command: awk '!/^#/ && $8>8 && $8!="R"{print "Name:",$1,$2,"\tPos:",$4}' cardinals.txt
+    Output : Names and positions of players with more than 8 years of experience
+--> Part e)
+------------------
+    Command: grep CB cardinals.txt | awk '{print $1,$2}' 
+    Output : Names and lastnames of the cornerbacks
+
+
+===============================
+########## PROBLEM 3 ##########
+===============================
+
+--> Part a)
+------------------
+    Command: awk '!/#/{print $7}' cardinals.txt | stats | awk '{print $1}'
+    Output : 244.755 
+

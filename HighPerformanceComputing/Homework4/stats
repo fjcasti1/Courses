@@ -1,0 +1,26 @@
+#!/usr/bin/awk -f
+
+#  We assume that each line contains at most one numeric value.
+#  NF is the Number of Fields in each input line.  The pattern NF > 0
+#  matches every nonempty input line.
+#  Note:  Awk initializes all variables to 0 or the empty string as appropriate.
+
+NF > 0 {
+   if(n == 0) {
+      sum = big = small = $1
+      n = 1
+   } else {
+      sum += $1
+      n++
+      if($1 > big) big = $1
+      else if($1 < small) small = $1
+   }
+}
+
+#  The action associated with END is executed after the end of the input
+#  is reached.
+
+END {
+   mean = (n > 0 ? sum/n : 0)
+   print mean, small, big, n
+}

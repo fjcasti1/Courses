@@ -1,0 +1,54 @@
+#Player         Number  Pos     HT     WT   Age  Exp    College
+Budda Baker       36    S     5-10    195    22    2    Washington
+Bene Benwikere    23    CB    6-0     195    27    5    San Jose State
+Antoine Bethea    41    S     5-11    206    34   13    Howard
+Tre Boston        33    S     6-1     205    26    5    North Carolina
+Sam Bradford       9    QB    6-4     224    30    9    Oklahoma
+Aaron Brewer      46    LS    6-5     232    28    7    San Diego State
+Deone Bucannon    20    LB    6-1     211    26    5    Washington State
+Josh Bynes        57    LB    6-1     235    29    7    Auburn
+Blaine Clausell   75    OL    6-6     330    26    1    Mississippii State
+Mason Cole        64    OL    6-5     292    22    R    Michigan
+Derrick Coleman   32    FB    6-0     233    27    5    UCLA
+Korey Cunningham  79    OL    6-6     305    23    R    Cincinnati
+Phil Dawson        4    K     5-11    200    43    20   Texas
+Chase Edmonds     29    RB    5-9     210    22    R    Fordham
+Larry Fitzgerald  11    WR    6-3     218    35    15   Pittsburgh
+Rudy Ford         30    S     5-11    204    23    2    Auburn
+Dennis Gardeck    92    LB    6-0     242    24    R    Sioux Falls
+Mike Glennon       7    QB    6-6     229    28    6    North Carolina State
+Markus Golden     44    DE    6-3     260    27    4    Missouri
+Jermaine Gresham  84    TE    6-5     260    30    9    Oklahoma
+Rodney Gunter     95    DT    6-5     305    26    4    Delaware State
+Gerald Hodges     51    LB    6-2     236    27    6    Penn State
+Gabe Holmes       85    TE    6-4     255    27    3    Purdue
+D.J. Humphries    74    OL    6-5     307    24    4    Florida
+Mike Iupati       76    OL    6-5     331    31    9    Idaho
+David Johnson     31    RB    6-1     224    26    4    Northern Iowa
+Chandler Jones    55    DE    6-5     265    28    7    Syracuse
+Christian Kirk    13    WR    5-11    200    21    R    Texas A&M
+Andy Lee           2    P     6-1     185    36    15   Pittsburgh
+T.J. Logan        22    RB    5-10    196    24    2    North Carolina
+Benson Mayowa     91    DE    6-3     265    27    6    Idaho
+Zach Moore        56    DE    6-6     275    28    2    Concordia-St. Paul
+Daniel Munyer     62    OL    6-1     305    26    2    Colorado
+J.J. Nelson       14    WR    5-10    160    26    4    Alabama-Birmingham
+Deatrick Nichols  39    CB    5-10    189    24    R    South Florida
+Robert Nkemdiche  90    DT    6-4     296    24    3    Mississippi
+Ifeadi Odenigbo   97    DE    6-3     275    24    1    Northwestern
+Corey Peters      98    DT    6-3     305    30    9    Kentucky
+Patrick Peterson  21    CB    6-1     203    28    8    LSU
+Olsen Pierre      72    DT    6-4     293    27    3    Miami (Fla.)
+Justin Pugh       67    OL    6-5     311    28    6    Syracuse
+Haason Reddick    43    LB    6-1     235    24    2    Temple
+Josh Rosen         3    QB    6-4     218    21    R    UCLA
+Ricky Seals-Jones 86    TE    6-5     243    23    2    Texas A&M
+Trent Sherfield   16    WR    6-1     205    22    R    Vanderbilt
+Andre Smith       71    OL    6-4     330    31    10   Alabama
+Jamar Taylor      28    CB    5-11    192    28    6    Boise State
+Zeke Turner       47    LB    6-2     214    22    R    Washington
+Jeremy Vujnovich  68    OL    6-5     300    27    2    Louisiana Coll.
+Joe Walker        59    LB    6-2     236    25    3    Oregon
+John Wetzel       73    OL    6-7     328    27    3    Boston College
+Brandon Williams  26    CB    6-0     200    26    3    Texas A&M
+Chad Williams     10    WR    6-1     204    23    2    Grambling State
