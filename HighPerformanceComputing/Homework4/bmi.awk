@@ -7,5 +7,8 @@
 !/^#/{
   split($5,ht,/[-]/)
   inches = ht[1]*12+ht[2]
-  print $1,"\t\t",inches
+  h = inches*0.0254
+  w = $6/2.2
+  bmi = w/h^2
+  print $1,$2,"\t\t",$4,"\t",bmi
   }

@@ -89,6 +89,23 @@
 
 --> Part a)
 ------------------
-    Command: awk '!/#/{print $7}' cardinals.txt | stats | awk '{print $1}'
-    Output : 244.755 
+    Command: program height.awk
+--> Part b)
+------------------
+    Command: program bmi.awk
+--> Part c)
+------------------
+    Command: bmi.awk cardinals.txt | awk '$4>30{print $1,$2,"\t",$4}'
+    Output : Names, last names and bmi of players with bmi>30
+--> Part d)
+------------------
+    Command: bmi.awk cardinals.txt | awk '$3=="OL"{print $4}' | stats | awk '{print $1}'
+    Output : 37.4258
+--> Part e)
+------------------
+    Command: bmi.awk cardinals.txt | awk '$3=="QB"{print $4}' | stats | awk '{print "Mean BMI of Quarterbacks",$1}'
+    Output : Mean BMI of Quarterbacks: 26.8111 
+    Command: bmi.awk cardinals.txt | awk '$3=="WR"{print $4}' | stats | awk '{print "Mean BMI of Wide Receivers",$1}'
+    Output : Mean BMI of Quarterbacks: 26.4674 
+
 
