@@ -1,0 +1,73 @@
+\begin{questions}
+
+\question{
+For SOR/SUR, show that $\det\{B\} = (1-\omega)^n$, $0 < \omega
+< 2$.  {\em Hint:}\/ $B$ is the product of triangular matrices ($A =
+L+D+U$):
+\begin{displaymath}
+        B = (D + \omega L)^{-1} \left((1-\omega) D - \omega U\right) .
+\end{displaymath}
+}
+\begin{solution}
+It is simply computed that
+\begin{align*}
+\det\{(D+\omega L)^{-1}\}=\prod_{j=1}^n\frac{1}{d_j}=\frac{1}{\prod_{j=1}^nd_j},
+\end{align*}
+since the elements of $L$ are always multiplied by 0. For the same reason,
+\begin{align*}
+\det\{(1-\omega)D-\omega U)^{-1}\}=\prod_{j=1}^n(1-\omega) d_j=(1-\omega)^n\prod_{j=1}^n d_j.
+\end{align*}
+Hence,
+\begin{align*}
+\det{B}=\frac{(1-\omega)^n\prod_{j=1}^n d_j}{\prod_{j=1}^n d_j}=(1-\omega)^n.
+\end{align*}
+\end{solution}
+\question{
+Derive the equation for the SOR $\omega_{opt}$, assuming Young's
+formula applied to the spectral radii:
+\begin{displaymath}
+        (\lambda + \omega - 1)^2 = \lambda \omega^2 \mu^2 .
+\end{displaymath}
+Here $\mu$ is the spectral radius for the Jacobi iteration method and
+$\lambda$ is the spectral radius for the SOR iteration method.  {\em
+  Hint:}\/ Set $\lambda = \omega - 1$ and minimize $\lambda$ (using
+the quadratic formula).\\
+}
+\begin{solution}
+We start from Young's formula and we make $\lambda=\omega-1$ and $\mu=\rho_J$,
+\begin{align*}
+(\lambda+\omega-1)^2&=\lambda\omega^2\mu^2\\
+4\lambda^2&=\lambda(\lambda+1)^2\rho_J^2\Rightarrow\\
+\Rightarrow -\lambda\left(\rho_J^2\lambda^2+(2\rho_J^2-4)\lambda+\rho_J^2\right)=0.
+\end{align*}
+The solutions to this equation are $\lambda=0$ or
+\begin{align*}
+\lambda=\frac{4-2\rho_J^2\pm\sqrt{(4-2\rho_J^2)^2-4\rho_J^4}}{2\rho_J^2}=\frac{4-2\rho_J^2\pm
+4\sqrt{1-\rho_J^2}}{2\rho_J^2}=\frac{2-\rho_J^2\pm
+2\sqrt{1-\rho_J^2}}{\rho_J^2}.
+\end{align*}
+Minimizing $\rho_{SOR}=\max\{\lambda\}=\omega_{opt}-1$:
+\begin{align*}
+\rho_{SOR}=\frac{2-\rho_J^2-2\sqrt{1-\rho_J^2}}{\rho_J^2},
+\end{align*}
+and,
+\begin{align*}
+\omega_{opt}&=\frac{2-\rho_J^2-2\sqrt{1-\rho_J^2}}{\rho_J^2}+1\\
+&=2\frac{1-\sqrt{1-\rho_J^2}}{\rho_J^2}
+\end{align*}
+\end{solution}
+\question{
+Show that for Laplace's equation on the unit square, the SOR
+$\lambda = (1 - \sin \pi h)/(1 + \sin \pi h)$.
+}
+\begin{solution}
+Using that $\rho_J=\cos(\pi h)$, and the result just proved,
+\begin{align*}
+\rho_{SOR}&=\frac{2-\rho_J^2-2\sqrt{1-\rho_J^2}}{\rho_J^2}\\
+&=\frac{2-\cos^2(\pi h)-2\sqrt{1-\cos^2(\pi h)}}{\cos^2(\pi h)}\\
+&=\frac{2-\cos^2(\pi h)-2\sin(\pi h)}{\cos^2(\pi h)}\\
+&=\frac{1+\sin^2(\pi h)-2\sin(\pi h)}{1-\sin^2(\pi h)}\\
+&=\frac{1-\sin(\pi h)}{1+\sin(\pi h)}\\
+\end{align*}
+\end{solution}
+\end{questions}
