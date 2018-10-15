@@ -31,6 +31,44 @@ class:
 \end{displaymath}
 }
 \begin{solution}
-
+Since $x_0=0$, $r_0=b$ and $\beta_1=0$. Then,
+\begin{align*}
+d_1=r_0+\beta_1d_0=r_0=b,
+\end{align*}
+and,
+\begin{align*}
+\alpha_1=\frac{r_0^Tr_0}{d_1^TAd_1}=1/5.
+\end{align*}
+Then new guess is
+\begin{align*}
+x_1=x_0+\alpha_1d_1=\left[
+	\begin{array}{r r} 
+	-2/5 \\
+	2/5 \\
+	\end{array} \right],
+\end{align*}
+and the new residual is
+\begin{align*}
+r_1=r_0+\alpha_1Ad_1=\left[
+	\begin{array}{r r} 
+	2/5 \\
+	2/5 \\
+	\end{array} \right],
+\end{align*}
+We repeat the process again,
+\begin{align*}
+&\beta_2=\frac{r_1^Tr_1}{r_0^Tr_0}=1/25,\\
+&d_2=r_1+\beta_2d_1=\left[
+	\begin{array}{r r} 
+	8/25 \\
+	12/25 \\
+	\end{array} \right],\\
+&\alpha_2=\frac{r_1^Tr_1}{d_2^TAd_2}=5/4,\\
+&x_2=x_1+\alpha_2d_2=\left[
+	\begin{array}{r r} 
+	0 \\
+	1 \\
+	\end{array} \right].\\		
+\end{align*}
 \end{solution}
 \end{questions}

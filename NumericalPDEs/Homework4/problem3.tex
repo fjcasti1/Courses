@@ -55,11 +55,11 @@ D=\left[
 \end{align*}
 Since $x_0=0$, $r_0=b$. Then,
 \begin{align*}
-x_1=D^{-1}b=\left[
+x^{(1)}=D^{-1}b=\left[
 	\begin{array}{r r} 
 	3/2 \\
 	-3/2 \\
-	\end{array} \right],~~r_1=Ax_1-b=\left[
+	\end{array} \right],~~r{(1)}=Ax{(1)}-b=\left[
 	\begin{array}{r r} 
 	3/2 \\
 	-3/2 \\
@@ -67,7 +67,7 @@ x_1=D^{-1}b=\left[
 \end{align*}
 The second guess is
 \begin{align*}
-x_2=x_1-D^{-1}r_1=\left[
+x^{(2)}=x^{(1)}-D^{-1}r^{(1)}=\left[
 	\begin{array}{r r} 
 	3/2 \\
 	-3/2 \\
@@ -87,7 +87,7 @@ x_2=x_1-D^{-1}r_1=\left[
 \end{align*}
 Lastly, we compute the 1 error norm, $||e_J^{(2)}||_1=1/2$.
 \item \textbf{Gauss Seidel:}
-We start with the Gauss-Seidel iteration, $x^{(k+1)}=M^{-1}\left(M-A\right)x^{(k)}-M^{-1}b$, where
+Now we proceed with the Gauss-Seidel iteration, $x^{(k+1)}=M^{-1}\left(M-A\right)x^{(k)}-M^{-1}b$, where
 \begin{align*}
 M=D+L=\left[
 	\begin{array}{r r} 
@@ -113,7 +113,7 @@ M-A=-U=\left[
 \end{align*}
 Since $x_0=0$,
 \begin{align*}
-x_1=M^{-1}b=\left[
+x^{(1)}=M^{-1}b=\left[
 	\begin{array}{r r} 
 	-3/4 \\
 	-3/4 \\
@@ -121,7 +121,7 @@ x_1=M^{-1}b=\left[
 \end{align*}
 The second guess is
 \begin{align*}
-x_2=M^{-1}\left(M-A\right)x^{(1)}-M^{-1}b=\frac{1}{4}\left[
+x^{(2)}=M^{-1}\left(M-A\right)x^{(1)}-M^{-1}b=\frac{1}{4}\left[
 	\begin{array}{r r} 
 	0 & 2 \\
 	0 & 1 \\
@@ -145,6 +145,81 @@ x_2=M^{-1}\left(M-A\right)x^{(1)}-M^{-1}b=\frac{1}{4}\left[
 \end{align*}
 Finally, we compute the 1 error norm, $||e_{GS}^{(2)}||_1=3/16$.
 
+
+
+\item \textbf{SOR:}
+Next, the SOR iteration, $Mx^{(k+1)}=\left(M-A\right)x^{(k)}+b$, with $M=\frac{D}{\omega}+L$ and $M-A=(\frac{1}{\omega}-1)D-U$. Therefore,
+\begin{align*}
+\left[\frac{D}{\omega}+L\right]x^{(k+1)}&=\left[\left(\frac{1}{\omega}-1\right)D-U\right]x^{(k)}+b,\\
+\left[D+\omega L\right]x^{(k+1)}&=\left[\left(1-\omega\right)D-U\right]x^{(k)}+\omega b,\\
+x^{(k+1)}&=\left[D+\omega L\right]^{-1}\left[\left(1-\omega\right)D-U\right]x^{(k)}+\omega \left[D+\omega L\right]^{-1}b.\\
+\end{align*}
+Note that
+\begin{align*}
+\left[D+\omega L\right]=\left[
+	\begin{array}{r r} 
+	2 & 0 \\
+	-\omega & 2 \\
+	\end{array} \right]\Rightarrow \left[D+\omega L\right]^{-1}=\frac{1}{4}\left[
+	\begin{array}{r r} 
+	2 & 0 \\
+	\omega & 2 \\
+	\end{array} \right],
+\end{align*}
+and
+\begin{align*}
+\left[(1-\omega)D-U\right]=\left[
+	\begin{array}{r r} 
+	2(1-\omega) & 1 \\
+	0 & 2(1-\omega) \\
+	\end{array} \right]\Rightarrow \left[D+\omega L\right]^{-1}\left[(1-\omega)D-U\right]=\frac{1}{4}\left[
+	\begin{array}{r r} 
+	4(1-\omega) & 2 \\
+	2\omega(1-\omega) & 4(1-\omega)+\omega \\
+	\end{array} \right].
+\end{align*}
+Since $x_0=0$,
+\begin{align*}
+x^{(1)}=\omega \left[D+\omega L\right]^{-1}b=\left[
+	\begin{array}{c c} 
+	\frac{3\omega}{2} \\
+	\frac{3\omega^2-6\omega}{4} \\
+	\end{array} \right].
+\end{align*}
+The second guess is
+\begin{align*}
+x^{(2)}&=\left[D+\omega L\right]^{-1}\left[\left(1-\omega\right)D-U\right]x^{(1)}+\omega \left[D+\omega L\right]^{-1}b\\
+&=\frac{1}{4}\left[
+	\begin{array}{r r} 
+	4(1-\omega) & 2 \\
+	2\omega(1-\omega) & 4(1-\omega)+\omega \\
+	\end{array} \right]\left[
+	\begin{array}{c c} 
+	\frac{3\omega}{2} \\
+	\frac{3\omega^2-6\omega}{4} \\
+	\end{array} \right]+\frac{\omega}{4}\left[
+	\begin{array}{r r} 
+	2 & 0 \\
+	\omega & 2 \\
+	\end{array} \right]\left[
+	\begin{array}{r r} 
+	3 \\
+	-3 \\
+	\end{array} \right]\\
+	&=\left[
+	\begin{array}{c c} 
+	\frac{-9\omega(\omega-2)}{8} \\
+	\frac{-3\omega(7\omega^2-18\omega+16)}{16}\\
+	\end{array} \right]=\left[
+	\begin{array}{c c} 
+	1.1192 \\
+	-0.9543\\
+	\end{array} \right].
+\end{align*}
+Finally, we compute the 1 error norm, $||e_{SOR}^{(2)}||_1=0.1649$. As expected,
+\begin{align*}
+e_{SOR}^{(2)}||_1<||e_{GS}^{(2)}||_1<||e_{J}^{(2)}||_1.
+\end{align*}
 \end{itemize}
 \end{solution}
 \end{questions}
