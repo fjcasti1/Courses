@@ -151,8 +151,8 @@ Finally, we compute the 1 error norm, $||e_{GS}^{(2)}||_1=3/16$.
 Next, the SOR iteration, $Mx^{(k+1)}=\left(M-A\right)x^{(k)}+b$, with $M=\frac{D}{\omega}+L$ and $M-A=(\frac{1}{\omega}-1)D-U$. Therefore,
 \begin{align*}
 \left[\frac{D}{\omega}+L\right]x^{(k+1)}&=\left[\left(\frac{1}{\omega}-1\right)D-U\right]x^{(k)}+b,\\
-\left[D+\omega L\right]x^{(k+1)}&=\left[\left(1-\omega\right)D-U\right]x^{(k)}+\omega b,\\
-x^{(k+1)}&=\left[D+\omega L\right]^{-1}\left[\left(1-\omega\right)D-U\right]x^{(k)}+\omega \left[D+\omega L\right]^{-1}b.\\
+\left[D+\omega L\right]x^{(k+1)}&=\left[\left(1-\omega\right)D-\omega U\right]x^{(k)}+\omega b,\\
+x^{(k+1)}&=\left[D+\omega L\right]^{-1}\left[\left(1-\omega\right)D-\omega U\right]x^{(k)}+\omega \left[D+\omega L\right]^{-1}b.\\
 \end{align*}
 Note that
 \begin{align*}
@@ -168,14 +168,14 @@ Note that
 \end{align*}
 and
 \begin{align*}
-\left[(1-\omega)D-U\right]=\left[
+\left[(1-\omega)D-\omega U\right]=\left[
 	\begin{array}{r r} 
-	2(1-\omega) & 1 \\
+	2(1-\omega) & \omega \\
 	0 & 2(1-\omega) \\
-	\end{array} \right]\Rightarrow \left[D+\omega L\right]^{-1}\left[(1-\omega)D-U\right]=\frac{1}{4}\left[
-	\begin{array}{r r} 
-	4(1-\omega) & 2 \\
-	2\omega(1-\omega) & 4(1-\omega)+\omega \\
+	\end{array} \right]\Rightarrow \left[D+\omega L\right]^{-1}\left[(1-\omega)D-\omega U\right]=\left[
+	\begin{array}{c c} 
+	1-\omega & \frac{\omega}{2} \\
+	\frac{\omega}{2}(1-\omega) & (1-\frac{\omega}{2})^2\\
 	\end{array} \right].
 \end{align*}
 Since $x_0=0$,
@@ -189,10 +189,10 @@ x^{(1)}=\omega \left[D+\omega L\right]^{-1}b=\left[
 The second guess is
 \begin{align*}
 x^{(2)}&=\left[D+\omega L\right]^{-1}\left[\left(1-\omega\right)D-U\right]x^{(1)}+\omega \left[D+\omega L\right]^{-1}b\\
-&=\frac{1}{4}\left[
-	\begin{array}{r r} 
-	4(1-\omega) & 2 \\
-	2\omega(1-\omega) & 4(1-\omega)+\omega \\
+&=\left[
+	\begin{array}{c c} 
+	1-\omega & \frac{\omega}{2} \\
+	\frac{\omega}{2}(1-\omega) & (1-\frac{\omega}{2})^2\\
 	\end{array} \right]\left[
 	\begin{array}{c c} 
 	\frac{3\omega}{2} \\
@@ -208,15 +208,15 @@ x^{(2)}&=\left[D+\omega L\right]^{-1}\left[\left(1-\omega\right)D-U\right]x^{(1)
 	\end{array} \right]\\
 	&=\left[
 	\begin{array}{c c} 
-	\frac{-9\omega(\omega-2)}{8} \\
-	\frac{-3\omega(7\omega^2-18\omega+16)}{16}\\
+	\frac{3\omega(\omega^2-6\omega+8)}{8} \\
+	\frac{3\omega(\omega^3-10\omega^2+20\omega-16)}{16}\\
 	\end{array} \right]=\left[
 	\begin{array}{c c} 
-	1.1192 \\
-	-0.9543\\
+	1.0924 \\
+	-0.9687\\
 	\end{array} \right].
 \end{align*}
-Finally, we compute the 1 error norm, $||e_{SOR}^{(2)}||_1=0.1649$. As expected,
+Finally, we compute the 1 error norm, $||e_{SOR}^{(2)}||_1=0.1237$. As expected,
 \begin{align*}
 e_{SOR}^{(2)}||_1<||e_{GS}^{(2)}||_1<||e_{J}^{(2)}||_1.
 \end{align*}
