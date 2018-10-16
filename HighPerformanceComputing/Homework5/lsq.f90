@@ -53,17 +53,23 @@ module lsq
 !
   character(*), intent(in) :: model
   integer , intent(in)  :: n
-  real(DP), intent(in)  :: x(n), y(n)
+  real(DP), intent(in)  :: x(n)
+  real(DP), intent(inout):: y(n)
   real(DP), intent(out) :: param(2)
   integer , intent(out) :: ierr
-  real(DP) :: X(n,2)
-  X(:,1)=1
-  X(:,2)=x
-
+  integer  :: lwork
+  integer  :: info
+  real(DP) :: work(4*n)
+  real(DP) :: A(n,2)
+  A(:,1)=1
+  A(:,2)=x
+  lwork=-1
 !
   select case(model(1:1))
   case('L','l')
-    call dgels('N', n, 2, 1, X, n, y, n, work, -1, info)
+    call dgels('N', n, 2, 1, A, n, y, n, work, lwork, info)
+    param(1:2)=y(1:2)
+    ierr=info
   case('P','p')
   case default
   end select

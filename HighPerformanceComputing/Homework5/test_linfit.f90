@@ -1,11 +1,11 @@
 program test_linfit
-  use linfit
+  use lsq
   use precision
   implicit none
   real(DP):: x(20), y(20), noise(20), param(2)
-  integer:: j
+  integer:: j,ierr
 
-  call random_number(noise) uniformly distributed in [0, 1]
+  call random_number(noise) ! uniformly distributed in [0, 1]
   do j=1,20
   x(j) = j
   y(j) = 1.0 + 2*x(j) + 0.05*(noise(j) - 0.5)

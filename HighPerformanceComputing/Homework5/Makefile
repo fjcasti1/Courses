@@ -12,6 +12,7 @@ test_linfit: $(OBJs)
 	module load intel/2018x; \
 	$(f90comp) $(switch) -o test_linfit.exe $(OBJs) $(MKLLIB) 
 %.o: %.f90
+	module load intel/2018x; \
 	$(f90comp) -c $(switch) $<
 %.mod: %.o %.f90
 	$(f90comp) -c $(switch) $<
