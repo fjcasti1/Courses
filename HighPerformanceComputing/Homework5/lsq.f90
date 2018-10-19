@@ -59,18 +59,35 @@ module lsq
   integer , intent(out) :: ierr
   integer  :: lwork
   integer  :: info
-  real(DP) :: work(4*n)
-  real(DP) :: A(n,2)
-  A(:,1)=1
-  A(:,2)=x
+  real(DP), dimension(:), allocatable :: work
+  real(DP) :: A(n,2), B(n)
   lwork=-1
-!
+
   select case(model(1:1))
   case('L','l')
+    A(:,1)=1
+    A(:,2)=x
+    allocate(work(1))
+    call dgels('N', n, 2, 1, A, n, y, n, work, lwork, info)
+    lwork=work(1)
+    deallocate(work)
+    allocate(work(lwork))
     call dgels('N', n, 2, 1, A, n, y, n, work, lwork, info)
     param(1:2)=y(1:2)
     ierr=info
   case('P','p')
+    A(:,1)=1
+    A(:,2)=log(x)
+    B=log(y)
+    allocate(work(1))
+    call dgels('N', n, 2, 1, A, n, B, n, work, lwork, info)
+    lwork=work(1)
+    deallocate(work)
+    allocate(work(lwork))
+    call dgels('N', n, 2, 1, A, n, B, n, work, lwork, info)
+    param(1)=exp(B(1))
+    param(2)=B(2)
+    ierr=info
   case default
   end select
 !

@@ -1,4 +1,4 @@
-    module henondim
+module henondim
 !  HENONDIM - Implement Algorithm D to determine the dimension of the basin of
 !  infinity of the Henon map.
 !
@@ -20,17 +20,17 @@
 !   10/15/18 - First implementation.
 !
 !  PROGRAMMER
-!   Your name, email@asu.edu
+!   Francisco Castillo, fjcasti1@asu.edu
 !
 
-    use precision
-    implicit none
-    real(DOUBLE), parameter:: LOCKOUT=100
-    real(DOUBLE), parameter:: BOXMIN=-3.0, BOXXMAX=3.0  ! box limits
-    integer, parameter:: NGRID=4096  ! number of points on a side
-    contains
+use precision
+implicit none
+real(DOUBLE), parameter:: LOCKOUT=100
+real(DOUBLE), parameter:: BOXMIN=-3.0, BOXXMAX=3.0  ! box limits
+integer, parameter:: NGRID=4096  ! number of points on a side
+contains
 !-------------------------------------------------------------------------------
-    subroutine henon_map(argument list here)
+subroutine henon_map(argument list here)
 !  Iterate the Henon map for one or more initial conditions up to
 !  MAXITER times or until the orbit of one of the points is further than
 !  LOCKOUT units away from the origin.  (It suffices to check whether the
@@ -43,10 +43,11 @@
 !  Declare local variables here.  You may declare the map parameters A and B
 !  as Fortran PARAMETERS or simple local variables at your option.
 !
-    return
-    end subroutine henon_map
+return
+end subroutine henon_map
 !-------------------------------------------------------------------------------
-    subroutine basin_alg(argument list here)
+subroutine basin_alg(n,xMin,xMax,yMin,yMax,params)
+  
 ! BASIN_ALG - implements Algorithm D.
 !
 !  Argument declarations go here.  Explicitly declare all arguments and give
@@ -58,8 +59,8 @@
 
 !  The rest of your code goes here.
 !
-    return
-    end subroutine basin_alg
+return
+end subroutine basin_alg
 !-------------------------------------------------------------------------------
-    end module basindim
+end module basindim
 
