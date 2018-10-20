@@ -51,8 +51,7 @@ module henondim
     real(DP), dimension (:,:), allocatable :: xGrid, yGrid
     real(DP), dimension (:,:), allocatable :: xGrid2, yGrid2
     real(DP), dimension (:,:), allocatable :: X0, aux 
-    integer, dimension (:,:), allocatable  :: basin
-    logical, dimension (:)  , allocatable  :: vbasin
+    logical, dimension (:,:), allocatable  :: basin
     type(paramStruct) :: params
     logical :: ix(N*N)
 
@@ -77,7 +76,7 @@ module henondim
   !!!  print*, yGrid2
     allocate(X0(N*N,2))
     allocate(aux(N*N,1))
-    allocate(basin(N,1))
+    allocate(basin(N,N))
     basin=1
     X0(:,1)=xGrid2(:,1)
     X0(:,2)=yGrid2(:,1)
@@ -111,8 +110,8 @@ module henondim
     print *, " "
     print *, params%L
     print *, "Final: ", ix
-
-    basin = abs(reshape(ix,(/ N,N /) ))
+    ix = .not. ix
+    basin = reshape(ix,(/ N,N /) )
 
     print *, " "
     do j=1,N
