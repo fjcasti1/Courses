@@ -28,8 +28,8 @@ module henondim
   implicit none
   real(DP), parameter:: LOCKOUT=100
   real(DP), parameter:: BOXMIN=-3.0, BOXMAX=3.0  ! box limits
-  integer, parameter:: NGRID=4096  ! number of points on a side
-!  integer, parameter:: NGRID=1000  ! number of points on a side
+!  integer, parameter:: NGRID=4096  ! number of points on a side
+  integer, parameter:: NGRID=100  ! number of points on a side
   integer, parameter:: K=100  ! maximum number of iterations 
   contains
 !-------------------------------------------------------------------------------
@@ -57,22 +57,67 @@ module henondim
 
     call linspace(x,BOXMIN+eps,BOXMAX+eps,NGRID)
     call linspace(y,BOXMIN,BOXMAX,NGRID)
+!    print*, x
+  !!!  print*, y
     call meshgrid(xGrid,yGrid,x,y)
+!!!    print*, " "
+!!!    do j=1,NGRID
+!!!    print*, xGrid(j,:)
+!!!    end do
+!!!    print*, " "
+!!!    do j=1,NGRID
+!!!    print*, yGrid(j,:)
+!!!    end do
+!!rm    xGrid2 = reshape(xGrid,(/ NGRID*NGRID,1 /) )
+!!rm    yGrid2 = reshape(yGrid,(/ NGRID*NGRID,1 /) )
+  !!!  print*, " "
+  !!!  print*, xGrid2
+  !!!  print*, " "
+  !!!  print*, yGrid2
     allocate(X0(NGRID*NGRID,2))
     allocate(aux(NGRID*NGRID,1))
     X0(:,1) = reshape(xGrid,(/ NGRID*NGRID /) )
     X0(:,2) = reshape(yGrid,(/ NGRID*NGRID /) )
+!!rm    X0(:,1)=xGrid2(:,1)
+!!rm    X0(:,2)=yGrid2(:,1)
+!!    print *, " "
+!!    print *, "INITIAL:"
+!    do j=1,NGRID*NGRID
+!      print*, X0(j,:) 
+!    end do
     ix=all(abs(X0)<LOCKOUT,2)
+!    print*, all(abs(X0)<LOCKOUT,2)
+!!!    do j=1,NGRID*NGRID
+!!!      print*, X0(j,:)
+!!!    end do
+!    print *, "K = ",K
+!    print *, "L = ",LOCKOUT
     do j=1,K
       where(ix.eq. .True.)
         aux(:,1) = X0(:,1)
         X0(:,1) = a-X0(:,1)**2d0+b*X0(:,2)
         X0(:,2) = aux(:,1)
+!!!        aux(:,1) = X0(:,1)
+!!!        X0(:,1) = X0(:,2)**2d0
+!!!        X0(:,2) = aux(:,1)
         ix=all(abs(X0)<LOCKOUT,2)
       end where
+!      print *, ix
     end do
+!    do j=1,NGRID*NGRID
+!      print*, X0(j,:)
+!    end do
+!    print *, " "
+!    print *, LOCKOUT
+!    print *, "Final: ", ix
     ix = .not. ix
     basin = reshape(ix,(/ NGRID,NGRID /) )
+
+!    print *, " "
+!    do j=1,NGRID
+!      print*, basin(j,:) 
+!    end do
+  !  return
   end subroutine henon_map
 !-------------------------------------------------------------------------------
   subroutine basin_alg(Neps,N,eps)
@@ -92,22 +137,35 @@ module henondim
     real(DP) :: eps(Neps), param(2), N(Neps)
     logical  :: basin(NGRID,NGRID)
     logical  :: basinP(NGRID,NGRID), basinM(NGRID,NGRID)
-!!!    !$omp parallel do
+
     do j=1,Neps
       call henon_map(basin,0d0)  
       call henon_map(basinP,eps(j))  
       call henon_map(basinM,-eps(j))  
       N(j) = count(basin.ne.basinP.or.basin.ne.basinM)
-    enddo
-!!!    !$omp end parallel do
+    end do
 
+!!!    print *, " "
+!!!    do j=1,NGRID
+!!!      print*, basin(j,:) 
+!!!    end do
+!!!    print *, " "
+!!!    do j=1,NGRID
+!!!      print*, basinP(j,:) 
+!!!    end do
+!!!    print *, " "
+!!!    do j=1,NGRID
+!!!      print*, basinM(j,:) 
+!!!    end do
     print *, " "
     print *, "N = "
     do j=1,Neps
       print*, N(j) 
     end do
     print *, " "
-
+!    print *, count(basin.ne.basinP)
+!    print *, count(basin.ne.basinM)
+!    print *, count(basin.ne.basinP.or.basin.ne.basinM)
     call linfit('Power',Neps,eps,N,param,ierr)    
     if(ierr==0) print *, param
     return
