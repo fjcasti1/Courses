@@ -2,7 +2,7 @@ module myStructModule
   use precision
   implicit none
   type paramStruct
-    integer  :: k
+    integer  :: K
     real(DP) :: a, b, L
   end type paramStruct
-end myStructModule
+end module myStructModule
