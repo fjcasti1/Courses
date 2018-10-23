@@ -1,9 +1,72 @@
 \begin{questions}
 
-\question{
+\question{Let $\phi$ and $\psi$ be the Haar scaling and wavelet functions, respectively. Let $V_j$ and $W_j$ be the spaces generatd by $\phi(2^kx-k),k\in\Z$, and $\psi(2^jx-k),k\in\Z$, respectively. Consider the function defined on $0\leq x\leq 1$ given by
+\begin{align*}
+f(x)=\left\{
+\begin{array}{ll}
+	 2 & 0\leq x<1/4, \\
+	-3 & 1/4\leq x<1/2, \\
+	 1 & 1/2\leq x<3/4, \\
+	 3 & 3/4\leq x<1. \\
+\end{array} 
+\right.\\
+\end{align*}
+Express $f$ first in terms of the basis for $V_2$ and then decompose $f$ into its component parts in $W_1$, $W_0$ and $V_0$. In other words, find the Haar wavelet decomposition for $f$. Sketch each of these components.
 }
 \begin{solution}
+The function $f$ is easily expressed as
+\begin{align*}
+f(x)=2\phi(4x)-3\phi(4x-1)+\phi(4x-2)+3\phi(4x-3)\in V_2
+\end{align*}
+For the decomposition we use the following relations
+\begin{align*}
+\phi\left(2^jx\right)&=\frac{\phi\left(2^{j-1}x\right)+\psi\left(2^{j-1}x\right)}{2},\\
+\phi\left(2^jx-1\right)&=\frac{\phi\left(2^{j-1}x\right)-\psi\left(2^{j-1}x\right)}{2}.
+\end{align*}
+For this case we use
+\begin{align*}
+\phi\left(4x\right)&=\frac{\phi\left(2x\right)+\psi\left(2x\right)}{2},\\
+\phi\left(4x-1\right)&=\frac{\phi\left(2x\right)-\psi\left(2x\right)}{2},\\
+\phi\left(4x-2\right)=\phi\left(4(x-1/2)\right)&=\frac{\phi\left(2x-1\right)+\psi\left(2x-1\right)}{2},\\
+\phi\left(4x-3\right)=\phi\left(4(x-1/2)-1\right)&=\frac{\phi\left(2x-1\right)-\psi\left(2x-1\right)}{2}.
+\end{align*}
+With these relations we decompose $f$ into its components in $W_1$ and $V_1$:
+\begin{align*}
+f(x)=\frac{5}{2}\psi\left(2x\right)-\psi\left(2x-1\right)-\frac{1}{2}\phi\left(2x\right)+2\phi\left(2x-1\right)\in W_1\bigoplus V_1.
+\end{align*}
+Next, we decompose the $V_1$ component, $f_{V_1}=-\frac{1}{2}\phi\left(2x\right)+2\phi\left(2x-1\right)$, into its components in $W_0$ and $V_0$ using
+\begin{align*}
+\phi\left(2x\right)&=\frac{\phi\left(x\right)+\psi\left(x\right)}{2},\\
+\phi\left(2x-1\right)&=\frac{\phi\left(x\right)-\psi\left(x\right)}{2}.
+\end{align*}
+Then,
+\begin{align*}
+f_{V_1}=-\frac{5}{4}\psi\left(x\right)+\frac{3}{4}\phi\left(x\right)\in W_0\bigoplus V_0.
+\end{align*}
+Hence,
+\begin{align*}
+f(x)=\frac{5}{2}\psi\left(2x\right)-\psi\left(2x-1\right)-\frac{5}{4}\psi\left(x\right)+\frac{3}{4}\phi\left(x\right)\in W_1\bigoplus W_0\bigoplus V_0.
+\end{align*}
+Every component of the function and the function itself are graphed in the following figures.
 
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[]{\includegraphics[scale=0.5]{psi2p2.png}}
+\hfill
+\subfigure[]{\includegraphics[scale=0.5]{psi21p2.png}}
+\hfill
+\subfigure[]{\includegraphics[scale=0.5]{psip2.png}}
+\hfill
+\subfigure[]{\includegraphics[scale=0.5]{phip2.png}}
+\hspace*{\fill}
+\caption{Haar components of the function $g$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.6]{fp2.png}}
+\caption{Function $g=\sum_{k=0}^{7}a_k^3\phi(8x-k)$.}
+\end{figure}
 \end{solution}
-
 \end{questions}
