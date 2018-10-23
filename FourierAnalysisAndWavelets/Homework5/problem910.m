@@ -43,7 +43,7 @@ end
 % As we can see in the figures, the further we take the decomposition, the
 % more inacurate the approximation. This is expected because for lower js
 % the decomposed signal does not catch the higher frequencies.
-%% Filter out high frequencies (Problem 10)
+%% Compressing the signal (Problem 10)
 % In this section we will filter out those coefficients smaller than a preset tolerance by setting them to zero.
 % Once that is done, we will reconstruct the signal and compare it to the original one.
 N=2^8;
