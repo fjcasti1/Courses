@@ -48,18 +48,24 @@ module henondim
 !
     implicit none
     integer  :: j
-    real(DP) :: x(NGRID), y(NGRID)
+    real(DP), dimension (:)  , allocatable :: x, y
     real(DP), dimension (:,:), allocatable :: xGrid, yGrid
     real(DP), dimension (:,:), allocatable :: X0, aux 
     real(DP) :: a = 2.12, b = -0.3, eps
     logical, intent(inout) :: basin(NGRID,NGRID)
-    logical :: ix(NGRID*NGRID)
+    logical, dimension(:), allocatable :: ix
+
+    allocate(x(NGRID))
+    allocate(y(NGRID))
+    allocate(xGrid(NGRID,NGRID))
+    allocate(yGrid(NGRID,NGRID))
+    allocate(X0(NGRID*NGRID,2))
+    allocate(aux(NGRID*NGRID,1))
+    allocate(ix(NGRID*NGRID))
 
     call linspace(x,BOXMIN+eps,BOXMAX+eps,NGRID)
     call linspace(y,BOXMIN,BOXMAX,NGRID)
     call meshgrid(xGrid,yGrid,x,y)
-    allocate(X0(NGRID*NGRID,2))
-    allocate(aux(NGRID*NGRID,1))
     X0(:,1) = reshape(xGrid,(/ NGRID*NGRID /) )
     X0(:,2) = reshape(yGrid,(/ NGRID*NGRID /) )
     ix=all(abs(X0)<LOCKOUT,2)
@@ -76,9 +82,13 @@ module henondim
   end subroutine henon_map
 !-------------------------------------------------------------------------------
   subroutine henon_compare(N,eps,basin)
-    real(DP) :: eps, N
+    real(DP), intent(in)    :: eps
+    real(DP), intent(inout) :: N
     logical, intent(in)  :: basin(NGRID,NGRID)
-    logical  :: basinP(NGRID,NGRID), basinM(NGRID,NGRID)
+    logical, dimension(:,:), allocatable  :: basinP, basinM
+    
+    allocate(basinP(NGRID,NGRID))
+    allocate(basinM(NGRID,NGRID))
 
     call henon_map(basinP,eps)  
     call henon_map(basinM,-eps)  
@@ -100,14 +110,16 @@ module henondim
 !
     integer  :: j, Neps, ierr
     real(DP) :: eps(Neps), param(2), N(Neps)
-    logical  :: basin(NGRID,NGRID)
+    logical, dimension(:,:), allocatable  :: basin
+    
+    allocate(basin(NGRID,NGRID))
 
     call henon_map(basin,0d0)  
-  !$omp parallel do 
+    !$omp parallel do 
     do j=1,Neps
       call henon_compare(N(j),eps(j),basin)
     enddo
-  !$omp end parallel do
+    !$omp end parallel do
 
    ! print *, " "
    ! print *, "N = "
@@ -117,7 +129,7 @@ module henondim
    ! print *, " "
 
     call linfit('Power',Neps,eps,N,param,ierr)    
-    if(ierr==0) print *, param
+    if(ierr==0) print *, "d = ",1+param(2)
     return
   end subroutine basin_alg
 !-------------------------------------------------------------------------------
