@@ -75,6 +75,16 @@ module henondim
     basin = reshape(ix,(/ NGRID,NGRID /) )
   end subroutine henon_map
 !-------------------------------------------------------------------------------
+  subroutine henon_compare(N,eps,basin)
+    real(DP) :: eps, N
+    logical, intent(in)  :: basin(NGRID,NGRID)
+    logical  :: basinP(NGRID,NGRID), basinM(NGRID,NGRID)
+
+    call henon_map(basinP,eps)  
+    call henon_map(basinM,-eps)  
+    N = count(basin.ne.basinP.or.basin.ne.basinM)
+  end subroutine henon_compare
+
   subroutine basin_alg(Neps,N,eps)
      
 ! BASIN_ALG - implements Algorithm D.
@@ -91,22 +101,20 @@ module henondim
     integer  :: j, Neps, ierr
     real(DP) :: eps(Neps), param(2), N(Neps)
     logical  :: basin(NGRID,NGRID)
-    logical  :: basinP(NGRID,NGRID), basinM(NGRID,NGRID)
-!!!    !$omp parallel do
-    do j=1,Neps
-      call henon_map(basin,0d0)  
-      call henon_map(basinP,eps(j))  
-      call henon_map(basinM,-eps(j))  
-      N(j) = count(basin.ne.basinP.or.basin.ne.basinM)
-    enddo
-!!!    !$omp end parallel do
 
-    print *, " "
-    print *, "N = "
+    call henon_map(basin,0d0)  
+  !$omp parallel do 
     do j=1,Neps
-      print*, N(j) 
-    end do
-    print *, " "
+      call henon_compare(N(j),eps(j),basin)
+    enddo
+  !$omp end parallel do
+
+   ! print *, " "
+   ! print *, "N = "
+   ! do j=1,Neps
+   !   print*, N(j) 
+   ! end do
+   ! print *, " "
 
     call linfit('Power',Neps,eps,N,param,ierr)    
     if(ierr==0) print *, param
