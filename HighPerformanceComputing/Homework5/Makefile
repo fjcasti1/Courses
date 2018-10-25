@@ -1,9 +1,9 @@
 # HOMEWORK_5 Makefile
 
-OBJs =  precision.o lsq.o matlabfns.o henondim.o test_linfit.o
+OBJs =  precision.o lsq.o henondim.o test_linfit.o
 f90comp = ifort
 MKLLIB = -mkl # =parallel -liomp5 -lpthread -axavx 
-switch = -O3 -qopenmp #-qopenmp-report=2# -fpe0 -check all -check bounds -g#-diag-file-append=intel_build.log -fpe0
+switch = -O3 -qopenmp -traceback#-qopenmp-report=2# -fpe0 -check all -check bounds -g#-diag-file-append=intel_build.log -fpe0
 
 # Makefile
 .phony: clean

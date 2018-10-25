@@ -27,7 +27,7 @@ module henondim
   implicit none
   real(DP), parameter:: LOCKOUT=100
   real(DP), parameter:: BOXMIN=-3.0d0, BOXMAX=3.0d0  ! box limits
-  integer, parameter:: NGRID=512  ! number of points on a side
+  integer, parameter:: NGRID=4096  ! number of points on a side
   integer, parameter:: K=100  ! maximum number of iterations 
   contains
 !-------------------------------------------------------------------------------
@@ -115,9 +115,7 @@ module henondim
     call henon_map(basin,0.d0)  
     !$omp parallel do 
     do j=1,Neps
-      print *, "Beginning",j
       call henon_compare(N(j),eps(j),basin)
-      print *, "End",j
     enddo
     !$omp end parallel do
 
