@@ -10,6 +10,20 @@ the numerical flux function
 correctly produces the Lax-Friedrichs method for $w_t + f(w)_x = 0$.
 }
 \begin{solution}
-
+We start with the conservative form of for the given PDE,
+\begin{align*}
+w_i^{n+1}=w_i^n+\frac{\Delta t}{\Delta x}\left(F_{i-1/2}-F_{i+1/2}\right),
+\end{align*}
+introducing the given numerical flux function,
+\begin{align*}
+w_i^{n+1}=w_i^n+\frac{\Delta t}{\Delta x}\left[\half \left(f(w_{i-1}) + f(w_{i})-f(w_{i}) - f(w_{i+1})\right)-\frac{\Delta x}{2 \Delta t} \left(w_{i} - w_{i-1}-w_{i+1}+w_i\right)\right].
+\end{align*}
+Manipulating this expression we obtain the Lax-Friedrichs method,
+\begin{align*}
+w_i^{n+1}&=w_i^n+\frac{\Delta t}{2\Delta x} \left(f(w_{i-1})-f(w_{i+1})\right)-\frac{1}{2} \left(-w_{i+1} +2w_i-w_{i-1}\right),\\
+&=\frac{\Delta t}{2\Delta x} \left(f(w_{i-1})-f(w_{i+1})\right)-\frac{1}{2} \left(-w_{i+1} -w_{i-1}\right),\\
+&=\frac{1}{2} \left(w_{i+1} +w_{i-1}\right)-\frac{\Delta t}{2\Delta x} \left(f(w_{i+1})-f(w_{i-1})\right).
+\end{align*}
+Hence, the Lax-Friedrichs method is conservative.
 \end{solution}
 \end{questions}

@@ -7,6 +7,44 @@ satisfied.  {\em Hint:}\/ Show $|G(k)|^2 = G^*(k) G(k) \le 1$ iff $r
 \le 1$.
 }
 \begin{solution}
-
+By substituting the definitions
+\begin{align*}
+u_j^n=e^{ikx_j},~~~~u_j^{n+1}=G(k)e^{ikx_j},
+\end{align*}
+into the Lax-Wendroff scheme,
+\begin{align*}
+u_i^{n+1}=u_i^{n}-c\frac{\Delta t}{2\Delta x}\left(u_{i+1}^n-u_{i-1}^n\right)+\half c^2\frac{\Delta t^2}{\Delta x^2}\left(u_{i+1}^n-2u_{i}^n+u_{i-1}^n\right),
+\end{align*}
+we obtain
+\begin{align*}
+G(k)e^{ikx_j}=e^{ikx_j}-c\frac{\Delta t}{2\Delta x}\left(e^{ik(x_j+\Delta x)}-e^{ik(x_j-\Delta x)}\right)+\half c^2\frac{\Delta t^2}{\Delta x^2}\left(e^{ik(x_j+\Delta x)}-2e^{ikx_j}+e^{ik(x_j-\Delta x)}\right).
+\end{align*}
+Dividing by $e^{ikx_j}$ and using the definition of Courant number $r=c\Delta t/\Delta x$, we get the growth factor
+\begin{align*}
+G(k)&=1-\half r\left(e^{ik\Delta x}-e^{-ik\Delta x}\right)+\half r^2\left(e^{ik\Delta x}+e^{-ik\Delta x}-2\right),\\
+&=1-\half r2i\sin(k\Delta x)+\half r^2\left(2\cos(k\Delta x)-2\right),\\
+&=1+r^2\left(\cos(k\Delta x)-1\right)-ir\sin(k\Delta x),\\
+\end{align*}
+To prove that the method is conditionally stable we study the modulus of the growth factor,
+\begin{align*}
+|G(k)|^2 &= G^*(k) G(k),\\
+&=\left[1+r^2\left(\cos(k\Delta x)-1\right)+ir\sin(k\Delta x)\right]\left[1+r^2\left(\cos(k\Delta x)-1\right)-ir\sin(k\Delta x)\right],\\
+&=\left[1+r^2\left(\cos(k\Delta x)-1\right)\right]^2+r^2\sin^2(k\Delta x),\\
+&=1-\left[\cos(k\Delta x)-1\right]^2r^2+\left[\cos(k\Delta x)-1\right]^2r^4.
+\end{align*}
+Let $\beta^2=\left[\cos(k\Delta x)-1\right]^2$ and note that $\beta^2\geq 0$. Then,
+\begin{align*}
+|G(k)|^2 &=1-\beta^2r^2+\beta^2r^4,\\
+&=1-\beta^2r^2\left[1-r^2\right].
+\end{align*}
+Therefore,
+\begin{align*}
+|G(k)|^2 \leq 1&\iff 1-\beta^2r^2\left[1-r^2\right]\leq 1,\\
+&\iff \beta^2r^2\left[1-r^2\right]\geq 0,\\
+&\iff \left[1-r^2\right]\geq 0,\\
+&\iff r^2\leq 1,\\
+&\iff r\leq 1.
+\end{align*}
+Hence, the Lax-Wendroff is stable for $u_t + c u_x = 0$ as long as the CFL condition $r \le 1$ is satisfied.
 \end{solution}
 \end{questions}
