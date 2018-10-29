@@ -44,7 +44,7 @@ module henondim
   implicit none
   real(DP), parameter:: LOCKOUT=100
   real(DP), parameter:: BOXMIN=-3.0d0, BOXMAX=3.0d0  ! box limits
-  integer, parameter:: NGRID=512  ! number of points on a side
+  integer, parameter:: NGRID=4096  ! number of points on a side
   integer, parameter:: K=100  ! maximum number of iterations 
   contains
 !-------------------------------------------------------------------------------
