@@ -1,6 +1,6 @@
 # HOMEWORK_5 Makefile
 
-OBJs =  precision.o lsq.o henondim.o test_linfit.o
+OBJs =  precision.o lsq.o henondim.o test_henon.o
 f90comp = ifort
 MKLLIB = -mkl # =parallel -liomp5 -lpthread -axavx 
 switch = -O3 -qopenmp -traceback#-qopenmp-report=2# -fpe0 -check all -check bounds -g#-diag-file-append=intel_build.log -fpe0
@@ -8,9 +8,9 @@ switch = -O3 -qopenmp -traceback#-qopenmp-report=2# -fpe0 -check all -check boun
 # Makefile
 .phony: clean
 
-test_linfit: $(OBJs)
+test_henon: $(OBJs)
 	module load intel/2018x; \
-	$(f90comp) $(switch) -o test_linfit.exe $(OBJs) $(MKLLIB) 
+	$(f90comp) $(switch) -o test_henon.exe $(OBJs) $(MKLLIB) 
 %.o: %.f90
 	module load intel/2018x; \
 	$(f90comp) -c $(switch) $<
