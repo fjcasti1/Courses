@@ -1,0 +1,27 @@
+SOURCES = precision.f90 naive.f90 test_naive.f90
+OBJECTS = precision.o naive.o test_naive.o
+MODULES = precision.mod naive.mod
+FC = ifort
+OPT =
+LIBS = 
+PARALLEL =
+DEBUG = -g
+OTHER = -c -warn all -traceback -error_limit 2
+FFLAGS = $(OPT) $(OTHER) $(PARALLEL)
+
+%.o: %.f90
+	$(FC) $(FFLAGS) $<
+%.o: %.f
+	$(FC) $(FFLAGS) $<
+
+all:  test_naive
+
+test_naive: $(OBJECTS)
+	$(FC) $(PARALLEL) $(OBJECTS) $(LIBS) -o test_naive
+
+precision.o:
+naive.o: precision.o
+test_naive.o: naive.o
+
+clean:
+	rm -rf $(OBJECTS) $(MODULES) a.out core
