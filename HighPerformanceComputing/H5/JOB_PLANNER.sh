@@ -45,11 +45,11 @@ ulimit -s unlimited
 export OMP_STACKSIZE=16M
 echo "Jobs:"
 export OMP_NUM_THREADS=4
-./test_henon.exe >> out4.log 
+time ./test_henon.exe >> out4.log 
 export OMP_NUM_THREADS=2
-./test_henon.exe >> out2.log 
+time ./test_henon.exe >> out2.log 
 export OMP_NUM_THREADS=1
-./test_henon.exe >> out1.log 
+time ./test_henon.exe >> out1.log 
 EOF
 #pcmd=$HOME/.local/bin/parallel
 #\$pcmd -v -j $OVERHEAD_JOBS --col-sep='\s+' my_job :::: $job_rec 
