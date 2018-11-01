@@ -129,13 +129,7 @@ module henondim
 
     call henon_map(basinP,eps)  
     call henon_map(basinM,-eps)  
-!    N = count(basin.ne.basinP.or.basin.ne.basinM)
-    N=0
-    do j=1,NGRID*NGRID
-      if (basin(j).ne.basinP(j).or.basin(j).ne.basinM(j)) then
-        N=N+1
-      end if
-    end do
+    N = count(basin.ne.basinP.or.basin.ne.basinM)
   end subroutine basin_compare
 !-------------------------------------------------------------------------------
   subroutine basin_alg(Neps,eps,d)

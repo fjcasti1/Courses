@@ -2,7 +2,7 @@
 delay="${1:-'0'}"
 job_com="${2:-main}"
 
-timeLimit="0-00:21"
+timeLimit="0-00:10"
 echo "Delay = ${delay} hours"
 echo "Time Limit = ${timeLimit}"
 
@@ -10,19 +10,7 @@ OVERHEAD_THREADS=28
 OVERHEAD_CPUS=14
 OVERHEAD_JOBS=14
 MKL_CPUS=1
-
-trapped() {
-  echo 'TRAPPED -- QUITTING'
-  exit 70
-}
-
-#my_job() {
-
-#}
-
-#export -f my_job
-
-trap "trapped" 1 2 3 4 5 6 7 8 
+outfile=results.res
 
 sbatch --comment="Sweep ${job_prefix} ${job_com}" << EOF
 #!/bin/bash
@@ -43,13 +31,26 @@ export MKL_NUM_THREADS=$MKL_CPUS
 ulimit -s unlimited
 
 export OMP_STACKSIZE=16M
-echo "Jobs:"
-export OMP_NUM_THREADS=4
-./test_henon.exe >> out4.log 
-export OMP_NUM_THREADS=2
-./test_henon.exe >> out2.log 
+
+echo "=============" &> ${outfile}
+echo "With 1 Thread" &>> ${outfile}
+echo "=============" &>> ${outfile}
 export OMP_NUM_THREADS=1
-./test_henon.exe >> out1.log 
+(time ./test_henon.exe) &>> ${outfile} 
+
+echo " " &>> ${outfile}
+echo "==============" &>> ${outfile}
+echo "With 2 Threads" &>> ${outfile}
+echo "==============" &>> ${outfile}
+export OMP_NUM_THREADS=2
+(time ./test_henon.exe) &>> ${outfile} 
+
+echo " " &>> ${outfile}
+echo "==============" &>> ${outfile}
+echo "With 4 Threads" &>> ${outfile}
+echo "==============" &>> ${outfile}
+export OMP_NUM_THREADS=4
+(time ./test_henon.exe) &>> ${outfile} 
 EOF
 #pcmd=$HOME/.local/bin/parallel
 #\$pcmd -v -j $OVERHEAD_JOBS --col-sep='\s+' my_job :::: $job_rec 

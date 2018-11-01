@@ -16,9 +16,6 @@ program test_henon
   call basin_alg(Neps,eps,d)
   call cpu_time(tf)
   print *, " "
-  print *, "d = ",d
-  print *, " "
-  print *, "Time = ",tf-t0," seconds."
-
+  print *, "d =",d
   
 end program test_henon
