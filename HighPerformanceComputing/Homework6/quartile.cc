@@ -62,36 +62,76 @@ void quartiles(vector<double> v,double &Q1,double &Q2, double &Q3)
   }
 }
 
+bool check_numeric(istream& in)
+{
+   int length;
+   char single, prev;
+   bool check = true; 
+
+   in.seekg(0,in.end);
+   length = in.tellg();
+   in.seekg(0,in.beg);   
+   
+   for(int i=0;i<length;i++)
+   {
+     prev = single;
+     in.get(single);
+     if(!isdigit(single) && !isspace(single))
+     {
+       if(isalpha(single))
+         return(false);
+       else if(single != '.')
+         return(false);
+       else if(single == '.' && isdigit(prev))
+         check = true;
+       else if(single == '.' && !isdigit(prev))
+       {
+         i++;
+         in.get(single);
+         check = isdigit(single);
+         prev = single;
+         if(!check)
+           return(false);
+       }
+       else
+         cout << "CASE NOT CONSIDERED" << endl;
+     }
+   }
+   return(check);
+}
 int process_file(istream& in, bool e_opt)
 {
    int retcode = EXIT_SUCCESS;  // unless an error occurs during processing
    vector<double> v;
    double value,vmin,vmax,Q1,Q2,Q3;
 
-   while(in >> value){
-     v.push_back(value);  // add to the end of the existing vector
-   }
-   if(v.size()!=0)
-   {
-     sort(v.begin(),v.end());
-     extremes(v,vmin,vmax);
-     if (!e_opt)
-       quartiles(v,Q1,Q2,Q3);
+//   if(check_numeric(in))
+//   {
+//   in.seekg(0,in.beg);
+     while(in >> value)
+       v.push_back(value);  // add to the end of the existing vector
 
-//     cout << "Min :" << vmin << endl;
-//     cout << "Q1 : " << Q1 << endl;
-//     cout << "Q2 : " << Q2 << endl;
-//     cout << "Q3 : " << Q3 << endl;
-//     cout << "Max :" << vmax << endl;
-     cout << vmin << endl;
-     if (!e_opt)
+     if(v.size()!=0)
      {
-       cout << Q1 << endl;
-       cout << Q2 << endl;
-       cout << Q3 << endl;
+       sort(v.begin(),v.end());
+       extremes(v,vmin,vmax);
+       if (!e_opt)
+         quartiles(v,Q1,Q2,Q3);
+       cout << vmin << endl;
+       if (!e_opt)
+       {
+         cout << Q1 << endl;
+         cout << Q2 << endl;
+         cout << Q3 << endl;
+       }
+       cout << vmax << endl;
      }
-     cout << vmax << endl;
-   }
+//   }
+//   else
+//   {
+//     cout << "INPUT ERROR: Please introduce only numbers." << endl;
+//     retcode = EXIT_FAILURE;
+//   }
    //  Sort the vector if necessary and compute the requested statistics.
    return(retcode);
 }
@@ -135,7 +175,6 @@ int main(int argc, char **argv)
       retcode = EXIT_FAILURE;
    if(h_opt)
    {
-     //print help
      cout << "HELP MESSAGE" << endl;
    }
    else
@@ -144,7 +183,18 @@ int main(int argc, char **argv)
      {
         ifstream infile(argv[optind]);
         if(infile.good())  // file successfully opened
-           retcode = process_file(infile,e_opt);
+        {
+           if(check_numeric(infile))
+           {
+             infile.seekg(0,infile.beg);
+             retcode = process_file(infile,e_opt);
+           }
+           else
+           {
+             cout << "INPUT ERROR: Please introduce only numbers." << endl;
+             retcode = EXIT_FAILURE;
+           }
+        }
         else
            retcode = EXIT_FAILURE;
      } 
