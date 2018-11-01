@@ -39,21 +39,30 @@ void quartiles(vector<double> v,double &Q1,double &Q2, double &Q3)
 {
   int index,N;
   N=v.size();
-  if(N % 2 == 0)
+  if (N==1)
   {
-    Q1=median(v,0,N/2-1);
-    Q2=median(v,0,N-1);
-    Q3=median(v,N/2,N-1);
+    Q1=v[0];
+    Q2=v[0];
+    Q3=v[0];
   }
   else
   {
-    Q1=median(v,0,N/2-1);
-    Q2=median(v,0,N-1);
-    Q3=median(v,N/2+1,N-1);
+    if(N % 2 == 0)
+    {
+      Q1=median(v,0,N/2-1);
+      Q2=median(v,0,N-1);
+      Q3=median(v,N/2,N-1);
+    }
+    else
+    {
+      Q1=median(v,0,N/2-1);
+      Q2=median(v,0,N-1);
+      Q3=median(v,N/2+1,N-1);
+    }
   }
 }
 
-int process_file(istream& in)
+int process_file(istream& in, bool e_opt)
 {
    int retcode = EXIT_SUCCESS;  // unless an error occurs during processing
    vector<double> v;
@@ -62,17 +71,56 @@ int process_file(istream& in)
    while(in >> value){
      v.push_back(value);  // add to the end of the existing vector
    }
-   sort(v.begin(),v.end());
-   extremes(v,vmin,vmax);
-   quartiles(v,Q1,Q2,Q3);
+   if(v.size()!=0)
+   {
+     sort(v.begin(),v.end());
+     extremes(v,vmin,vmax);
+     if (!e_opt)
+       quartiles(v,Q1,Q2,Q3);
+
+//     cout << "Min :" << vmin << endl;
+//     cout << "Q1 : " << Q1 << endl;
+//     cout << "Q2 : " << Q2 << endl;
+//     cout << "Q3 : " << Q3 << endl;
+//     cout << "Max :" << vmax << endl;
+     cout << vmin << endl;
+     if (!e_opt)
+     {
+       cout << Q1 << endl;
+       cout << Q2 << endl;
+       cout << Q3 << endl;
+     }
+     cout << vmax << endl;
+   }
    //  Sort the vector if necessary and compute the requested statistics.
    return(retcode);
 }
 // -----------------------------------------------------------
-int parseline(int argc, char **argv)  // other arguments as needed
+int parseline(int argc, char **argv, bool &e_opt, bool &h_opt)  // other arguments as needed
 {
-   // your code here
-   return(0);
+  const char *optlist = "eh:";
+  int opt;
+  int err = 0;
+
+  e_opt = false;
+  h_opt = false;
+
+  while((opt = getopt(argc, argv, optlist)) != EOF)
+  {
+    switch(opt)
+    {
+      case 'e':
+        e_opt = true;
+        break;
+      case 'h':
+        h_opt = true;
+        break;
+      default:
+        err = 1;
+        break;
+    }
+  }
+  return(err);
 }
 // -----------------------------------------------------------
 
@@ -81,17 +129,28 @@ int main(int argc, char **argv)
    //  RETCODE lets shell scripts check whether the program has completed
    //  successfully.
    int retcode;
+   bool e_opt, h_opt;
 
-   if(parseline(argc, argv))  // error in arguments
+   if(parseline(argc, argv,e_opt,h_opt))  // error in arguments
       retcode = EXIT_FAILURE;
-   if(optind < argc) {  // read from the file named on the command line
-      ifstream infile(argv[optind]);
-      if(infile.good())  // file successfully opened
-         retcode = process_file(infile);
-      else
-         retcode = EXIT_FAILURE;
-   } else  // read from stdin
-      retcode = process_file(cin);
+   if(h_opt)
+   {
+     //print help
+     cout << "HELP MESSAGE" << endl;
+   }
+   else
+   {
+     if(optind < argc)   // read from the file named on the command line
+     {
+        ifstream infile(argv[optind]);
+        if(infile.good())  // file successfully opened
+           retcode = process_file(infile,e_opt);
+        else
+           retcode = EXIT_FAILURE;
+     } 
+     else  // read from stdin
+        retcode = process_file(cin,e_opt);
+   }
 
    return(retcode);
 }
