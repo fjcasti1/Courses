@@ -15,7 +15,7 @@ void extremes(vector<double> v,double &min,double &max)
 {
   min=v[0];
   max=v[0];
-  for(int i=1;i<v.size();i++)
+  for(unsigned int i=1;i<v.size();i++)
   {
     if(v[i]<min)
       min=v[i];
@@ -37,7 +37,7 @@ double median(vector<double> v,int begin,int end)
 
 void quartiles(vector<double> v,double &Q1,double &Q2, double &Q3)
 {
-  int index,N;
+  int N;
   N=v.size();
   if (N==1)
   {
@@ -67,7 +67,6 @@ int process_file(istream& in, bool e_opt)
    int retcode = EXIT_SUCCESS;  // unless an error occurs during processing
    vector<double> v;
    double value,vmin,vmax,Q1,Q2,Q3;
-   int length, n=1;
    bool stop=false;
 
      while (stop==false)
@@ -101,7 +100,6 @@ int process_file(istream& in, bool e_opt)
        }
        cout << vmax << endl;
      }
-   //  Sort the vector if necessary and compute the requested statistics.
    return(retcode);
 }
 // -----------------------------------------------------------
@@ -132,6 +130,23 @@ int parseline(int argc, char **argv, bool &e_opt, bool &h_opt)  // other argumen
   return(err);
 }
 // -----------------------------------------------------------
+void print_help()
+{
+     cout << "=========================" << endl;
+     cout << "PROGRAM QUARTILE.CC HELP:" << endl;
+     cout << "=========================" << endl;
+     cout << "This program expects to receive a list of real numbers. It will compute and print the following (in this order):" << endl;
+     cout << "- Minimum" << endl;
+     cout << "- 25 % Quartile" << endl;
+     cout << "- 50 % Quartile" << endl;
+     cout << "- 75 % Quartile" << endl;
+     cout << "- Maximum" << endl << endl;
+     cout << "If the flag -e is passed, only the extremes will be computed." << endl << endl;
+     cout << "COMMENTS: The program can read from: " << endl;
+     cout << "- Data file, example:        quartile datafile.dat" << endl;
+     cout << "- Standar input, example:    quartile 1 2 3 4 5...   or  ./quartile < datafile.dat" << endl;
+     cout << "- Piped from another program, example: awk -f awkprog datafile.dat | quartile" << endl;
+}
 
 int main(int argc, char **argv)
 {
@@ -143,9 +158,7 @@ int main(int argc, char **argv)
    if(parseline(argc, argv,e_opt,h_opt))  // error in arguments
       retcode = EXIT_FAILURE;
    if(h_opt)
-   {
-     cout << "HELP MESSAGE" << endl;
-   }
+     print_help();
    else
    {
      if(optind < argc)   // read from the file named on the command line
