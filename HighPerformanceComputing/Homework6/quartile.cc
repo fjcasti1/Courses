@@ -62,61 +62,36 @@ void quartiles(vector<double> v,double &Q1,double &Q2, double &Q3)
   }
 }
 
-bool check_numeric(istream& in)
-{
-   int length;
-   char single, prev;
-   bool check = true; 
-
-   in.seekg(0,in.end);
-   length = in.tellg();
-   in.seekg(0,in.beg);   
-   
-   for(int i=0;i<length;i++)
-   {
-     prev = single;
-     in.get(single);
-     if(!isdigit(single) && !isspace(single))
-     {
-       if(isalpha(single))
-         return(false);
-       else if(single != '.')
-         return(false);
-       else if(single == '.' && isdigit(prev))
-         check = true;
-       else if(single == '.' && !isdigit(prev))
-       {
-         i++;
-         in.get(single);
-         check = isdigit(single);
-         prev = single;
-         if(!check)
-           return(false);
-       }
-       else
-         cout << "CASE NOT CONSIDERED" << endl;
-     }
-   }
-   return(check);
-}
 int process_file(istream& in, bool e_opt)
 {
    int retcode = EXIT_SUCCESS;  // unless an error occurs during processing
    vector<double> v;
    double value,vmin,vmax,Q1,Q2,Q3;
+   int length, n=1;
+   bool stop=false;
 
-//   if(check_numeric(in))
-//   {
-//   in.seekg(0,in.beg);
-     while(in >> value)
-       v.push_back(value);  // add to the end of the existing vector
+     while (stop==false)
+     {
+       if(in >> value)        
+         v.push_back(value);
+       else if(in.eof())
+         stop=true;
+       else
+       {
+         cout << "INPUT ERROR: Please introduce only numbers." << endl;
+         stop=true;
+         retcode = EXIT_FAILURE;
+         return(retcode);
+       }
+     }
 
      if(v.size()!=0)
      {
-       sort(v.begin(),v.end());
        extremes(v,vmin,vmax);
        if (!e_opt)
+         sort(v.begin(),v.end());
          quartiles(v,Q1,Q2,Q3);
+
        cout << vmin << endl;
        if (!e_opt)
        {
@@ -126,12 +101,6 @@ int process_file(istream& in, bool e_opt)
        }
        cout << vmax << endl;
      }
-//   }
-//   else
-//   {
-//     cout << "INPUT ERROR: Please introduce only numbers." << endl;
-//     retcode = EXIT_FAILURE;
-//   }
    //  Sort the vector if necessary and compute the requested statistics.
    return(retcode);
 }
@@ -183,18 +152,7 @@ int main(int argc, char **argv)
      {
         ifstream infile(argv[optind]);
         if(infile.good())  // file successfully opened
-        {
-           if(check_numeric(infile))
-           {
-             infile.seekg(0,infile.beg);
              retcode = process_file(infile,e_opt);
-           }
-           else
-           {
-             cout << "INPUT ERROR: Please introduce only numbers." << endl;
-             retcode = EXIT_FAILURE;
-           }
-        }
         else
            retcode = EXIT_FAILURE;
      } 
