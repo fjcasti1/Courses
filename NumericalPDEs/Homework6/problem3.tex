@@ -32,13 +32,13 @@ w' & = -\frac{1}{2}(u_l-u_r)\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\le
 \end{align*}
 and,
 \begin{align*}
-w'' & = \frac{(u-L-u_r)^3}{(4\nu)^2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right) ~.
+w'' & = \frac{(u_l-u_r)^3}{(4\nu)^2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right) ~.
 \end{align*}
 Substituting the terms into the obtained ODE we find that the given $w$ is indeed a solution
 \begin{align*}
--sw'+ww' &= -\frac{1}{2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\left(\frac{(u_l-u_r)}{4\nu} \right)\left[-s+u_r+\frac{1}{2}(u_l-u_r)\left(1-\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right)\right)\right] \\
+-sw'+ww' &= -\frac{1}{2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\left(\frac{(u_l-u_r)^2}{4\nu} \right)\left[-s+u_r+\frac{1}{2}(u_l-u_r)\left(1-\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right)\right)\right] \\
 & = -\frac{1}{2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\left(\frac{(u_l-u_r)^2}{4\nu} \right)\left[-\frac{1}{2}(u_l-u_r)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right)\right] \\
-& = \nu\frac{(u-L-u_r)^3}{(4\nu)^2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right) \\
+& = \nu\frac{(u_l-u_r)^3}{(4\nu)^2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right) \\
 & = \nu w''~.
 \end{align*}
 

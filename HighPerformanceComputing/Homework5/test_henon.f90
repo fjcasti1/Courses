@@ -4,7 +4,7 @@ program test_henon
   use lsq
   use precision
   implicit none
-  real(DP) :: t0, tf, d
+  real(DP) :: d
   integer :: j,Neps
   real(DP), dimension(:), allocatable  :: eps, N
   
@@ -12,9 +12,7 @@ program test_henon
   allocate(N(Neps),eps(Neps))
   eps = (/(2d0**j, j=-21,-12) /)
 
-  call cpu_time(t0)
   call basin_alg(Neps,eps,d)
-  call cpu_time(tf)
   print *, " "
   print *, "d =",d
   
