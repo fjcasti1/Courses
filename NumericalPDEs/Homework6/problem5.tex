@@ -1,3 +1,4 @@
+
 \begin{questions}
 
 \question{Show that the upwind discretization of Burgers' equation $u_t + u
@@ -18,7 +19,30 @@ the form
 	u^{n+1}_j = u^n_j - \frac{\Delta t}{\Delta x}
 	\left(F_{j+\half} - F_{j-\half}\right) .
 \end{displaymath}
-}
+ }
+
 \begin{solution}
+
+The upwind discretization for Burger's equation can be written as
+\begin{align*}
+u^{n+1}_j = u^n_j - \frac{\Delta t}{\Delta x}\left(\left(u_j^n\right)^2-u_j^nu_{j-1}^n\right)~.
+\end{align*}
+We let $F_{j+1/2}=\left(u_j^n\right)^2$ and note
+\begin{align*}
+F_{j+1/2}=\left(u_j^n\right)^2 \Rightarrow F_{j-1/2} = \left(u_{j-1}^n\right)^2 \neq u_j^nu_{j-1}^n~.
+\end{align*}
+Thus, upwind discretization of Burger's equation is not conservative. The upwind discretization of Burgers' equation
+\begin{align*}
+u^{n+1}_j = u^n_j - \frac{\Delta t}{2 \Delta x}
+        \left((u^n_j)^2-(u^n_{j-1})^2\right)~,
+\end{align*}
+can be defined using $F_{j+1/2}=\left(u_j^n\right)^2$ and $F_{j-1/2}=\left(u_{j-1}^n\right)^2$ giving,
+\begin{align*}
+u^{n+1}_j = u^n_j - \frac{\Delta t}{\Delta x}
+	\left(F_{j+\half} - F_{j-\half}\right) ~.
+\end{align*}
+Therefore, it is conservative.
+
 \end{solution}
+
 \end{questions}
