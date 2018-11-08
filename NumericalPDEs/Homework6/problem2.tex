@@ -1,58 +1,20 @@
 \begin{questions}
 
-\question{Show that the Lax-Friedrichs method is first order (using the
-definition of the LTE) 
+\question{Show that the two-step Lax-Wendroff method reduces to the original
+Lax-Wendroff scheme for $u_t + A u_x = 0$.
 }
 \begin{solution}
-We can retake the following equation from Problem 1,
+We start with the first step of the method
 \begin{align*}
-u_i^n+\Delta tu_t+\frac{\Delta t^2}{2}u_{tt}&=\frac{1}{2}\left(2u_i^n+\Delta x^2u_{xx}\right)-\frac{c\Delta t}{2\Delta x}2\Delta x u_x+\dots,
+w_{i+1/2}^{n+1/2}&=\half\left(w_i^n+w_{i+1}^n\right)-\half\frac{\Delta t}{\Delta x}A\left(w_{i+1}^n-w_i^n\right),\\
+w_{i-1/2}^{n+1/2}&=\half\left(w_i^n+w_{i-1}^n\right)-\half\frac{\Delta t}{\Delta x}A\left(w_{i}^n-w_{i-1}^n\right),
 \end{align*}
-and use the definition of LTE
+and plug the terms into the second step,
 \begin{align*}
-u_i^n+\Delta tu_t+\frac{\Delta t^2}{2}u_{tt}&=\frac{1}{2}\left(2u_i^n+\Delta x^2u_{xx}\right)-\frac{c\Delta t}{2\Delta x}2\Delta x u_x+\Delta t\tau,\\
-\Delta tu_t+\frac{\Delta t^2}{2}u_{tt}&=\frac{\Delta x^2}{2}u_{xx}-c\Delta tu_x+\Delta t\tau,\\
-\Delta t\tau&=\Delta tu_t+\frac{\Delta t^2}{2}u_{tt}-\frac{\Delta x^2}{2}u_{xx}+c\Delta tu_x,\\
-\Delta t\tau&=\Delta t\cancelto{0}{\left(u_t+cu_x\right)}+\frac{\Delta t^2}{2}u_{tt}-\frac{\Delta x^2}{2}u_{xx},\\
+w_i^{n+1}&=w_i^n-\frac{\Delta t}{\Delta x}A\left(w_{i+1/2}^{n+1/2}-w_{i-1/2}^{n+1/2}\right),\\
+&=w_i^n-\frac{\Delta t}{\Delta x}A\left[\half\left(w_i^n+w_{i+1}^n\right)-\half\frac{\Delta t}{\Delta x}A\left(w_{i+1}^n-w_i^n\right)-\half\left(w_i^n+w_{i-1}^n\right)+\half\frac{\Delta t}{\Delta x}A\left(w_{i}^n-w_{i-1}^n\right)\right],\\
+&=w_i^n-\half A\frac{\Delta t}{\Delta x}\left(w_{i+1}^n-w_{i-1}^n\right)+\half A^2\frac{\Delta t^2}{\Delta x^2}\left(w_{i+1}^n-2w_i^n+w_{i-1}^n\right),
 \end{align*}
-where we have used the PDE to cancel the term $u_t+cu_x$. Thus, the Lax-Friedrichs is indeed first order in time since
-\begin{align*}
-\tau&=\frac{\Delta t}{2}u_{tt}-\frac{\Delta x^2}{2\Delta t}u_{xx}.
-\end{align*}
-\end{solution}
-\question{Show that the Lax-Friedrichs method is conditionally stable (using von Neumann
-stability analysis) for $u_t + c u_x = 0$.  {\em Hint for stability
-analysis:}\/ Show $|G(k)|^2 = G^*(k) G(k) \le 1$ iff $r \le 1$.
-}
-\begin{solution}
-By substituting the definitions
-\begin{align*}
-u_j^n=e^{ikx_j},~~~~u_j^{n+1}=G(k)e^{ikx_j},
-\end{align*}
-into the Lax-Friedrichs scheme we obtain
-\begin{align*}
-G(k)e^{ikx_j}=\frac{1}{2}\left(e^{ik(x_j+\Delta x)}+e^{ik(x_j-\Delta x)}\right)-c\frac{\Delta t}{2\Delta x}\left(e^{ik(x_j+\Delta x)}-e^{ik(x_j-\Delta x)}\right).
-\end{align*}
-Dividing by $e^{ikx_j}$,
-\begin{align*}
-G(k)&=\frac{1}{2}\left(e^{ik\Delta x}+e^{-ik\Delta x}\right)-c\frac{\Delta t}{2\Delta x}\left(e^{ik\Delta x}-e^{-ik\Delta x}\right)\\
-G(k)&=\cos(k\Delta x)-c\frac{\Delta t}{\Delta x}i\sin(k\Delta x).
-\end{align*}
-Finally,
-\begin{align*}
-|G(k)|^2 &= G^*(k) G(k)\\
-&= \cos^2(k\Delta x)+c^2\frac{\Delta t^2}{\Delta x^2}\sin^2(k\Delta x)\\
-&= \cos^2(k\Delta x)+r^2\sin^2(k\Delta x)\\
-&=1-\left(1-r^2\right)\sin^2(k\Delta x).
-\end{align*}
-Therefore,
-\begin{align*}
-|G(k)|^2\leq 1&\iff 1-\left(1-r^2\right)\sin^2(k\Delta x)\leq 1\\
-&\iff \left(1-r^2\right)\sin^2(k\Delta x)\geq 0\\
-&\iff \left(1-r^2\right)\geq 0\\
-&\iff r^2\leq 1 \\
-&\iff r\leq 1.
-\end{align*}
-Hence, Lax-Friedrichs method is conditionally stable for $u_t + c u_x = 0$.
+and we obtain the desired the original Lax-Wendroff scheme for $u_t + A u_x = 0$.
 \end{solution}
 \end{questions}

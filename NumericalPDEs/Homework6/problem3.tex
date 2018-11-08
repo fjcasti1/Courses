@@ -1,29 +1,15 @@
 \begin{questions}
 
-\question{
-Show that Lax-Friedrichs is conservative by verifying that
-the numerical flux function
+\question{Show that Burgers' equation $u_t + u u_x = \nu u_{xx}$ with
+$u(x,t=0) = u_l,~ x < 0$ and $u(x,t=0) = u_r < u_l,~ x > 0$ has a
+traveling wave solution of the form $u(x, t) = w(x - s t)$ by deriving
+an ODE for $w$ and showing that the ODE is solved by
 \begin{displaymath}
-        F_{i+\half} = \half \left(f(w_i) + f(w_{i+1})\right) -
-        \frac{\Delta x}{2 \Delta t} \left(w_{i+1} - w_i\right)
+	w(y) = u_r + \frac{1}{2} (u_l - u_r) \left[ 1 - 
+	\tanh \frac{(u_l - u_r) y}{4 \nu} \right]
 \end{displaymath}
-correctly produces the Lax-Friedrichs method for $w_t + f(w)_x = 0$.
+where $s = (u_l + u_r)/2$.
 }
 \begin{solution}
-We start with the conservative form of for the given PDE,
-\begin{align*}
-w_i^{n+1}=w_i^n+\frac{\Delta t}{\Delta x}\left(F_{i-1/2}-F_{i+1/2}\right),
-\end{align*}
-introducing the given numerical flux function,
-\begin{align*}
-w_i^{n+1}=w_i^n+\frac{\Delta t}{\Delta x}\left[\half \left(f(w_{i-1}) + f(w_{i})-f(w_{i}) - f(w_{i+1})\right)-\frac{\Delta x}{2 \Delta t} \left(w_{i} - w_{i-1}-w_{i+1}+w_i\right)\right].
-\end{align*}
-Manipulating this expression we obtain the Lax-Friedrichs method,
-\begin{align*}
-w_i^{n+1}&=w_i^n+\frac{\Delta t}{2\Delta x} \left(f(w_{i-1})-f(w_{i+1})\right)-\frac{1}{2} \left(-w_{i+1} +2w_i-w_{i-1}\right),\\
-&=\frac{\Delta t}{2\Delta x} \left(f(w_{i-1})-f(w_{i+1})\right)-\frac{1}{2} \left(-w_{i+1} -w_{i-1}\right),\\
-&=\frac{1}{2} \left(w_{i+1} +w_{i-1}\right)-\frac{\Delta t}{2\Delta x} \left(f(w_{i+1})-f(w_{i-1})\right).
-\end{align*}
-Hence, the Lax-Friedrichs method is conservative.
 \end{solution}
 \end{questions}

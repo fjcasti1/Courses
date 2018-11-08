@@ -1,42 +1,36 @@
 \begin{questions}
 
-\question{
-Derive the modified PDE for the Lax-Friedrichs method for $u_t + c
-u_x = 0$.  Find the coefficient $D_n \sim \{\Delta t, \Delta x\}$ of
-numerical diffusion in $u_t + c u_x = D_n u_{xx}$.  Note that $D_n \ge
-0$ iff the Courant number $r = c \Delta t/\Delta x \le 1$.
+\question{In the modified PDE for the Lax-Wendroff method for $u_t + c u_x =
+0$, derive the coefficient $\beta = \frac{c h^2}{6} (r^2 - 1)$ of
+numerical dispersion in $u_t + c u_x = \beta u_{xxx}$.
 }
 \begin{solution}
-We start Taylor expanding the following terms
+We start by Taylor expanding 
 \begin{align*}
-u_i^{n+1}&=u_i^n+\Delta tu_t+\frac{\Delta t^2}{2}u_{tt}+\dots\\
-u_{i\pm 1}^n&=u_i^n\pm\Delta xu_x+\frac{\Delta x^2}{2}u_{xx}+\dots
+u^{n+1}_j&=u_j^n+\Delta t u_t+\frac{\Delta t^2}{2} u_{tt}+\frac{\Delta t^3}{6} u_{ttt}+\mathcal{O}(\Delta t^4),\\
+u^{n}_{j\pm 1}&=u_j^n\pm\Delta x u_x+\frac{\Delta x^2}{2} u_{xx}\pm\frac{\Delta x^3}{6} u_{xxx}+\mathcal{O}(\Delta x^4),
 \end{align*}
-and substituting them into the Lax-Friedrichs method,
+and substituting them (neglecting the higher order terms) into the Lax-Wendroff scheme,
 \begin{align*}
-u^{n+1}_i&=\frac{1}{2}\left(u^n_{i+1}+u^n_{i-1}\right)-\frac{c\Delta t}{2\Delta x}\left(u^n_{i+1}-u^n_{i-1}\right),\\
-u_i^n+\Delta tu_t+\frac{\Delta t^2}{2}u_{tt}&=\frac{1}{2}\left(2u_i^n+\Delta x^2u_{xx}\right)-\frac{c\Delta t}{2\Delta x}2\Delta x u_x+\dots,\\
-u_t+\frac{\Delta t}{2}u_{tt}&\approx\frac{\Delta x^2}{2\Delta t}u_{xx}-cu_x,\\
-u_t+cu_x&\approx\frac{\Delta x^2}{2\Delta t}u_{xx}-\frac{\Delta t}{2}u_{tt}.
+u_j^{n+1}&=u_j^n-\frac{c\Delta t}{2\Delta x}\left(u^n_{j+1}-u^n_{j-1}\right)+\frac{c^2\Delta t^2}{2\Delta x^2}\left(u^n_{j+1}-2u^n_{j}+u^n_{j-1}\right),\\
+u_j^n+\Delta t u_t+\frac{\Delta t^2}{2} u_{tt}+\frac{\Delta t^3}{6} u_{ttt}&=u_j^n-\frac{c\Delta t}{2\Delta x}\left(2\Delta x u_x+\frac{\Delta x^3}{3} u_{xxx}\right)+\frac{c^2\Delta t^2}{2\Delta x^2}\Delta x^2 u_{xx}.
 \end{align*}
-Using the PDE, we obtain that $u_{tt}=c^2u_{xx}$. Thus,
+Doing some algebraic manipulations we reach,
 \begin{align*}
-u_t+cu_x&\approx\frac{\Delta x^2}{2\Delta t}u_{xx}-c^2\frac{\Delta t}{2}u_{xx}\\
-u_t+cu_x&\approx\frac{\Delta x^2}{2\Delta t}\left[1-r^2\right]u_{xx},
+u_t+cu_x=-\frac{\Delta t}{2} u_{tt}-c\frac{\Delta x^2}{6}u_{xxx}+\half c^2\Delta t u_{xx}-\frac{\Delta t^2}{6}u_{ttt}.
 \end{align*}
-where $r=c\Delta t/\Delta x$. Hence, we have obtained that the modified PDE is
+Using the original PDE we obtain that
 \begin{align*}
-u_t+cu_x=D_nu_{xx},
+u_t=-cu_x&\Rightarrow u_{tt}=c^2u_{xx},\\
+&\Rightarrow u_{ttt}=-c^3u_{xxx}.
 \end{align*}
-with
+Hence,
 \begin{align*}
-D_n=\frac{\Delta x^2}{2\Delta t}\left[1-r^2\right].
-\end{align*}
-Note that
-\begin{align*}
-D_n\geq 0&\iff \left[1-r^2\right]\geq 0\\
-&\iff r^2\leq 1\\
-&\iff r\leq 1\\
+u_t+cu_x&=-\frac{\Delta t}{2} c^2u_{xx}-c\frac{\Delta x^2}{6}u_{xxx}+\half c^2\Delta t u_{xx}+\frac{\Delta t^2}{6}c^3u_{xxx},\\
+&=-c\frac{\Delta x^2}{6}u_{xxx}+\frac{\Delta t^2}{6}c^3u_{xxx},\\
+&=c\frac{\Delta x^2}{6}\left(\frac{c^2\Delta t^2}{\Delta x^2} -1\right)u_{xxx},\\
+&=c\frac{\Delta x^2}{6}\left(r^2 -1\right)u_{xxx},\\
+&=\beta u_{xxx}.
 \end{align*}
 \end{solution}
 \end{questions}
