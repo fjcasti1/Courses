@@ -1,0 +1,34 @@
+\begin{questions}
+
+\question{
+Using von Neumann stability analysis, show downwind is
+unconditionally unstable for $u_t + c u_x = 0$.  {\em Hint:}\/ Show
+$|G(k)|^2 = G^*(k) G(k) > 1$ for any value of $r > 0$.
+}
+\begin{solution}
+By substituting the definitions
+\begin{align*}
+u_j^n=e^{ikx_j},~~~~u_j^{n+1}=G(k)e^{ikx_j},
+\end{align*}
+into the Downwind scheme,
+\begin{align*}
+u_i^{n+1}=u_i^{n}-c\frac{\Delta t}{\Delta x}\left(u_{i+1}^n-u_{i}^n\right),
+\end{align*}
+we obtain
+\begin{align*}
+G(k)e^{ikx_j}=e^{ikx_j}-c\frac{\Delta t}{\Delta x}\left(e^{ik(x_j+\Delta x)}-e^{ikx_j}\right).
+\end{align*}
+Dividing by $e^{ikx_j}$ and using the definition of Courant number $r=c\Delta t/\Delta x$, we get the growth factor
+\begin{align*}
+G(k)=1-r\left(e^{ik\Delta x}-1\right).
+\end{align*}
+To prove that the method is unconditionally unstable we study the modulus of the growth factor,
+\begin{align*}
+|G(k)|^2 &= G^*(k) G(k),\\
+&=\left[1-r\left(e^{-ik\Delta x}-1\right)\right]\left[1-r\left(e^{ik\Delta x}-1\right)\right],\\
+&=1-r\left(2\cos(k\Delta x)-2\right)+r^2\left(2-2\cos(k\Delta x)\right),\\
+&=1+r\left(2-2\cos(k\Delta x)\right)+r^2\left(2-2\cos(k\Delta x)\right),\\
+&=1+2r(r+1)\left(1-\cos(k\Delta x)\right)>1 ~~~\forall r>0\\
+\end{align*}
+\end{solution}
+\end{questions}
