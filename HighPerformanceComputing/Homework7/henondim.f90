@@ -60,7 +60,7 @@ module henondim
 !             to the equations giveni in the Henon map. The grid points will
 !             be filtered out using the commands where and all.
 
-!    use, intrinsic::iso_fortran_env
+    use, intrinsic::iso_fortran_env
     implicit none
     integer,  intent(in)  :: me, npes, K, basindim
     real(DP), intent(in)  :: xextent(6), params(2), eps, LOCKOUT
@@ -69,7 +69,7 @@ module henondim
     integer  :: j, N, M, NGRIDx, NGRIDy
     real(DP) :: xMin, xMax, yMin, yMax, hx, hy
     real(DP), dimension(:)  , allocatable :: x, y, auxme
-    real(DP), dimension(:,:), allocatable :: x0, X0me
+    real(DP), dimension(:,:), allocatable :: X0me
 
     xMin   = xextent(1)
     xMax   = xextent(2)
@@ -77,32 +77,50 @@ module henondim
     yMax   = xextent(4)
     NGRIDx = xextent(5) 
     NGRIDy = xextent(6) 
- 
-    allocate(x(NGRIDx))
-    allocate(y(NGRIDy))
-    allocate(X0(NGRIDx*NGRIDy,2))
 
     hx = (xMax-xMin)/(NGRIDx-1)
     hy = (yMax-yMin)/(NGRIDy-1)
-    x  = [(hx*(j-1)+xMin+eps, j=1,NGRIDx)]
-    y  = [(hy*(j-1)+yMin, j=1,NGRIDy)]
-    N  = NGRIDx*NGRIDy/npes
-    M  = MOD(int(NGRIDx*NGRIDy),npes)
+    N  = NGRIDx/npes
+    M  = MOD(int(NGRIDx),npes)
 
-    do j=1,NGRIDx
-      X0(1+(j-1)*NGRIDy:j*NGRIDy,1)=x(j)
-      X0(1+(j-1)*NGRIDy:j*NGRIDy,2)=y(:)
-    end do
+    allocate(y(NGRIDy))
+    y  = [(hy*(j-1)+yMin, j=1,NGRIDy)]
 
     if (me.lt.M) then
-      allocate(X0me(N+1,2))
-      allocate(auxme(N+1))
-      X0me=X0((N+1)*me+1:(N+1)*(me+1),:)
+      allocate(x(N+1))
+      allocate(X0me((N+1)*NGRIDy,2))
+      allocate(auxme((N+1)*NGRIDy))
+      x  = [(hx*(j-1)+xMin+eps, j=1+(N+1)*me,(N+1)*(me+1))]
+      do j=1,N+1
+        X0me(1+(j-1)*NGRIDy:j*NGRIDy,1) = x(j)
+        X0me(1+(j-1)*NGRIDy:j*NGRIDy,2) = y(:)
+      end do
     else
-      allocate(X0me(N,2))
-      allocate(auxme(N))
-      X0me=X0(N*me+M+1:N*(me+1)+M,:)
+      allocate(x(N))
+      allocate(X0me(N*NGRIDy,2))
+      allocate(auxme(N*NGRIDy))
+      x  = [(hx*(j-1)+xMin+eps, j=1+N*me+M,N*(me+1)+M)]
+      do j=1,N
+        X0me(1+(j-1)*NGRIDy:j*NGRIDy,1) = x(j)
+        X0me(1+(j-1)*NGRIDy:j*NGRIDy,2) = y(:)
+      end do
     endif
+
+!    write(OUTPUT_UNIT, 100) me, npes
+!    write(OUTPUT_UNIT, 101) me, params
+!    write(OUTPUT_UNIT, 102) me, xextent
+!    write(OUTPUT_UNIT, 103) me, N
+!    write(OUTPUT_UNIT, 104) me, M
+!    do j=1,size(x)
+!      write(OUTPUT_UNIT, 105) me, j, x(j)
+!    end do
+!    do j=1,NGRIDy
+!      write(OUTPUT_UNIT, 106) me, j, y(j)
+!    end do
+!    do j=1,size(X0me,1)
+!      write(OUTPUT_UNIT, 107) me, j, X0me(j,1), X0me(j,2)
+!    end do
+!    write(OUTPUT_UNIT, 108) me, hx, hy
 
     basin=all(abs(X0me)>LOCKOUT,2)
 
@@ -114,6 +132,56 @@ module henondim
         basin = all(abs(X0me)>LOCKOUT,2)
       end where
     end do
+
+!100 format('process ', i0, ': process count: ', i0)
+!101 format('process ', i0, ': parameters: ',2f8.2)
+!102 format('process ', i0, ': xextent: ', 6f8.2)
+!103 format('process ', i0, ': N: ', i0)
+!104 format('process ', i0, ': M: ', i0)
+!105 format('process ', i0, ': x(', i0,'): ', f6.2)
+!106 format('process ', i0, ': y(', i0,'): ', f6.2)
+!107 format('process ', i0, ': X0me(', i0,',:): ', f6.2,' , ', f6.2)
+!108 format('process ', i0, ': hx=', f6.2,', hy=',f6.2)
+
+
+
+ 
+!    allocate(x(NGRIDx))
+!    allocate(y(NGRIDy))
+!    allocate(X0(NGRIDx*NGRIDy,2))
+!
+!    hx = (xMax-xMin)/(NGRIDx-1)
+!    hy = (yMax-yMin)/(NGRIDy-1)
+!    x  = [(hx*(j-1)+xMin+eps, j=1,NGRIDx)]
+!    y  = [(hy*(j-1)+yMin, j=1,NGRIDy)]
+!    N  = NGRIDx*NGRIDy/npes
+!    M  = MOD(int(NGRIDx*NGRIDy),npes)
+!
+!    do j=1,NGRIDx
+!      X0(1+(j-1)*NGRIDy:j*NGRIDy,1)=x(j)
+!      X0(1+(j-1)*NGRIDy:j*NGRIDy,2)=y(:)
+!    end do
+!
+!    if (me.lt.M) then
+!      allocate(X0me(N+1,2))
+!      allocate(auxme(N+1))
+!      X0me=X0((N+1)*me+1:(N+1)*(me+1),:)
+!    else
+!      allocate(X0me(N,2))
+!      allocate(auxme(N))
+!      X0me=X0(N*me+M+1:N*(me+1)+M,:)
+!    endif
+!
+!    basin=all(abs(X0me)>LOCKOUT,2)
+!
+!    do j=1,K
+!      where(basin.eq..False.)
+!        auxme     = X0me(:,1)
+!        X0me(:,1) = params(1)-X0me(:,1)**2d0+params(2)*X0me(:,2)
+!        X0me(:,2) = auxme(:) 
+!        basin = all(abs(X0me)>LOCKOUT,2)
+!      end where
+!    end do
   end subroutine henon_map
 !-------------------------------------------------------------------------------
   subroutine basin_compare(basin0,basindim,xextent,me,npes,params,K,LOCKOUT,eps,Nuncert)
