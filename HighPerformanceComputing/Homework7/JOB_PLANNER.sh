@@ -21,9 +21,9 @@ do
   else
     outfile="${outfile0}$N.res"
   fi
-  echo "=========================" >> ${outfile}
-  echo "With $N Processing Element" >> ${outfile}
-  echo "=========================" >> ${outfile}
+  echo "===========================" >> ${outfile}
+  echo "With $N Processing Elements" >> ${outfile}
+  echo "===========================" >> ${outfile}
 
 sbatch --comment="Sweep ${job_prefix} ${job_com}" << EOF
 #!/bin/bash

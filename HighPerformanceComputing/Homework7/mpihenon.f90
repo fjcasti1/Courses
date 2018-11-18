@@ -12,7 +12,6 @@
     integer, parameter:: ROOT=0
     integer, parameter:: NEPS=10
     integer, parameter:: INTERNAL_ERROR=1  ! shell error code; must be nonzero
-!    integer, parameter:: DP=kind(1.0d0)  ! double precision
 
 !  Local variables
 
@@ -27,7 +26,7 @@
 !  Map parameters, as a 2-vector
 
     real(DP) :: henonparams(2)  !  parameters a ,b
-    integer      :: K        !  max number of iterations
+    integer  :: K        !  max number of iterations
     real(DP) :: LOCKOUT  !  threshold
 
 !  Other variables
@@ -40,7 +39,7 @@
 !  message, or all these values would have to be wrapped as a user-defined
 !  type and registered with the MPI library.)  
 
-    real(DP):: xextent(6)  ! xmin, xmax, ymin, ymax, xnum, ynum
+    real(DP):: xextent(6)  ! xmin, xmax, ymin, ymax, Nx, Ny
 
 !  Other variables
 
@@ -49,7 +48,7 @@
     integer:: uncert(NEPS)  ! number of uncertain points for each epsilon
     integer:: uncertsum(NEPS)  ! total number of uncertain points
     integer:: me  ! my MPI rank (0 = root process)
-    integer:: npes  ! Number of Processing ElementS (> 0), i.e., the
+    integer:: npes  ! Number of Processing ElementS (> 0)
     real(DP) :: d, C(2)
     namelist/basinparams/ henonparams, xextent, K, LOCKOUT
 
@@ -96,18 +95,15 @@
     call mpi_bcast(xextent, size(xextent), MPI_DOUBLE, ROOT, MPI_COMM_WORLD, &
       ierr)
 
-    call mpi_bcast(K, 1, MPI_INT, ROOT, MPI_COMM_WORLD, ierr)
+!  Once more, broadcast the max number of iterations K and the lockout parameter LOCKOUT.
 
+    call mpi_bcast(K, 1, MPI_INT, ROOT, MPI_COMM_WORLD, ierr)
     call mpi_bcast(LOCKOUT, 1, MPI_DOUBLE, ROOT, MPI_COMM_WORLD, ierr)
 
-!  Divide up the grid according to the number of processes and calculate
-!  the number of uncertain points for each epsilon on our portion of the grid.
-!  Include whatever other parameters that you need in this call.
-!  You should include appropriate code to handle unexpected errors by
-!  writing a message to ERROR_UNIT and calling MPI_ABORT.
-    
-!    call basin_dim(xextent, me, npes, henonparams, K, LOCKOUT, &
-!                                          epsilon, size(epsilon), uncert)
+!  The basi_alg subroutine will divide up the grid according to the number of 
+!  processes and calculate the number of uncertain points for each epsilon
+!  on the correspoinding protion of the grid for that processor. It will return
+!  an array of uncertain points (same dimension as the array of epsilons).
 
     call basin_alg(xextent, me, npes, henonparams, K, LOCKOUT, &
                                           epsilon, size(epsilon), uncert)
@@ -162,120 +158,3 @@
     call mpi_abort(MPI_COMM_WORLD, INTERNAL_ERROR, ierr)
     end
 
-!---------CUT HERE---------------------------------------------------------
-!!!   subroutine basin_dim(xextent, me, npes, params, K, LOCKOUT, eps, epsdim, uncert)
-!!!!    call basin_alg(xextent, me, npes, henonparams, K, LOCKOUT, &
-!!!!                                          epsilon, size(epsilon), uncert)
-!!!!  BASIN_DIM - dummy subroutine that should be deleted here and replaced with
-!!!!  a suitably modified routine in module henondim.
-!!!!  This version simply prints each process's copy of the inputs to
-!!!!  the standard output.  The outputs are likely to be jumbled when
-!!!!  run on multiple processors.
-!!!
-!!!    use, intrinsic::iso_fortran_env
-!!!    implicit none
-!!!    integer, parameter::DP=kind(1.0d0)
-!!!    real(DP), intent(in)::xextent(6)
-!!!    real(DP),intent(in):: params(2)
-!!!    integer, intent(in)::me, npes
-!!!    integer, intent(out)::uncert(3)
-!!!    real(DP) :: hx, hy, LOCKOUT
-!!!    real(DP), dimension(:)  , allocatable :: x, y, auxm, auxme
-!!!    real(DP), dimension(:,:), allocatable :: x0, X0me
-!!!    logical, dimension(:), allocatable :: basin
-!!!    integer :: i, j, N, M, NGRIDx, NGRIDy, K, epsdim
-!!!    real(DP) :: eps(epsdim) 
-!!!    
-!!!    NGRIDx = xextent(5) 
-!!!    NGRIDy = xextent(6) 
-!!! 
-!!!    allocate(x(NGRIDx))
-!!!    allocate(y(NGRIDy))
-!!!    allocate(X0(NGRIDx*NGRIDy,2))
-!!!
-!!!    hx = (xextent(2)-xextent(1))/(NGRIDx-1)
-!!!    hy = (xextent(4)-xextent(3))/(NGRIDy-1)
-!!!    x  = [(hx*(j-1)+xextent(1), j=1,NGRIDx)]
-!!!    y  = [(hy*(j-1)+xextent(3), j=1,NGRIDy)]
-!!!    N  = NGRIDx*NGRIDy/npes
-!!!    M  = MOD(int(NGRIDx*NGRIDy),npes)
-!!!
-!!!    do j=1,NGRIDx
-!!!      X0(1+(j-1)*NGRIDy:j*NGRIDy,1)=x(j)
-!!!      X0(1+(j-1)*NGRIDy:j*NGRIDy,2)=y(:)
-!!!    end do
-!!!
-!!!    if (me.lt.M) then
-!!!      allocate(X0me(N+1,2))
-!!!      allocate(auxme(N+1))
-!!!      allocate(basin(N+1))
-!!!      X0me=X0((N+1)*me+1:(N+1)*(me+1),:)
-!!!    else
-!!!      allocate(X0me(N,2))
-!!!      allocate(auxme(N))
-!!!      allocate(basin(N))
-!!!      X0me=X0(N*me+M+1:N*(me+1)+M,:)
-!!!    endif
-!!!
-!!!!    print *, size(eps)
-!!!!    print *, K 
-!!!!    print *, LOCKOUT 
-!!!!    do j=1,size(eps)
-!!!!      print*, eps(j)
-!!!!    end do
-!!!    basin=all(abs(X0me)>LOCKOUT,2)
-!!!
-!!!!    do j=1,K
-!!!!      where(basin.eq..False.)
-!!!!        auxme = X0me(:,1)
-!!!!        X0me(:,1) = params(1)-X0me(:,1)**2d0+params(2)*X0me(:,2)
-!!!!        X0me(:,2) = auxme(:) 
-!!!!        basin = all(abs(X0me)>LOCKOUT,2)
-!!!!      end where
-!!!!    end do
-!!!
-!!!!    write(OUTPUT_UNIT, 100) me, npes
-!!!!    write(OUTPUT_UNIT, 101) me, params
-!!!!    write(OUTPUT_UNIT, 102) me, xextent
-!!!!    write(OUTPUT_UNIT, 103) me, N
-!!!!    write(OUTPUT_UNIT, 104) me, M
-!!!!    do i=1,NGRIDx
-!!!!      write(OUTPUT_UNIT, 105) me, i, x(i)
-!!!!      !print *, x(i)
-!!!!    end do
-!!!!    do j=1,NGRIDy
-!!!!      write(OUTPUT_UNIT, 106) me, j, y(j)
-!!!!      !print *, y(j)
-!!!!    end do
-!!!!    do i=1,NGRIDx*NGRIDy
-!!!!      write(OUTPUT_UNIT, 107) me, i, X0(i,1)
-!!!!    end do
-!!!!    do i=1,NGRIDx*NGRIDy
-!!!!      write(OUTPUT_UNIT, 108) me, i, X0(i,2)
-!!!!    end do
-!!!
-!!!!    do i=1,size(X0me,1)
-!!!!      write(OUTPUT_UNIT, 111) me, i, X0me(i,1), i, X0me(i,2)
-!!!!    end do
-!!!!    write(OUTPUT_UNIT, 112) me, hx, hy
-!!!
-!!!100 format('process ', i0, ': process count: ', i0)
-!!!101 format('process ', i0, ': parameters: ',2f8.2)
-!!!102 format('process ', i0, ': xextent: ', 6f8.2)
-!!!103 format('process ', i0, ': N: ', i0)
-!!!104 format('process ', i0, ': M: ', i0)
-!!!105 format('process ', i0, ': x(', i0,'): ', f6.2)
-!!!106 format('process ', i0, ': y(', i0,'): ', f6.2)
-!!!107 format('process ', i0, ': X0(', i0,',1): ', f6.2)
-!!!108 format('process ', i0, ': X0(', i0,',2): ', f6.2)
-!!!109 format('process ', i0, ': less than: ', i0)
-!!!110 format('process ', i0, ': greater than or equal to: ', i0)
-!!!111 format('process ', i0, ': X0me(', i0,',1): ', f6.2,', X0me(', i0,',2): ', f6.2)
-!!!112 format('process ', i0, ': hx=', f6.2,', hy=',f6.2)
-!!!
-!!!!  Place dummy values in the first 3 elements of UNCERT
-!!!
-!!!   uncert=[me, 2*me, 3*me]  ! depends on rank and number of processors
-!!!
-!!!   return
-!!!   end subroutine basin_dim
