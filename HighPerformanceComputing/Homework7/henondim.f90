@@ -243,13 +243,12 @@ module henondim
     integer  :: j, ierr, basindim, N, M, NGRIDx, NGRIDy
     real(DP) :: d
     logical,  dimension(:)  , allocatable :: basin
-    
 
     NGRIDx = xextent(5) 
     NGRIDy = xextent(6) 
  
-    N  = NGRIDx*NGRIDy/npes
-    M  = MOD(int(NGRIDx*NGRIDy),npes)
+    N  = NGRIDx/npes
+    M  = MOD(int(NGRIDx),npes)
     if (me.lt.M) then
       allocate(basin(N+1))
     else

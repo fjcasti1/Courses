@@ -10,7 +10,7 @@ OVERHEAD_THREADS=28
 OVERHEAD_CPUS=14
 OVERHEAD_JOBS=14
 MKL_CPUS=1
-Nprocs=16
+Nprocs=10
 outfile=results.res
 
 echo "=========================" >> ${outfile}
