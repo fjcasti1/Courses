@@ -1,0 +1,38 @@
+\begin{questions}
+
+\question{Show that the Lax-Wendroff method is second-order accurate for
+$u_t + A u_x = 0$ using the definition of the LTE.
+}
+\begin{solution}
+To prove that the Lax-Wendroff scheme 
+\begin{align*}
+u_j^{n+1}=u_j^n-\half A\frac{\Delta t}{\Delta x}\left(u_{j+1}^n-u_{j-1}^n\right)+\half A^2\frac{\Delta t^2}{\Delta x^2}\left(u_{j+1}^n-2u_j^n+u_{j-1}^n\right),
+\end{align*}
+is second order accurate for $u_t+Au_x=0$, we start by Taylor expanding 
+\begin{align*}
+u^{n+1}_j&=u_j^n+\Delta t u_t+\frac{\Delta t^2}{2} u_{tt}+\frac{\Delta t^3}{6} u_{ttt}+\mathcal{O}(\Delta t^4),\\
+u^{n}_{j\pm 1}&=u_j^n\pm\Delta x u_x+\frac{\Delta x^2}{2} u_{xx}\pm\frac{\Delta x^3}{6} u_{xxx}+\mathcal{O}(\Delta x^4),
+\end{align*}
+and substituting them into the Lax-Wendroff scheme,
+\begin{align*}
+u_j^n+\Delta t u_t+\frac{\Delta t^2}{2} u_{tt}+\frac{\Delta t^3}{6} u_{ttt}&=u_j^n-\frac{A\Delta t}{2\Delta x}\left(2\Delta x u_x+\frac{\Delta x^3}{3} u_{xxx}\right)+\frac{A^2\Delta t^2}{2\Delta x^2}\Delta x^2 u_{xx}+\Delta t\tau.
+\end{align*}
+Doing some algebraic manipulations we reach,
+\begin{align*}
+u_t+Au_x=-\frac{\Delta t}{2} u_{tt}-A\frac{\Delta x^2}{6}u_{xxx}+\half A^2\Delta t u_{xx}-\frac{\Delta t^2}{6}u_{ttt}+\tau,\\
+\tau=\frac{\Delta t}{2} u_{tt}+A\frac{\Delta x^2}{6}u_{xxx}-\half A^2\Delta t u_{xx}+\frac{\Delta t^2}{6}u_{ttt},\\
+\end{align*}
+where we have used that $u_t + A u_x = 0$.
+Using the original PDE we obtain that
+\begin{align*}
+u_t=-Au_x&\Rightarrow u_{tt}=A^2u_{xx},\\
+&\Rightarrow u_{ttt}=-A^3u_{xxx}.
+\end{align*}
+Hence,
+\begin{align*}
+\tau&=\frac{\Delta t}{2} A^2u_{xx}+A\frac{\Delta x^2}{6}u_{xxx}-\half A^2\Delta t u_{xx}+\frac{\Delta t^2}{6}A^3u_{ttt},\\
+&=A\frac{\Delta x^2}{6}u_{xxx}+\frac{\Delta t^2}{6}A^3u_{ttt}.
+\end{align*}
+Thus, the Lax-Wendroff scheme is second order accurate for $u_t+Au_x=0$.
+\end{solution}
+\end{questions}

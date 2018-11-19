@@ -1,0 +1,67 @@
+\begin{questions}
+
+\question{Derive the entropy advection equation $s_t + u s_x = 0$ from the
+Euler equations and the expression for the entropy $s = c_V
+\ln(P/{\rho^\gamma})$ of a polytropic gas.  {\em Hint:}\/ Start with
+the entropy advection equation and derive $E_t + (u(E+P))_x = 0$ with
+$P = (\gamma-1) \left(E - \half \rho u^2\right)$, making use of
+$\rho_t + (\rho u)_x = 0$ and $(\rho u)_t + (\rho u^2 + P)_x = \rho
+u_t + \rho u u_x + P_x = 0$ if needed.
+}
+\begin{solution}
+From the definition of the entropy we obtain the partial derivatives
+\begin{align*}
+s_t &= c_V\left(\frac{P_t}{P}-\gamma\frac{\rho_t}{\rho}\right),\\
+s_x &= c_V\left(\frac{P_x}{P}-\gamma\frac{\rho_x}{\rho}\right).
+\end{align*}
+Then, the entropy advection equation gives
+\begin{align*}
+s_t+us_x=0\Rightarrow \rho P_t-\gamma P\rho_t+u\rho P_x-\gamma uP\rho_x=0,
+\end{align*}
+where we have multiplied the whole equation by $\rho P$. We now include the easy computed partial derivatives of $P$,
+\begin{align*}
+P_t &= \left(\gamma-1\right)\left(E_t-\frac{1}{2}u^2\rho_t-\rho u u_t\right),\\
+P_x &= \left(\gamma-1\right)\left(E_x-\frac{1}{2}u^2\rho_x-\rho u u_x\right),
+\end{align*}
+into the equation to get
+\begin{align*}
+\rho\left(\gamma-1\right)\left(E_t-\frac{1}{2}u^2\rho_t-\rho u u_t\right)-\gamma P\rho_t+u\rho\left(\gamma-1\right)\left(E_x-\frac{1}{2}u^2\rho_x-\rho u u_x\right)-\gamma uP\rho_x=0.
+\end{align*}
+Dividing by $\rho\left(\gamma-1\right)$ and computing the brackets we obtain
+\begin{align*}
+E_t-\frac{1}{2}u^2\rho_t-\rho u u_t-\frac{\gamma}{\gamma-1}P\frac{\rho_t}{\rho}+u E_x-\frac{1}{2}u^3\rho_x-\rho u^2 u_x-\frac{\gamma}{\gamma-1}uP\frac{\rho_x}{\rho}=0.
+\end{align*}
+Using the continuity equation $\rho_t+u\rho_x+\rho u_x=0$, we simplify the previous equation,
+\begin{align*}
+E_t-\rho u u_t-\frac{\gamma}{\gamma-1}P\frac{\rho_t}{\rho}+u E_x-\frac{1}{2}\rho u^2 u_x-\frac{\gamma}{\gamma-1}uP\frac{\rho_x}{\rho}=0.
+\end{align*}
+Further, we use the Euler momentum equation in the form $-\rho uu_t=\rho u^2u_x+P_x$ to obtain
+\begin{align*}
+E_t+\rho u^2 u_x+uP_x-\frac{\gamma}{\gamma-1}P\frac{\rho_t}{\rho}+u E_x-\frac{1}{2}\rho u^2 u_x-\frac{\gamma}{\gamma-1}uP\frac{\rho_x}{\rho}&=0,\\
+E_t+u(E_x+P_x)+\frac{1}{2}\rho u^2 u_x-\frac{\gamma}{\gamma-1}\frac{P}{\rho}\left(\rho_t+u\rho_x\right)&=0,\\
+E_t+u(E_x+P_x)+\frac{1}{2}\rho u^2 u_x+\frac{\gamma}{\gamma-1}\frac{P}{\rho}\rho u_x&=0,
+\end{align*}
+where we have used once more the continuity equation in the last step. Note that
+\begin{align*}
+\frac{\gamma}{\gamma-1}P=\gamma E-\frac{1}{2}\gamma\rho u^2.
+\end{align*}
+Then,
+\begin{align*}
+E_t+u(E_x+P_x)+u_x\left(\frac{1}{2}\rho u^2+\gamma E-\frac{1}{2}\gamma\rho u^2\right)&=0,\\
+E_t+u(E_x+P_x)+u_x\left(\gamma E-(\gamma-1)\frac{1}{2}\rho u^2\right)&=0.
+\end{align*}
+To finish, note that 
+\begin{align*}
+E+P = \gamma E-(\gamma-1)\frac{1}{2}\rho u^2.
+\end{align*}
+Hence,
+\begin{align*}
+E_t+u(E_x+P_x)+u_x\left(\gamma E-(\gamma-1)\frac{1}{2}\rho u^2\right)&=0,\\
+E_t+u(E_x+P_x)+u_x\left(E+P\right)&=0.
+\end{align*}
+Finally, we obtain the equation that completes the proof,
+\begin{align*}
+E_t+\left(u\left(E+P\right)\right)_x&=0.
+\end{align*}
+\end{solution}
+\end{questions}
