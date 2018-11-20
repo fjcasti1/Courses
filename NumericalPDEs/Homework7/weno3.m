@@ -56,7 +56,7 @@ function weno3(rhol,vl,pl,rhor,vr,pr,gamma,tf,N,cfl)
 %       rho = q(:,1) = mass density
 %         m = q(:,2) = momentum density
 %         E = q(:,3) = energy density
-
+close all
 % if N is odd, reset N to N+1
 if mod(N,2) 
     N = N + 1;
@@ -130,10 +130,13 @@ while t < tf
 end
 
 figure;
-plot(x,qexact(:,1),'r-',x,q(:,1),'b-','LineWidth',1);
+plot(x,qexact(:,1),'r-',x,q(:,1),'b-','LineWidth',2);
 set(gca,'fontsize',24);
 xticks([-0.5 -0.25 0 0.25 0.5]);
 title('Density');
+name = ['density_r0' int2str(10*cfl)];
+grid on
+saveas(gcf,name,'png')
 % legend('exact','WENO','Location','North');
 
 figure;
