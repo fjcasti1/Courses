@@ -10,7 +10,17 @@ Calculate the shock speed $s$.  For $\gamma$ = 1.5, $E = \half \rho
 u^2 + 2P$.  {\em Hint:}\/ Use the jump conditions.  
 }
 \begin{solution}
-
+We can easily compute $s$ as
+\begin{align*}
+s=\frac{\rho_Lu_L-\rho_Ru_R}{\rho_L-\rho_R}=\frac{2\cdot 1-1\cdot 0}{2-1}=2,
+\end{align*}
+and check that this result is right by the following:
+\begin{align*}
+s\left(\rho_Lu_L-\rho_Ru_R\right)&=\rho_Lu_L^2+P_L-\rho_Ru_R^2-P_R, ~~&~~ s\left(E_L-E_R\right)&=u_L(E_L+P_L)-u_R(E_R+P_R),\\
+2\left(2\cdot 1-1\cdot 0\right)&=2\cdot 1^2+3-1\cdot 0^2-1, ~~&~~ 2\cdot(7-2)&=1\cdot(7+3)-0\cdot(2+1),\\
+4&=4, ~~&~~ 10&=10,
+\end{align*}
+where we have calcultated $E_L=\frac{1}{2}\rho_Lu_L^2+2P_L=7$ and $E_R=\frac{1}{2}\rho_Ru_R^2+2P_R=2$
 \end{solution}
 \question{With a wall BC at $x = 1$, analytically calculate the solution after reflection of
 the shock wave.  {\em Hint:}\/ Show that the exact reflected shock
@@ -20,6 +30,12 @@ solution is
 \end{displaymath}
 where $s_r$ is the velocity of the reflected shock.}
 \begin{solution}
-
+In this case we repeat the process assuming the same conditions on the left. We can check that given the right values of $\rho$, $u$, and $P$, the value $s_r$ obtains matches the solution:
+\begin{align*}
+s&=\frac{\rho_Lu_L-\rho_Ru_R}{\rho_L-\rho_R}=\frac{2\cdot 1-3.6\cdot 0}{2-3.6}=-1.25,\\
+s&=\frac{\rho_Lu_L^2+P_L-\rho_Ru_R^2-P_R}{\rho_Lu_L-\rho_Ru_R}=\frac{2\cdot 1^2+3-3.6\cdot 0^2-7.5}{2\cdot 1-3.6\cdot 0}=-1.25,\\
+s&=\frac{u_L(E_L+P_L)-u_R(E_R+P_R)}{E_L-E_R}=\frac{1\cdot(7+3)-0\cdot(15+7.5)}{7-15}=-1.25,
+\end{align*}
+where we have calcultated $E_R=\frac{1}{2}\rho_Ru_R^2+2P_R=15$
 \end{solution}
 \end{questions}
