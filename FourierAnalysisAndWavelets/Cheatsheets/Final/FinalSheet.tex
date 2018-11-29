@@ -33,12 +33,18 @@
 %\input{Def_0_29}
 
 \section*{CHAPTER 1: FOURIER SERIES}
-\subsubsection*{Real Fourier Series}
+%\subsubsection*{Real Fourier Series}
+
+\underline{\textsl{\bf REAL FOURIER SERIES}}
 \input{Thm_1_1}
 \input{Thm_1_2}
-\subsubsection*{Complex Fourier Series}
+%\subsubsection*{Complex Fourier Series}
+
+\underline{\textsl{\bf COMPLEX FOURIER SERIES}}
 \input{Thm_1_20}
-\subsubsection*{Convergence Theorems}
+%\subsubsection*{Convergence Theorems}
+
+\underline{\textsl{\bf CONVERGENCE THEOREMS}}
 \input{Thm_1_21}
 \input{Thm_1_22}
 \input{Thm_1_28}
@@ -54,13 +60,17 @@
 \input{Thm_2_6}
 \input{Thm_2_9and10}
 \input{Thm_2_12}
-\subsubsection*{Linear Filters}
+%\subsubsection*{Linear Filters}
+
+\underline{\textsl{\bf LINEAR FILTERS}}
 \input{Def_2_13}
 \input{Lem_2_16}
 \input{Thm_2_17}
 \input{Thm_2_19}
 \input{Thm_2_20}
-\subsubsection*{The Sampling Theorem}
+%\subsubsection*{The Sampling Theorem}
+
+\underline{\textsl{\bf THE SAMPLING THEOREM}}
 \input{Def_2_22}
 \input{Thm_2_23}
 
@@ -78,17 +88,34 @@
 {\bf Haar Wavelet:} The Haar wavelet is function $\psi(x) = \phi(2x)-\phi(2x-1)$.
 {\bf Theorem 4.8:} Let $W_j$ be the space of functions of the form $\sum_{k\in\Z}a_k\psi(2^jx-k)$, $a_k\in\R$ (only a finite number of $a_k$ are nonzero). $W_j$ is the orthogonal complement of $V_j$ in $V_{j+1}$ and $V_{j+1}=V_j\bigoplus W_j$.
 {\bf Theorem 4.9:} The space $L^2(\R)$ can be decomposed as an infinite orthogonal direct sum $L^2(\R)=V_0\bigoplus W_0\bigoplus W_1\dots$. In particular, each $f\in L^2(\R)$ can be written as $f=f_0+\sum_{j=0}^{\infty}w_j$, where $f_0\in V_0$ and $w_j\in W_j$.
-\subsubsection*{Sample}
+
+\underline{\textsl{\bf SAMPLE}}
 If the signal is continuous, $y=f(t)$, where $t$ represents time, choose the top level $j=J$ so that $2^j$ is larger than the Nyquist rate for the signal. Let $a_k^J=f(k/2^J)$. The top level $a_k^J$ is set equal to the $k$th term in the sampled signal, and $2^J$ is taken to be the sampling rate. In any case, we have the highest-level approximation to $f$ given by $f_J=\sum_{k\in\Z}a_k^j\phi(2^Jx-k)$.
-\subsubsection*{Decomposition}
+
+\underline{\textsl{\bf DECOMPOSITION}}
 {\bf Lemma 4.10:} The following relations hold for all $x\in\R$. $\phi(2^jx)=\left(\phi(2^{j-1}x)+\psi(2^{j-1}x)\right)/2$. $\phi(2^jx-1)=\left(\phi(2^{j-1}x)-\psi(2^{j-1}x)\right)/2$.
 {\bf Theorem 4.12:} Suppose $f_j(x)=\sum_{k\in\Z}a_k^j\phi(2^jx-k)\in V_j$. Then $f_j$ can be decomposed as $f_j=w_{j-1}+f_{j-1}$, where $w_{j-1}=\sum_{k\in\Z}b_k^{j-1}\psi(2^{j-1}x-k)\in W_{j-1}$ and $f_{j-1}=\sum_{k\in\Z}a_k^{j-1}\phi(2^{j-1}x-k)\in V_{j-1}$, with $b_k^{j-1}=\frac{a_{2k}^j-a_{2k+1}^j}{2}$ and $a_k^{j-1}=\frac{a_{2k}^j+a_{2k+1}^j}{2}$.
-\subsubsection*{Reconstruction}
+
+\underline{\textsl{\bf RECONSTRUCTION}}
 {\bf Theorem 4.12:} If $f=f_0+w_0+w_1+\dots +w_{j-1}$ with $f_{0}(x)=\sum_{k\in\Z}a_k^0\phi(x-k)\in V_0$ and $w_{j}=\sum_{k\in\Z}b_k^{j}\psi(2^jx-k)\in W_{j}$ for $0\leq j\leq J$, then $f(x)=f_J(x)=\sum_{k\in\Z}a_k^J\phi(2^Jx-k)\in V_J$. The $a_k^J$ are determined recursively by $a_k^j = a_l^{j-1}+b_l^{j-1}$ if $k=2l$ is even and $a_k^j = a_l^{j-1}-b_l^{j-1}$ if $k=2l+1$ is odd.
 
 \section*{CHAPTER 5: MULTIRESOLUTION ANALYSIS}
 {\bf Definition:} Let $V_j, j=\dots -1,0,1\dots,$ be a sequence of subspaces of cuntions in $L^2(\R)$. The collection of spaces $\{V_j,j\in\Z\}$ is called a \textit{multiresolution analysis with scaling funciton $\phi$} if the following conditions hold. {\bf 1.} (Nested) $V_j\subset V_{j+1}$. {\bf 2.} (Density) $\overline{\cup V_j}=L^2(\R)$. {\bf 3.} (Separation) $\cap V_j=\{0\}$ {\bf 4.} (Scaling) See Theorem 4.5(b) {\bf 5.} (Orthonormal basis) The function $\phi$ belongs to $V_0$ and the set $\{\phi(x-k);k\in\Z\}$ is an orthonormal basis for $V_0$.
+{\bf Theorem 5.5:} Suppose $\{V_j; j\in\Z\}$ is a multiresolution analysis with scaling function $\phi$. Then for any $\in\Z$, the set of functions $\{\phi_{jk}(x)=2^{j/2}\phi(2^jx-k);k\in\Z\}$ is an orthonormal basis for $V_j$. 
 
+\underline{\textsl{\bf THE SCALING RELATION}}
+{\bf Theorem 5.6:} Suppose $\{V_j; j\in\Z\}$ is a multiresolution analysis with scaling function $\phi$. Then the following scaling relation holds: $\phi(x) = \sum_{k\in\Z} p_k\phi(2x - k)$, where $p_k = 2\int_{-\infty}^{\infty}\phi(x)\overline{\phi(2x - k)}dx$. Moreover, we also have $\phi_{j-1,l}=2^{-1/2}\sum_{k\in\Z}p_{k-2l}\phi_{jk}$. \newline {\bf Remark:} When the support of $\phi$ is compact, only a finite number of $p_k$ are nonzero, because when $|k|$ is large enough, the support of $\phi(2x - k)$ will be outside of the support of $\phi(x)$.
+{\bf Theorem 5.9:} Suppose $\{V_j; j\in\Z\}$ is a multiresolution analysis with scaling function $\phi$. Then, provided the scaling relation can be integrated termwise, the following equalities hold: {\bf 1.} $\sum_{k\in\Z}p_{k-2l}\overline{p_k}=2\delta_{l0}$. {\bf 2.} $\sum_{k\in\Z}|p_{k}|^2=2$. {\bf 3.} $\sum_{k\in\Z}p_{k}=2$. {\bf 4.} $\sum_{k\in\Z}p_{2k}=1$ and $\sum_{k\in\Z}p_{2k+1}=1$.
+{\bf Theorem 5.10:} Suppose $\{V_j; j\in\Z\}$ is a multiresolution analysis with scaling function $\phi = \sum_{k}p_{k}\phi(2x-k)$.  Let $W_j$ be the span of $\{\psi(2^jx-k); k\in\Z\}$ where $\psi(x) = \sum_{k\in\Z}(-1)^{k}\overline{p_{1-k}}\phi(2x-k)$. Then, $W_j\subset V_{j+1}$ is the orthogonal complement of $V_j$ in $V_{j+1}$. Furthermore, $\{\psi_{jk}(x) := 2^{j/2}\psi(2^jx - k); k\in\Z\}$ is an orthonormal basis for the $W_j$.
+{\bf Theorem 5.11:} Let $\{V_j, j\in\Z\}$ be a multiresolution analysis with scaling function $\phi$. Let $W_j$ be the orthogonal complement of $V_j$ in $V_{j+1}$. Then $L^2(\R)=\dots\bigoplus W_{-1}\bigoplus W_{0}\bigoplus W_{1}\bigoplus\dots$. In particular, each $f\in L^2(\R)$ can be uniquely expressed as a sum $\sum_{k\in\Z}w_k$ with $w_k\in W_k$ and where the $w_k$'s are mutually orthogonal. Equivalently, the set of all wavelets, $\{\psi_{jk}\}_{j,k\in\Z}$, is an orthonormal basis for $L^2(\R)$. 
+
+\underline{\textsl{\bf DECOMPOSITION}}
+{\bf Orthogonal Form:} $a^{j-1}_l = 2^{-1}\sum_{k\in\Z}\overline{p_{k-2l}}a_k^j$ and $b^{j-1}_l = 2^{-1}\sum_{k\in\Z}(-1)^kp_{1-k+2l}a_k^j$
+{\bf ON Form:} $\left\langle f,\phi_{j-1,l}\right\rangle = 2^{-1/2}\sum_{k\in\Z}\overline{p_{k-2l}}\left\langle f,\phi_{jk}\right\rangle$ and $\left\langle f,\psi_{j-1,l}\right\rangle = 2^{-1/2}\sum_{k\in\Z}(-1)^kp_{1-k+2l}\left\langle f,\phi_{jk}\right\rangle$
+
+\underline{\textsl{\bf RECONSTRUCTION}}
+{\bf Orthogonal Form:} $a^{j}_k = \sum_{l\in\Z}p_{k-2l}a_l^{j-1}+\sum_{l\in\Z}(-1)^k\overline{p_{1-k+2l}}b_l^{j-1}$
+{\bf ON Form:} $\left\langle f,\phi_{jk}\right\rangle = 2^{-1/2}\sum_{l\in\Z}p_{k-2l}\left\langle f,\phi_{j-1,l}\right\rangle+2^{-1/2}\sum_{l\in\Z}(-1)^k\overline{p_{1-k+2l}}\left\langle f,\psi_{j-1,l}\right\rangle$
 \section*{APPENDIX}
 \input{Apendix}
 
