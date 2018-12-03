@@ -4,9 +4,8 @@ program jacobimpi
     use precision
  !   use jacobimodule
     implicit none
-    integer :: k
     integer, parameter :: ROOT=0, INTERNAL_ERROR=1
-    integer  :: me, npes, beta, k
+    integer  :: me, npes, beta, k1, k2
     integer  :: M, N, i, j, iter, ierr, nargs
     real(DP) :: xMin, xMax, yMin, yMax, hx, hy
     real(DP) :: delta, bcleft, bcright, bcup, bcdown
@@ -77,19 +76,55 @@ program jacobimpi
 !!!    print*, "| BCdown  = ", bcdown
 !!!    print*, "--------------------------------------"
 
-    call mpi_barrier(MPI_COMM_WORLD,ierr)
+    hx = (xMax-xMin)/M
+    hy = (yMax-yMin)/N
 
 !'''''''''''''''''''''''''''''''''''''''''''''''''''''!
 !'''''''' IMPLEMENT CHECK FOR PERFECT SQUARE '''''''''!
 !'''''''''''''''''''''''''''''''''''''''''''''''''''''!
     beta = sqrt(DBLE(npes))
-    Mme = (M+1)/beta+1
-    Nme = (N+1)/beta+1
-    allocate(x(0:Mme))
-    allocate(y(0:Nme))
-    allocate(metest(0:Mme,0:Nme))
+    Mme = (M+1)/beta
+    Nme = (N+1)/beta
+    k1 = MOD(me,beta)
+    k2 = FLOOR(DBLE(me/beta))
+  
+    if (k1.eq.0) then
+      allocate(x(0:Mme))
+      x = [(hx*(j-1)+xMin, j=1, Mme+1)]
+    elseif (k1.eq.Mme) then
+      allocate(x(0:Mme))
+      x = [(hx*(j-1)+xMin, j=Mme*k1, Mme*(k1+1))]
+    else
+      allocate(x(0:Mme+1))
+      x = [(hx*(j-1)+xMin, j=Mme*k1, Mme*(k1+1)+1)]
+    endif
 
-    metest = me
+    if (k2.eq.0) then
+      allocate(y(0:Nme))
+      y = [(hy*(j-1)+yMin, j=1, Nme+1)]
+    elseif (k2.eq.Nme) then
+      allocate(y(0:Nme))
+      y = [(hy*(j-1)+yMin, j=Nme*k2, Nme*(k2+1))]
+    else
+      allocate(y(0:Nme+1))
+      y = [(hy*(j-1)+yMin, j=Nme*k2, Nme*(k2+1)+1)]
+    endif
+    allocate(f(0:size(x)-1,0:size(y)-1))
+    allocate(sol(0:size(x)-1,0:size(y)-1))
+    allocate(u(0:size(x)-1,0:size(y)-1))
+    allocate(uold(0:size(x)-1,0:size(y)-1))
+ 
+    f   = rhs(x,y,size(x)-1,size(y)-1)
+    sol = uexact(x,y,size(x)-1,size(y)-1)
+
+
+!    uold(1:M-1,1:N-1) = 0
+!    uold(0,:) = g
+!    uold(M,:) = g
+!    uold(:,0) = g
+!    uold(:,N) = g
+    uold = 0d0
+    ucomp = uold
 
     print*, " "
     print*, "--------------------------------------"
@@ -100,146 +135,83 @@ program jacobimpi
     print*, "--------------------------------------"
     print*, "| Mme = ", Mme
     print*, "| Nme = ", Nme
+    print*, "| k1 = ", k1
+    print*, "| k2 = ", k2
+    print*, "| size(x) = ", size(x)
     print*, "| "
-    print*, "| grid test : "
-    do j=0,Nme
-      print*, metest(:,j)
-    enddo
+    print*, "| vector x : "
+    print*, x(:)
+    print*, "| vector y : "
+    print*, y(:)
     print*, "--------------------------------------"
+
+!!!    print*, " "
+!!!    print*, "--------------------------------------"
+!!!    print*, "|------------ GRID CHECK ------------|"
+!!!    print*, "--------------------------------------"
+!!!    print*, "| Number of processes : ", npes
+!!!    print*, "| Process number : ", me
+!!!    print*, "--------------------------------------"
+!!!    print*, "| Mme = ", Mme
+!!!    print*, "| Nme = ", Nme
+!!!    print*, "| "
+!!!    print*, "| grid test : "
+!!!    do j=0,Nme
+!!!      print*, metest(:,j)
+!!!    enddo
+!!!    print*, "--------------------------------------"
     
-    if (MOD(me,2)==1) then
-      call MPI_Sendrecv(metest(1,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,90,&
-          metest(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,91,MPI_COMM_WORLD,status,ierr)
 
-      if(MOD((me+1),beta).ne.0) call MPI_Sendrecv(metest(Mme-1,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,92,&
-          metest(Mme,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,93,MPI_COMM_WORLD,status,ierr)
-    else
-      call MPI_Sendrecv(metest(Mme-1,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,91,&
-          metest(Mme,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,90,MPI_COMM_WORLD,status,ierr)
+!!!    print*, " "
+!!!    print*, "--------------------------------------"
+!!!    print*, "|----------- GRID CHECK 2 ------------|"
+!!!    print*, "--------------------------------------"
+!!!    print*, "| Number of processes : ", npes
+!!!    print*, "| Process number : ", me
+!!!    print*, "| Floor(me/beta) : ", k
+!!!    print*, "--------------------------------------"
+!!!    print*, "| Mme = ", Mme
+!!!    print*, "| Nme = ", Nme
+!!!    print*, "| "
+!!!    print*, "| grid test : "
+!!!    do j=0,Nme
+!!!      print*, metest(:,j)
+!!!    enddo
+!!!    print*, "--------------------------------------"
 
-      if(MOD(me,beta).ne.0) call MPI_Sendrecv(metest(1,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,93,&
-          metest(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,92,MPI_COMM_WORLD,status,ierr)
-    endif
+!!!    print *, " I am MPI process ", me, "of ", npes, ". On my left is ", left, &
+!!!                                " and on my right is ", right
+!!!    print *, " "
+    
+!    call jacobiIter(u,f,sol,M,N,iterMax,delta,deltaConv,q,hx,hy,iter)
 
-    k = FLOOR(DBLE(me/beta))
+!!!    print*, " "
+!!!    print*, "NUMERICAL SOLUTION"
+!!!    print*, " "
+!!!    print*, "k: ", k
+!!!    print*, "ucomp:"
+!!!    do j=0,N
+!!!      print*, ucomp(:,j)  
+!!!    enddo
+!!!    print*, " "
+!!!    print*, "u:"
+!!!    do j=0,N
+!!!      print*, u(:,j)  
+!!!    enddo
+!!!    print*, " "
+!!!    print*, "Iterations: ", iter
+!!!    print*, " "
+!!!    print*, "delta : ", InfNorm(u-ucomp)
+!!!    print*, " "
+!!!    print*, "c : ", InfNorm(u-sol)
 
-    if (MOD(k,2)==1) then
-      call MPI_Sendrecv(metest(1:Mme-1,1),Mme-1,MPI_DOUBLE,me-beta,94,&
-              metest(1:Mme-1,0),Mme-1,MPI_DOUBLE,me-beta,95,MPI_COMM_WORLD,status,ierr)
-
-      if(k+1.lt.beta) call MPI_Sendrecv(metest(1:Mme-1,Nme-1),Mme-1,MPI_DOUBLE,me+beta,96,&
-            metest(1:Mme-1,Nme),Mme-1,MPI_DOUBLE,me+beta,97,MPI_COMM_WORLD,status,ierr)
-    else
-      call MPI_Sendrecv(metest(1:Mme-1,Nme-1),Mme-1,MPI_DOUBLE,me+beta,95,&
-            metest(1:Mme-1,Nme),Mme-1,MPI_DOUBLE,me+beta,94,MPI_COMM_WORLD,status,ierr)
-
-      if(k.ne.0) call MPI_Sendrecv(metest(1:Mme-1,1),Mme-1,MPI_DOUBLE,me-beta,97,&
-              metest(1:Mme-1,0),Mme-1,MPI_DOUBLE,me-beta,96,MPI_COMM_WORLD,status,ierr)
-    endif
-
-    call mpi_barrier(MPI_COMM_WORLD,ierr)
-
-    print*, " "
-    print*, "--------------------------------------"
-    print*, "|----------- GRID CHECK 2 ------------|"
-    print*, "--------------------------------------"
-    print*, "| Number of processes : ", npes
-    print*, "| Process number : ", me
-    print*, "| Floor(me/beta) : ", k
-    print*, "--------------------------------------"
-    print*, "| Mme = ", Mme
-    print*, "| Nme = ", Nme
-    print*, "| "
-    print*, "| grid test : "
-    do j=0,Nme
-      print*, metest(:,j)
-    enddo
-    print*, "--------------------------------------"
-
-!!    print *, " I am MPI process ", me, "of ", npes, ". On my left is ", left, &
-!!                                " and on my right is ", right
-!!    print *, " "
-
-!!!!    hx = (xMax-xMin)/M
-!!!!    hy = (yMax-yMin)/N
-!!!!    
-!!!!    allocate(x(0:M))
-!!!!    allocate(y(0:N))
-!!!!    allocate(f(0:M,0:N))
-!!!!    allocate(sol(0:M,0:N))
-!!!!    allocate(u(0:M,0:N))
-!!!!    allocate(uold(0:M,0:N))
-!!!!  
-!!!!    x = [(hx*(j-1)+xMin, j=1, M+1)]
-!!!!    y = [(hy*(j-1)+yMin, j=1, N+1)]
-!!!!  
-!!!!    f   = rhs(x,y)
-!!!!    sol = uexact(x,y)
-!!!!
-!!!!    uold(1:M-1,1:N-1) = 0
-!!!!    uold(0,:) = g
-!!!!    uold(M,:) = g
-!!!!    uold(:,0) = g
-!!!!    uold(:,N) = g
-!!!!    ucomp = uold
-!!!!  
-!!!!!!!    print*, " "
-!!!!!!!    print*, "Vector x:"
-!!!!!!!    print*, " "
-!!!!!!!    do i=0,M
-!!!!!!!      print*, x(i)
-!!!!!!!    enddo
-!!!!!!!    print*, " "
-!!!!!!!    print*, "Vector y:"
-!!!!!!!    print*, " "
-!!!!!!!    do i=0,N
-!!!!!!!      print*, y(i)
-!!!!!!!    enddo
-!!!!!!!    print*, " "
-!!!!!!!    print*, "RHS:"
-!!!!!!!    print*, " "
-!!!!!!!    do j=0,N
-!!!!!!!      print*, f(:,j)  
-!!!!!!!    enddo
-!!!!!!!    print*, " "
-!!!!!!!    print*, "EXACT SOL:"
-!!!!!!!    print*, " "
-!!!!!!!    do j=0,N
-!!!!!!!      print*, sol(:,j)  
-!!!!!!!    enddo
-!!!!!!!    print*, " "
-!!!!
-
-!!!!    
-!!!!    call jacobiIter(u,f,sol,M,N,iterMax,delta,deltaConv,q,hx,hy,iter)
-!!!!
-!!!!!!!    print*, " "
-!!!!!!!    print*, "NUMERICAL SOLUTION"
-!!!!!!!    print*, " "
-!!!!!!!    print*, "k: ", k
-!!!!!!!    print*, "ucomp:"
-!!!!!!!    do j=0,N
-!!!!!!!      print*, ucomp(:,j)  
-!!!!!!!    enddo
-!!!!!!!    print*, " "
-!!!!!!!    print*, "u:"
-!!!!!!!    do j=0,N
-!!!!!!!      print*, u(:,j)  
-!!!!!!!    enddo
-!!!!!!!    print*, " "
-!!!!!!!    print*, "Iterations: ", iter
-!!!!!!!    print*, " "
-!!!!!!!    print*, "delta : ", InfNorm(u-ucomp)
-!!!!!!!    print*, " "
-!!!!!!!    print*, "c : ", InfNorm(u-sol)
-!!!!
-!!!!    print*, " "
-!!!!    print*, "---------"
-!!!!    print*, "SOLUTION"
-!!!!    print*, "---------"
-!!!!    print*, "Iterations: ", iter
-!!!!    print*, "delta : ", InfNorm(u-ucomp)
-!!!!    print*, "c : ", InfNorm(u-sol)
+!    print*, " "
+!    print*, "---------"
+!    print*, "SOLUTION"
+!    print*, "---------"
+!    print*, "Iterations: ", iter
+!    print*, "delta : ", InfNorm(u-ucomp)
+!    print*, "c : ", InfNorm(u-sol)
 
     call mpi_barrier(MPI_COMM_WORLD, ierr)
     call mpi_finalize(ierr)
@@ -273,8 +245,9 @@ program jacobimpi
         do iter=1,iterMax
           do i=1,M-1
             do j=1,N-1
-              u(i,j) = 0.25d0*(uold(i+1,j)+uold(i-1,j)+uold(i,j+1)+uold(i,j-1)&
-                                                                  -hx*hy*f(i,j))
+              u(i,j) = (hy**2d0*(uold(i-1,j)+uold(i+1,j))+&
+                        hx**2d0*(uold(i,j-1)+uold(i,j+1))-&
+                        hx**2d0*hy**2d0*f(i,j))/(2*(hx**2d0+hy**2d0))
             enddo
           enddo
           uold = u
@@ -290,15 +263,52 @@ program jacobimpi
           endif
         enddo
       end subroutine jacobiIter
+!    if (MOD(me,2)==1) then
+!      call MPI_Sendrecv(metest(1,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,90,&
+!          metest(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,91,MPI_COMM_WORLD,status,ierr)
+!
+!      if(MOD((me+1),beta).ne.0) call MPI_Sendrecv(metest(Mme-1,1:Nme-1),Nme-1,&
+!              MPI_DOUBLE,me+1,92,metest(Mme,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,93,&
+!                                                    MPI_COMM_WORLD,status,ierr)
+!    else
+!      call MPI_Sendrecv(metest(Mme-1,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,91,&
+!          metest(Mme,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,90,MPI_COMM_WORLD,status,ierr)
+!
+!      if(MOD(me,beta).ne.0) call MPI_Sendrecv(metest(1,1:Nme-1),Nme-1,MPI_DOUBLE,&
+!              me-1,93,metest(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,92,MPI_COMM_WORLD,&
+!                                                                    status,ierr)
+!    endif
+!
+!    k = FLOOR(DBLE(me/beta))
+!
+!    if (MOD(k,2)==1) then
+!      call MPI_Sendrecv(metest(1:Mme-1,1),Mme-1,MPI_DOUBLE,me-beta,94,&
+!          metest(1:Mme-1,0),Mme-1,MPI_DOUBLE,me-beta,95,MPI_COMM_WORLD,status,ierr)
+!
+!      if(k+1.lt.beta) call MPI_Sendrecv(metest(1:Mme-1,Nme-1),Mme-1,MPI_DOUBLE,&
+!                    me+beta,96,metest(1:Mme-1,Nme),Mme-1,MPI_DOUBLE,me+beta,97,&
+!                                                    MPI_COMM_WORLD,status,ierr)
+!    else
+!      call MPI_Sendrecv(metest(1:Mme-1,Nme-1),Mme-1,MPI_DOUBLE,me+beta,95,&
+!                metest(1:Mme-1,Nme),Mme-1,MPI_DOUBLE,me+beta,94,MPI_COMM_WORLD,&
+!                                                                    status,ierr)
+!
+!      if(k.ne.0) call MPI_Sendrecv(metest(1:Mme-1,1),Mme-1,MPI_DOUBLE,me-beta,97,&
+!                  metest(1:Mme-1,0),Mme-1,MPI_DOUBLE,me-beta,96,MPI_COMM_WORLD,&
+!                                                                    status,ierr)
+!    endif
 !------------------------------------------------------------------------------
       function InfNorm(V)
           implicit none
           real(DP), dimension(0:,0:), intent(in) :: V
           real(DP) :: InfNorm
+
           InfNorm = maxval(maxval(abs(V),1))
       end function InfNorm
-      function rhs(x,y)
+!------------------------------------------------------------------------------
+      function rhs(x,y,M,N)
         implicit none
+        integer , intent(in) :: M, N
         real(DP), dimension(0:M), intent(in) :: x
         real(DP), dimension(0:N), intent(in) :: y
         real(DP), dimension(0:M,0:N) :: rhs
@@ -313,8 +323,9 @@ program jacobimpi
         enddo
       end function rhs
   !------------------------------------------------------------------------------
-      function uexact(x,y)
+      function uexact(x,y,M,N)
         implicit none
+        integer , intent(in) :: M, N
         real(DP), dimension(0:M), intent(in) :: x
         real(DP), dimension(0:N), intent(in) :: y
         real(DP), dimension(0:M,0:N) :: uexact
