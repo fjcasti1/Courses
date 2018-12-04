@@ -218,26 +218,6 @@ program jacobimpi
     enddo
     
 
-!!!    print*, " "
-!!!    print*, "NUMERICAL SOLUTION"
-!!!    print*, " "
-!!!    print*, "k: ", k
-!!!    print*, "ucomp:"
-!!!    do j=0,N
-!!!      print*, ucomp(:,j)  
-!!!    enddo
-!!!    print*, " "
-!!!    print*, "u:"
-!!!    do j=0,N
-!!!      print*, u(:,j)  
-!!!    enddo
-!!!    print*, " "
-!!!    print*, "Iterations: ", iter
-!!!    print*, " "
-!!!    print*, "delta : ", InfNorm(u-ucomp)
-!!!    print*, " "
-!!!    print*, "c : ", InfNorm(u-sol)
-
     call mpi_barrier(MPI_COMM_WORLD, ierr)
     call MPI_reduce(InfNorm(u-sol),c,1,MPI_DOUBLE,MPI_MAX,ROOT,MPI_COMM_WORLD,ierr)
 
