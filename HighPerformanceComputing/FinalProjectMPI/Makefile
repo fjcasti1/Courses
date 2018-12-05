@@ -1,6 +1,6 @@
 # HOMEWORK_5 Makefile
 
-OBJs =  precision.o jacobimpi.o 
+OBJs  =  precision.o jacobimpi.o 
 mpif90comp = mpiifort
 MKLLIB = -mkl # =parallel -liomp5 -lpthread -axavx 
 switch = -O3 -qopenmp -heap-arrays# -g -traceback -check arg_temp_created -check all#-qopenmp-report=2# -fpe0 -check all -check bounds -g#-diag-file-append=intel_build.log -fpe0
@@ -18,6 +18,7 @@ jacobimpi: $(OBJs)
 	$(mpif90comp) -c $(switch) $<
 clean:
 	rm -f *.out
+	rm -f *.err
 	rm -f *.log
 	rm -f *.mod
 	rm -f *.o
