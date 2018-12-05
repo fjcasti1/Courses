@@ -54,27 +54,29 @@ program jacobimpi
     bcup    = BCsData(3)
     bcdown  = BCsData(4)
 
-!!!    print*, " "
-!!!    print*, "--------------------------------------"
-!!!    print*, "|------------ PARAMETERS ------------|"
-!!!    print*, "--------------------------------------"
-!!!    print*, "| Number of processes : ", npes
-!!!    print*, "| Process number : ", me
-!!!    print*, "--------------------------------------"
-!!!    print*, "| xMin = ", xMin
-!!!    print*, "| xMax = ", xMax
-!!!    print*, "| yMin = ", yMin
-!!!    print*, "| yMax = ", yMax
-!!!    print*, "| M = ", M
-!!!    print*, "| N = ", N
-!!!    print*, "| iterMax = ", iterMax
-!!!    print*, "| q = ", q
-!!!    print*, "| deltaConv = ", deltaConv
-!!!    print*, "| BCleft  = ", bcleft
-!!!    print*, "| BCright = ", bcright
-!!!    print*, "| BCup    = ", bcup
-!!!    print*, "| BCdown  = ", bcdown
-!!!    print*, "--------------------------------------"
+    if(me.eq.ROOT) then
+      print*, " "
+      print*, "--------------------------------------"
+      print*, "|------------ PARAMETERS ------------|"
+      print*, "--------------------------------------"
+      print*, "| Number of processes : ", npes
+      print*, "| Process number : ", me
+      print*, "--------------------------------------"
+      print*, "| xMin = ", xMin
+      print*, "| xMax = ", xMax
+      print*, "| yMin = ", yMin
+      print*, "| yMax = ", yMax
+      print*, "| M = ", M
+      print*, "| N = ", N
+      print*, "| iterMax = ", iterMax
+      print*, "| q = ", q
+      print*, "| deltaConv = ", deltaConv
+      print*, "| BCleft  = ", bcleft
+      print*, "| BCright = ", bcright
+      print*, "| BCup    = ", bcup
+      print*, "| BCdown  = ", bcdown
+      print*, "--------------------------------------"
+    endif
 
     hx = (xMax-xMin)/M
     hy = (yMax-yMin)/N
@@ -122,37 +124,12 @@ program jacobimpi
     f   = rhs(x,y,Mme,Nme)
     sol = uexact(x,y,Mme,Nme)
 
-
-!    uold(1:M-1,1:N-1) = 0
-!    uold(0,:) = g
-!    uold(M,:) = g
-!    uold(:,0) = g
-!    uold(:,N) = g
+  ! Initialization of u and Boundary Conditions
     u = 0d0  ! Initialization of u
-
-    print*, " "
-    print*, "--------------------------------------"
-    print*, "|------------ GRID CHECK ------------|"
-    print*, "--------------------------------------"
-    print*, "| Number of processes : ", npes
-    print*, "| Process number : ", me
-    print*, "--------------------------------------"
-    print*, "| Mme = ", Mme
-    print*, "| Nme = ", Nme
-    print*, "| k1 = ", k1
-    print*, "| k2 = ", k2
-    print*, "| size(x) = ", size(x)
-    print*, "| size(y) = ", size(y)
-    print*, "| size(f) = ", size(f,1), ",  ", size(f,2)
-    print*, "| size(sol) = ", size(sol,1), ",  ", size(sol,2)
-    print*, "| "
-!    print*, "| vector x : "
-!    print*, x(:)
-!    print*, "| vector y : "
-!    print*, y(:)
-    print*, "--------------------------------------"
-    call mpi_barrier(MPI_COMM_WORLD, ierr)
-
+    if (k1.eq.0) u(0,:)=bcleft
+    if (k1.eq.(beta-1)) u(Mme,:)=bcright
+    if (k2.eq.0) u(:,0)=bcdown
+    if (k2.eq.(beta-1)) u(:,Nme)=bcup
 
 !    call jacobiIter(u,f,size(x)-1,size(y)-1,iterMax,delta,deltaConv,q,hx,hy,iter,k2,beta)
     uold  = u
@@ -168,19 +145,17 @@ program jacobimpi
         enddo
       enddo
 
-      print*, "process : ", me, " iter = ", iter
+!      print*, "process : ", me, " iter = ", iter
 !      call updateGhostCells(me,u,Mme,Nme,k2,beta) 
       if (MOD(me,2)==1) then
         call MPI_Sendrecv(u(1,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,90,&
             u(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,91,MPI_COMM_WORLD,status,ierr)
-
         if(MOD((me+1),beta).ne.0) call MPI_Sendrecv(u(Mme-1,1:Nme-1),Nme-1,&
                 MPI_DOUBLE,me+1,92,u(Mme,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,93,&
                                                       MPI_COMM_WORLD,status,ierr)
       else
         call MPI_Sendrecv(u(Mme-1,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,91,&
             u(Mme,1:Nme-1),Nme-1,MPI_DOUBLE,me+1,90,MPI_COMM_WORLD,status,ierr)
-
         if(MOD(me,beta).ne.0) call MPI_Sendrecv(u(1,1:Nme-1),Nme-1,MPI_DOUBLE,&
                 me-1,93,u(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,92,MPI_COMM_WORLD,&
                                                                       status,ierr)
@@ -189,7 +164,6 @@ program jacobimpi
       if (MOD(k2,2)==1) then
         call MPI_Sendrecv(u(1:Mme-1,1),Mme-1,MPI_DOUBLE,me-beta,94,&
             u(1:Mme-1,0),Mme-1,MPI_DOUBLE,me-beta,95,MPI_COMM_WORLD,status,ierr)
-
         if(k2+1.lt.beta) call MPI_Sendrecv(u(1:Mme-1,Nme-1),Mme-1,MPI_DOUBLE,&
                       me+beta,96,u(1:Mme-1,Nme),Mme-1,MPI_DOUBLE,me+beta,97,&
                                                       MPI_COMM_WORLD,status,ierr)
@@ -197,7 +171,6 @@ program jacobimpi
         call MPI_Sendrecv(u(1:Mme-1,Nme-1),Mme-1,MPI_DOUBLE,me+beta,95,&
                   u(1:Mme-1,Nme),Mme-1,MPI_DOUBLE,me+beta,94,MPI_COMM_WORLD,&
                                                                       status,ierr)
-
         if(k2.ne.0) call MPI_Sendrecv(u(1:Mme-1,1),Mme-1,MPI_DOUBLE,me-beta,97,&
                   u(1:Mme-1,0),Mme-1,MPI_DOUBLE,me-beta,96,MPI_COMM_WORLD,&
                                                                     status,ierr)
@@ -208,17 +181,11 @@ program jacobimpi
         k=iter
         delta = InfNorm(u-ucomp)
         call MPI_ALLreduce(delta,deltaALL,1,MPI_DOUBLE,MPI_MAX,MPI_COMM_WORLD,ierr)
-!!!        print*, " "
-!!!        print*, "TESTING:"
-!!!        print*, "k = ", k
-!!!        print*, "delta = ", delta 
         if(deltaALL.lt.deltaConv) exit 
         if(iter.lt.iterMax) ucomp = u
       endif
     enddo
     
-
-    call mpi_barrier(MPI_COMM_WORLD, ierr)
     call MPI_reduce(InfNorm(u-sol),c,1,MPI_DOUBLE,MPI_MAX,ROOT,MPI_COMM_WORLD,ierr)
 
     if (me.eq.ROOT) then
@@ -425,3 +392,25 @@ end program jacobimpi
 !!!    print *, " I am MPI process ", me, "of ", npes, ". On my left is ", left, &
 !!!                                " and on my right is ", right
 !!!    print *, " "
+
+!    print*, " "
+!    print*, "--------------------------------------"
+!    print*, "|------------ GRID CHECK ------------|"
+!    print*, "--------------------------------------"
+!    print*, "| Number of processes : ", npes
+!    print*, "| Process number : ", me
+!    print*, "--------------------------------------"
+!    print*, "| Mme = ", Mme
+!    print*, "| Nme = ", Nme
+!    print*, "| k1 = ", k1
+!    print*, "| k2 = ", k2
+!    print*, "| size(x) = ", size(x)
+!    print*, "| size(y) = ", size(y)
+!    print*, "| size(f) = ", size(f,1), ",  ", size(f,2)
+!    print*, "| size(sol) = ", size(sol,1), ",  ", size(sol,2)
+!    print*, "| "
+!    print*, "| vector x : "
+!    print*, x(:)
+!    print*, "| vector y : "
+!    print*, y(:)
+!    print*, "--------------------------------------"
