@@ -1,8 +1,8 @@
 &jacobiparams
 xyextent = 0, 1, 0, 1
-gridData = 255, 255
+gridData = 11, 11
 iterMax = 5000
 q = 10
 deltaConv = 0.0001
-BCsData = 0, 0, 0, 0
+BCsData = 5, 6, 7, 8
 /
