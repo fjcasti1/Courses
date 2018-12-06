@@ -31,10 +31,10 @@ sbatch --comment="${job_prefix} ${job_com}" << EOF
 #SBATCH -o "testCoarray.out"
 #SBATCH -e "testCoarray.err"
 
-module load intel-mpi/5.1 2> /dev/null
+module load intel-mpi/2018x
 export FOR_COARRAY_NUM_IMAGES=${Nprocs}
 
 ulimit -s unlimited
 
-(time mpirun -n 1 ./jacobicoarray.exe) &>> ${outfile} 
+(time mpirun -n 1 jacobicoarray.exe) &>> ${outfile} 
 EOF

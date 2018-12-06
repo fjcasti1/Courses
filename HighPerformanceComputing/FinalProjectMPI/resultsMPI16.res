@@ -27,9 +27,9 @@ With 16 Processing Elements
  SOLUTION
  ---------
  Iterations:         5001
- delta :   1.137575518835449E-004
+ delta :   1.127690321365976E-004
  c :   0.170554921950898     
 
-real	0m3.372s
-user	0m0.031s
+real	0m3.303s
+user	0m0.032s
 sys	0m0.033s
