@@ -2,7 +2,7 @@ program jacobimpi
     use, intrinsic::iso_fortran_env
     use mpi
     use precision
- !   use jacobimodule
+    
     implicit none
     integer, parameter :: ROOT=0, INTERNAL_ERROR=1
     integer  :: me, npes, beta, k, k1, k2
@@ -93,7 +93,7 @@ program jacobimpi
     if (k1.eq.0) then
       allocate(x(0:auxM))
       x = [(hx*(j-1)+xMin, j=1, auxM+1)]
-    elseif (k1.eq.auxM) then
+    elseif (k1.eq.beta-1) then
       allocate(x(0:auxM))
       x = [(hx*(j-1)+xMin, j=auxM*k1, auxM*(k1+1))]
     else
@@ -104,7 +104,7 @@ program jacobimpi
     if (k2.eq.0) then
       allocate(y(0:auxN))
       y = [(hy*(j-1)+yMin, j=1, auxN+1)]
-    elseif (k2.eq.auxN) then
+    elseif (k2.eq.beta-1) then
       allocate(y(0:auxN))
       y = [(hy*(j-1)+yMin, j=auxN*k2, auxN*(k2+1))]
     else
@@ -131,12 +131,10 @@ program jacobimpi
     if (k2.eq.0) u(:,0)=bcdown
     if (k2.eq.(beta-1)) u(:,Nme)=bcup
 
-!    call jacobiIter(u,f,size(x)-1,size(y)-1,iterMax,delta,deltaConv,q,hx,hy,iter,k2,beta)
     uold  = u
     ucomp = u
 
     do iter=1,iterMax
-!    do iter=1,200
       do i=1,Mme-1
         do j=1,Nme-1
           u(i,j) = (hy**2d0*(uold(i-1,j)+uold(i+1,j))+&
@@ -145,8 +143,6 @@ program jacobimpi
         enddo
       enddo
 
-!      print*, "process : ", me, " iter = ", iter
-!      call updateGhostCells(me,u,Mme,Nme,k2,beta) 
       if (MOD(me,2)==1) then
         call MPI_Sendrecv(u(1,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,90,&
             u(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,91,MPI_COMM_WORLD,status,ierr)

@@ -1,13 +1,13 @@
 program jacobimpi
     use, intrinsic::iso_fortran_env
     use precision
- !   use jacobimodule
+
     implicit none
     integer, parameter :: ROOT=1, INTERNAL_ERROR=1
     integer  :: me, npes, beta, k, k1, k2
     integer  :: M, N, i, j, iter, ierr, nargs, auxM, auxN
     real(DP) :: xMin, xMax, yMin, yMax, hx, hy
-    real(DP) :: delta[*], deltaALL, c, bcleft, bcright, bcup, bcdown
+    real(DP) :: delta[*], deltaALL[*], c[*], c_ALL, bcleft, bcright, bcup, bcdown
     real(DP), dimension(:),   allocatable :: x, y
     real(DP), dimension(:,:), allocatable :: f, sol, u[:], uold, ucomp
     real(DP), dimension(:,:), allocatable :: metest
@@ -18,12 +18,13 @@ program jacobimpi
     character(200) :: errmsg='none'
     namelist/jacobiparams/ xyextent, gridData, iterMax, q, deltaConv, BCsData
 
+    deltaALL = 0
+    c_ALL = 0
     me = this_image() 
     npes = num_images()
     sync all
 
     if (me==ROOT) then
-!      print *, "Image ", me , "is in CHECKPOINT 0"
       nargs = command_argument_count()
       if(nargs.gt.0) call get_command_argument(1,filename)
       open(unit=4, file=filename, status='old', iostat=ierr, iomsg=errmsg)
@@ -32,7 +33,6 @@ program jacobimpi
       if(ierr.ne.0) goto 911
       close(4,iostat=ierr, iomsg=errmsg)
       if(ierr.ne.0) goto 911
-!      print *, "Image ", me , "is in CHECKPOINT 1"
 
       do i=2,npes
         xyextent(:)[i] = xyextent(:)
@@ -43,7 +43,6 @@ program jacobimpi
         BCsData(:)[i] = BCsData(:)
       enddo
     endif
-!    print *, "CHECKPOINT 1"
     sync all
 
     xMin = xyextent(1)
@@ -57,33 +56,6 @@ program jacobimpi
     bcup    = BCsData(3)
     bcdown  = BCsData(4)
     
-!    print *, "CHECKPOINT 2"
-!    do i = 1,npes
-!      if(me.eq.i) then
-!        print*, " "
-!        print*, "--------------------------------------"
-!        print*, "|------------ PARAMETERS ------------|"
-!        print*, "--------------------------------------"
-!        print*, "| Number of images : ", npes 
-!        print*, "| Image number : ", me
-!        print*, "--------------------------------------"
-!        print*, "| xMin = ", xMin
-!        print*, "| xMax = ", xMax
-!        print*, "| yMin = ", yMin
-!        print*, "| yMax = ", yMax
-!        print*, "| M = ", M
-!        print*, "| N = ", N
-!        print*, "| iterMax = ", iterMax
-!        print*, "| q = ", q
-!        print*, "| deltaConv = ", deltaConv
-!        print*, "| BCleft  = ", bcleft
-!        print*, "| BCright = ", bcright
-!        print*, "| BCup    = ", bcup
-!        print*, "| BCdown  = ", bcdown
-!        print*, "--------------------------------------"
-!      endif
-!      sync all
-!    enddo
     if(me.eq.ROOT) then
       print*, " "
       print*, "--------------------------------------"
@@ -144,29 +116,6 @@ program jacobimpi
     
     Mme = size(x)-1
     Nme = size(y)-1
-    do i = 1,npes
-      if(me.eq.i) then
-        print*, " "
-        print*, "--------------------------------------"
-        print*, "|------------- CHECK 1 --------------|"
-        print*, "--------------------------------------"
-        print*, "| Number of images : ", npes 
-        print*, "| Image number : ", me
-        print*, "--------------------------------------"
-        print*, "| beta = ", beta
-        print*, "| auxM = ", auxM
-        print*, "| auxN = ", auxN
-        print*, "| Mme = ", Mme
-        print*, "| Nme = ", Nme
-        print*, "| k1 = ", k1
-        print*, "| k2 = ", k2
-        print*, "--------------------------------------"
-        print*, "| x = ", x(:)
-        print*, "| y = ", y(:)
-        print*, "--------------------------------------"
-      endif
-      sync all
-    enddo
 
     allocate(f(0:Mme,0:Nme))
     allocate(sol(0:Mme,0:Nme))
@@ -184,34 +133,10 @@ program jacobimpi
     if (k2.eq.0) u(:,0)=bcdown
     if (k2.eq.beta-1) u(:,Nme)=bcup
 
-    do i = 1,npes
-      if(me.eq.i) then
-        print*, " "
-        print*, "--------------------------------------"
-        print*, "|------------- CHECK 2 --------------|"
-        print*, "--------------------------------------"
-        print*, "| Number of images : ", npes 
-        print*, "| Image number : ", me
-        print*, "--------------------------------------"
-        print*, "| Mme = ", Mme
-        print*, "| Nme = ", Nme
-        print*, "| k1 = ", k1
-        print*, "| k2 = ", k2
-        print*, "--------------------------------------"
-        do j=0,Nme
-          print*, "| u(:,j) = ", u(:,j)
-        enddo
-        print*, "--------------------------------------"
-      endif
-      sync all
-    enddo
-
-!!    call jacobiIter(u,f,size(x)-1,size(y)-1,iterMax,delta,deltaConv,q,hx,hy,iter,k2,beta)
     uold  = u
     ucomp = u
 
     do iter=1,iterMax
-!    do iter=1,200
       do i=1,Mme-1
         do j=1,Nme-1
           u(i,j) = (hy**2d0*(uold(i-1,j)+uold(i+1,j))+&
@@ -220,13 +145,9 @@ program jacobimpi
         enddo
       enddo
 
-!      print*, "process : ", me, " iter = ", iter
-!      call updateGhostCells(me,u,Mme,Nme,k2,beta) 
-    !k1 = MOD(me-1,beta)
-    !k2 = FLOOR(DBLE((me-1)/beta))
-      if (MOD(me-1,2)==1) then
+      sync all
       ! Update left ghost cells
-      if (k1.ne.0) ! No left subdomain
+      if (k1.ne.0) then ! No left subdomain
         if (k1.eq.1) then ! The left subdomain has lower x-dimension
           u(0,1:Nme-1) = u(Mme-2,1:Nme-1)[me-1]
         elseif (k1.eq.beta-1) then ! The left subdomain has higher x-dimension
@@ -236,12 +157,12 @@ program jacobimpi
         endif
       endif
       ! Update right ghost cells
-      if (k1.ne.beta-1) ! No right subdomain
+      if (k1.ne.beta-1) then ! No right subdomain
         u(Mme,1:Nme-1) = u(1,1:Nme-1)[me+1] ! No need to check dimensions of
                      ! the different subdomains since they all start as 0,1,...
       endif
       ! Update bottom ghost cells
-      if (k2.ne.0) ! No bottom subdomain
+      if (k2.ne.0) then ! No bottom subdomain
         if (k2.eq.1) then ! The bottom subdomain has lower y-dimension
           u(1:Mme-1,0) = u(1:Mme-1,Nme-2)[me-beta]
         elseif (k1.eq.beta-1) then ! The bottom subdomain has higher y-dimension
@@ -251,42 +172,45 @@ program jacobimpi
         endif
       endif
       ! Update top ghost cells
-      if (k2.ne.beta-1) ! No top subdomain
+      if (k2.ne.beta-1) then ! No top subdomain
         u(1:Mme-1,Nme) = u(1:Mme-1,1)[me+beta] ! No need to check dimensions of
                      ! the different subdomains since they all start as 0,1,...
       endif
 
       uold = u
-      deltaALL = 0
       if (MOD(iter,q)==0) then 
-        k=iter
         delta = InfNorm(u-ucomp)
-        do i=1,neps
-          deltaALL = MAX(delta,deltaALL)
-        enddo
-        call MPI_ALLreduce(delta,deltaALL,1,MPI_DOUBLE,MPI_MAX,MPI_COMM_WORLD,ierr)
+        sync all
+        if (me.eq.ROOT) then
+          do i=1,npes
+            deltaALL = MAX(delta[i],deltaALL)
+          enddo
+          do i=2,npes
+            deltaALL[i] = deltaALL
+          enddo
+        endif
         if(deltaALL.lt.deltaConv) exit 
         if(iter.lt.iterMax) ucomp = u
       endif
     enddo
-!!!!    
-!!!!    call MPI_reduce(InfNorm(u-sol),c,1,MPI_DOUBLE,MPI_MAX,ROOT,MPI_COMM_WORLD,ierr)
-!!!!
-!!!!    if (me.eq.ROOT) then
-!!!!      print*, " "
-!!!!      print*, "---------"
-!!!!      print*, "SOLUTION"
-!!!!      print*, "---------"
-!!!!      print*, "Iterations: ", iter
-!!!!      print*, "delta : ", deltaALL 
-!!!!      print*, "c : ", c 
-!!!!    endif
-!!!!
-!!!!    call mpi_barrier(MPI_COMM_WORLD, ierr)
-!!!!    call mpi_finalize(ierr)
-!!!!    stop
-!!!!
-!!!!
+
+    c = InfNorm(u-sol)
+    sync all
+
+    if (me.eq.ROOT) then
+      do i=1,npes
+        c_ALL = MAX(c[i],c_ALL)
+      enddo
+
+      print*, " "
+      print*, "---------"
+      print*, "SOLUTION"
+      print*, "---------"
+      print*, "Iterations: ", iter
+      print*, "delta : ", deltaALL
+      print*, "c : ", c_ALL 
+    endif
+
     stop
 
 911 continue

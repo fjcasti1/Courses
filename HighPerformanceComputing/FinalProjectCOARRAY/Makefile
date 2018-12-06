@@ -9,10 +9,10 @@ switch = -O3 -heap-arrays -coarray=shared# -g -traceback -check arg_temp_created
 .phony: clean
 
 jacobicoarray: $(OBJs)
-	module load intel-mpi/5.0 2> /dev/null; \
+	module load intel-mpi/2018x; \
 	$(f90comp) $(switch) -o jacobicoarray.exe $(OBJs) $(MKLLIB) 
 %.o: %.f90
-	module load intel-mpi/5.0 2> /dev/null; \
+	module load intel-mpi/2018x; \
 	$(f90comp) -c $(switch) $<
 %.mod: %.o %.f90
 	$(f90comp) -c $(switch) $<
