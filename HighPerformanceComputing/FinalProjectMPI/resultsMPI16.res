@@ -30,6 +30,6 @@ With 16 Processing Elements
  delta :   1.127690321365976E-004
  c :   0.170554921950898     
 
-real	0m3.303s
+real	0m2.944s
 user	0m0.032s
-sys	0m0.033s
+sys	0m0.036s

@@ -1,0 +1,73 @@
+  To run the simulation just do
+    bash JOB_PLANNER_COARRAY.sh
+
+In this file I go in more detail about how I have organized the
+computation and the different processes corresponding to parts of the
+grid using the variables k1 and k2.
+  NOTE: The discussion will be based on the MPI code and will have a few
+        lines at the end on how it adapts to the use of coarrays.
+
+First the grid will be divided as follows:
+
+        ---------------------
+        | 12 | 13 | 14 | 15 |
+        ---------------------
+        |  8 |  9 | 10 | 11 |
+        ---------------------
+        |  4 |  5 |  6 |  7 |
+        ---------------------
+        |  0 |  1 |  2 |  3 |
+        ---------------------
+
+where the numbers indicate the process id stored in the variable me.
+
+Now let 
+  
+    k1 = MOD(me,beta),
+
+and
+  
+    k2 = FLOOR(DBLE(me/beta)), 
+
+where beta = sqrt(DBLE(npes)). In the case of using 16 processes, beta=4.
+
+The different processes have the following values of k1 and k2:
+  
+     k1:                          k2:          
+
+        ---------------------        ---------------------
+        |  0 |  1 |  2 |  3 |        |  3 |  3 |  3 |  3 |
+        ---------------------        ---------------------
+        |  0 |  1 |  2 |  3 |        |  2 |  2 |  2 |  2 |
+        ---------------------        ---------------------
+        |  0 |  1 |  2 |  3 |        |  1 |  1 |  1 |  1 |
+        ---------------------        ---------------------
+        |  0 |  1 |  2 |  3 |        |  0 |  0 |  0 |  0 |
+        ---------------------        ---------------------
+
+As we can see, k1 organizes the processes horizontally and k2
+vertically. In this case 3 corresponds to the general value beta-1 seen
+in the code. Using this strategy, it is easy to select the subdomains
+corresponding to any given boundary by setting k1 or k2 to 0 or beta-1.
+
+The communications have been done in the following order:
+  A) Based on the value of k1:
+  - Odd to the left even to the right
+  - Even to the left odd to the right
+  B) Based on the value of k2:
+  - Odd down even up
+  - Even down odd up
+
+·WHEN USING COARRAYS: 
+In this case the images are sorted from 1 to the number of processes, npes,
+contrary to MPI (that was sorted from 0 to npes-1). We can do exactly
+the same thing, it suffices with altering the definition of k1 and k2
+to:
+    k1 = MOD(me-1,beta),
+
+and
+  
+    k2 = FLOOR(DBLE(me-1/beta)). 
+
+Structuring the communications using coarrays is much simpler than using
+MPI, and is sufficiently commented in the sourcecode. 

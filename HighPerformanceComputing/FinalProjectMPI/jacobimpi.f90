@@ -1,4 +1,24 @@
 program jacobimpi
+! JACOBIMPI - Solves the Poisson equation using Jacobi. Uses mpi.  
+!
+! PUBLIC ROUTINES DEFINED
+!   · isNotPerfectSquare  - returns true if the argument is not a perfect square
+!   · InfNorm             - returnts the infinity norm of a 2D array
+!   · rhs                 - returns the RHS of the Poisson equation
+!   · uexact              - returns the exact solution to the problem
+!
+! REQUIRED DEPENDENCIES
+!   · precision - to define KINDs for single and double floating-point
+!   · mpi
+!   
+! REVISION HISTORY
+!   11/23/2018 - Serial implementation
+!   11/25/2018 - Parallel implementation using mpi for only one processor
+!   12/02/2018 - Fixed communications, works for multiple processors
+!
+! PROGRAMMER
+! Francisco Castillo
+
     use, intrinsic::iso_fortran_env
     use mpi
     use precision
@@ -24,7 +44,13 @@ program jacobimpi
     call mpi_init(ierr)
     call mpi_comm_rank(MPI_COMM_WORLD, me, ierr)
     call mpi_comm_size(MPI_COMM_WORLD, npes, ierr)
+    
+    ! Check that we can create a nxn division of the grid using n^2 processing
+    ! elements. We need a perfect square.
+    if(isNotPerfectSquare(npes)) goto 912
 
+    ! This portion of the code reads the data from the file jacobi.txt, if there
+    ! is any error, it continues after the tag 911 to exit with an error
     if(me.eq.ROOT) then
       nargs = command_argument_count()
       if(nargs.gt.0) call get_command_argument(1,filename)
@@ -35,7 +61,7 @@ program jacobimpi
       close(4,iostat=ierr, iomsg=errmsg)
       if(ierr.ne.0) goto 911
     endif
-
+    ! Broadcast the needed data, to all processing elements
     call mpi_bcast(xyextent,4, MPI_DOUBLE, ROOT, MPI_COMM_WORLD, ierr)
     call mpi_bcast(gridData,2, MPI_INTEGER, ROOT, MPI_COMM_WORLD, ierr)
     call mpi_bcast(iterMax,1, MPI_INTEGER, ROOT, MPI_COMM_WORLD, ierr)
@@ -53,7 +79,7 @@ program jacobimpi
     bcright = BCsData(2)
     bcup    = BCsData(3)
     bcdown  = BCsData(4)
-
+    ! The root process prints a summary of the parameters
     if(me.eq.ROOT) then
       print*, " "
       print*, "--------------------------------------"
@@ -80,56 +106,56 @@ program jacobimpi
 
     hx = (xMax-xMin)/M
     hy = (yMax-yMin)/N
-
-!'''''''''''''''''''''''''''''''''''''''''''''''''''''!
-!'''''''' IMPLEMENT CHECK FOR PERFECT SQUARE '''''''''!
-!'''''''''''''''''''''''''''''''''''''''''''''''''''''!
+    ! Define the parameters needed to organize the subdomains
+    ! I call subdomain the portion of the grid assign to each processing element
     beta = sqrt(DBLE(npes))
     auxM = (M+1)/beta
     auxN = (N+1)/beta
-    k1 = MOD(me,beta)
-    k2 = FLOOR(DBLE(me/beta))
+    k1 = MOD(me,beta)         ! Organizes the subdomaing from left to right
+    k2 = FLOOR(DBLE(me/beta)) ! Organizes the subdomaing from bottom to top
   
-    if (k1.eq.0) then
+    ! Create the local grid 
+    if (k1.eq.0) then ! Left subdomains
       allocate(x(0:auxM))
       x = [(hx*(j-1)+xMin, j=1, auxM+1)]
-    elseif (k1.eq.beta-1) then
+    elseif (k1.eq.beta-1) then ! Right subdomains
       allocate(x(0:auxM))
       x = [(hx*(j-1)+xMin, j=auxM*k1, auxM*(k1+1))]
     else
-      allocate(x(0:auxM+1))
+      allocate(x(0:auxM+1)) ! The inner subdomains have one x-dimension higher than the extremes
       x = [(hx*(j-1)+xMin, j=auxM*k1, auxM*(k1+1)+1)]
     endif
 
-    if (k2.eq.0) then
+    if (k2.eq.0) then ! Bottom subdomains
       allocate(y(0:auxN))
       y = [(hy*(j-1)+yMin, j=1, auxN+1)]
-    elseif (k2.eq.beta-1) then
+    elseif (k2.eq.beta-1) then ! Top subdomains
       allocate(y(0:auxN))
       y = [(hy*(j-1)+yMin, j=auxN*k2, auxN*(k2+1))]
     else
-      allocate(y(0:auxN+1))
+      allocate(y(0:auxN+1)) ! The inner subdomains have one y-dimension higher than the extremes
       y = [(hy*(j-1)+yMin, j=auxN*k2, auxN*(k2+1)+1)]
     endif
-    
-    Mme = size(x)-1
+
+    ! Save the size of the assigned subdomain
+    Mme = size(x)-1 
     Nme = size(y)-1
 
-    allocate(f(0:Mme,0:Nme))
-    allocate(sol(0:Mme,0:Nme))
-    allocate(u(0:Mme,0:Nme))
-    allocate(uold(0:Mme,0:Nme))
-    allocate(ucomp(0:Mme,0:Nme))
+    allocate(f(0:Mme,0:Nme))      ! RHS
+    allocate(sol(0:Mme,0:Nme))    ! Exact solution
+    allocate(u(0:Mme,0:Nme))      ! Updated solution u
+    allocate(uold(0:Mme,0:Nme))   ! Old suludion uold
+    allocate(ucomp(0:Mme,0:Nme))  ! Saved comparison solution ucomp
  
     f   = rhs(x,y,Mme,Nme)
     sol = uexact(x,y,Mme,Nme)
 
-  ! Initialization of u and Boundary Conditions
+    ! Initialization of u and Boundary Conditions
     u = 0d0  ! Initialization of u
-    if (k1.eq.0) u(0,:)=bcleft
-    if (k1.eq.(beta-1)) u(Mme,:)=bcright
-    if (k2.eq.0) u(:,0)=bcdown
-    if (k2.eq.(beta-1)) u(:,Nme)=bcup
+    if (k1.eq.0)        u(0,:)   = bcleft
+    if (k1.eq.(beta-1)) u(Mme,:) = bcright
+    if (k2.eq.0)        u(:,0)   = bcdown
+    if (k2.eq.(beta-1)) u(:,Nme) = bcup
 
     uold  = u
     ucomp = u
@@ -137,12 +163,13 @@ program jacobimpi
     do iter=1,iterMax
       do i=1,Mme-1
         do j=1,Nme-1
+          ! Jacobi iteration for different hx and hy
           u(i,j) = (hy**2d0*(uold(i-1,j)+uold(i+1,j))+&
                     hx**2d0*(uold(i,j-1)+uold(i,j+1))-&
                     hx**2d0*hy**2d0*f(i,j))/(2*(hx**2d0+hy**2d0))
         enddo
       enddo
-
+      ! Communication between processing units, updates ghost cells
       if (MOD(me,2)==1) then
         call MPI_Sendrecv(u(1,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,90,&
             u(0,1:Nme-1),Nme-1,MPI_DOUBLE,me-1,91,MPI_COMM_WORLD,status,ierr)
@@ -171,8 +198,11 @@ program jacobimpi
                   u(1:Mme-1,0),Mme-1,MPI_DOUBLE,me-beta,96,MPI_COMM_WORLD,&
                                                                     status,ierr)
       endif
-
+      ! Update the value of uold for the next iteration
       uold = u
+      ! Every q iterations check for convergence
+      ! Use MPI_ALLreduce because I need the maximum of deltas stored in all the
+      ! processing units so all of them can exit or not.
       if (MOD(iter,q)==0) then 
         k=iter
         delta = InfNorm(u-ucomp)
@@ -181,7 +211,7 @@ program jacobimpi
         if(iter.lt.iterMax) ucomp = u
       endif
     enddo
-    
+    ! The error is only needed in the root process since is only going to be written 
     call MPI_reduce(InfNorm(u-sol),c,1,MPI_DOUBLE,MPI_MAX,ROOT,MPI_COMM_WORLD,ierr)
 
     if (me.eq.ROOT) then
@@ -202,6 +232,12 @@ program jacobimpi
 911 continue
     if(me.eq.ROOT) write(ERROR_UNIT,999) me, errmsg
 999 format('MPI process ', i0, ': ', a)    
+    call mpi_abort(MPI_COMM_WORLD, INTERNAL_ERROR, ierr)
+
+912 continue
+    if (me.eq.ROOT) write(*,998) npes
+998 format('ERROR: Number of processing elements is not a perfect square. Npes = ',i0)    
+    call mpi_barrier(MPI_COMM_WORLD, ierr)
     call mpi_abort(MPI_COMM_WORLD, INTERNAL_ERROR, ierr)
     
 !------------------------------------------------------------------------------
@@ -249,6 +285,19 @@ program jacobimpi
           enddo
         enddo
       end function uexact
+  !------------------------------------------------------------------------------
+      logical function isNotPerfectSquare(n)
+          implicit none
+          integer, intent(in) :: n
+          real :: sqroot
+
+          sqroot = sqrt(real(n))
+          if (sqroot == aint(sqroot)) then
+            isNotPerfectSquare = .false.
+          else
+            isNotPerfectSquare = .true.
+          endif
+      end function
   !------------------------------------------------------------------------------
 
 end program jacobimpi
