@@ -1,0 +1,18 @@
+\begin{questions}
+
+\question{Consider the sequence space $l^{\infty}$ with supremum norm and the subset $D = \{x = (x_n); x_n \rightarrow 0, n \rightarrow \infty\}$. Show: D is not totally bounded.}
+
+\begin{solution}
+  \begin{proof}
+  Let $n,j,k\in\N$. Consider the sequence $(e^n)\in l^\infty$ where $e^n$ is the sequence where all terms are $0$ except the $n-th$ term which is $1$. It is inmediate that $\lim_{n\rightarrow\infty} e^n=0$, meaning that $(e^n)\in D$. Consider the subsequence $(e^{n_j})$ of $(e^n)$, $(e^{n_j})\in D$. Let $\varepsilon=\frac{1}{2}$. Without loss of generality let $n_j>n_k$. Then:
+  \begin{align*}
+  ||e^{n_j}-e^{n_k}||_{\infty}=1>\varepsilon~~\forall n_j,n_k~,
+  \end{align*}
+  where $||\cdot ||_{\infty}$ represents the supremum norm. Therefore $\nexists N\in\N$ such that, $\forall\varepsilon>0$
+  \begin{align*}
+    ||e^{n_j}-e^{n_k}||_{\infty}<\varepsilon~~\forall n_j,n_k>N~.
+  \end{align*}
+  Thus, the subsequence $(e^{n_j})$ is not Cauchy. Since $e^{n_j}$ was chose arbitrarily, $D$ is not totally bounded according to \textit{Theorem 4.24}.
+  \end{proof}
+\end{solution}
+\end{questions}

@@ -1,0 +1,120 @@
+In this problem, we encounter a much more difficult situation. First, the Schmidt number is five times larger, which means that the fluids are more difficult to mix. In addition, the Reynolds number is much higher, meaning that the fluid is much less viscous. I think I could have used that to improve the chamber. The high Reynolds number facilitates the appeareance of vortex (see video). Those vorteces mix the flow very well, as we can see in the next figure the mixture is excellent next to the sides. The solution then should be easy, just locate the outlet next to one of the sides. However, the code starts needing a time step $\Delta t$ unreasonably small. My guess, that could be perfectly wrong, is that we are forcing the flow to go out of the chamber normal to the output and this condition becomes very difficult placing the output next to one of the sides. I would like to improve the code and consider a more realistic boundary condition at the outlet. In addition, I have tried using time-dependent inlets, but I haven't got much better results. The results below are for the exact same design than for problem 2, changing uniquely the Reynolds and Schmidt numbers.
+
+In the next set of figures we can see the results for the ouput times specified.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem3/u_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem3/u_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem3/u_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem3/u_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem3/u_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem3/u_6.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem3/v_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem3/v_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem3/v_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem3/v_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem3/v_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem3/v_6.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem3/Y_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem3/Y_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem3/Y_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem3/Y_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem3/Y_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem3/Y_6.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem3/Ymix_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem3/Ymix_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem3/Ymix_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem3/Ymix_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem3/Ymix_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem3/Ymix_6.eps}}
+\hspace*{\fill}
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem3/Rplot.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem3/Splot.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem3/checkVelplot.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem3/checkFlowplot.eps}}
+\hspace*{\fill}
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+We can see in the past figures how, in fact, we have very good mixture where we have high vorticity and very poor mixture in the middle of the chamber. I would have liked to include in this report plots of the vorticity and the stream function since they would have helped a lot to see this. 
+
+For this flow I have obtained $T=0.1894\pm 6.96\%$. This is a very bad results and I am upset I haven't had the time to improve them. Moreover, this are not to be trusted at all, since $\beta$ is not within the limits we expect, so it is not in the asymptotic regime.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.7]{Table3.png}
+\caption{GCI analysis results.}
+\end{figure}

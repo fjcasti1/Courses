@@ -1,0 +1,29 @@
+\begin{questions}
+\question{
+Let $T > 0$ and $u : \overline{\Omega} \times [0, T]$ be continuous. Further let $c, F : \Omega \times(0, T) \to \mathbb{R}$, $F$ non-negative and $c$ bounded above and $f : \Omega \to \mathbb{R}$ be nonnegative. Let the partial differential operator $L$ be as in the text before. Assume that $u$ is once partially differentiable with respect to $t \in (0, T)$ and twice partially differentiable with respect to $x_k$ at each $x \in \Omega$, $k = 1, \hdots , n$.
+Assume that
+\begin{align*}
+(\partial_t - L - c)u = F(x, t), & \quad x \in \Omega, t \in (0, T), \\
+u(x, t) = 0,& \quad x \in \partial \Omega, t \in (0, T), \\
+u(x, 0) = f(x),& \quad x \in \Omega.
+\end{align*}
+
+Show that $u(x, t) \geq 0$ for all $x \in \overline{\Omega}$, $t \in [0, T]$.
+
+}
+\begin{solution}
+Define $v : \overline{\Omega} \times [0, T]$, $v(x,t)=-u(x,t)$. Then the PDE yields
+\begin{align*}
+-(\partial_t - L)v + cv = F(x, t), & \quad x \in \Omega, t \in (0, T), \\
+v(x, t) = 0,& \quad x \in \partial \Omega, t \in (0, T), \\
+v(x, 0) = -f(x),& \quad x \in \Omega.
+\end{align*}
+Since $F(x,t)$ and $f(x)$ are nonnegative,
+\begin{align*}
+(\partial_t - L)v\leq cv, & \quad x \in \Omega, t \in (0, T), \\
+v(x, t) = 0,& \quad x \in \partial \Omega, t \in (0, T), \\
+v(x, 0) \leq 0,& \quad x \in \Omega.
+\end{align*}
+Then, by \textsl{Theorem 5.11}, $v(x,t)\leq 0$ for all $x \in \overline{\Omega}$, $t \in [0, T]$. Thus, $u(x,t)\geq 0$ for all $x \in \overline{\Omega}$, $t \in [0, T]$.
+\end{solution}
+\end{questions}

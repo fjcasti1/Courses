@@ -1,0 +1,105 @@
+\textbf{Suppose the discretization of a boundary value problem, such as the Poisson equation, leads to the matrix equation}
+\begin{align*}
+uA + Bu = f,
+\end{align*}
+\textbf{that needs to be solved for $u$. Here $u$ is $n \times m$, $A$ is $m \times m$, $B$ is $n \times n$, and $f$ is $n \times m$.}
+
+\textbf{Assuming both $A$ and $B$ are non-defective matrices, with $A = V_A \Lambda_AV_A^{-1}$ and $B = V_B \Lambda_BV_B^{-1}$, show that the solution $u$ is given by $u = V_B UV_A^{-1}$, where}
+\begin{align*}
+U_{i,j} = \frac{F_{i,j}}{\alpha_j + \beta_i},
+\end{align*}
+\textbf{$F = V_B^{-1}fV_A$, and $\alpha_k$ and $\beta_k$ are the diagonal entries of $\Lambda_A$ and $\Lambda_B$ respectively.}
+
+We start with the eigenvalue decomposition of the matrices $A$ and $B$,
+\begin{align*}
+uV_A \Lambda_AV_A^{-1} + V_B \Lambda_BV_B^{-1} u = f,
+\end{align*}
+and premultiplying by $V_B^{-1}$ multiplying from the right by $V_A$,
+\begin{align*}
+V_B^{-1}uV_A\Lambda_A + \Lambda_B V_B^{-1} u V_A = V_B^{-1} f V_A.
+\end{align*}
+Then let $U = V_B^{-1}uV_A$ and $F = V_B^{-1} f V_A$ so that. Therefore, we have
+\begin{align*}
+U\Lambda_A + \Lambda_B U = F,
+\end{align*}
+which in matrix form is
+\begin{align*}
+&\begin{bmatrix}
+\tilde{u}_{11}& \cdots & \tilde{u}_{1m} \\
+\tilde{u}_{21}& \cdots & \tilde{u}_{2m} \\
+\vdots& ~ & \vdots \\
+\tilde{u}_{n1}& \cdots & \tilde{u}_{nm}
+\end{bmatrix} \begin{bmatrix}
+\alpha_1 & 0 & \cdots & 0 \\
+0 & \alpha_2 & ~ & \vdots \\
+\vdots & ~& \ddots & ~ \\
+0 & \cdots & 0 & \alpha_m
+\end{bmatrix} + \begin{bmatrix}
+\beta_1 & 0 & \cdots & 0 \\
+0 & \beta_2 & ~ & \vdots \\
+\vdots & ~& \ddots & ~ \\
+0 & \cdots & 0 & \beta_m
+\end{bmatrix}\begin{bmatrix}
+\tilde{u}_{11}& \cdots & \tilde{u}_{1m} \\
+\tilde{u}_{21} & \cdots & \tilde{u}_{2m} \\
+\vdots& ~ & \vdots \\
+\tilde{u}_{n1} & \cdots & \tilde{u}_{nm}
+\end{bmatrix} = \begin{bmatrix}
+\tilde{f}_{11} & \cdots & \tilde{f}_{1m} \\
+\tilde{f}_{21} & \cdots & \tilde{f}_{2m} \\
+\vdots & ~ & \vdots \\
+\tilde{f}_{n1} & \cdots & \tilde{f}_{nm}
+\end{bmatrix}.
+\end{align*}
+We can infer from the matrix equation above that
+\begin{align*}
+U_{i,j} = \frac{F_{i,j}}{\alpha_j + \beta_i}.
+\end{align*}
+Then, to get back our solution, we use $u = V_B U V_A^{-1}$.
+
+\textbf{Using part (a), solve the Poisson equation $\Delta u = \sin(x)\cos(100y)$ on $[0,1] \times [0,1]$ (with zero Dirichlet boundary conditions) using 100 points in the $x$ direction and 300 in the $y$ direction. Estimate the accuracy of your solution.}
+
+Coding into \textsl{Matlab} the previous method, we obtain a solution for $u$ shown in the figure below,
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.75]{problem2_u.png}}
+\caption{Solution0 $u$ of the poisson equation.}
+\end{figure}
+
+The error, found by comparing $uD2A + D2Bu$ and $f$, where $D2A$ and $D2B$ are the centered finite difference matrices for $x$ and $y$ respectively, is $2.10806\cdot 10^{-12}$. 
+
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+%% Problem 2
+Nx=100; Ny=300;
+hx=1/(Nx-1); hy=1/(Ny-1);
+
+D2x=gallery('tridiag',Nx,1,-2,1)/(hx^2);
+D2y=gallery('tridiag',Ny,1,-2,1)/(hy^2);
+
+[Vx,LambdaX]=eig(full(D2x));
+[Vy,LambdaY]=eig(full(D2y));
+[x,y]=meshgrid(linspace(0,1,100),linspace(0,1,300));
+f=sin(x).*cos(100*y);
+F=Vy'*f*Vx;
+U=zeros(size(f));
+lambdax=diag(LambdaX);
+lambday=diag(LambdaY);
+% whos U F lambdax lambday
+for j=1:Nx
+    U(:,j)=F(:,j)./(lambday+lambdax(j));
+end
+
+u=Vy*U*Vx';
+% Calculate error
+err=norm(u*D2x+D2y*u-f,inf)
+figure
+surf(x,y,u)
+shading interp
+xlabel('$x$','Interpreter','latex')
+ylabel('$y$','Interpreter','latex')
+set(get(gca,'ylabel'),'rotation',0)
+txt=[path,'problem2_u'];
+saveas(gcf,txt,'png')
+
+\end{verbatim}

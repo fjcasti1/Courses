@@ -1,0 +1,45 @@
+\begin{questions}
+\question{
+Find a function like the Green's function for the equation
+\begin{align*}
+(\partial_t-\partial^2_x)u&=0,~~~~~~~~x\in[0,L],~t\in(0,\infty),\\
+\partial_xu(0,t)=0&=\partial_xu(L,t),~~~~~~t\in(0,\infty),\\
+u(x,0)&=f(x),~~~~~~x\in[0,L].
+\end{align*}
+}
+\begin{solution}
+The solution to the PDE with zero Neumann boundary conditions is given by the Fourier cosine series
+\begin{align*}
+u(x,t)=\sum_{m=1}^{\infty}A_me^{-a\lambda_m^2t}\cos(\lambda_mx),~~~~~~\lambda_m=m\frac{\pi}{L},
+\end{align*}
+with
+\begin{align*}
+A_m=\frac{2}{L}\int_0^Lf(y)\cos(\lambda_my)dy,~~~~m\geq 1,
+\end{align*}
+and
+\begin{align*}
+A_0=\frac{1}{L}\int_0^Lf(y)dy.
+\end{align*}
+Note that $\lambda_0=0$. Then,
+\begin{align*}
+u(x,t)=\frac{1}{L}\int_0^Lf(y)dy+\sum_{m=1}^{\infty}\frac{2}{L}\int_0^Lf(y)\cos(\lambda_my)dye^{-a\lambda_m^2t}\cos(\lambda_mx).
+\end{align*}
+We can reorganize the last expression and get
+\begin{align*}
+u(x,t)=\int_0^L\left[\frac{1}{L}+\sum_{m=1}^{\infty}\frac{2}{L}\cos(\lambda_mx)\cos(\lambda_my)e^{-a\lambda_m^2t}\right]f(y)dy.
+\end{align*}
+Let $\tilde{G}_0=\frac{1}{L}$ and
+\begin{align*}
+\tilde{G}_m(x,y,t)=\frac{2}{L}\cos(\lambda_mx)\cos(\lambda_my)e^{-a\lambda_m^2t},~~~m\geq 1.
+\end{align*}
+We can then substitute in the last equation
+\begin{align*}
+u(x,t)=\int_0^L\sum_{m=0}^{\infty}\tilde{G}_m(x,y,t) f(y)dy=\int_0^L\tilde{G}(x,y,t) f(y)dy.
+\end{align*}
+Thus, the "modified Green's function" for the heat equation with Neumann boundary conditions is
+\begin{align*}
+\tilde{G}(x,y,t)=\sum_{m=0}^{\infty}\tilde{G}_m(x,y,t),
+\end{align*}
+where $\tilde{G}_m(x,y,t)$ is specified above for all $m\geq 0$.
+\end{solution}
+\end{questions}

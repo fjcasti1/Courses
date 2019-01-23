@@ -1,0 +1,37 @@
+\begin{questions}
+
+\question{Let $\mu$ be a measure on a ring $\mathcal{B}$. Show that $\mu$ is finitely subadditive and $\sigma$-subadditive. (See Lemma 7.11).}
+
+\begin{solution}
+  \begin{proof}
+Let $\mu$ be a measure on a ring $\mathcal{B}$. By \textit{Definition 7.10}, $\mu$ is additive. Then, by \textit{Lemma 7.8}, $\mu$ is subbadditive, i.e. $\mu(A_1\cup A_2)\leq\mu(A_1)+\mu(A_2)$. We prove that $\mu$ is finitely subadditive,
+\begin{equation}\label{eq:subadditive}
+\mu\left(\bigcup_{j=1}^nA_j\right)=\sum_{j=1}^n\mu\left(A_j\right)~,
+\end{equation}
+by induction. It is trivial for $n=1$ is given by the definition of subadditivity for $n=2$. Assume that (\ref{eq:subadditive}) is true for $n$. Now
+\begin{align*}
+\mu\left(\bigcup_{j=1}^{n+1}A_j\right)&=\mu\left(\bigcup_{j=1}^nA_j\cup A_{n+1}\right)\\
+&\leq \mu\left(\bigcup_{j=1}^nA_j\right)+\mu\left(A_{n+1}\right),~~\text{by subadditivity for two sets,}\\
+&\leq \sum_{j=1}^n\mu\left(A_j\right)+\mu\left(A_{n+1}\right),~~ \text{by induction hypothesis (\ref{eq:subadditive}),}\\
+&=\sum_{j=1}^{n+1}\mu\left(A_j\right).
+\end{align*}
+Thus, $\mu$ is finitely subadditive.
+
+Now we prove that $\mu$ is $\sigma$-subadditive. By \textit{Definition 7.10}, $\mu$ is continuous from below and we just proved that it is finitely subadditive. Let $(A_n)$ be a sequence of sets in $\mathcal{B}$ such that $\cup_{n\in\N}A_n\in\mathcal{B}$. Set $B_n=\bigcup_{j=1}^nA_j$. Then $(B_n)$ is an increasing sequence in $\mathcal{B}$ with $\bigcup_{n=1}^{\infty}B_n=\bigcup_{n=1}^{\infty}A_n\in\mathcal{B}$. Since $\mu$ is continuous from below,
+\begin{align*}
+\mu\left(\bigcup_{j=1}^{\infty}A_j\right)=\mu\left(\bigcup_{n=1}^{\infty}B_n\right)=\lim_{n\rightarrow\infty}\mu(B_n).
+\end{align*}
+Since $\mu$ is finitely subadditive,
+\begin{align*}
+\mu\left(\bigcup_{j=1}^{\infty}A_j\right)=\lim_{n\rightarrow\infty}\mu(B_n)&=\lim_{n\rightarrow\infty}\mu\left(\bigcup_{j=1}^nA_j\right)\\
+&\leq \lim_{n\rightarrow\infty}\sum_{j=1}^n\mu(A_j)\\
+&=\sum_{j=1}^{\infty}\mu(A_j).
+\end{align*}
+Thus,
+\begin{align*}
+\mu\left(\bigcup_{j=1}^{\infty}A_j\right)\leq \sum_{j=1}^{\infty}\mu(A_j),
+\end{align*}
+and $\mu$ is $\sigma$-subadditive.
+\end{proof}
+\end{solution}
+\end{questions}

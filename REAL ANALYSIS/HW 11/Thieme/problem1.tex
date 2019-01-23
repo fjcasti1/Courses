@@ -1,0 +1,60 @@
+\begin{questions}
+
+\question{ Let $B$ be an $m \times n$ matrix $(\alpha_{jk}; j = 1, . . . , m, k = 1, . . . , n)$. As we
+know from Example 5.4,
+\begin{align*}
+[Bx]_j = \sum_{k=1}^{n} \alpha_{jk}x_k,~~ j = 1, \cdots , m,~ x = (x_1, \cdots , x_n)
+\end{align*}
+defines a bounded linear operator $B$ from $\R^n$ to $\R^m$.
+
+Show: if both spaces are equipped with the sum-norm, then
+\begin{align*}
+\|B\| = \max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}|
+\end{align*}}
+
+\begin{solution}
+  \begin{proof}
+First let us show $\|B\| \leq \max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}|$. 
+
+Let [$Bx]_j = \sum_{k=1}^{n} \alpha_{jk}x_k,~~ j = 1, \cdots , m,~ x = (x_1, \cdots , x_n)$ and $x \neq 0$. Then,
+\begin{align*}
+Bx = \begin{bmatrix}
+\sum_{k=1}^{n} \alpha_{1k} \\
+\sum_{k=1}^{n} \alpha_{2k} \\
+\vdots \\
+\sum_{k=1}^{n} \alpha_{mk}
+\end{bmatrix}~.
+\end{align*}
+By triangle inequality,
+\begin{align*}
+\|Bx\|_1 = & \sum_{j=1}^{m} |[Bx]_j| = \sum_{j=1}^{m} | \sum_{k=1}^{n} \alpha_{jk}x_k| \leq \sum_{j=1}^{m} \sum_{k=1}^{n} |\alpha_{jk}x_k| = \sum_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}||x_k| \\ 
+& \leq \sum_{k=1}^{n} \left( \max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}| \right) |x_k| = \left( \max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}| \right) \|x\|_1~.
+\end{align*}
+Therefore,
+\begin{align*}
+\frac{\|Bx\|_1}{\|x\|_1} \leq  \max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}|~,~x\neq 0~.
+\end{align*}
+Thus, by \textit{Lemma 5.3} and the definition of a supremum,
+\begin{align*}
+ \|B\| \leq \max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}|~.
+\end{align*}
+To show the inequality in the other sense, choose $k$ such that
+\begin{align*}
+\max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}| = \sum_{j=1}^{m} |\alpha_{jk}|~.
+\end{align*}
+Now consider $e^k$ to be the $k^{th}$ canonical basis vector with all components being zero except for the $k-th$ component which is 1. It is inmediate that $\|e^k\|_1 = 1$. Then,
+\begin{align*}
+ \frac{\|Be^k\|_1}{\|e^k\|_1} = \|Be^k\|_1  = \sum_{j=1}^{m} |\alpha_{jk}|~.
+\end{align*}
+Again, by \textit{Lemma 5.3} and the definition of a supremum,
+\begin{align*}
+\max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}| = \sum_{j=1}^{m} |\alpha_{jk}| = \frac{\|Be^k\|_1}{\|e^k\|_1} \leq \|B\|~.
+\end{align*}
+We combine this inequality with the one obtained before to get the desired result:
+\begin{align*}
+\|B\| = \max_{k=1}^{n} \sum_{j=1}^{m} |\alpha_{jk}|
+\end{align*}
+
+\end{proof}
+\end{solution}
+\end{questions}

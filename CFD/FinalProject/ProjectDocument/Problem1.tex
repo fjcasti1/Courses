@@ -1,0 +1,110 @@
+In this problem, to my knowledge, we encounter a very badly design mixing chamger. The fluids with different mass fraction enter the chamber too far from each other and they barely have time to mix. We will talk on how I improved this for problem 2.
+
+In the next set of figures we can see the results for the ouput times specified.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem1/u_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem1/u_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem1/u_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem1/u_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem1/u_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem1/u_6.eps}}
+\hspace*{\fill}
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem1/v_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem1/v_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem1/v_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem1/v_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem1/v_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem1/v_6.eps}}
+\hspace*{\fill}
+\caption{Profiles of vertical velocity $v$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem1/Y_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem1/Y_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem1/Y_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem1/Y_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem1/Y_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem1/Y_6.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of mass fraction $Y$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem1/Ymix_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem1/Ymix_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem1/Ymix_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem1/Ymix_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem1/Ymix_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem1/Ymix_6.eps}}
+\hspace*{\fill}
+\caption{Profiles of $Y(1-Y)$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Quality of the mixture in the chamber.]{\includegraphics[scale=0.45]{Problem1/Rplot.eps}}
+\hfill
+\subfigure[Quality of mixture flow at the outlet.]{\includegraphics[scale=0.45]{Problem1/Splot.eps}}
+\hspace*{\fill}
+\caption{Profiles of mixture indicators for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+We can see in figure 4 how the fluids are not well mixed, with the exception of two fine lines in the middle of the chamger. The results above are very consistent with mesh refinement. However, the GCI analysis of the result $T$, tells us that these results are not to be trusted. At least not yet, maybe running another simulation with a finer mesh we find an observed order of convergence within expected values. However, I obtain a negative value, which indicates divergence. I must have some little bug in my code that is making the observed order of convergence differ from the right values. I have been unable to find it, specially because my code matches all the debug files posted to date. As a conclusion for this problem, the result would be $T=0.2669\pm0.5\%$.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.7]{Table1.png}
+\caption{GCI analysis results.}
+\end{figure}

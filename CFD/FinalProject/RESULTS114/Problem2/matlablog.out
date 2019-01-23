@@ -1,0 +1,320 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> >> 
+N =
+
+    16    32    64    16    32    64
+
+>> >> >> >> >> >> >> Starting parallel pool (parpool) using the 'local' profile ...
+connected to 4 workers.
+Warning: Directory already exists.
+> In Problem2 (line 18)
+Warning: Directory already exists.
+> In Problem2 (line 18)
+Warning: Directory already exists.
+> In Problem2 (line 18)
+ 
+  In parallel_function>make_general_channel/channel_general (line 932)
+  In remoteParallelFunction (line 46)
+ 
+--> STARTED Simulation with M=8, N=16, CFL=0.8 and design number 1
+ 
+Simulation with M=8, N=16, CFL=0.8 and design number 1 has reached time=1, and having a InfNorm(rhs)=8.3657e-06. Elapsed time is 0 hours, 0 minutes and 5.8677 seconds.
+--> STARTED Simulation with M=8, N=16, CFL=0.9 and design number 1
+ 
+Simulation with M=8, N=16, CFL=0.9 and design number 1 has reached time=1, and having a InfNorm(rhs)=9.5801e-06. Elapsed time is 0 hours, 0 minutes and 5.8817 seconds.
+  In parallel_function>make_general_channel/channel_general (line 932)
+  In remoteParallelFunction (line 46)
+ 
+--> STARTED Simulation with M=16, N=32, CFL=0.8 and design number 1
+ 
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has reached time=1, and having a InfNorm(rhs)=4.0179e-06. Elapsed time is 0 hours, 0 minutes and 6.8696 seconds.
+  In parallel_function>make_general_channel/channel_general (line 932)
+  In remoteParallelFunction (line 46)
+ 
+--> STARTED Simulation with M=32, N=64, CFL=0.8 and design number 1
+ 
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has reached time=1, and having a InfNorm(rhs)=4.7446e-06. Elapsed time is 0 hours, 0 minutes and 11.972 seconds.
+Simulation with M=8, N=16, CFL=0.8 and design number 1 has reached time=3, and having a InfNorm(rhs)=5.0429e-06. Elapsed time is 0 hours, 0 minutes and 20.0395 seconds.
+Simulation with M=8, N=16, CFL=0.9 and design number 1 has reached time=3, and having a InfNorm(rhs)=7.9574e-06. Elapsed time is 0 hours, 0 minutes and 20.4405 seconds.
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has reached time=3, and having a InfNorm(rhs)=5.8643e-06. Elapsed time is 0 hours, 0 minutes and 22.0848 seconds.
+Simulation with M=8, N=16, CFL=0.8 and design number 1 has reached time=5, and having a InfNorm(rhs)=2.3968e-06. Elapsed time is 0 hours, 0 minutes and 28.0617 seconds.
+Simulation with M=8, N=16, CFL=0.9 and design number 1 has reached time=5, and having a InfNorm(rhs)=4.8222e-06. Elapsed time is 0 hours, 0 minutes and 28.0662 seconds.
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has reached time=5, and having a InfNorm(rhs)=5.9365e-06. Elapsed time is 0 hours, 0 minutes and 30.2895 seconds.
+Simulation with M=8, N=16, CFL=0.8 and design number 1 has reached time=10, and having a InfNorm(rhs)=5.6915e-06. Elapsed time is 0 hours, 0 minutes and 33.7679 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has reached time=3, and having a InfNorm(rhs)=4.4664e-06. Elapsed time is 0 hours, 0 minutes and 33.9074 seconds.
+Simulation with M=8, N=16, CFL=0.9 and design number 1 has reached time=10, and having a InfNorm(rhs)=8.6225e-06. Elapsed time is 0 hours, 0 minutes and 33.905 seconds.
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has performed 500 iterations. Time step=0.011969. Elapsed time is 0 hours, 0 minutes and 37.0157 seconds.
+Simulation with M=8, N=16, CFL=0.8 and design number 1 has reached time=15, and having a InfNorm(rhs)=5.6863e-06. Elapsed time is 0 hours, 0 minutes and 39.468 seconds.
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has reached time=10, and having a InfNorm(rhs)=2.3616e-06. Elapsed time is 0 hours, 0 minutes and 38.9902 seconds.
+Simulation with M=8, N=16, CFL=0.9 and design number 1 has reached time=15, and having a InfNorm(rhs)=3.8095e-07. Elapsed time is 0 hours, 0 minutes and 40.0471 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has performed 500 iterations. Time step=0.005594. Elapsed time is 0 hours, 0 minutes and 42.2525 seconds.
+Simulation with M=8, N=16, CFL=0.8 and design number 1 has performed 500 iterations. Time step=0.035842. Elapsed time is 0 hours, 0 minutes and 44.9575 seconds.
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has performed 1000 iterations. Time step=0.011969. Elapsed time is 0 hours, 0 minutes and 45.9978 seconds.
+Simulation with M=8, N=16, CFL=0.9 and design number 1 has reached time=20, and having a InfNorm(rhs)=1.4954e-09. Elapsed time is 0 hours, 0 minutes and 46.1297 seconds.
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has reached time=15, and having a InfNorm(rhs)=2.3623e-06. Elapsed time is 0 hours, 0 minutes and 47.2905 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has reached time=5, and having a InfNorm(rhs)=7.1781e-06. Elapsed time is 0 hours, 0 minutes and 50.1436 seconds.
+Simulation with M=8, N=16, CFL=0.8 and design number 1 has reached time=20, and having a InfNorm(rhs)=5.6863e-06. Elapsed time is 0 hours, 0 minutes and 45.1362 seconds.
+ 
+--> FINISHED Simulation with M=8, N=16, CFL=0.8 and design number 1 obtaining T=0.26486
+Elapsed time is 0 hours, 0 minutes and 51.7724 seconds.
+ 
+ 
+--> FINISHED Simulation with M=8, N=16, CFL=0.9 and design number 1 obtaining T=0.26482
+Elapsed time is 0 hours, 0 minutes and 53.0988 seconds.
+ 
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has performed 1500 iterations. Time step=0.011969. Elapsed time is 0 hours, 0 minutes and 54.7017 seconds.
+ 
+--> STARTED Simulation with M=16, N=32, CFL=0.9 and design number 1
+ 
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has reached time=1, and having a InfNorm(rhs)=3.5503e-06. Elapsed time is 0 hours, 0 minutes and 5.5223 seconds.
+Simulation with M=16, N=32, CFL=0.8 and design number 1 has reached time=20, and having a InfNorm(rhs)=2.3623e-06. Elapsed time is 0 hours, 0 minutes and 55.1762 seconds.
+ 
+--> FINISHED Simulation with M=16, N=32, CFL=0.8 and design number 1 obtaining T=0.50067
+Elapsed time is 0 hours, 1 minutes and 0.58525 seconds.
+ 
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has performed 1000 iterations. Time step=0.005594. Elapsed time is 0 hours, 1 minutes and 0.30242 seconds.
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has reached time=3, and having a InfNorm(rhs)=5.5182e-06. Elapsed time is 0 hours, 0 minutes and 11.1417 seconds.
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has reached time=5, and having a InfNorm(rhs)=7.0272e-06. Elapsed time is 0 hours, 0 minutes and 16.4798 seconds.
+ 
+--> STARTED Simulation with M=32, N=64, CFL=0.9 and design number 1
+ 
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has reached time=1, and having a InfNorm(rhs)=7.4105e-06. Elapsed time is 0 hours, 0 minutes and 8.119 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has performed 1500 iterations. Time step=0.005594. Elapsed time is 0 hours, 1 minutes and 8.9776 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has reached time=10, and having a InfNorm(rhs)=6.6604e-06. Elapsed time is 0 hours, 1 minutes and 11.4715 seconds.
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has performed 500 iterations. Time step=0.013465. Elapsed time is 0 hours, 0 minutes and 22.2755 seconds.
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has reached time=10, and having a InfNorm(rhs)=3.977e-06. Elapsed time is 0 hours, 0 minutes and 23.6187 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has reached time=3, and having a InfNorm(rhs)=6.7621e-06. Elapsed time is 0 hours, 0 minutes and 19.477 seconds.
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has performed 1000 iterations. Time step=0.013465. Elapsed time is 0 hours, 0 minutes and 29.5468 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has performed 2000 iterations. Time step=0.005594. Elapsed time is 0 hours, 1 minutes and 21.3992 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has performed 2500 iterations. Time step=0.005594. Elapsed time is 0 hours, 1 minutes and 26.6902 seconds.
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has reached time=15, and having a InfNorm(rhs)=3.9778e-06. Elapsed time is 0 hours, 0 minutes and 29.8457 seconds.
+Simulation with M=16, N=32, CFL=0.9 and design number 1 has reached time=20, and having a InfNorm(rhs)=3.9778e-06. Elapsed time is 0 hours, 0 minutes and 35.9688 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has performed 500 iterations. Time step=0.0062933. Elapsed time is 0 hours, 0 minutes and 27.0536 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has reached time=5, and having a InfNorm(rhs)=8.1119e-06. Elapsed time is 0 hours, 0 minutes and 31.2797 seconds.
+ 
+--> FINISHED Simulation with M=16, N=32, CFL=0.9 and design number 1 obtaining T=0.50068
+Elapsed time is 0 hours, 0 minutes and 40.9292 seconds.
+ 
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has reached time=15, and having a InfNorm(rhs)=6.6621e-06. Elapsed time is 0 hours, 1 minutes and 27.4008 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has performed 3000 iterations. Time step=0.005594. Elapsed time is 0 hours, 1 minutes and 37.0357 seconds.
+Simulation with M=32, N=64, CFL=0.8 and design number 1 has reached time=20, and having a InfNorm(rhs)=6.6621e-06. Elapsed time is 0 hours, 1 minutes and 41.6732 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has performed 1000 iterations. Time step=0.0062933. Elapsed time is 0 hours, 0 minutes and 42.0825 seconds.
+ 
+--> FINISHED Simulation with M=32, N=64, CFL=0.8 and design number 1 obtaining T=0.47495
+Elapsed time is 0 hours, 1 minutes and 47.0826 seconds.
+ 
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has reached time=10, and having a InfNorm(rhs)=6.6639e-06. Elapsed time is 0 hours, 0 minutes and 49.6608 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has performed 1500 iterations. Time step=0.0062933. Elapsed time is 0 hours, 0 minutes and 54.4539 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has performed 2000 iterations. Time step=0.0062933. Elapsed time is 0 hours, 1 minutes and 0.041099 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has reached time=15, and having a InfNorm(rhs)=6.6653e-06. Elapsed time is 0 hours, 1 minutes and 2.8843 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has performed 2500 iterations. Time step=0.0062933. Elapsed time is 0 hours, 1 minutes and 10.0639 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has performed 3000 iterations. Time step=0.0062933. Elapsed time is 0 hours, 1 minutes and 15.0755 seconds.
+Simulation with M=32, N=64, CFL=0.9 and design number 1 has reached time=20, and having a InfNorm(rhs)=6.6653e-06. Elapsed time is 0 hours, 1 minutes and 15.865 seconds.
+ 
+--> FINISHED Simulation with M=32, N=64, CFL=0.9 and design number 1 obtaining T=0.47495
+Elapsed time is 0 hours, 1 minutes and 20.8671 seconds.
+ 
+>> >>  
+>>  
+>> FIRST PARFOR LOOP COMPLETED
+>>  
+>>  
+>> >> 
+N =
+
+         256         256         512         512        1024        1024
+
+>> >> >> >> >> >>  
+ 
+ 
+ 
+--> STARTED Simulation with M=128, N=256, CFL=0.9 and design number 1
+ 
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has reached time=1, and having a InfNorm(rhs)=4.5498e-06. Elapsed time is 0 hours, 3 minutes and 7.7473 seconds.
+--> STARTED Simulation with M=128, N=256, CFL=0.8 and design number 1
+ 
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 500 iterations. Time step=0.0018852. Elapsed time is 0 hours, 3 minutes and 14.6133 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has reached time=1, and having a InfNorm(rhs)=5.8593e-06. Elapsed time is 0 hours, 3 minutes and 31.5894 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 500 iterations. Time step=0.0021261. Elapsed time is 0 hours, 3 minutes and 32.5222 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 1000 iterations. Time step=0.0021452. Elapsed time is 0 hours, 6 minutes and 20.6137 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 1000 iterations. Time step=0.0019041. Elapsed time is 0 hours, 6 minutes and 23.1611 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 1500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 9 minutes and 15.3831 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has reached time=3, and having a InfNorm(rhs)=4.0947e-06. Elapsed time is 0 hours, 9 minutes and 17.2063 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 1500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 9 minutes and 19.548 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has reached time=3, and having a InfNorm(rhs)=5.6555e-06. Elapsed time is 0 hours, 10 minutes and 24.7467 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 2000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 12 minutes and 19.1982 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 2000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 12 minutes and 24.1754 seconds.
+--> STARTED Simulation with M=256, N=512, CFL=0.8 and design number 1
+ 
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 500 iterations. Time step=0.00093007. Elapsed time is 0 hours, 13 minutes and 34.5369 seconds.
+--> STARTED Simulation with M=256, N=512, CFL=0.9 and design number 1
+ 
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 500 iterations. Time step=0.0010488. Elapsed time is 0 hours, 13 minutes and 36.1016 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 2500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 15 minutes and 4.9335 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 2500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 15 minutes and 11.9667 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has reached time=5, and having a InfNorm(rhs)=3.402e-06. Elapsed time is 0 hours, 16 minutes and 39.7816 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 3000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 18 minutes and 1.1138 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 3000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 18 minutes and 6.4507 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has reached time=5, and having a InfNorm(rhs)=4.9158e-06. Elapsed time is 0 hours, 18 minutes and 44.5151 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 3500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 20 minutes and 40.5229 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 3500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 20 minutes and 56.2932 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 4000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 23 minutes and 9.8662 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 4000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 23 minutes and 31.7911 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has reached time=1, and having a InfNorm(rhs)=4.6426e-06. Elapsed time is 0 hours, 24 minutes and 56.1154 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 4500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 25 minutes and 24.5864 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 1000 iterations. Time step=0.00094185. Elapsed time is 0 hours, 25 minutes and 51.1623 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 4500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 26 minutes and 1.4604 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 1000 iterations. Time step=0.0010622. Elapsed time is 0 hours, 27 minutes and 26.6042 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 5000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 27 minutes and 27.7648 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has reached time=1, and having a InfNorm(rhs)=3.0568e-06. Elapsed time is 0 hours, 27 minutes and 57.8803 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 5000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 28 minutes and 11.8728 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 5500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 29 minutes and 28.0209 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 5500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 30 minutes and 19.9924 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has reached time=10, and having a InfNorm(rhs)=5.3681e-06. Elapsed time is 0 hours, 31 minutes and 5.2101 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 6000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 31 minutes and 28.0885 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 6000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 32 minutes and 18.4345 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 6500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 33 minutes and 7.9112 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 6500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 34 minutes and 7.2168 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 7000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 34 minutes and 30.8199 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has reached time=10, and having a InfNorm(rhs)=3.0851e-06. Elapsed time is 0 hours, 34 minutes and 54.2257 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 7500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 35 minutes and 49.4754 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 7000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 36 minutes and 12.3858 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 8000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 36 minutes and 58.7159 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 7500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 37 minutes and 45.1984 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 8500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 38 minutes and 8.0296 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 8000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 39 minutes and 9.9676 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 9000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 39 minutes and 17.3335 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 1500 iterations. Time step=0.00094718. Elapsed time is 0 hours, 39 minutes and 18.692 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 1500 iterations. Time step=0.0010672. Elapsed time is 0 hours, 39 minutes and 22.6134 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has reached time=15, and having a InfNorm(rhs)=5.369e-06. Elapsed time is 0 hours, 39 minutes and 42.9121 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 8500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 40 minutes and 28.6981 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 9500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 41 minutes and 0.022611 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 9000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 41 minutes and 40.2827 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 10000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 42 minutes and 9.9216 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 9500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 42 minutes and 51.4966 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 10500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 43 minutes and 19.4666 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 10000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 44 minutes and 2.6765 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 11000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 44 minutes and 28.6644 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has reached time=15, and having a InfNorm(rhs)=3.0856e-06. Elapsed time is 0 hours, 44 minutes and 49.9081 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 11500 iterations. Time step=0.0015632. Elapsed time is 0 hours, 45 minutes and 38.7214 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 10500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 45 minutes and 48.6035 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has performed 12000 iterations. Time step=0.0015632. Elapsed time is 0 hours, 46 minutes and 47.8764 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 11000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 47 minutes and 0.11467 seconds.
+Simulation with M=128, N=256, CFL=0.9 and design number 1 has reached time=20, and having a InfNorm(rhs)=5.369e-06. Elapsed time is 0 hours, 47 minutes and 40.9994 seconds.
+ 
+--> FINISHED Simulation with M=128, N=256, CFL=0.9 and design number 1 obtaining T=0.48145
+Elapsed time is 0 hours, 47 minutes and 59.7103 seconds.
+ 
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 11500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 48 minutes and 10.8026 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 12000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 49 minutes and 21.5104 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 12500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 50 minutes and 31.9137 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 2000 iterations. Time step=0.00095042. Elapsed time is 0 hours, 51 minutes and 12.5039 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 2000 iterations. Time step=0.0010708. Elapsed time is 0 hours, 51 minutes and 13.0485 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 13000 iterations. Time step=0.0013895. Elapsed time is 0 hours, 51 minutes and 42.4252 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has performed 13500 iterations. Time step=0.0013895. Elapsed time is 0 hours, 52 minutes and 52.9976 seconds.
+Simulation with M=128, N=256, CFL=0.8 and design number 1 has reached time=20, and having a InfNorm(rhs)=3.0857e-06. Elapsed time is 0 hours, 53 minutes and 54.2134 seconds.
+ 
+--> FINISHED Simulation with M=128, N=256, CFL=0.8 and design number 1 obtaining T=0.48145
+Elapsed time is 0 hours, 54 minutes and 13.0486 seconds.
+ 
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 2500 iterations. Time step=0.00095278. Elapsed time is 1 hours, 2 minutes and 31.7358 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 2500 iterations. Time step=0.00078147. Elapsed time is 1 hours, 3 minutes and 5.6522 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 3000 iterations. Time step=0.00069464. Elapsed time is 1 hours, 14 minutes and 54.665 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 3000 iterations. Time step=0.00078147. Elapsed time is 1 hours, 15 minutes and 4.7335 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has reached time=3, and having a InfNorm(rhs)=2.6059e-06. Elapsed time is 1 hours, 15 minutes and 20.6482 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has reached time=3, and having a InfNorm(rhs)=6.1451e-06. Elapsed time is 1 hours, 24 minutes and 14.442 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 3500 iterations. Time step=0.00069464. Elapsed time is 1 hours, 28 minutes and 37.734 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 3500 iterations. Time step=0.00078147. Elapsed time is 1 hours, 28 minutes and 44.6417 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 4000 iterations. Time step=0.00069464. Elapsed time is 1 hours, 40 minutes and 9.8854 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 4000 iterations. Time step=0.00078147. Elapsed time is 1 hours, 40 minutes and 29.3148 seconds.
+ 
+--> STARTED Simulation with M=512, N=1024, CFL=0.9 and design number 1
+ 
+Simulation with M=512, N=1024, CFL=0.9 and design number 1 has performed 500 iterations. Time step=0.00051502. Elapsed time is 0 hours, 57 minutes and 11.2079 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 4500 iterations. Time step=0.00078147. Elapsed time is 1 hours, 51 minutes and 33.8303 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 4500 iterations. Time step=0.00069464. Elapsed time is 1 hours, 51 minutes and 42.9925 seconds.
+ 
+--> STARTED Simulation with M=512, N=1024, CFL=0.8 and design number 1
+ 
+Simulation with M=512, N=1024, CFL=0.8 and design number 1 has performed 500 iterations. Time step=0.00045597. Elapsed time is 0 hours, 58 minutes and 4.9997 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 5000 iterations. Time step=0.00078147. Elapsed time is 2 hours, 2 minutes and 38.3324 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 5000 iterations. Time step=0.00069464. Elapsed time is 2 hours, 2 minutes and 47.4501 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 5500 iterations. Time step=0.00078147. Elapsed time is 2 hours, 13 minutes and 41.1278 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 5500 iterations. Time step=0.00069464. Elapsed time is 2 hours, 13 minutes and 50.0608 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has reached time=5, and having a InfNorm(rhs)=4.7006e-06. Elapsed time is 2 hours, 15 minutes and 15.8754 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 6000 iterations. Time step=0.00069464. Elapsed time is 2 hours, 24 minutes and 56.0855 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 6000 iterations. Time step=0.00078147. Elapsed time is 2 hours, 26 minutes and 31.8749 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has reached time=5, and having a InfNorm(rhs)=9.5979e-06. Elapsed time is 2 hours, 30 minutes and 51.9582 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 6500 iterations. Time step=0.00078147. Elapsed time is 2 hours, 36 minutes and 54.2709 seconds.
+Simulation with M=512, N=1024, CFL=0.9 and design number 1 has performed 1000 iterations. Time step=0.0005243. Elapsed time is 1 hours, 49 minutes and 43.4983 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 6500 iterations. Time step=0.00069464. Elapsed time is 2 hours, 37 minutes and 47.4024 seconds.
+Simulation with M=512, N=1024, CFL=0.8 and design number 1 has performed 1000 iterations. Time step=0.00046495. Elapsed time is 1 hours, 51 minutes and 45.8756 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 7000 iterations. Time step=0.00078147. Elapsed time is 2 hours, 47 minutes and 4.0292 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 7000 iterations. Time step=0.00069464. Elapsed time is 2 hours, 48 minutes and 18.4664 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 7500 iterations. Time step=0.00078147. Elapsed time is 2 hours, 57 minutes and 13.6471 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 7500 iterations. Time step=0.00069464. Elapsed time is 2 hours, 58 minutes and 27.7314 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 8000 iterations. Time step=0.00078147. Elapsed time is 3 hours, 6 minutes and 51.8477 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 8000 iterations. Time step=0.00069464. Elapsed time is 3 hours, 8 minutes and 37.3955 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 8500 iterations. Time step=0.00078147. Elapsed time is 3 hours, 16 minutes and 8.0387 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 8500 iterations. Time step=0.00069464. Elapsed time is 3 hours, 18 minutes and 49.3158 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 9000 iterations. Time step=0.00078147. Elapsed time is 3 hours, 25 minutes and 24.3444 seconds.
+Simulation with M=512, N=1024, CFL=0.9 and design number 1 has performed 1500 iterations. Time step=0.00052803. Elapsed time is 2 hours, 38 minutes and 59.7554 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 9000 iterations. Time step=0.00069464. Elapsed time is 3 hours, 28 minutes and 21.7271 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 9500 iterations. Time step=0.00078147. Elapsed time is 3 hours, 34 minutes and 15.1055 seconds.
+Simulation with M=512, N=1024, CFL=0.8 and design number 1 has performed 1500 iterations. Time step=0.00046843. Elapsed time is 2 hours, 41 minutes and 57.0672 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 9500 iterations. Time step=0.00069464. Elapsed time is 3 hours, 37 minutes and 38.8067 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 10000 iterations. Time step=0.00078147. Elapsed time is 3 hours, 42 minutes and 26.5351 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 10000 iterations. Time step=0.00069464. Elapsed time is 3 hours, 46 minutes and 56.7916 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 10500 iterations. Time step=0.00078147. Elapsed time is 3 hours, 50 minutes and 49.7135 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 10500 iterations. Time step=0.00069464. Elapsed time is 3 hours, 56 minutes and 1.2636 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 11000 iterations. Time step=0.00078147. Elapsed time is 3 hours, 59 minutes and 12.6609 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 11000 iterations. Time step=0.00069464. Elapsed time is 4 hours, 4 minutes and 25.4783 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 11500 iterations. Time step=0.00078147. Elapsed time is 4 hours, 6 minutes and 30.629 seconds.
+Simulation with M=512, N=1024, CFL=0.9 and design number 1 has reached time=1, and having a InfNorm(rhs)=4.3212e-06. Elapsed time is 3 hours, 21 minutes and 8.2331 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 11500 iterations. Time step=0.00069464. Elapsed time is 4 hours, 13 minutes and 2.1264 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has reached time=10, and having a InfNorm(rhs)=5.663e-06. Elapsed time is 4 hours, 13 minutes and 17.0735 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 12000 iterations. Time step=0.00078147. Elapsed time is 4 hours, 15 minutes and 49.7302 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 12000 iterations. Time step=0.00069464. Elapsed time is 4 hours, 23 minutes and 3.8431 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 12500 iterations. Time step=0.00078147. Elapsed time is 4 hours, 23 minutes and 57.9213 seconds.
+Simulation with M=512, N=1024, CFL=0.8 and design number 1 has performed 2000 iterations. Time step=0.00047084. Elapsed time is 3 hours, 34 minutes and 40.4375 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 13000 iterations. Time step=0.00078147. Elapsed time is 4 hours, 31 minutes and 42.3055 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 12500 iterations. Time step=0.00069464. Elapsed time is 4 hours, 32 minutes and 43.3458 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 13500 iterations. Time step=0.00078147. Elapsed time is 4 hours, 38 minutes and 15.4939 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 13000 iterations. Time step=0.00069464. Elapsed time is 4 hours, 41 minutes and 5.9943 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 14000 iterations. Time step=0.00078147. Elapsed time is 4 hours, 44 minutes and 34.2669 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has reached time=10, and having a InfNorm(rhs)=3.4224e-06. Elapsed time is 4 hours, 48 minutes and 24.926 seconds.
+Simulation with M=512, N=1024, CFL=0.8 and design number 1 has reached time=1, and having a InfNorm(rhs)=9.4439e-06. Elapsed time is 3 hours, 54 minutes and 59.3298 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 13500 iterations. Time step=0.00069464. Elapsed time is 4 hours, 51 minutes and 13.6023 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 14500 iterations. Time step=0.00078147. Elapsed time is 4 hours, 52 minutes and 3.5036 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 15000 iterations. Time step=0.00078147. Elapsed time is 4 hours, 58 minutes and 0.3834 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 14000 iterations. Time step=0.00069464. Elapsed time is 4 hours, 59 minutes and 26.6534 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 15500 iterations. Time step=0.00078147. Elapsed time is 5 hours, 3 minutes and 38.2342 seconds.
+Simulation with M=512, N=1024, CFL=0.9 and design number 1 has performed 2000 iterations. Time step=0.00053075. Elapsed time is 4 hours, 16 minutes and 34.7484 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 14500 iterations. Time step=0.00069464. Elapsed time is 5 hours, 7 minutes and 4.815 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 16000 iterations. Time step=0.00078147. Elapsed time is 5 hours, 8 minutes and 53.1736 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 15000 iterations. Time step=0.00069464. Elapsed time is 5 hours, 13 minutes and 44.1897 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 16500 iterations. Time step=0.00078147. Elapsed time is 5 hours, 14 minutes and 8.7491 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 17000 iterations. Time step=0.00078147. Elapsed time is 5 hours, 19 minutes and 23.1917 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 15500 iterations. Time step=0.00069464. Elapsed time is 5 hours, 20 minutes and 9.6853 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 17500 iterations. Time step=0.00078147. Elapsed time is 5 hours, 24 minutes and 43.6631 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 16000 iterations. Time step=0.00069464. Elapsed time is 5 hours, 26 minutes and 33.9299 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 18000 iterations. Time step=0.00078147. Elapsed time is 5 hours, 29 minutes and 58.2802 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 16500 iterations. Time step=0.00069464. Elapsed time is 5 hours, 32 minutes and 57.6542 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has reached time=15, and having a InfNorm(rhs)=5.6646e-06. Elapsed time is 5 hours, 33 minutes and 59.1956 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 17000 iterations. Time step=0.00069464. Elapsed time is 5 hours, 38 minutes and 30.8585 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 18500 iterations. Time step=0.00078147. Elapsed time is 5 hours, 38 minutes and 35.6729 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 17500 iterations. Time step=0.00069464. Elapsed time is 5 hours, 43 minutes and 22.0201 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 19000 iterations. Time step=0.00078147. Elapsed time is 5 hours, 44 minutes and 28.9853 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 18000 iterations. Time step=0.00069464. Elapsed time is 5 hours, 48 minutes and 13.1959 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 19500 iterations. Time step=0.00078147. Elapsed time is 5 hours, 49 minutes and 16.3176 seconds.
+Simulation with M=256, N=512, CFL=0.8 and design number 1 has performed 18500 iterations. Time step=0.00069464. Elapsed time is 5 hours, 53 minutes and 4.5726 seconds.
+Simulation with M=256, N=512, CFL=0.9 and design number 1 has performed 20000 iterations. Time step=0.00078147. Elapsed time is 5 hours, 54 minutes and 3.7355 seconds.

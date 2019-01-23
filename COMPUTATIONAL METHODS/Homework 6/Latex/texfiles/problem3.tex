@@ -1,0 +1,94 @@
+\begin{questions}
+
+\question{ Using finite differences on the given grid and the data in $u$ and $v$ from \texttt{velocitydata.mat}, solve the equation of temperature in a fluid flow
+\begin{align*}
+T_t + uT_x + vT_y = \alpha(T_{xx}+T_{yy}),~~(x,y)\in (0,1) \times (0,1),~~t>0,
+\end{align*} 
+where $\alpha = 0.0005$. Assume that $T=0$ at $t=0$ and that $T(t,x,y) = xy\tanh(10t)^2$ on the boundary. use \texttt{contourf} to plot the level curves to the temperature at times $t = 10,50,150,300$.
+}
+
+\begin{solution}
+
+\begin{figure}[H]
+\centering
+\subfloat[t = 10]{\label{figure:1} \includegraphics[width = 3in]{P3F1.eps}} 
+\subfloat[t = 50]{\label{figure:2} \includegraphics[width = 3in]{P3F2.eps}} \\
+\subfloat[t = 150]{\label{figure:3} \includegraphics[width = 3in]{P3F3.eps}}
+\subfloat[t = 300]{\label{figure:4} \includegraphics[width = 3in]{P3F4.eps}} 
+\caption{Solutions for Temperature in a Fluid Flow}
+\label{figure}
+\end{figure}
+
+\end{solution}
+
+\end{questions}
+
+\subparagraph*{MATLAB}
+    \begin{verbatim}
+
+
+function T = TfluidflowFD(u,v,xx,yy)
+% Parameters
+N = 150;
+alpha = 0.0005;
+Re = 1/alpha;
+dt = min(0.2*Re/N^2,1e-3);
+outputTime = [10 50 150 300];
+n=1;
+
+h = 1/N; % N+1 points in each direction
+
+%initial condition of temperature
+w = 0*xx;
+
+ii = 2:N; jj = 2:N;  % index for interior nodes
+wi = zeros(N-1,N-1); % interior values of vorticity
+
+count = 0;
+t = 0;
+
+% main loop
+while t<301
+
+   % advance temperature with forward Euler
+   wi = wi + dt*wrhs(u,v,w,alpha);
+   w(ii,jj) = wi;
+
+   % update temperature at boundary
+   w = BCw(w,xx,yy,t);
+
+   t = t+dt;
+   count = count + 1;
+
+  if (t<outputTime(n) && t+dt >= outputTime(n))
+        dt=outputTime(n)-t;
+  else
+        dt=min(0.2*Re/N^2,1e-3);
+end
+    if(t==outputTime(n) && t+dt >= outputTime(n))
+        figure(n)
+        contourf(xx,yy,w)
+        title(t)
+        drawnow
+        n=n+1;
+    end
+end
+
+  % Right-hand side of vorticity equation
+    function rhs = wrhs(u,v,w,Re)
+        wx = (w(ii,jj+1)-w(ii,jj-1))/(2*h);
+        wy = (w(ii+1,jj)-w(ii-1,jj))/(2*h);
+        Lw = (w(ii,jj+1)+w(ii,jj-1)+w(ii+1,jj)+w(ii-1,jj)-4*w(ii,jj))/h^2;
+        rhs = -u(ii,jj).*wx - v(ii,jj).*wy + (Re)*Lw;
+    end
+
+    % Enforce boundary condition (vorticity)
+    function w = BCw(w,xx,yy,t)
+        % three point sided FD formula (second order accurate)
+        w(1,:) = xx(1,:).*yy(1,:)*tanh(10*t)^2;
+        w(N+1,:) = xx(N+1,:).*yy(N+1,:)*tanh(10*t)^2;
+        w(:,1) = xx(:,1).*yy(:,1)*tanh(10*t)^2;
+        w(:,N+1) = xx(:,N+1).*yy(:,N+1)*tanh(10*t)^2;
+    end
+end
+\end{verbatim}

@@ -1,0 +1,83 @@
+\begin{questions}
+
+\question{ Let $X$ be a metric space with metric $d$ and $S$ and $T$ be subsets of $X$. 
+
+Show: $int(S \cap T) = \breve{S} \cup \breve{T}$}
+
+\begin{solution}
+  \begin{proof}
+ Observe that,
+\begin{align*}
+X \setminus  (\breve{S} \cap \breve{T}) = X \setminus \breve{S} ~\cup ~X \setminus \breve{T}
+\end{align*} 
+ By DeMorgan's law. 
+ 
+ Then, by proposition 4.17,
+ \begin{align*}
+X \setminus \breve{S} ~\cup ~X \setminus \breve{T} = \overline{X \setminus S}~\cup~\overline{X \setminus T}~ = \overline{X \setminus S~\cup~X \setminus T }~.
+ \end{align*}
+ Then, by DeMorgan's Law and proposition 4.17,
+ \begin{align*}
+ \overline{X \setminus S~\cup~X \setminus T } = \overline{X \setminus S \cap T} = X \setminus Int(S \cap T)~.
+ \end{align*}
+ Thus,
+ \begin{align*}
+ &X \setminus  (\breve{S} \cap \breve{T}) = X \setminus Int(S \cap T)
+ \\
+ & \Rightarrow \breve{S} \cap \breve{T} = Int(S \cap T)~.
+ \end{align*}
+  \end{proof} 
+\end{solution}
+
+\question{$\breve{S} \cup \breve{T} \subseteq Int(S \cup T)$ but equality fails in general. } 
+
+\begin{solution}
+  \begin{proof}
+  
+Let $x \in  \breve{S} \cap \breve{T}$. Then,
+
+Case 1: Let $x \in \breve{S}$, $\exists~ \varepsilon_1>0$ such that,
+\begin{align*}
+U_{\varepsilon_1}(x) \subseteq S \subseteq S \cup T~.
+\end{align*}
+Thus $x \in Int(S \cup T)$.
+\vspace{5mm}
+
+Case 2: Let $x \in \breve{T}$, $\exists~ \varepsilon_2>0$ such that,
+\begin{align*}
+U_{\varepsilon_2}(x) \subseteq T \subseteq S \cup T~.
+\end{align*}
+Thus, $x \in Int(S \cup T)$.
+\vspace{5mm}
+
+Case 3: Let $x \in \breve{S} \cup \breve{T}$, $\exists \varepsilon_3>0$ such that,
+\begin{align*}
+U_{\varepsilon_3}(x) \subseteq S \cap T \subseteq S \cup T~.
+\end{align*}
+Thus, $x \in Int(S \cup T)$.
+\vspace{5mm}
+
+Then $x \in \breve{S}\cap \breve{T} \Rightarrow x \in Int(S \cup T)$. Thus,
+\begin{align*}
+\breve{S} \cup \breve{T} \subseteq Int(S \cup T)
+\end{align*}
+\vspace{7mm}
+
+Now, lets show that equality fails in general. Let $(\R, d)$ be the real number line under Euclidean topology.   Let $S = [a, \cdots, b]$ and $T = [b, \cdots, c] ~\forall~~a,b,c \in \R$. Then,
+\begin{align*}
+Int(S \cup T) &= Int([a, \cdots, b] \cup [b, \cdots, c])\\
+& = Int([a, \cdots, c]) \\
+& = (a, \cdots, c)~,
+\end{align*}
+and
+\begin{align*}
+\breve{S} \cup \breve{T} &= Int([a, \cdots, b]) \cup Int([b, \cdots, c]) \\
+& = (a, \cdots, b) \cup (b, \cdots, c) \\
+& \neq (a, \cdots, c)~.
+\end{align*}
+Thus, the equality fails.
+
+  \end{proof} 
+\end{solution}
+
+\end{questions}

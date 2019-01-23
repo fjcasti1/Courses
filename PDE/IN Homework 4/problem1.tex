@@ -1,0 +1,107 @@
+\begin{questions}
+
+\question{Solve the Laplace equation with mixed boundary conditions,
+\begin{align*}
+&(\partial^2_x+\partial^2_y)u(x,y)=0,~~~~~~x\in[0,L],~y\in[0,H],\\
+&u(0,y)=g(y),~~u(L,y)=0,~~~~~~~~y\in[0,H],\\
+&\partial_yu(x,0)=0=\partial_yu(x,H),~~~~~~~~~~x\in[0,L].
+\end{align*}
+Make an educated guess which conditions $g$ must satisfy for $u$ to be a solution. Explain why you chose these conditions. Is $u$ unique?
+}
+
+\begin{solution}
+Since we have zero Neumann boundary conditions, we express the solution $u$ as a Fourier cosine series,
+\begin{align*}
+u(x,y)=A_0(x)+\sum_{m=1}^{\infty}A_m(x)\cos(\lambda_my),~~~~~~\lambda_m=m\frac{\pi}{H},
+\end{align*}
+where
+\begin{align*}
+A_m(y)=\frac{2}{H}\int_0^Hu(x,y)\cos(\lambda_my)dy,~~~~~~m>1,
+\end{align*}
+and
+\begin{align*}
+A_0(y)=\frac{1}{H}\int_0^Hu(x,y)dy.
+\end{align*}
+Differentiating twice,
+\begin{align*}
+A''_m(x)&=\frac{2}{H}\int_0^H\partial^2_xu(x,y)\cos(\lambda_my)dy\\
+&=-\frac{2}{H}\int_0^H\partial^2_yu(x,y)\cos(\lambda_my)dy\\
+&=\frac{2}{H}\lambda_m^2\int_0^Hu(x,y)\cos(\lambda_my)dy\\
+&=\lambda_m^2A_m(x),
+\end{align*}
+where we have used the PDE for the first step, integrated by parts using the Neumann boundary conditions and that $\sin(\lambda_mH)=0$ in the second step and the definition of $A_m$ in the last. Doing the same for $A_0(x)$,
+\begin{align*}
+A''_0(x)&=\frac{1}{H}\int_0^H\partial^2_xu(x,y)dy\\
+&=-\frac{1}{H}\int_0^H\partial^2_yu(x,y)dy\\
+&=-\frac{1}{H}\int_0^H\partial(\partial_yu(x,y))\\
+&=-\frac{1}{H}\left[\partial_yu(x,y)\right]_0^H\\
+&=0.
+\end{align*}
+Given the ODEs, we have the following solutions
+\begin{align*}
+A_m(x)&=k_1\cosh(\lambda_m(L-x))+k_2\sinh(\lambda_m(L-x)),~~~~~m>1,\\
+A_0(x)&=k_3(L-x)+k_4.
+\end{align*}
+To obtain the values of the constants we use the boundary conditions,
+\begin{align*}
+A_m(L)=\frac{2}{H}\int_0^Hu(L,y)\cos(\lambda_my)dy=0=k_1\cosh(0)+k_2\sinh(0)=k_1\Rightarrow~~~~\boxed{k_1=0}.
+\end{align*}
+Then,
+\begin{align*}
+u(L,y)=0=A_0(L)+\sum_{m=1}^{\infty}A_m(L)\cos(\lambda_my)=A_0(L)=k_4\Rightarrow~~~\boxed{k_4=0}.
+\end{align*}
+Further,
+\begin{align*}
+A_m(0)=\frac{2}{H}\int_0^Hg(y)\cos(\lambda_my)dy=k_2\sinh(\lambda_mL)&\Rightarrow~~~\boxed{k_2=\frac{2}{H\sinh(\lambda_mL)}\int_0^Hg(y)\cos(\lambda_my)dy},\\
+A_0(0)=\frac{1}{H}\int_0^Hg(y)dy=k_3L&\Rightarrow~~~\boxed{k_3=\frac{1}{HL}\int_0^Hg(y)dy}.
+\end{align*}
+Let $C_m=\frac{2}{H\sinh(\lambda_mL)}\int_0^Hg(z)\cos(\lambda_mz)dz$. Now we can express $u$ as
+\begin{align*}
+u(x,y)&=u_0(x,y)+\sum_{m=1}^{\infty}u_m(x,y),\\
+u_0(x,y)&=\frac{(L-x)}{H}\int_0^Hg(z)dz,\\
+u_m(x,y)&=C_m\sinh(\lambda_m(L-x))\cos(\lambda_my)
+\end{align*}
+Then, if $0\leq x\leq L$ and $0\leq y\leq H$,
+\begin{align*}
+\partial_y^lu_m(x,y)=\pm\lambda_m^lC_m\sinh(\lambda_m(L-x))\left\{ \begin{array}{cc} 
+                \sin(\lambda_my) & l\in\N,~l~\text{odd}, \\
+                \cos(\lambda_my) & l\in\N,~l~\text{even},
+                \end{array} \right.
+\end{align*}
+and
+\begin{align*}
+\partial_x^ku_m(x,y)=\pm\lambda_m^kC_m\cos(\lambda_my)\left\{ \begin{array}{cc} 
+                \cosh(\lambda_m(L-x)) & l\in\N,~l~\text{odd}, \\
+                \sinh(\lambda_m(L-x)) & l\in\N,~l~\text{even}.
+                \end{array} \right.
+\end{align*}
+Therefore,
+\begin{align*}
+\left|\partial_x^k\partial_y^lu_m(x,y)\right|\leq \lambda_m^{k+l}|C_m|\left\{ \begin{array}{cc} 
+                \cosh(\lambda_m(L-x))\\
+                \sinh(\lambda_m(L-x))\\
+                \end{array} \right\}~~~~~ x\in[0,L]
+\end{align*}
+Since the hyperbolic functions are increasing on $\R_+$,
+\begin{align*}
+\left|\partial_x^k\partial_y^lu_m(x,y)\right|\leq \lambda_m^{k+l}|C_m|\left\{ \begin{array}{cc} 
+                \cosh(\lambda_mL)\\
+                \sinh(\lambda_mL)\\
+                \end{array} \right\}~~~~~ x\in[0,L]
+\end{align*}
+As it is done in the notes we know that the previous result gives us the following bound,
+\begin{align*}
+\left|\partial_x^k\partial_y^lu_m(x,y)\right|\leq c\lambda_m^{k+l}|C_m| \sinh(\lambda_mL),~~~~k,l\in\N,~~x\in[0,L],
+\end{align*}
+for some constant $c>0$. Thus, by \textsl{Theorem 5.3} and the definition of $C_m$, $\sum_{m=1}^{\infty}u_m$ is twice partially differentiable and satisfies the Laplace equation by construction if
+\begin{align*}
+\sum_{m=1}^{\infty}\lambda_m^2\left|\int_0^Hg(z)\cos(\lambda_mz)dz\right|=-\sum_{m=1}^{\infty}\left|\int_0^Hg(z)\frac{d}{dz^2}\cos(\lambda_mz)dz\right|<\infty.
+\end{align*}
+If $g$ is twice continuously differentiable and $g'(0)=0=g'(L)$, integrating by parts,
+\begin{align*}
+-\sum_{m=1}^{\infty}\left|\int_0^Hg(z)\frac{d}{dz^2}\cos(\lambda_mz)dz\right|=-\sum_{m=1}^{\infty}\left|\int_0^Hg''(z)\cos(\lambda_mz)dz\right|
+\end{align*}
+which is finite if $g''$ is Lipschitz continuous and $g''(0)=0=g''(H)$. Since $u''_0(x,y)=0$, it gives us no extra conditions on $g$. Hence, $u$ is solution provided that $g$ satisfies the conditions mentioned. The solution is unique since it is expressed as an unique Fourier cosine series.
+\end{solution}
+
+\end{questions}

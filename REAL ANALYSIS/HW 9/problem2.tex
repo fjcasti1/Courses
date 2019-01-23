@@ -1,0 +1,13 @@
+\begin{questions}
+
+\question{Show: For each $n\in\N$, $\R^n$ is separable. Hint: Show $\Q^n$ is dense in $\R^n$.}
+
+\begin{solution}
+  \begin{proof}
+Let $x=(x^1,...,x^n)\in\R^n$ where the upper indices are not powers. Since $\R\subseteq\overline{\Q}$ (by \textit{example 4.9}), we can define $(x_k)\in\Q^n$ such that each $x_k=(x^1_k,...,x^n_k)\in\Q^n$ and $\lim x_k=x$. Thus, $(x_k)$ is a sequence of rational vectors converging to the vector $x$ which is in $\R^n$. In addition, each $x\in\R^n$ is a limit point of $\Q^n$ and therefore $x\in\overline{Q^n}$.
+Thus, $\R^n\subseteq\overline{Q^n}$ and $\Q^n$ is a countable dense subset of $\R^n$. By \textit{definition 4.31}, $\R^n$ is separable.
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

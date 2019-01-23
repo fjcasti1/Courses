@@ -1,0 +1,59 @@
+\begin{questions}
+
+\question{Consider the Cauchy problem
+\begin{align*}
+\partial_tu+b(t,u)\partial_yu=-\alpha u,~~~~t>0,~y\in\R,
+y(y,0)=u_0(y),
+\end{align*}
+with $\alpha>0$. Assume the following properties for the given functions $b:\R_+\times\R\rightarrow\R$, $u_0:\R\rightarrow\R$; $b,u_0$ are continuosuly differentiable, $\left|b_u(t,u)\right|\leq c_1$, $\left|u'_0(y)\right|\leq c_2$ for all $y,t,u\in\R$ where $c_1,c_2$ are positive constants satisfying $c_1c_2\leq\alpha$.
+
+Show: There exists a solution $u=u(y,t)$ which is defined for all $t\geq 0,y\in\R$.	
+}
+\begin{solution}
+We can prove the desired result using \textsl{Theorem 3.11}. We need to prove that $\zeta_z>0$, for all $z\in\R$ and $t\in[0,T)$ with $T>0$, and that $\zeta\rightarrow\pm\infty$ as $z\rightarrow\pm\infty$. Let's start by proving that $\zeta_z(z,t)>0$. Given the differential equation above we know that
+\begin{align*}
+\zeta(z,t)=z+\int_0^tb\left(s,u_0(z)e^{-\alpha s}\right)ds.
+\end{align*}
+Thus, differentiating with respect to $z$ we obtain
+\begin{align*}
+\zeta_z(z,t)=1+u'_0(z)\int_0^tb_u\left(s,u_0(z)e^{-\alpha s}\right)e^{-\alpha s}ds.
+\end{align*}
+Given the previous form of $\zeta$ we can find the lower bound
+\begin{align*}
+\zeta_z(z,t)&\geq 1-\left|u'_0(z)\int_0^tb_u\left(s,u_0(z)e^{-\alpha s}\right)e^{-\alpha s}ds\right|\\
+&=1-\left|u'_0(z)\right|\left|\int_0^tb_u\left(s,u_0(z)e^{-\alpha s}\right)e^{-\alpha s}ds\right|\\
+&\geq 1-\left|u'_0(z)\right|\int_0^t\left|b_u\left(s,u_0(z)e^{-\alpha s}\right)\right|e^{-\alpha s}ds\\
+&\geq 1-c_2\int_0^tc_1e^{-\alpha s}ds\\
+&\geq 1-\alpha\int_0^te^{-\alpha s}ds\\
+&=1-\left(1-e^{-\alpha t}\right)\\
+&=e^{-\alpha t}>0,
+\end{align*}
+where we have used the inequalities given by the problem as well as the triangle inequality when introducing the absolutve value inside the integral. Thus, we have
+\begin{align*}
+\zeta_z(z,t)>0.
+\end{align*}
+Now it is left to prove that $\zeta\rightarrow\pm\infty$ as $z\rightarrow\pm\infty$. By the Mean Value Theorem,
+\begin{align*}
+\zeta_z(\hat{z},t)=\frac{\zeta(z,t)-\zeta(0,t)}{z-0},
+\end{align*}
+where $\zeta(0,t)$ is independent of $z$, $\hat{z}$ is some value between $0$ and $z$, and $\zeta_z(\hat{z},t)>0$ as we just proved. Rearranging terms we get
+\begin{align*}
+\zeta(z,t)=z\zeta_z(\hat{z},t)+\zeta(0,t).
+\end{align*}
+Now we study two cases:
+\begin{itemize}
+\item If $z>0$,
+\begin{align*}
+\zeta(z,t)&=z\zeta_z(\hat{z},t)-\zeta(0,t)\\
+&>ze^{-\alpha t}-\zeta(0,t)\rightarrow\infty\text{ as } z\rightarrow\infty.
+\end{align*}
+\item If $z<0$,
+\begin{align*}
+\zeta(z,t)&=z\zeta_z(\hat{z},t)-\zeta(0,t)\\
+&<ze^{-\alpha t}-\zeta(0,t)\rightarrow -\infty\text{ as } z\rightarrow -\infty.
+\end{align*}
+\end{itemize}
+Thus, by \textsl{Theorem 3.11} there exists a solution $u=u(y,t)$ which is defined for all $t\geq 0,y\in\R$.	
+\end{solution}
+
+\end{questions}

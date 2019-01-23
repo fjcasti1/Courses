@@ -1,0 +1,73 @@
+For simplicity, since I am using \textsc{Matlab}, I will discretize the domain starting at node 1. Since we are using $N$ elements, a node based mesh has $N+1$ nodes in the coordinate $x$. The number of nodes in time will depend on the size of our time step and for how long we want to run the simulation. The PDE discretized is
+\begin{align*}
+\left.\frac{\partial T}{\partial t}\right|_i^n=\alpha\left.\frac{\partial^2 T}{\partial x^2}\right|_i^n+q_i^n,
+\end{align*}
+where $n$ is a superscript and not a power. Note that, to follow \textsc{Matlab} indices, $i=1,2,...,N+1$. The boundary conditions in index form are expressed as
+\begin{align*}
+&T_1^n=2-\sin\left(\frac{3\pi}{2}t_n\right)=g(t_n)=g^n,\\
+&\left.\frac{\partial T}{\partial x}\right|_{N+1}^n=0~~\Rightarrow~~T_{N+1}^n=T_{N}^n,\\
+\end{align*}
+and the initial condition as $T_i^0=2$. In the time coordinate we don't follow \textsc{Matlab} indices since we will be overwriting the solution, therefore there is no problem with the index $n=0$. Now we can take the discretized PDE and apply forward finite differences in time and central in space, keeping in mind that the Crank-Nicholson method average the right hand side between the present time step $n$ and the next one $n+1$. Thus, the PDE turns into
+\begin{align*}
+\frac{T_i^{n+1}-T_i^n}{\Delta t}=\frac{\alpha}{2}\left(\frac{T_{i+1}^{n+1}-2T_{i}^{n+1}+T_{i-1}^{n+1}}{h^2}+\frac{T_{i+1}^{n}-2T_{i}^{n}+T_{i-1}^{n}}{h^2}\right)+\frac{1}{2}\left(q_i^n+q_i^{n+1}\right).
+\end{align*}
+Multiplying by the time step and taking $1/h^2$ common factor,
+\begin{align*}
+T_i^{n+1}-T_i^n=\frac{\alpha\Delta t}{2h^2}\left(T_{i+1}^{n+1}-2T_{i}^{n+1}+T_{i-1}^{n+1}+T_{i+1}^{n}-2T_{i}^{n}+T_{i-1}^{n}\right)+\frac{\Delta t}{2}\left(q_i^n+q_i^{n+1}\right).
+\end{align*}
+Defining 
+\begin{align*}
+B=\frac{\alpha\Delta t}{2h^2},
+\end{align*}
+and gathering all the $n+1$ terms on the left hand side and the $n$ terms on the right hand side we obtain
+\begin{align*}
+-BT_{i-1}^{n+1}+(1+2B)T_i-BT_{i+1}^{n+1}=T_i^n+B\left(T_{i+1}^n-2T_{i}^n+T_{i-1}^n\right)+\frac{\Delta t}{2}\left(q_i^n+q_i^{n+1}\right),
+\end{align*}
+which has the tridiagonal form that we were looking form
+\begin{align*}
+a_iT_{i-1}^{n+1}+b_iT_i+c_iT_{i+1}^{n+1}=d_i, i=1,...,N+1.
+\end{align*}
+We only need to solve this tridiagonal system for the interior nodes, $i=2,...,N$, since we have the boundary conditions at $i=1$ and $i=N+1$. Therefore the vectors $a,b,c,d$ have dimension $N-1$. To account for this difference in size we modify the previous equation with a $+1$ shift in the $i$ index and the previous equations can be written as
+\begin{align*}
+-BT_{i}^{n+1}+(1+2B)T_{i+1}-BT_{i+2}^{n+1}=T_{i+1}^n+B\left(T_{i+2}^n-2T_{i+1}^n+T_{i}^n\right)+\frac{\Delta t}{2}\left(q_{i+1}^n+q_{i+1}^{n+1}\right),
+\end{align*}
+\begin{align*}
+a_{i}T_{i}^{n+1}+b_{i}T_{i+1}+c_{i}T_{i+1}^{n+1}=d_{i},~~~~ i=1,...,N-1
+\end{align*} 
+Now there is a direct correspondance between the values of the temperature vector and the vectors $a,b,c,d$ needed to solve the tridiagonal system in the interior. Thus, we have
+\begin{align*}
+&a_i=-B,\\
+&b_i=1+2B,\\
+&c_i=-B,\\
+d_i=T_{i+1}^n+&B\left(T_{i+2}^n-2T_{i+1}^n+T_{i}^n\right)+\frac{\Delta t}{2}\left(q_{i+1}^{n}+q_{i+1}^{n+1}\right),\\
+\end{align*}
+where $i=1,2,...,N-1$. However, the previous values of the tridiagonal vectors are only acceptable for the \textit{interior of the interior}, $i=2,...,N-2$. For the last nodes of the interior we need to impose the boundary conditions:
+\begin{itemize}
+\item Solve for $i=1$.
+\begin{align*}
+-BT_{1}^{n+1}+(1+2B)T_2^{n+1}-BT_{3}^{n+1}&=T_2^n+B\left(T_{3}^n-2T_{2}^n+T_{1}^n\right)+\frac{\Delta t}{2}\left(q_2^n+q_2^{n+1}\right),\\
+(1+2B)T_2^{n+1}-BT_{3}^{n+1}&=T_2^n+B\left(T_{3}^n-2T_{2}^n+g^n+g^{n+1}\right)+\frac{\Delta t}{2}\left(q_2^n+q_2^{n+1}\right),
+\end{align*}
+where we have used that $T_1^n=g^n$ and $T_1^{n+1}=g^{n+1}$. Hence,
+\begin{align*}
+&a_1=0,\\
+&b_1=1+2B,\\
+&c_1=-B,\\
+d_1=T_2^n+&B\left(T_{3}^n-2T_{2}^n+g^n+g^{n+1}\right)+\frac{\Delta t}{2}\left(q_2^n+q_2^{n+1}\right).
+\end{align*}
+However, since $a_1$ does not affect the solution, there is no need to change its value.
+\item Solve for $i=N-1$.
+\begin{align*}
+-BT_{N-1}^{n+1}+(1+2B)T_N^{n+1}-BT_{N+1}^{n+1}=T_N^n+B\left(T_{N+1}^n-2T_{N}^n+T_{N-1}^n\right)+\frac{\Delta t}{2}\left(q_N^n+q_N^{n+1}\right),\\
+-BT_{N-1}^{n+1}+(1+2B)T_N^{n+1}-BT_{N}^{n+1}=T_N^n+B\left(T_{N}^n-2T_{N}^n+T_{N-1}^n\right)+\frac{\Delta t}{2}\left(q_N^n+q_N^{n+1}\right),\\
+-BT_{N-1}^{n+1}+(1+B)T_N^{n+1}=T_N^n+B\left(-T_{N}^n+T_{N-1}^n\right)+\frac{\Delta t}{2}\left(q_N^n+q_N^{n+1}\right),
+\end{align*}
+where we have used that $T_{N+1}^{n+1}=T_N^{n+1}$ and $T_{N+1}^n=T_N^n$. Hence,
+\begin{align*}
+&a_{N-1}=-B,\\
+&b_{N-1}=1+B,\\
+&c_{N-1}=0,\\
+d_{N-1}=T_N^n+&B\left(-T_{N}^n+T_{N-1}^n\right)+\frac{\Delta t}{2}\left(q_N^n+q_N^{n+1}\right).
+\end{align*}
+However, since $c_{N-1}$ does not affect the solution, there is no need to change its value.
+\end{itemize}

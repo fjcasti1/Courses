@@ -1,0 +1,38 @@
+\begin{questions}
+
+\question{
+Let $X$ be an inner product space and $M$ a denumerable orthonormal subset of $X$. Show
+\begin{enumerate}
+\item[(a)] If $M$ is an orthonormal basis and $x \in X$, then $\langle x| v \rangle = 0$ for all $v \in M$ implies that $x = 0$.
+\end{enumerate}
+}
+\begin{solution}
+By \textsl{Theorem 4.10}, since $M$ is a denumerable orthonormal basis of the inner product space $X$, we can express $x$ as $Fourier$ expansion,
+\begin{align*}
+x=\sum_{m=1}^\infty\left<u|v_m\right>v_m,~~~v_m\in M.
+\end{align*}
+Then, if $\left<u|v_m\right>$ for every $m$, it is inmediate that $x=0$.
+\end{solution}
+\question{
+Show:
+\begin{enumerate}
+\item[(b)] If $X$ is a Hilbert space and if, for all $x \in X$, $\langle x| v \rangle = 0$ for all $v \in M$ implies that $x = 0$, then $M$ is an orthonormal basis.
+\end{enumerate}
+}
+\begin{solution}
+Let $x\in X$ and define $y=\sum_{m=1}^{\infty}\left<x|v_m \right>v_m$. Since $X$ is a Hilbert space, $y\in X$ by Problem 4.2.1. Let $v\in M$ be arbitrary but fixed. Then,
+\begin{align*}
+\left<y-x|v\right>&=\left<y|v\right>-\left<x|v\right>\\
+&=\sum_{m=1}^{\infty}\left<\left<x|v_m \right> v_m|v\right>-\left<x|v\right>\\
+&=\sum_{m=1}^{\infty}\left<x|v_m \right> \left<v_m|v\right>-\left<x|v\right>\\
+&=\left<x|v \right> \left<v|v\right>-\left<x|v\right>\\
+&=\left<x|v \right>-\left<x|v\right>\\
+&=0,
+\end{align*}
+where we have used orthonormality of the set $M$. By assumption, $\left<y-x|v\right>=0$ implies that $y-x=0$. Thus,
+\begin{align*}
+x=y=\sum_{m=1}^{\infty}\left<x|v_m \right>v_m.
+\end{align*}
+Hence, since any $x\in X$ can be expressed as a $Fourier$ expansion of the elements of the orthonormal set $M$, $M$ is an orthonormal basis.
+\end{solution}
+\end{questions}

@@ -1,0 +1,111 @@
+\begin{solution}
+\textbf{Part a) }The error
+\begin{align*}
+\left|\frac{f(x+h)-f(x)}{h}-\frac{fl(f(x+h))-fl(f(x))}{h}\right|&=\left|\frac{f(x+h)-f(x)}{h}-\frac{f(x+h)(1+\delta_1)-f(x)(1+\delta_2)}{h}\right|\\
+&=\left|-\frac{f(x+h)\delta_1-f(x)\delta_2}{h}\right|\\
+&\leq\left|\frac{f(x+h)\delta_1}{h}\right|+\left|\frac{f(x)\delta_2}{h}\right|\\
+&<\left|f(x+h)\right|\frac{\epsilon}{h}+\left|f(x)\right|\frac{\epsilon}{h}\\
+&=\left(\left|f(x)+hf'(x)+\mathcal{O}(h^2)\right|+\left|f(x)\right|\right)\frac{\epsilon}{h}\\
+&\leq \left(2\left|f(x)\right|+\left|hf'(x)\right|+\left|\mathcal{O}(h^2)\right|\right)\frac{\epsilon}{h}\sim\mathcal{O}\left(\frac{\epsilon}{h}\right),
+\end{align*}
+is proportional to $\epsilon/h$ in the worst case as $h\rightarrow 0$.
+
+\textbf{Part b)} We just proved that the rounding error is proportional to $\epsilon/h$, then
+\begin{align*}
+e_{\delta}=k_1\frac{\epsilon}{h}.
+\end{align*}
+On the other hand, the truncation error is
+\begin{align*}
+e_T=\left|f'(x)-\frac{f(x+h)-f(x)}{h}\right|=k_2h,
+\end{align*}
+since it is a first order approximation. To minimize the total error
+\begin{align*}
+e=e_{\delta}+e_T=k_1\frac{\epsilon}{h}+k_2h,
+\end{align*}
+we just have to solve the optimization problem,
+\begin{align*}
+\frac{\partial e}{\partial h}=-k_1\frac{\epsilon}{h^2}+k_2=0,
+\end{align*}
+which gives us $h^*=\sqrt{\frac{k_1}{k_2}\epsilon}$. We check that it is indeed a minimum by checking that
+\begin{align*}
+\left.\frac{\partial^2e}{\partial h^2}\right|_{h=h^*}=\frac{2k_1\epsilon}{(h^*)^3}=\frac{2k_1\epsilon}{\left(\frac{k_1}{k_2}\epsilon\right)^{3/2}}>0.
+\end{align*}
+
+\textbf{Part c)} In equispaced finite difference methods of order $p$ the rounding error is
+\begin{align*}
+e_{\delta}&=\left|\sum_{j=0}^{p}\frac{w_j}{h}f_j-\sum_{j=0}^{p}\frac{w_j}{h}f_j(1+\delta_j)\right|\\
+&=\left|-\sum_{j=0}^{p}\frac{w_j}{h}f_j\delta_j\right|\\
+&<\left|\sum_{j=0}^{p}w_jf_j\right|\frac{\epsilon}{h}=k_1\frac{\epsilon}{h},
+\end{align*}
+and the truncation error of order $p$ is 
+\begin{align*}
+e_T=k_2h^p.
+\end{align*}
+To minimize the total error
+\begin{align*}
+e=e_{\delta}+e_T=k_1\frac{\epsilon}{h}+k_2h^p,
+\end{align*}
+we just have to solve the optimization problem,
+\begin{align*}
+\frac{\partial e}{\partial h}=-k_1\frac{\epsilon}{h^2}+pk_2h^{p-1}=0,
+\end{align*}
+which gives us $h^*=\left(p\frac{k_1}{k_2}\epsilon\right)^{1/p+1}$. We check that it is indeed a minimum by checking that
+\begin{align*}
+\left.\frac{\partial^2e}{\partial h^2}\right|_{h=h^*}=\frac{2k_1\epsilon}{(h^*)^3}+p(p-1)k_2(h^*)^{p-2}=\frac{2k_1\epsilon}{\left(p\frac{k_1}{k_2}\epsilon\right)^{3/p+1}}+p(p-1)k_2\left(p\frac{k_1}{k_2}\epsilon\right)^{\frac{p-2}{p+1}}>0.
+\end{align*}
+
+\textbf{Part d)} We are given the function $\tan{(x)}$ and asked to approximate its derivative at $x_0=\pi/3$. We can calculate it analytically,
+\begin{align*}
+f'(x)=\frac{1}{\cos^2{x}},~~~~~f'(\pi/3)=4.
+\end{align*}
+With the same procedure as in the previous problem, we have derived the following approximations and the leading error terms:
+\begin{itemize}
+\item First order:
+\begin{align*}
+f'(x)=\frac{f(x+h)-f(x)}{h}-\frac{h}{2}f''(x)+\mathcal{O}(h^2)
+\end{align*}
+\item Second order:
+\begin{align*}
+f'(x)=\frac{f(x+h)-f(x-h)}{2h}-\frac{h^2}{6}f'''(x)+\mathcal{O}(h^3)
+\end{align*}
+\item Fourth order:
+\begin{align*}
+f'(x)=\frac{2}{3}\frac{f(x+h)-f(x-h)}{h}-\frac{1}{12}\frac{f(x+2h)-f(x-2h)}{h}+\frac{4h^4}{5!}f^{(V)}(x)+\mathcal{O}(h^5)
+\end{align*}
+\item Sixth order:
+\begin{align*}
+f'(x)=15\frac{f(x+h)-f(x-h)}{20h}-6\frac{f(x+2h)-f(x-2h)}{40h}+\frac{f(x+3h)-f(x-3h)}{60h}-\frac{h^6}{140}f^{(VII)}(x)+\mathcal{O}(h^7)
+\end{align*}
+\end{itemize}
+In the next figure we can see, in logarithmic scale, the dependency of the truncation error on $h$ for every approximation. The lines are have slopes $1,2,4,6$ (from top to bottom) mathching its respective data. This proves the order of the truncation error for the four approximations considered. Note that the minimal error is achieved "sooner" (in the sense of not needing to reduce $h$ as much) for higher order approximations. In addition, we can check that once the rounding error is dominant, the dependency is the same for all the approximations. It cannot be any other way if we remember that $e_{\delta}\sim\frac{\epsilon}{h}$ regardless of the order of our approximation. We can check that this error would in fact have a slope of minus 1 in logarithmic scale, as we see in the figure.
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.4]{IMAGES/problem3.eps}}
+\caption{Error dependency on $h$ for the four different approximations.}
+\end{figure}
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+format long
+x_0=pi/3;
+f = @(x) tan(x);
+fp = @(x) (1/cos(x))^2;
+H=logspace(-1,-14,100);
+for k = 1:length(H)
+    h = H(k);
+    df1(k) = (f(x_0+h)-f(x_0))/h;
+    df2(k) = (f(x_0+h)-f(x_0-h))/(2*h);
+    df4(k) = (-5/60*f(x_0+2*h)+2/3*f(x_0+h)-2/3*f(x_0-h)+5/60*f(x_0-2*h))/h;
+    df6(k) = 0.1*(15*(f(x_0+h)-f(x_0-h))/(2*h)-6*(f(x_0+2*h)-f(x_0-2*h))/(4*h)
+       +(f(x_0+3*h)-f(x_0-3*h))/(6*h));
+end
+figure('units','normalized','outerposition',[0 0 1 1])
+loglog(H,abs(df1-fp(x_0)),'*',H,abs(df2-fp(x_0)),'*',H,abs(df4-fp(x_0)),'*',
+	   H,abs(df6-fp(x_0)),'*',H,H/2,'--',H,H.^(2)/6,'--',H,H.^(4)/30,'--',H,H.^6/140,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$h$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem3','epsc')
+\end{verbatim}
+
+\end{solution}

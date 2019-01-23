@@ -1,0 +1,139 @@
+Consider the differential equation
+\begin{align*}
+y' = \sin(t)(y^2 - \cos^2(t) -1),~~y(0)=1,~~t>0.
+\end{align*}
+The exact solution to this nonlinear ODE is $y(t) = \cos(t)$.
+
+\begin{questions}
+
+\question{Use \texttt{rk4} to solve this equation for $t \in [0,50]$. Plot the error vs. values of $\Delta t$ (use \texttt{loglog}). Does the error decay as $\mathcal{O}(\Delta t^4)$? }
+
+\begin{solution}
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P1F1.eps}}
+\caption{Error Vs. $\Delta t$}
+\end{figure}
+
+The figure above shows that the error does indeed seem to decay as $\mathcal{O}(\Delta t^4)$.
+
+\end{solution}
+
+\question{You will now compare \texttt{rk4}, forward-Euler, and modified Euler methods. Solve the problem with these three methods for several $\Delta t$. on a \texttt{loglog} plot, show the error vs. the number of function evaluations used by eahc method. Using the number of function evaluations as a measure of cost, is it worth using several stages in RK methods? }
+
+\begin{solution}
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P1F2.eps}}
+\caption{Error Vs. cost}
+\end{figure}
+
+The figure above indicates that it is indeed worth it to use several stages in RK methods despite their cost. Even evaluated at 4 times the cost, RK4 still performs markedly better than euler and modified euler, equivalent to RK1 and RK2 respectively. 
+
+\end{solution}
+
+\end{questions}
+
+\subsection*{MATLAB}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item part b
+\end{itemize}
+\begin{verbatim}
+close all; clear variables;
+% Part a
+
+N = 2.^(4:12);
+err = 0*N;
+f = @(t,y) sin(t)*(y^2 - (cos(t))^2 - 1);
+
+for k = 1:length(N)
+    [t,w] = rk4(f,[0 50],1,N(k));
+    err(k) = norm(w - cos(t),inf);
+end
+dt = 50./N;
+
+figure
+loglog(dt,err,'*',dt,1e5*N.^(-4),'--')
+grid on
+\end{verbatim}
+
+
+\subsection*{part b}
+
+\begin{verbatim}
+for k = 1:length(N)
+    [t,w] = rk4(f,[0 50],1,N(k));
+    err(k) = norm(w - cos(t),inf);
+    [t,w] = euler(f,[0 50],1,N(k));
+    err1(k) = norm(w - cos(t),inf);
+    [t,w] = modified_euler(f,[0 50],1,N(k));
+    err2(k) = norm(w - cos(t),inf);
+end
+
+figure
+loglog(N,err1,'b',2*N,err2,'r',4*N,err,'g')
+legend('euler','modified_euler','rk4')
+grid on
+\end{verbatim}
+
+\subsection*{rk4.m}
+
+    \begin{verbatim}
+function [t,w] = rk4(dydt,tspan,y0,N)
+
+h = diff(tspan)/N;
+t = tspan(1) + h*(0:N)';
+w = zeros(length(y0),N+1);
+w(:,1) = y0(:).';
+
+for i = 1:N
+    k1 = h*dydt(t(i)    , w(:,i)     );
+    k2 = h*dydt(t(i)+h/2, w(:,i)+k1/2);
+    k3 = h*dydt(t(i)+h/2, w(:,i)+k2/2);
+    k4 = h*dydt(t(i)+h  , w(:,i)+k3  );
+    w(:,i+1) = w(:,i) + (k1 + 2*k2 + 2*k3 + k4)/6;
+end
+w = w.';
+end
+\end{verbatim}
+
+\subsection*{euler.m}
+
+    \begin{verbatim}
+function [t,w] = euler(dydt,tspan,y0,N)
+
+h = diff(tspan)/N;
+t = tspan(1) + h*(0:N)';
+w = zeros(length(y0),N+1);
+w(:,1) = y0(:).';
+
+for i = 1:N
+    k1 = h*dydt(t(i)    , w(:,i)     );
+    w(:,i+1) = w(:,i) + k1;
+end
+w = w.';
+end
+\end{verbatim}
+
+\subparagraph*{modified euler.m}
+
+    \begin{verbatim}
+function [t,w] = modified_euler(dydt,tspan,y0,N)
+
+h = diff(tspan)/N;
+t = tspan(1) + h*(0:N)';
+w = zeros(length(y0),N+1);
+w(:,1) = y0(:).';
+
+for i = 1:N
+    k1 = h*dydt(t(i)    , w(:,i)     );
+    k2 = h*dydt(t(i)+h, w(:,i)+k1);
+    w(:,i+1) = w(:,i) + (k1 + k2)/2;
+end
+w = w.';
+end
+\end{verbatim}

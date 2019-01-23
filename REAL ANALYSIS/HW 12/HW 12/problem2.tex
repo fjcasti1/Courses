@@ -1,0 +1,40 @@
+\begin{questions}
+
+\question{  Let $X$ and $Y$ be metric spaces and let $d$ denote the metric on both.
+Let $S \subseteq X$ and $f: S \rightarrow Y$. Let $x \in X$ be an accumulation point of $S$.
+
+Then $L$ is the limit of $f$ at $x$ if and only if for every sequence $(s_n)$ in
+$S \backslash \{x\}$ with $s_n \rightarrow x$ also $f(s_n) \rightarrow L$ as $n \rightarrow \infty$.}
+
+\begin{solution}
+  \begin{proof}
+($\Rightarrow$) 
+
+Let $\varepsilon > 0$. Since $L$ is a limit point of $f$ at $x$, there exists $\delta > 0$ such that for $s \in S \backslash \{x\}$,
+\begin{align*}
+0 < d(s,x) < \delta \Rightarrow d(f(s),L) < \varepsilon~.
+\end{align*}
+Let $(s_n)$ be a sequence in $S \backslash \{x\}$ such that $s_n \rightarrow x$ as $n \rightarrow \infty$. Then there exists an $N \in \N$ with $N >0$ such that
+\begin{align*}
+d(s_n,x) < \delta ~~\text{when}~n>N~,
+\end{align*}
+which implies
+\begin{align*}
+d(f(s_n),L) <\varepsilon~~ \text{for}~n>N~.
+\end{align*}
+
+($\Leftarrow$) By contrapositive.
+
+Let $L$ not be a limit of $F$ at $X$. Then there exists a $\varepsilon > 0$ such that for every $\delta > 0$, there exists an $s \in S \backslash \{x\}$ such that
+\begin{align*}
+d(s,x) < \delta~~\text{but}~~d(f(s),L) \geq \varepsilon~.
+\end{align*}
+In particular, for every $n \in \N$ with $\delta = \frac{1}{n}$, there exists some $s_n \in S \backslash \{x\}$ such that
+\begin{align*}
+d(s_n,x) < \frac{1}{n}~~\text{but}~~d(f(s_n),L) \geq \varepsilon~.
+\end{align*}
+Thus we have a sequence $(s_n) \in S \backslash \{x\}$ with $s_n \rightarrow x$ but $f(s_n)$ does not converge to $L$ as $n \rightarrow \infty$.
+
+\end{proof}
+\end{solution}
+\end{questions}

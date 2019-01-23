@@ -1,0 +1,28 @@
+\begin{questions}
+
+\question{
+Let $f : [a, b] \to \mathbb{R}$ be continuous and assume that there exists a partition $a = t_0 < \hdots < t_m = b$ such that $f$ is differentiable with bounded derivative on each interval $(t_{j-1}, t_j )$. Show: $f$ is Lipschitz continuous.
+}
+\begin{solution}
+Let $x,y\in[a,b]$ and without loss of generality let $y>x$. We can construct another partition $x=q_0<q_1<...<q_n=y$ where the elements of the constructed partition $q_j$ are also from the initial one. By the Mean Value Theorem, 
+\begin{align*}
+|f'(c_i)|=\left|\frac{f(q_i)-f(q_{i-1})}{q_i-q_{i-1}}\right|\leq M_i,~~~i=0,...,n
+\end{align*}
+since $f$ is continuous in the close interval, differentiable in the open and the derivative is bounded on each interval. In addition, define \newline $M=\max\{ M_i; i=0,...n \}$. Therefore,
+\begin{align*}
+|f'(c_i)|<M,~~~i=0,...,n,
+\end{align*}
+and
+\begin{align*}
+\left|f(q_i)-f(q_{i-1})\right|\leq M |q_i-q_{i-1}|,~~~i=0,...,n
+\end{align*}
+Now
+\begin{align*}
+\left|f(y)-f(x)\right|&=\left|f(y)-f(q_{n-1})+f(q_{n-1})-f(q_{n-2})+f(q_{n-2})...+f(q_{1})-f(x)\right|\\
+&\leq \left|f(y)-f(q_{n-1})\right|+\left|f(q_{n-1})-f(q_{n-2})\right|+...+\left|f(q_{1})-f(x)\right|\\
+&\leq M\left( \left|y-q_{n-1}\right|+\left|q_{n-1}-q_{n-2}\right|+...+\left|q_1-x\right|\right)\\
+&= M |y-x|.
+\end{align*}
+Thus, $f$ is Lipschitz continuous in $[a,b]$.
+\end{solution}
+\end{questions}

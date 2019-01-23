@@ -1,0 +1,85 @@
+\begin{questions}
+
+\question{
+Let $B = \{\cos(jx); j \in \mathbb{N}\} \cup \{\sin(jx); j \in \mathbb{N}\} \cup \{\frac{1}{\sqrt{2}}\}$. 
+
+Show that $B$ is an orthonormal basis of $L^2([-\pi,\pi],\mathbb{R})$ with inner product $\langle f,g \rangle = \frac{1}{\pi} \int_{-\pi}^\pi fg$.
+
+Hint: Use that $\{e^{ijx}; j \in Z\}$ is an orthonormal basis of $L^2([-\pi,\pi],\mathbb{C})$ and
+express $\sin(x)$ and $\cos(x)$ in terms of $e^{ix}$ and $e^{-ix}$.
+}
+\begin{solution}
+We first show that $B$ is an orthonormal set. Let $j\neq k$,
+\begin{align*}
+\left<\cos(jx)|\cos(kx)\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\cos(jx)\cos(kx)dx\\
+&=\frac{1}{4\pi}\int_{-\pi}^{\pi}\left(e^{ijx}+e^{-ijx}\right)\left(e^{ikx}+e^{-ikx}\right)dx\\
+&=\frac{1}{4\pi}\left(\int_{-\pi}^{\pi}e^{ijx}e^{ikx}dx+\int_{-\pi}^{\pi}e^{ijx}e^{-ikx}dx+\int_{-\pi}^{\pi}e^{-ijx}e^{ikx}dx+\int_{-\pi}^{\pi}e^{-ijx}e^{-ikx}dx\right)\\
+&=0,
+\end{align*}
+and
+\begin{align*}
+\left<\cos(jx)|\cos(jx)\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\cos(jx)\cos(jx)dx\\
+&=\frac{1}{4\pi}\int_{-\pi}^{\pi}\left(e^{ijx}+e^{-ijx}\right)\left(e^{ijx}+e^{-ijx}\right)dx\\
+&=\frac{1}{4\pi}\left(\int_{-\pi}^{\pi}e^{ijx}e^{ijx}dx+\int_{-\pi}^{\pi}e^{ijx}e^{-ijx}dx+\int_{-\pi}^{\pi}e^{-ijx}e^{ijx}dx+\int_{-\pi}^{\pi}e^{-ijx}e^{-ijx}dx\right)\\
+&=\frac{1}{4\pi}\left(\int_{-\pi}^{\pi}e^{2ijx}dx+2\int_{-\pi}^{\pi}dx+\int_{-\pi}^{\pi}e^{-2ijx}dx\right)\\
+&=\frac{1}{4\pi}\left(0+4\pi+0\right)\\
+&=1,
+\end{align*}
+where we have used that $\{e^{ijx}; j \in Z\}$ is an orthonormal basis of $L^2([-\pi,\pi],\mathbb{C})$. Now for the sine, let $j\neq k$,
+\begin{align*}
+\left<\sin(jx)|\sin(kx)\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\sin(jx)\sin(kx)dx\\
+&=-\frac{1}{4\pi}\int_{-\pi}^{\pi}\left(e^{ijx}-e^{-ijx}\right)\left(e^{ikx}-e^{-ikx}\right)dx\\
+&=-\frac{1}{4\pi}\left(\int_{-\pi}^{\pi}e^{ijx}e^{ikx}dx-\int_{-\pi}^{\pi}e^{ijx}e^{-ikx}dx-\int_{-\pi}^{\pi}e^{-ijx}e^{ikx}dx+\int_{-\pi}^{\pi}e^{-ijx}e^{-ikx}dx\right)\\
+&=0,
+\end{align*}
+and
+\begin{align*}
+\left<\sin(jx)|\sin(jx)\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\sin(jx)\sin(jx)dx\\
+&=-\frac{1}{4\pi}\int_{-\pi}^{\pi}\left(e^{ijx}-e^{-ijx}\right)\left(e^{ijx}-e^{-ijx}\right)dx\\
+&=-\frac{1}{4\pi}\left(\int_{-\pi}^{\pi}e^{ijx}e^{ijx}dx-\int_{-\pi}^{\pi}e^{ijx}e^{-ijx}dx-\int_{-\pi}^{\pi}e^{-ijx}e^{ijx}dx+\int_{-\pi}^{\pi}e^{-ijx}e^{-ijx}dx\right)\\
+&=-\frac{1}{4\pi}\left(\int_{-\pi}^{\pi}e^{2ijx}dx-2\int_{-\pi}^{\pi}dx+\int_{-\pi}^{\pi}e^{-2ijx}dx\right)\\
+&=-\frac{1}{4\pi}\left(0-4\pi+0\right)\\
+&=1,
+\end{align*}
+where we have used again that $\{e^{ijx}; j \in Z\}$ is an orthonormal basis of $L^2([-\pi,\pi],\mathbb{C})$.
+Now,
+\begin{align*}
+\left<\cos(jx)|\sin(kx)\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\cos(jx)\sin(kx)dx=0,
+\end{align*}
+for any values of $j,k$ since the product of cosine and sine is an odd function that is zero when integrated from $-\pi$ to $pi$. We continue with
+\begin{align*}
+\left<\left.\frac{1}{\sqrt{2}}\right|\frac{1}{\sqrt{2}}\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\frac{1}{2}dx=\frac{1}{2\pi}\int_{-\pi}^{\pi}dx=\frac{1}{2\pi}2\pi=1.
+\end{align*}
+To conclude,
+\begin{align*}
+\left<\left.\cos(jx)\right|\frac{1}{\sqrt{2}}\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\frac{1}{\sqrt{2}}\cos(jx)dx\\
+&=\frac{2}{\sqrt{2}\pi}\int_{0}^{\pi}\cos(jx)dx\\
+&=\frac{2}{\sqrt{2}\pi}\left[\sin(jx)\right]_{0}^{\pi}\\
+&=0,
+\end{align*}
+and
+\begin{align*}
+\left<\left.\sin(jx)\right|\frac{1}{\sqrt{2}}\right>&=\frac{1}{\pi}\int_{-\pi}^{\pi}\frac{1}{\sqrt{2}}\sin(jx)dx\\
+&=\frac{1}{\sqrt{2}\pi}\int_{-\pi}^{\pi}\cos(jx)dx\\
+&=0,
+\end{align*}
+where we have used that $\cos(x)$ is an even function $\sin(x)$ is an odd function. Hence, we have proved that $B$ is an orthonormal subset of $X=L^2([-\pi,\pi],\mathbb{R})$. Let $f\in X$ and assume that $\left<f,g\right>=0$ for all $g\in B$. By problem 4.2.3, if we show that then $f=0$, then $B$ is an orthonormal basis of $X$.
+\begin{align*}
+\left<f(x),\cos(x)\right>&=\left<f(x),\frac{e^{ijx}+e^{-ijx}}{2}\right>\\
+&=\frac{1}{2}\left(\left<f(x),e^{ijx}\right>+\left<f(x),e^{-ijx}\right>\right)=0,\\
+\end{align*}
+\begin{align*}
+\left<f(x),\sin(x)\right>&=\left<f(x),\frac{e^{ijx}-e^{-ijx}}{2}\right>\\
+&=\frac{1}{2}\left(\left<f(x),e^{ijx}\right>-\left<f(x),e^{-ijx}\right>\right)=0.
+\end{align*}
+From the previous system of two equations we obtain that
+\begin{align*}
+\left<f(x),e^{ijx}\right>=0,
+\end{align*}
+and
+\begin{align*}
+\left<f(x),e^{-ijx}\right>=0.
+\end{align*}
+Since $\{e^{ijx}; j \in Z\}$ is an orthonormal basis of $L^2([-\pi,\pi],\mathbb{C})$, the previous implies that $f=0$. Thus, by Problem 4.2.3, $B$ is an orthonormal basis of $L^2([-\pi,\pi],\mathbb{R})$.
+\end{solution}
+\end{questions}

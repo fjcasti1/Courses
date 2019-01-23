@@ -1,0 +1,43 @@
+\begin{questions}
+\question{Consider the following version of the Neumann boundary problem for
+the Laplace equation.
+\begin{align*}
+\Delta u(x)+c(x)u(x)&=f(x),\quad x\in\Omega,\\
+\partial_{\nu} u(x)&=g(x),\quad x\in\partial\Omega.
+\end{align*}
+Assume that $\Omega$ is path-connected, $c:\Omega\rightarrow\R$ is nonpositive and continuous and $c(x) < 0$ for some $x\in\Omega$.
+Show that there is at most one solution $u$.
+}
+\begin{solution}
+Let $c$ be continuous and non-positive for all $x\in\Omega$. Assume there exists an $x^*\in\Omega$ such that $c(x^*)<0$. Let $u$, $v$ be solutions to he previous PDE and boundary conditions. Define $w:\overline{\Omega}\rightarrow\R$ by $w(x)=u(x)-v(x)$. Then,
+\begin{align*}
+\Delta w(x)+c(x)w(x)&=0,\quad x\in\Omega,\\
+\partial\nu w(x)&=0,\quad x\in\partial\Omega.
+\end{align*}
+Making use of \textsc{Theorem 7.3} for $w$ we get
+\begin{align*}
+\int_{\Omega}w\Delta wdx+\int_{\Omega}\nabla w\cdot\nabla w dx=\int_{\partial\Omega}w\partial_{\nu}w d\sigma.
+\end{align*}
+Using the PDE into the previous equation,
+\begin{align*}
+-\int_{\Omega}c(x)w^2(x)dx+\int_{\Omega}\nabla w\cdot\nabla w dx=0,
+\end{align*}
+and,
+\begin{align*}
+\int_{\Omega}\nabla w\cdot\nabla w dx=\int_{\Omega}c(x)w^2(x)dx.
+\end{align*}
+Since the inner product is non-negative,
+\begin{align*}
+0\leq \int_{\Omega}\nabla w\cdot\nabla w dx=\int_{\Omega}c(x)w^2(x)dx\leq 0,
+\end{align*}
+where we have used that $c(x)w^2(x)\leq 0$ for all $x\in\Omega$. Hence,
+\begin{align}
+\int_{\Omega}c(x)w^2(x)dx= 0,
+\end{align}\label{eq:1}
+and,
+\begin{align*}
+\int_{\Omega}\nabla w\cdot\nabla w dx=0.
+\end{align*}
+The latter implies that $\nabla w=0$ on $\Omega$. Since $\Omega$ is path-connected, by \textsc{Proposition 7.4}, $w$ is constant on $\Omega$. Retaking equation (\ref{eq:1}), since $c(x)w^2(x)\leq 0$ and continuous on the domain, we have that $c(x)w^2(x)=0$ for all $x\in\Omega$. Since there we had that $c(x^*)<0$, $w(x^*)=0$. Since $w$ is constant on $\Omega$, $w=0$ for all $x\in\Omega$. Hence, we have that $u=v$ for all $x\in\Omega$, proving that there exists at most one solution for the PDE and boundary conditions given provided that $c(x)\leq 0$ for all $x\in\Omega$ and $\Omega$ is path-connected.
+\end{solution}
+\end{questions}

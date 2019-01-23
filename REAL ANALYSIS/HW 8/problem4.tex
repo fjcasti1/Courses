@@ -1,0 +1,34 @@
+\begin{questions}
+
+\question{ Consider the sequence space $l^\infty$ with the supremum norm and the subset \\
+$D=\{x=(x_n)\in\R^{\N};|x_n|\leq 1/n~~\forall n\in\N\}$. Show that $D$ is totally bounded.}
+
+\begin{solution}
+  \begin{proof}
+  $D$ is totally bounded if and only if every sequence in $D$ has a subsequence that is a Cauchy sequence.
+  Let $(x^m)_{m=1}^\infty$ be a sequence in $D$. Since we are in the space of sequences, a sequence in this space is in fact a sequence of sequences $x^m=(x^m_1,x^m_2,...,x^m_n,x^m_{n+1},...)$. Since $(x^m)_{m=1}^\infty\in D$, $|x_n^m|<\frac{1}{n}$ for all $n\in\N$. For all $\varepsilon >0$ there exists $N\in\N$, $N>\frac{2}{\varepsilon}$ such that:
+  \begin{align*}
+  |x_n^m|<\frac{1}{n}<\frac{1}{N}<\frac{\varepsilon}{2}~.
+  \end{align*}
+  Now let $(x^{m_j})$ be subsequence of $(x^m)$. Since every bounded set in $\R^N$ is totally bounded, for each $k=\{1,...,N\}$, $\exists N_k>0$ such that
+  \begin{align*}
+  |x_k^{m_i}-x_k^{m_j}|<\varepsilon,~~\text{ for }i,j>N_k~. 
+  \end{align*}
+  Let $i,j>N_k$ and $k>N$:
+  \begin{align*}
+  |x_k^{m_i}-x_k^{m_j}|<|x_k^{m_i}|+|x_k^{m_j}|<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon~.
+  \end{align*}
+  Choose now $N_2=max_{k=1}^NN_k$. Then:
+  \begin{align*}
+  ||x_k^{m_i}-x_k^{m_j}||<\varepsilon~~\forall i,j>N_2\text{ and }\forall k>N~.
+  \end{align*}
+  Therefore,
+  \begin{align*}
+  ||x^{m_i}-x^{m_j}||<\varepsilon~~\forall i,j>N_2~.
+  \end{align*}
+  Thus, the subsequence is Cauchy and $D$ is totally bounded.
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

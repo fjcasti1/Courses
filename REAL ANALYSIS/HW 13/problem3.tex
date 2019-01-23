@@ -1,0 +1,28 @@
+\begin{questions}
+
+\question{Let $f:U\rightarrow Z$ be differentiable at $x\in U$ in direction $v\in X$. Further assume there exist some $\epsilon> 0$ and $\Lambda > 0$ such that $U_{\epsilon}(x)\subseteq U$ and $||f(y)-f(x)||\leq \Lambda||y-x||$ for all $y\in U_{\epsilon}(x)$.
+
+Show: $||\partial f(x, v)||\leq \Lambda||v||$.}
+
+\begin{solution}
+  \begin{proof}
+Let $X$ and $Z$ be normed vector spaces and $U$ an open subset of $X$. Let $x\in U$ and $v\in X$. Since $U$ is open, there exists some $\epsilon>0$ such that $U_{\epsilon}(x)\subseteq U$. Set $\delta\in (0,\frac{\epsilon}{1+||v||})$. Then $x+tv\in U$ for all $t\in(-\delta,\delta)$. Starting with \textit{Definition 6.17} of the directional derivative $\partial f(x,v)$ we get
+  \begin{align*}  
+  ||\partial f(x,v)||&=\left|\left|\lim_{t\rightarrow 0}\frac{f(x+tv)-f(x)}{t}\right|\right|\\
+  &=\lim_{t\rightarrow 0}\left|\left|\frac{f(x+tv)-f(x)}{t}\right|\right|\\
+  &=\lim_{t\rightarrow 0}\frac{\left|\left|f(x+tv)-f(x)\right|\right|}{|t|}~.
+  \end{align*}
+  According to the problem, there exists some $\epsilon>0$ (same as the one defined above) and $\Lambda>0$ such that $U_{\epsilon}(x)\subseteq U$ and
+  \begin{align*}
+  \lim_{t\rightarrow 0}\frac{\left|\left|f(x+tv)-f(x)\right|\right|}{|t|}&\leq \lim_{t\rightarrow 0}\frac{\Lambda ||x+tv-x||}{|t|}\\
+  &=\lim_{t\rightarrow 0}\frac{\Lambda ||tv||}{|t|}\\
+  &=\lim_{t\rightarrow 0}\frac{\Lambda |t|||v||}{|t|}\\
+  &=\Lambda ||v||~,
+  \end{align*}
+for all $y=x+tv\in U_{\epsilon}(x)$, which implies that $||x+tv-x||=||tv||<\epsilon$. Thus,
+\begin{align*}
+||\partial f(x,v)||\leq \Lambda ||v||~~\forall v\in X\text{ with }||v||<\frac{\epsilon}{|t|}~.
+\end{align*}
+\end{proof}
+\end{solution}
+\end{questions}

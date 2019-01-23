@@ -1,0 +1,149 @@
+In the first figure we can see the solution $\phi(x,t)$ at different values of time for $M=256$ and $CFL=0.8$. We can see the strange solution profiles that are due to the form of the left boundary condition.
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.25$ s.]{\includegraphics[scale=0.55]{phi_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.55]{phi_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{phi_3.eps}}
+\hfill
+\subfigure[$t=1.25$ s.]{\includegraphics[scale=0.55]{phi_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1.5$ s.]{\includegraphics[scale=0.55]{phi_5.eps}}
+\hfill
+\subfigure[$t=2.1$ s.]{\includegraphics[scale=0.55]{phi_6.eps}}
+\hspace*{\fill}
+\caption{M=256.}
+\end{figure}
+
+In the next two figures we see the solution profiles for $M=4096$, $CFL=0.8$ (Figure 2) and $M=1024$, $CFL=0.5$ (Figure 3). Both configurations satisfy the accuracy requirement as we show in the tables below. In this case I have found more beneficial when it comes to computational cost, to reduce the time step instead of going to such fine meshes. However, we can see in figure 4 that if we want an outstanding precision in space to catch the discontinuities, we should increase the number of elements. However, reducing the time step, and using 4 times less elements (Figure 4(c)), gives us a very similar result much faster.
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.25$ s.]{\includegraphics[scale=0.55]{phi08_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.55]{phi08_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{phi08_3.eps}}
+\hfill
+\subfigure[$t=1.25$ s.]{\includegraphics[scale=0.55]{phi08_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1.5$ s.]{\includegraphics[scale=0.55]{phi08_5.eps}}
+\hfill
+\subfigure[$t=2.1$ s.]{\includegraphics[scale=0.55]{phi08_6.eps}}
+\hspace*{\fill}
+\caption{M=4096, CFL=0.8}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.25$ s.]{\includegraphics[scale=0.55]{phi05_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.55]{phi05_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{phi05_3.eps}}
+\hfill
+\subfigure[$t=1.25$ s.]{\includegraphics[scale=0.55]{phi05_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1.5$ s.]{\includegraphics[scale=0.55]{phi05_5.eps}}
+\hfill
+\subfigure[$t=2.1$ s.]{\includegraphics[scale=0.55]{phi05_6.eps}}
+\hspace*{\fill}
+\caption{M=4096, CFL=0.5}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$M=256$, $CFL=0.8$.]{\includegraphics[scale=0.55]{phi_4.eps}}
+\hfill
+\subfigure[$M=4096$, $CFL=0.8$.]{\includegraphics[scale=0.55]{phi08_4.eps}}
+\hspace*{\fill}
+\subfigure[$M=1024$, $CFL=0.5$.]{\includegraphics[scale=0.55]{phi05_4.eps}}
+\hspace*{\fill}
+\caption{Comparison of the different solutions.}
+\end{figure}
+The GCI analysis details for both $CFL$ values are shown in the tables below. Note that 
+\begin{align*}
+\beta=\frac{GCI_{12}}{GCI_{23}}r^p,
+\end{align*}
+and $\phi_{h=0}$ is obtained by Richardson extrapolation. We can see that $\beta\in[0.95,1.05]$ which implies that we are in the asymptotic range of convergence, and for the last mesh we have a $GCI_{12}$ value less than $0.1\%$, the requested accuracy.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & $\phi(0,1.25)$ \\
+\hline
+$128$ & $0.464517670619715$ \\
+$256$ & $0.469387263974194$ \\
+$512$ & $0.471586585046651$ \\
+$1024$ & $0.472388657559251$ \\
+$2048$ & $0.472790327155522$ \\
+$4096$ & $0.472989985610756$ \\
+\end{tabular}
+\caption{GCI analysis data for $CFL=0.8$.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & $\phi_{h=0}$ & $p$ & $GCI_{12}~(\%)$ & $GCI_{23}~(\%)$ & $\beta$ \\
+\hline
+$128$ & - & - & - & - & - \\
+$256$ & - & - & - & - & - \\
+$512$ & $0.473398015743182$& $1.146743067686559$ & $0.4801426593676$ & $1.0680817516835$ & $0.99533$\\
+$1024$ & $0.472849076939131$& $   1.455253657646967$ & $   0.1218327780824$ & $   0.3346394735644$ & $   0.99830$\\
+$2048$ & $0.473193267438895$& $   0.997723408586615$ & $   0.1065324997757$ & $   0.2129099277600$ & $   0.99915$\\
+$4096$ & $0.473187318780311$& $   1.008475093835296$ & $   0.0521504618381$ & $
+0.1049597469500$ & $   0.99957$\\
+\end{tabular}
+\caption{GCI analysis results for $CFL=0.8$.}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & $\phi(0,1.25)$ \\
+\hline
+$128$ & $0.470667415947558$ \\
+$256$ & $   0.471166273852559$ \\
+$512$ & $   0.472263797941595$ \\
+$1024$ & $   0.472683229511829$ \\
+\end{tabular}
+\caption{GCI analysis data for $CFL=0.5$.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & $\phi_{h=0}$ & $p$ & $GCI_{12}~(\%)$ & $GCI_{23}~(\%)$ & $\beta$ \\
+\hline
+$128$ & - & - & - & - & - \\
+$256$ & - & - & - & - & - \\
+$512$ & $0.470251726509905$& $-1.137551764106874$ & $-0.5325602556401$ & $-0.2426286094229$ & $  0.99767$\\
+$1024$ & $   0.472942667327806$& $   1.387745244157744$ & $   0.0686077376399$ & $      0.1796848999356$ & $      0.99911$\\
+\end{tabular}
+\caption{GCI analysis results for $CFL=0.5$.}
+\end{table}

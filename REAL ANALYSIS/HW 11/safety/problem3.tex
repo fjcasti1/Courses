@@ -1,0 +1,29 @@
+\begin{questions}
+
+\question{Let $X$ be a metric space, $K$ a compact subset of $X$ and $B$ a bounded
+subset of $X$. Show: For any sequence $(x_n)$ in $B$ there exists a subsequence
+$(x_{n_j})$ of $(x_n)$ and a continuous function $f : K \rightarrow \R$ such that $d(x_{n_j},x) \rightarrow f(x)$ as $j \rightarrow\infty$ uniformly for $x\in K$.}
+\begin{solution}
+  \begin{proof}
+Define the set $\mathcal{F}={f_y(x):=d(y,x);y\in B, x\in K}$. Let$y\in B$ and $x,z\in K$, from \textit{Proposition 1.22},
+\begin{align*}
+\left| d(y,x)-d(y,z)\right|\leq d(x,z)~,
+\end{align*}
+which in terms of $f$ yields
+\begin{align*}
+\left| f_y(x)-f_y(z)\right|\leq d(x,z)~.
+\end{align*}
+Therefore, if $d(x,z)\rightarrow 0$, $\left| f_y(x)-f_y(z)\right|\rightarrow 0$ as well, proving that $\mathcal{F}$ is equicontinuous.
+Now let $z_1\in B$ and $z_2\in K$ be fixed but arbitrary, also let $x\in K$ and $y\in B$. Then, for all $f\in\mathcal{F}$:
+\begin{align*}
+f_y(x)=d(y,x)&\leq d(y,z_1)+d(z_1,z_2)+d(z_2,x)\\
+&\leq \Delta B+d(z_1,z_2)+\Delta K~.
+\end{align*}
+Therefore the set $S=\{f(x),f\in\mathcal{F}\}\subseteq \R$ is bounded and, by \textit{Theorem 4.54}, it is also totally bounded.
+Lastly, since $K$ is compact, by \textit{Theorem 4.39}, it is totally bounded and by \textit{Theorem 4.34}, it is separable.
+
+Finally, let $(x_n)\in B$ such that $(f_{x_n})$ is a sequence in $\mathcal{F}$. Then, by \textit{Theorem 4.59}, there exists a subsequence $(x_{n_j})$ and a continuous function $f:K\rightarrow\R$ such that $f_{x_{n_j}}(x)=d(x_{n_j},x)\rightarrow f(x)$ as $j\rightarrow\infty$.
+  \end{proof}
+\end{solution}
+
+\end{questions}

@@ -1,0 +1,175 @@
+\textbf{Compute te solution to the systems for the given initial conditions using \texttt{rk4.m}. Plot your results in the phase plane.}
+\vskip.00005in
+\noindent\rule{\textwidth}{1pt}
+\vspace{0.1in}
+\begin{enumerate}
+\item[1.] \textbf{Using initial data conditions with $x(0)^2+y(0)^2$ both smaller and larger than $1$, solve}
+\begin{align*}
+x'(t)&=-4y+x(1-x^2-y^2),\\
+y'(t)&=4x+y(1-x^2-y^2),
+\end{align*}
+\textbf{over the interval $0\leq t\leq 10$}.
+Given the system of ODEs, we see that when at the unit circle the parenthesis of the right hand side vanishes. Moreover, if we express the ODEs in polar coordinates, we see that, at the unit circle, we obtain $dr=0$ and $d\theta=4$. This implies that the orbits, once they reach the unit circle, the stay indefinitely there since $dr=0$ and moving counterclockwise since $d\theta=4$. Inside the unit circle the vector field is divergent, it points away from the origin. This implies that the orbits are gonna approach the unit circle if we place the initial condition inside it. We have the inverse situation outside the unit circle. Thus, the unit circle constitutes an $\omega-limit$ set of this system of ODEs. In the next figure we can see the behaviour described and the vector field.
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Vector field]{\includegraphics[scale=0.75]{P1_1field.eps}}
+\hspace*{\fill}
+\subfigure[Orbits]{\includegraphics[scale=0.75]{P1_1.eps}}
+\hspace*{\fill}
+\caption{Solutions of the system of ODEs.}
+\end{figure}
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 1a
+legendfontsize=14;
+axisfontsize=16;
+
+F = @(t,V) [-4*V(2)+V(1).*(1-V(1).^2-V(2).^2);...
+                4*V(1)+V(2).*(1-V(1).^2-V(2).^2)];
+theta=pi/4;
+R=[0.1; 2.4];
+tspan=[0 10];
+
+N=300;
+a=2.5;
+for i=1:length(R)
+    V0 = [R(i)*cos(theta); R(i)*sin(theta)];
+    [t,V] = rk4(F,tspan,V0,N);
+    figure(1)
+    l(1)=plot(V(:,1),V(:,2),'r');
+    hold on
+    l(2)=plot(V0(1),V0(2),'r*');
+    axis([-a a -a a])
+    grid on
+end
+% Plot orbits
+figure(1)
+hold on
+l(3)=plot(cos(0:0.001:2*pi),sin(0:0.001:2*pi),'--b');
+xlabel('$x(t)$','interpreter','latex')
+ylabel('$y(t)$','interpreter','latex')
+pbaspect([1 1 1])
+set(gca,'fontsize',14)
+legend([l(1) l(2) l(3)],{' Orbits',' Initial condtions',' Limit circle'},...
+ 'Interpreter','latex','fontsize',legendfontsize,'location','SouthEast')
+txt='Latex/FIGURES/P1_1';
+saveas(gcf,txt,'epsc')
+
+% Plot vector field
+step=0.2;
+[x,y] = meshgrid(-a:step:a,-a:step:a);
+u=-4*y+x.*(1-x.^2-y.^2);
+v=4*x+y.*(1-x.^2-y.^2);
+figure(2)
+q=quiver(x,y,u,v,'r');
+hold on
+plot(cos(0:0.001:2*pi),sin(0:0.001:2*pi),'--b');
+xlabel('$x(t)$','interpreter','latex')
+ylabel('$y(t)$','interpreter','latex')
+pbaspect([1 1 1])
+axis([-a a -a a])
+set(gca,'fontsize',14)
+set(q,'AutoScale','on', 'AutoScaleFactor', 1.5)
+txt='Latex/FIGURES/P1_1field';
+saveas(gcf,txt,'epsc')
+\end{verbatim}
+\item[2.] \textbf{Using initial data conditions with $x(0)^2+y(0)^2$ both inside and outside of the circles of radius $1$ and $2$, solve}
+\begin{align*}
+x'(t)&=-4y+x(1-x^2-y^2)(4-x^2-y^2),\\
+y'(t)&=4x+y(1-x^2-y^2)(4-x^2-y^2),
+\end{align*}
+\textbf{over the interval $0\leq t\leq 10$}.
+
+Given the system of ODEs, we see that when at the unit circle or at the circle of radius $2$, the second term of the right hand side cancels in both ODEs. This give us the same condition as before, once the orbits reach those circles, they stay there indefinitely. However, the addition of the extra factor makes the vector field divergent outside the outer circle, and changes the behaviour of the system. If the initial condition is outside the outter circl, the solutions are unstable. We can see the vector field and the orbits of the solutions in the next figure. Note that the initial conditions outisde the circle of radius $2$ are placed just very close to the limit.
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Vector field]{\includegraphics[scale=0.75]{P1_2field.eps}}
+\hspace*{\fill}
+\subfigure[Orbits]{\includegraphics[scale=0.75]{P1_2.eps}}
+\hspace*{\fill}
+\caption{Solutions of the system of ODEs.}
+\end{figure}
+\end{enumerate}
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 1b
+close all
+F = @(t,V) [-4*V(2)+V(1).*(1-V(1).^2-V(2).^2).*(4-V(1).^2-V(2).^2);...
+                4*V(1)+V(2).*(1-V(1).^2-V(2).^2).*(4-V(1).^2-V(2).^2)];
+theta=pi/5;
+R=[0.1; 1.2; 1.8];
+tspan=[0 10];
+N=300;
+a=3;
+for i=1:length(R)
+    V0 = [R(i)*cos(theta); R(i)*sin(theta)];
+    [t,V] = rk4(F,tspan,V0,N);
+    figure(1)
+    plot(V(:,1),V(:,2),'r')
+    hold on
+    plot(V0(1),V0(2),'r*')
+    axis([-a a -a a])
+    grid on
+end
+Theta=0:pi/4:2*pi;
+for i=1:length(Theta)
+    V0 = [2*cos(Theta(i)); 2*sin(Theta(i))];
+    [t,V] = rk4(F,[0 1],V0,N);
+    figure(1)
+    l(1)=plot(V(:,1),V(:,2),'r');
+    hold on
+    l(2)=plot(V0(1),V0(2),'r*');
+    axis([-a a -a a])
+    grid on
+end
+
+figure(1)
+hold on
+l(3)=plot(cos(0:0.001:2*pi),sin(0:0.001:2*pi),'--b');
+plot(2*cos(0:0.001:2*pi),2*sin(0:0.001:2*pi),'--b');
+xlabel('$x(t)$','interpreter','latex')
+ylabel('$y(t)$','interpreter','latex')
+pbaspect([1 1 1])
+set(gca,'fontsize',14)
+%legend([l(1) l(2) l(3)],{' Orbits',' Initial condtions',' Limit circle'},...
+% 'Interpreter','latex','fontsize',legendfontsize,'location','SouthEast')
+txt='Latex/FIGURES/P1_2';
+saveas(gcf,txt,'epsc')
+
+% Plot vector field
+step=0.1;
+b=2;
+[x,y] = meshgrid(-b:step:b,-b:step:b);
+u=-4*y+x.*(1-x.^2-y.^2).*(4-x.^2-y.^2);
+v=4*x+y.*(1-x.^2-y.^2).*(4-x.^2-y.^2);
+figure(2)
+q=quiver(x,y,u,v,'r');
+set(q,'AutoScale','on', 'AutoScaleFactor', 3)
+hold on
+% step=0.1;
+% b=2.1;
+% [x,y] = meshgrid(-b:step:b,-b:step:b);
+% u=-4*y+x.*(1-x.^2-y.^2).*(4-x.^2-y.^2);
+% v=4*x+y.*(1-x.^2-y.^2).*(4-x.^2-y.^2);
+% q=quiver(x,y,u,v,'r');
+% step=0.05;
+% b=1.2;
+% [x,y] = meshgrid(-b:step:b,-b:step:b);
+% u=-4*y+x.*(1-x.^2-y.^2).*(4-x.^2-y.^2);
+% v=4*x+y.*(1-x.^2-y.^2).*(4-x.^2-y.^2);
+% q=quiver(x,y,u,v,'r');
+% set(q,'AutoScale','on', 'AutoScaleFactor', 0.5)
+plot(cos(0:0.001:2*pi),sin(0:0.001:2*pi),'--b');
+plot(2*cos(0:0.001:2*pi),2*sin(0:0.001:2*pi),'--b');
+xlabel('$x(t)$','interpreter','latex')
+ylabel('$y(t)$','interpreter','latex')
+pbaspect([1 1 1])
+grid on
+a=2.1;
+axis([-a a -a a])
+set(gca,'fontsize',14)
+txt='Latex/FIGURES/P1_2field';
+saveas(gcf,txt,'epsc')
+\end{verbatim}

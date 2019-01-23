@@ -1,0 +1,106 @@
+\textbf{In this problem you will derive the barycentric weights for Chebyshev points of the second kind. Let}
+\begin{align*}
+x_j = \cos(j\pi /n),~j = 0,\dots,n,~~\text{and}~~w_j = 1/ \left( \prod_{k=0,k \neq j}^n (x_j - x_k) \right)
+\end{align*}
+\textbf{In Matlab, use the formula above to evaluate $w_j$, $j = 0, \dots, n$ with $n = 10$. Verify that the weights returned in Matlab are}
+\begin{align}
+w_0 = 2^{n-1}/(2n),~w_j = 2^{n-1}(-1)^j/n,~j = 1,\dots,n-1,~w_n = 2^{n-1}(-1)^n/(2n)~.
+\end{align} 
+\textbf{Explain why the factor $2^{n-1}/n$ can be ignored when evaluating the barycentric formula. That is, one can use, instead, the weights}
+\begin{align*}
+\tilde{w}_0 = 1/2,~\tilde{w}_j = (-1)^j, ~j = 1,\dots, n-1,~\tilde{w}_n = (-1)^n/2~.
+\end{align*}
+By coding matlab both ways of calculating the weights we found the claim to be true since we obtained an infinity norm of the difference of order $10^{-14}$. We can prove the previous by simply substituting the definition of the weights in the baricentric formula that when using the barycentric formula,
+\begin{align*}
+p(x) &= \frac{\sum_{j=0}^{n}\frac{w_j}{(x - x_j)}f_j}{\sum_{j=0}^{n}\frac{w_j}{(x - x_j)}}\\
+&= \frac{\sum_{j=0}^{n}\frac{\frac{2^{n-1}(-1)^j}{n}}{(x - x_j)}}{\sum_{j=0}^{n}\frac{\frac{2^{n-1}(-1)^j}{n}}{(x - x_j)}}f_j\\
+& = \frac{\frac{2^{n-1}}{n}}{\frac{2^{n-1}}{n}}\frac{\sum_{j=0}^{n}\frac{(-1)^j}{(x - x_j)}}{\sum_{j=0}^{n}\frac{(-1)^j}{(x - x_j)}}f_j \\
+& = \frac{\sum_{j=0}^{n}\frac{(-1)^j}{(x - x_j)}}{\sum_{j=0}^{n}\frac{(-1)^j}{(x - x_j)}}f_j.
+\end{align*}
+Hence, since the factor $2^{n-1}/n$ gets cancelled, it can be ignored from the weights.
+\newpage
+\textbf{Show that, for $x_j = cos(j\pi/n)$,}
+\begin{align*}
+\prod_{k=0}^n(x - x_k) = \frac{1}{2^{n-1}}(x^2-1)U_{n-1}(x)
+\end{align*} 
+\textbf{and}
+\begin{align*}
+w_j = 1/ \left( \prod_{k=0,k \neq j}^n (x_j - x_k) \right) = \lim_{x \rightarrow x_j} \frac{2^{n-1}(x-x_j)}{(x^2 - 1)U_{n-1}(x)}~.
+\end{align*}
+\textbf{Here $U_{n-1}(x) = \frac{sin(n\arccos x)}{sin(\arccos x)}$ is the Chebyshev polynomial of the second kind of degree $n-1$.}
+
+We start with the relation between the Chebishev's polynomials of first and second kind
+\begin{align*}
+T'_n(x) = nU_{n-1}(x).
+\end{align*}
+Using that
+\begin{align*}
+T_n(x) = 2^{n-1}\prod_{k=0}^{n-1}(x - x_k),
+\end{align*}
+and the previous relation we get
+\begin{align*}
+nU_{n-1}(x) = T'_n(x) = n2^{n-1}\prod_{k=1}^{n-1}(x - \tilde{x}_k)~.
+\end{align*}
+Note that now the roots have changed, now they are the roots of the Chebishev's polynomial of the second kind and the roots of the boundaries are missing. We can include them by multiplying
+\begin{align*}
+\prod_{k=0}^{n}(x - \tilde{x}_k)=(x-x_0)(x-x_n)\prod_{k=1}^{n-1}(x - \tilde{x}_k) = (x-x_0)(x-x_n)\frac{1}{2^{n-1}}U_{n-1}(x),
+\end{align*}
+where we have made $\tilde{x}_0=x_0$ and same for $x_n$. Lastly, recall that 
+\begin{align*}
+(x-x_0)(x-x_n)=(x+1)(x-1)=(x^2-1),
+\end{align*}
+and we obtain the desired expression
+\begin{align*}
+\prod_{k=0}^{n}(x - \tilde{x}_k)= \frac{1}{2^{n-1}}(x^2-1)U_{n-1}(x).
+\end{align*}
+
+Further, observe that
+\begin{align*}
+\frac{d}{dx}\prod_{k=0}^{n}(x - x_k) = \sum_{k=0}^{n} \left( \prod_{j=0,j \neq k}^{n}(x - x_j) \right) = \prod_{k=0, k \neq j}^{n}(x_j - x_k).
+\end{align*}
+Hence,
+\begin{align*}
+ \frac{1}{\frac{d}{dx} \prod_{k=0}^{n}(x - x_k)} = \lim_{x \rightarrow x_j} \frac{(x - x_j)}{\prod_{k=0}^{n}(x - x_k)} = \lim_{x \rightarrow x_j} \frac{2^{n-1}(x-x_j)}{(x^2 - 1)U_{n-1}(x)}.
+\end{align*}
+
+\textbf{Use L'Hopital's Rule to evaluate the limit in (2) and derive the expressions in equation (1).}
+
+Given the expression for $U_{n-1}(x)$ above we obtain the derivative
+\begin{align*}
+U'_{n-1}(x) = \frac{-n\cos(n\arccos(x))\sin(\arccos(x)) + \sin(n\arccos(x))\cos(\arccos(x))}{\left(\sqrt{1 - x^2}\right)\sin^2(\arccos(x))}.
+\end{align*}
+Recall the definition of $x_j=\cos(j\pi/n)$. Then,
+\begin{align*}
+U'_{n-1}(x_j) & = \frac{-n\cos(j \pi)}{\left(\sqrt{1 - x^2}\right) \sin(\frac{j \pi}{n})} + \frac{\sin(j \pi) \cos(\frac{j \pi}{n})}{\left(\sqrt{1 - x^2}\right)\sin^2(\frac{j \pi}{n})}  \\
+&= \frac{1}{\sqrt{1 - x^2}} \left( \frac{n\cos(j\pi)}{\sin(\frac{j \pi}{n})} \right) \\
+& = \frac{n(-1)^j}{\sin^2(\frac{j \pi}{n})}~.
+\end{align*}
+To finish, use L'Hopital's rule and the result from the previous part,
+\begin{align*}
+w_j & = \lim_{x \rightarrow x_j} \frac{2^{n-1}(x-x_j)}{(x^2 - 1)U_{n-1}(x)} \\ &= \lim_{x \rightarrow x_j} \frac{2^{n-1}}{2xU_{n-1}(x)+(x^2 -1)U'_{n-1}(x)} \\
+& = \frac{2^{n-1}}{2x_jU_{n-1}(x_j)+(x_j^2 -1)U'_{n-1}(x_j)} \\
+& = \frac {2^{n-1}}{\sin^2(\frac{j\pi}{n})\left( \frac{n(-1)^j}{\sin^2(\frac{j\pi}{n})}\right)} \\
+& = \frac{2^{n-1}(-1)^j}{n}.
+\end{align*}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 5
+n=10;
+j=0:n;
+x=cos(j*pi/n);
+w_a=zeros(n+1,1);
+w_b=zeros(n+1,1);
+for j=0:n
+    xj=x(j+1);
+    xk=x;
+    xk(j+1)=[];
+    w_a(j+1)=1/prod(xj-xk);
+end
+w_b(1)=2^(n-1)/(2*n);
+for j=2:n
+    w_b(j)=2^(n-1)*(-1)^(j-1)/n;
+end
+w_b(n+1)=2^(n-1)*(-1)^n/(2*n);
+err=norm(w_a-w_b,inf)
+\end{verbatim}

@@ -1,0 +1,93 @@
+\begin{questions}
+
+\question{Solve the Cauchy problem
+\begin{align*}
+&u\partial_1u+x_2\partial_2u=u~,\\
+&u(z,z)=z^2,~~~~z\in\R.
+\end{align*}
+Where is the solution defined and where is it partially differentiable?
+}
+
+\begin{solution}
+The PDE above has the form of the equation $(3.2)$ from the notes. Since $c$ and $a_j$ are partially differentiable in all variables and these partial derivatives are continuous, the solution $u$ must be unique acording to \textsl{Theorem 3.5}. Looking at the initial condition we identify the hypersurface $S={(z,z);z\in\R}$. So $S=g(\R)$ with $g(z)=(z,z)$. Now we can write our \textit{Characteristic System} with the \textit{Initial Conditions}:
+\begin{align*}
+\partial_t\xi_1(z,t)=v(z,t),~~&~~\xi_1(z,0)=z,\\
+\partial_t\xi_2(z,t)=\xi_2(z,t),~~&~~\xi_2(z,0)=z,\\
+\partial_tv(z,t)=v(z,t),~~&~~v(z,0)=z^2.
+\end{align*}
+We integrate first the differential equation for $v$,
+\begin{align*}
+\partial_t v(z,t)=v(z,t)~~\Rightarrow~~ v(z,t)=f_3(z)e^t.
+\end{align*}
+Imposing the initial condition,
+\begin{align*}
+v(z,0)=f_3(z)=z^2,
+\end{align*}
+we obtain $f_3(z)$ and
+\begin{align*}
+v(z,t)=z^2e^t.
+\end{align*}
+Using this result we integrate the differential equation for $\xi_1$,
+\begin{align*}
+\partial_t \xi_1(z,t)=v(z,t)~~\Rightarrow~~ \xi_1(z,t)=z^2e^t+f_1(z).
+\end{align*}
+Imposing the initial condition,
+\begin{align*}
+\xi_1(z,0)=z^2+f_1(z)=z,
+\end{align*}
+obtaining $f_1(z)=z-z^2$. Thus, 
+\begin{align*}
+\xi_1(z,t)=z-z^2(1-e^t).
+\end{align*}
+Now we integrate for $\xi_2$,
+\begin{align*}
+\partial_t \xi_2(z,t)=\xi_2(z,t)~~\Rightarrow~~ \xi_2(z,t)=f_2(z)e^t.
+\end{align*}
+Imposing the initial condition,
+\begin{align*}
+\xi_2(z,0)=f_2(z)=z,
+\end{align*}
+obtaining $f_2(z)=z$. Thus, 
+\begin{align*}
+\xi_2(z,t)=ze^t.
+\end{align*}
+To find the solution we need to find $z(x_1,x_2)$ and $t(x_1,x_2)$ using that
+\begin{align*}
+x_1&=\xi_1=z-z^2(1-e^t),\\
+x_2&=\xi_2=ze^t.
+\end{align*}
+From the last equation we obtain
+\begin{align*}
+e^t=\frac{x_2}{z},
+\end{align*}
+and
+\begin{align*}
+x_1=z-z^2+z^2\frac{x_2}{z}=z-z^2+x_2z=(1+x_2)z-z^2,
+\end{align*}
+\begin{align*}
+z^2-(1+x_2)z+x_1=0.
+\end{align*}
+We can solve now for $z$,
+\begin{align*}
+z=\frac{1+x_2\pm\sqrt{(1+x_2)^2-4x_1}}{2}.
+\end{align*}
+At this point, using $e^t=x_2/z$, we can obtain the solution
+\begin{align*}
+u(x_1,x_2)=z^2\frac{x_2}{z}=zx_2=x_2\frac{1+x_2\pm\sqrt{(1+x_2)^2-4x_1}}{2}.
+\end{align*}
+The solution must be unique, imposing the initial condition for $u$ we can discard one of the signs:
+\begin{align*}
+u(z,z)&=z\frac{1+z\pm\sqrt{(1+z)^2-4z}}{2}\\
+&=z\left(1+z\pm (1-z)\right)=z.
+\end{align*}
+Therefore, the minus sign gives us the wrong solution. Thus,
+\begin{align*}
+u(x_1,x_2)=\frac{x_2}{2}\left(1+x_2+\sqrt{(1+x_2)^2-4x_1}\right).
+\end{align*}
+The solution is defined for all $\R^2$ except for those points that don't satisfy $(1+x_2)^2\geq 4x_1$, i.e.,$\R^2\backslash\left\lbrace (x_1,x_2);(1+x_2)^2-4x_1<0\right\rbrace$. To see when the solution is differentiable we calculate
+\begin{align*}
+\partial_1u=\frac{-x_2}{\sqrt{(1+x_2)^2-4x_1}},~~~~\partial_2u=\frac{1}{2}+x_2+\frac{1}{2}\sqrt{(1+x_2)^2-4x_1}+\frac{x_2(1+x_2)}{\sqrt{(1+x_2)^2-4x_1}}.
+\end{align*}
+Clearly, $u$ is differentiable in $\R^2\backslash\left\lbrace (x_1,x_2);(1+x_2)^2-4x_1\leq 0\right\rbrace$. Both its partial derivatives are not defined for points that don't satisfy $(1+x_2)^2-4x_1> 0$.
+\end{solution}
+\end{questions}

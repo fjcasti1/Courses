@@ -1,0 +1,75 @@
+\begin{questions}
+\question{
+Prove from scratch: if $u : \overline{\Omega}\to\R $ is continuous and is twice partially
+differentiable on $\Omega$ and satisfies
+\begin{align*}
+\Delta u \leq 0,~~~~ x\in\Omega,
+\end{align*}
+then
+\begin{align*}
+\min_{\overline{\Omega}}u = \min_{\partial\Omega}u 
+\end{align*}
+}
+\begin{solution}
+Let us assume first that $\Delta u < 0$ for all $x\in\Omega$. Then, since $u$ is continuous on $\overline{\Omega}$, there exists some $y\in\overline{\Omega}$ such that
+\begin{align*}
+u(y)=\min_{\overline{\Omega}}u.
+\end{align*}
+Further, suppose that the minimum is not on the boundary, i.e., $y\in\overline{\Omega}$. Then, since it is a minimum, $\partial_ju(y)=0$ and $\partial^2_ju(y)\geq0$ for all $j=1,...,n$. Then,
+\begin{align*}
+\Delta u(y)\geq 0,
+\end{align*}
+which is a contradiction to our assumption. Hence, the minimum must be on the boundary,
+\begin{align*}
+\min_{\overline{\Omega}}u = \min_{\partial\Omega}u.
+\end{align*}
+It is left to prove that this is also the case if $\Delta u\leq 0$ for all $x\in\Omega$. Let $\epsilon>0$ and
+\begin{align*}
+u_{\epsilon}(y)=u(y)-\epsilon|y|^2,~~~~y\in\overline{\Omega}.
+\end{align*}
+Then,
+\begin{align*}
+\partial_ju_{\epsilon}(y)=\partial_ju(y)-2\epsilon x_j,
+\end{align*}
+and
+\begin{align*}
+\partial_j^2u_{\epsilon}(y)=\partial_j^2u(y)-2\epsilon,
+\end{align*}
+for $j=1,...,n$. Note that the derivatives were calculated with detail in the previous problem. Therefore,
+\begin{align*}
+\Delta u_{\epsilon}=\Delta u-2n\epsilon<0,~~~~x\in\Omega.
+\end{align*}
+By the first part of this problem, since $\Delta u_{\epsilon}<0,~~~~x\in\Omega$,
+\begin{align*}
+\min_{\overline{\Omega}}u_{\epsilon} = \min_{\partial\Omega}u_{\epsilon}.
+\end{align*}
+Finally, from the definition of $u_{\epsilon}$ we have that the minimum
+\begin{align*}
+\min_{\overline{\Omega}}u\geq\min_{\overline{\Omega}}u_{\epsilon},
+\end{align*}
+which is placed on the boundary,
+\begin{align*}
+\min_{\overline{\Omega}}u_{\epsilon}=\min_{\partial\Omega}u_{\epsilon}.
+\end{align*}
+Since $\Omega$ is bounded, there exists some $c>0$ such that $|x|<c$ and
+\begin{align*}
+u_{\epsilon}(y)\geq u(y)-\epsilon c^2.
+\end{align*}
+Then,
+\begin{align*}
+\min_{\partial\Omega}u_{\epsilon}\geq \min_{\partial\Omega}u-\epsilon c^2, 
+\end{align*}
+and we have that
+\begin{align*}
+\min_{\overline{\Omega}}u\geq \min_{\overline{\Omega}}u_{\epsilon}=\min_{\partial\Omega}u_{\epsilon}\geq \min_{\partial\Omega}u-\epsilon c^2.
+\end{align*}
+Since the inequality holds for all $\epsilon>0$, we have proved that
+\begin{align*}
+\min_{\overline{\Omega}}u\geq \min_{\partial\Omega}u.
+\end{align*}
+The inequality in the other direction is trivially proved since the boundary is contained in the closure of $\Omega$, $\partial\Omega\subseteq \overline{\Omega}$. Hence,
+\begin{align*}
+\min_{\overline{\Omega}}u= \min_{\partial\Omega}u.
+\end{align*}
+\end{solution}
+\end{questions}

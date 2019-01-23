@@ -1,0 +1,60 @@
+\begin{enumerate}[label=(\alph*)]
+\item To prove that
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2,
+\end{align*}
+we start by writing the left side of the equation as an inner product,
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2=<f-\sum_{j=1}^N\lambda_je_j|f-\sum_{j=1}^N\lambda_je_j>.
+\end{align*}
+By appllying linearity and antilinearity of the inner product we get
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2&=<f-\sum_{j=1}^N\lambda_je_j|f-\sum_{j=1}^N\lambda_je_j>\\
+&=<f|f>-\sum_{j=1}^N<\lambda_je_j|f>-\sum_{j=1}^N<f|\lambda_je_j>+\sum_{j=1}^N<\lambda_je_j|\lambda_je_j>\\
+&=||f||^2-\sum_{j=1}^N\lambda_j<e_j|f>-\sum_{j=1}^N\lambda_j^*<f|e_j>+\sum_{j=1}^N<\lambda_je_j|\lambda_je_j>\\
+&=||f||^2-\sum_{j=1}^N\lambda_jc_j^*-\sum_{j=1}^N\lambda_j^*c_j+\sum_{j=1}^N||\lambda_j||^2.
+\end{align*}
+where we have used the linearity and antilinearity properties again, and that $c_j=<f|e_j>$. By adding and substracting $\sum_{j=1}^N<c_j|c_j>$ and rewriting the previous equation in terms of inner product again we get
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2&=||f||^2-\sum_{j=1}^N<\lambda_j|c_j>-\sum_{j=1}^N<c_j|\lambda_j>+\sum_{j=1}^N<\lambda_j|\lambda_j>\\
+&~~~~~~~~~~~~~~~+\sum_{j=1}^N<c_j|c_j>-\sum_{j=1}^N<c_j|c_j>,
+\end{align*}
+which, again by linearity and antilinearity, we can group together as
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2&=||f||^2+\sum_{j=1}^N<\lambda_j-c_j|\lambda_j>-\sum_{j=1}^N<\lambda_j-c_j|c_j>-\sum_{j=1}^N<c_j|c_j>\\
+&=||f||^2+\sum_{j=1}^N<\lambda_j-c_j|\lambda_j-c_j>-\sum_{j=1}^N<c_j|c_j>\\
+&=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2.
+\end{align*}
+Thus, we have proven that
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2.
+\end{align*}
+\item To prove that
+\begin{align*}
+||f-f_N||\leq||f-g||,
+\end{align*}
+we will show that their squares
+\begin{align*}
+||f-f_N||^2\leq||f-g||^2.
+\end{align*}
+Taking into account that $f_N=\sum_{j=1}^N<f|e_j>e_j$ and $g=\sum_{j=1}^N\lambda_je_j$ and using the previous proof we have that
+\begin{align*}
+||f-f_N||^2&=\left|\left|f-\sum_{j=1}^N<f|e_j>e_j\right|\right|^2\\
+&=||f||^2+\sum_{j=1}^N|<f|e_j>-c_j|^2-\sum_{j=1}^N|c_j|^2\\
+&=||f||^2+\sum_{j=1}^N|<f|e_j>-<f|e_j>|^2-\sum_{j=1}^N|c_j|^2\\
+&=||f||^2-\sum_{j=1}^N|<f|e_j>|^2,
+\end{align*}
+and
+\begin{align*}
+||f-g||^2&=\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2\\
+&=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2\\
+&=||f||^2+\sum_{j=1}^N|\lambda_j-<f|e_j>|^2-\sum_{j=1}^N|c_j|^2\\
+&\geq||f||^2-\sum_{j=1}^N|<f|e_j>|^2\\
+&=||f-f_N||^2.
+\end{align*}
+Thus, we have proved that
+\begin{align*}
+||f-f_N||\leq||f-g||
+\end{align*}
+
+\end{enumerate}

@@ -1,0 +1,61 @@
+\begin{questions}
+
+\question{Solve the wave equation
+\begin{align*}
+&\partial^2_tu-c^2\partial^2_xu=0,~~~~x,t\in\R,\\
+&u(0,t)=f(t),~~~~~~~~~t\in\R,\\
+&u(cx,x)=g(x),~~~~~~x\in\R.
+\end{align*}
+where $f,g:\R\rightarrow\R$. State appropriate assumptions for $f$ and $g$ such that you really have a solution.
+}
+\begin{solution}
+Before starting to solve the PDE, we can obtain one condition that $f$ and $g$ must satisfy. We have that
+\begin{align*}
+u(0,0)=f(0),
+\end{align*}
+and also
+\begin{align*}
+u(0,0)=g(0).
+\end{align*}
+Thus, $f(0)=g(0)$. We continue with the general solution of the wave equation
+\begin{align*}
+u(x,t)=F(x+ct)+G(x-ct),
+\end{align*}
+and imposing the boundary conditions
+\begin{align*}
+u(0,t)&=F(ct)+G(-ct)=f(t),\\
+u(cx,x)&=F(2xc)+G(0)=g(x).
+\end{align*}
+From the previous equations we obtain the following system
+\begin{align*}
+F(x)+G(-x)=f\left(\frac{x}{c}\right),\\
+F(x)+G(0)=g\left(\frac{x}{2c}\right),\\
+\end{align*}
+where we have substituted $ct$ for $x$ in the first equation and $2cx$ for $x$ in the second one. Substracting both equations we get
+\begin{align*}
+G(-x)=G(0)+f\left(\frac{x}{c}\right)-g\left(\frac{x}{2c}\right).
+\end{align*}
+Thus,
+\begin{align*}
+G(x-ct)=G(0)+f\left(\frac{ct-x}{c}\right)-g\left(\frac{ct-x}{2c}\right).
+\end{align*}
+Coming back to $F(x)=-G(0)+g\left(\frac{x}{2c}\right)$ we can obtain
+\begin{align*}
+F(x+ct)=-G(0)+g\left(\frac{x+ct}{2c}\right).
+\end{align*}
+We can now write the solution of the PDE
+\begin{align*}
+u(x,t)=F(x+ct)+G(x-ct)=f\left(\frac{ct-x}{c}\right)-g\left(\frac{ct-x}{2c}\right)+g\left(\frac{x+ct}{2c}\right),
+\end{align*}
+and we can check that satisfies the boundary conditions
+\begin{align*}
+u(cx,x)=f(0)-g\left(0\right)+g\left(x\right)=g(x),
+\end{align*}
+and
+\begin{align*}
+u(0,t)=f(t)-g\left(\frac{t}{2}\right)+g\left(\frac{t}{2}\right)=f(t).
+\end{align*}
+In order for the previous solution to be really a soluton we need $f$ and $g$ to be twice differentiable and $f(0)=g(0)$ to satisfy the boundary conditions.
+\end{solution}
+
+\end{questions}

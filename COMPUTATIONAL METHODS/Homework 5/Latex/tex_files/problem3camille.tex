@@ -1,0 +1,60 @@
+\begin{questions}
+\question{Consider the predictor-corrector time-stepping scheme:
+\begin{align*}
+& y_{n+1}^p = y_n + \frac{\Delta t}{12}(23f_n - 16f_{n-1}+5f_{n-2}), \\
+&y_{n+1} = y_n + \frac{\Delta t}{12}(5f(t_{n+1},y_{n+1}^p) + 8f)n - f_{n-1})~.
+\end{align*}
+Here $f_n = f(t_n,y_n)$ and $y'(t) = f(t,y)$, $y(0) = y_0$. Plot the stability region for this scheme.
+ }
+
+\begin{solution}
+
+Let $y_{n+1}^p = P$ for simplicity. Then, for stability purposes, $f = \lambda y$. Finally, let $a = \frac{\Delta t \lambda}{12}$. Then,
+\begin{align*}
+\begin{cases}
+P = y^n + a(23y^n - 16y^{n-1}+5y^{n-1} \\
+y^{n+1} = y^n + a(5P + 8y^n - y^{n-1})
+\end{cases} \Rightarrow y^{n+1} = y^n + a \left[ 5(y^n + a(23y^n- 16y^{n-1}+5y^{n-1})) + 8y^n - y^{n-1} \right]~.
+\end{align*} 
+
+Now assume $y^{n+1} = gy^n$, and thus $y^n = g^2y^{n-2}$. Plugging this in, we get
+\begin{align*}
+gy^n = y^n +a\left[ 5y^n + 115ay^n - 80\frac{a}{g}y^n + 25\frac{a}{g^2}y^n\right] + 8ay^n - \frac{a}{g}y^n~.
+\end{align*}
+Solving for $a$, we get
+\begin{align*}
+&(115g^2 - 80g +25)a^2 + (13g^2-g)a + (g^2-g^3) = 0 \\
+& \Rightarrow a = \frac{-(13g^2 - g) \pm \sqrt{(13g^2-g)^2 - 4(115g^2 - 80g+25)(g^2-g^3)}}{2(115g^2 - 80g +25)}~.
+\end{align*}
+Lastly we let $z = 12a$ and plot the solution into Matlab to get the following stability region:
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P3F1.eps}}
+\end{figure}
+
+
+\end{solution}
+
+\subsection*{MATLAB}
+
+\begin{verbatim}
+close all; clear variables;
+
+theta = linspace(0,2*pi,100);
+g = exp(1i*theta);
+a = 115*g.^2 - 80*g+25;
+b = 13*g.^2 - g;
+c = g.^2-g.^3;
+sq = sqrt(b.^2 - 4*a.*c);
+
+zp = 12*((-b + sq)./(2*a));
+zn = 12*((-b - sq)./(2*a));
+
+figure
+plot(real(zp),imag(zp),'.r',real(zn),imag(zn),'.b')
+legend('positive square root','negative square root')
+grid on
+\end{verbatim}
+
+
+\end{questions}

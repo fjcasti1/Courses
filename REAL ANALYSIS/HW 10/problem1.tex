@@ -1,0 +1,26 @@
+\begin{questions}
+
+\question{Let $T$, $S$ be two closed disjoint subsets of a metric space $(X, d)$ $(T\cap 
+S \neq \emptyset)$.
+Show that the function $f : X \rightarrow \R_+$,
+\begin{align*}
+f(x) = \frac{d(x, S)}{d(x, T) + d(x, S)}~,~~~~ x\in X,
+\end{align*}
+separates $T$ and $S$, i.e., $f$ is well-defined and continuous, $f(x) = 1$ for all
+$x\in T$ and $f(x) = 0$ for all $x\in S$ and $0 < f(x) < 1$ for all $x\in X \ (S \cup T)$.}
+
+\begin{solution}
+  \begin{proof}
+  Since the intersection is empty, there is no point $x\in X$ that is in both $S$ and $T$. Since both $S$ and $T$ are closed and by the contrapositive of \textit{Problem 4.1.7} ($x\not\in \overline{S}=S$ if and only if $d(x,S)\neq 0$, same for $T$), there is no point $x\in X$ that makes both $d(x,S)$ and $d(x,T)$ zero. Therefore, the denominator will always be positive, so the function is well defined with its domain being $X$. The function is also continuous for being the quotient of two real valued continuous functions.
+Now let $x\in T$ (therefore $x\not\in S$), then $d(x,T)=0$ and $d(x,S)> 0$:
+  \begin{align*}
+  f(x)=\frac{d(x, S)}{d(x, T) + d(x, S)}=\frac{d(x, S)}{0 + d(x, S)}=1~,~~~~ x\in X.
+  \end{align*}
+Now let $x\in S$ (therefore $x\not\in T$), then $d(x,S)=0$ and $d(x,T)> 0$:
+  \begin{align*}
+  f(x)=\frac{d(x, S)}{d(x, T) + d(x, S)}=0~,~~~~ x\in X.
+  \end{align*}
+Lastly, let $x\in X\backslash (S\cup T)=(X\backslash S)\cap (X\backslash T)$, where the equality is comes from de Morgan's laws. Then $x$ is neither in $S$ or in $T$. Therefore $d(x,T)>0$ and $d(x,S)> 0$ and thus, $0<f(x)<1$.
+  \end{proof}
+\end{solution}
+\end{questions}

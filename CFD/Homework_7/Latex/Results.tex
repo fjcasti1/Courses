@@ -1,0 +1,98 @@
+In figures 1 and 2 we can see the velocity contours at different values of time. In the first figure we can see the horizontal velocity contours. The red dot represents the probe located to meassure such quantity. As we can see we have inputs through inlets 1 (positive $u$) and 2 (negative $u$). Figure 2 shows the vertical velocity contours at different values of time. As we can see we only introduce fluid vertically through the inlet 3 and, to satisfy the conservation of mass, there is a fluid going out through the outlet where also have zero Neumann boundary conditions. For both $u$ and $v$ the contours don't change much with time, and their solution is not close to zero (initial condition), indicating that the steady state is reached very quickly.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.1$ s.]{\includegraphics[scale=0.55]{u_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.55]{u_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{u_3.eps}}
+\hfill
+\subfigure[$t=2$ s.]{\includegraphics[scale=0.55]{u_4.eps}}
+\hspace*{\fill}
+\caption{Horizontal velocity contours.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.1$ s.]{\includegraphics[scale=0.55]{v_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.55]{v_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{v_3.eps}}
+\hfill
+\subfigure[$t=2$ s.]{\includegraphics[scale=0.55]{v_4.eps}}
+\hspace*{\fill}
+\caption{Vertical velocity contours.}
+\end{figure}
+
+In the next figure we can see the probes meassurements with time during the first 2 seconds. As commented above, the probes show us how for both $u$ and $v$ the fluid reaches the steady state very quickly.
+
+To finish with the results, we proceed with the GCI analysis. In the following table we have the data needed to perform it obtained by doing simulations with different meshes.
+
+\begin{figure}[H]
+\centering     %%% not \center
+%\hspace*{\fill}
+\subfigure[Probe 1.]{\includegraphics[scale=0.6]{probe1.eps}}
+%\hfill
+\subfigure[Probe 2.]{\includegraphics[scale=0.6]{probe2.eps}}
+%\hfill
+\caption{Meassures of the probes.}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+Grid  & M & N & $u(1,0.5,1)$ & $v(1,1.5,1)$ \\
+\hline
+$1$ & $128$ & $64$ & $0.903783280349676$& $-0.325610242364466$\\
+$2$ & $64$ & $32$ & $0.908404354402535$& $-0.326805053418745$\\
+$3$ & $32$ & $16$ & $0.925282713909409$& $-0.331680997541251$\\
+
+\end{tabular}
+\caption{GCI analysis data.}
+\end{table}
+
+Taking the data from $u$, we can calculate an order of convergence $p=1.868874573994991$, close to the theoretical value two. Using Richardson extrapolation with the two finest grids we estimate the solution at $h=0$,
+\begin{align*}
+u_{h=0}=0.902041106237625.
+\end{align*}
+We obtain the following GCI values
+\begin{align*}
+GCI_{21}=0.002409557343461,~~~~~~~GCI_{32}=0.008756078906480,
+\end{align*}
+which give us the following value
+\begin{align*}
+\frac{GCI_{21}}{GCI_{32}}r^p=1.005113033349180,
+\end{align*}
+where $r=2$. The previous value tells us that we are in the asymptotic range of convergence. Thus, we can say that the value meassured by the probe is
+\begin{align*}
+u(1,0.5,1)=0.902041106237625\pm 0.2409557343461\%
+\end{align*}
+
+Now doing the same for $v$, we can calculate an order of convergence $p=2.028899102510403$, close to the theoretical value two. Using Richardson extrapolation with the two finest grids we estimate the solution at $h=0$,
+\begin{align*}
+v_{h=0}=-0.325222434200792.
+\end{align*}
+We obtain the following GCI values
+\begin{align*}
+GCI_{21}=0.001488774434957,~~~~~~~GCI_{32}=0.006053376475505,
+\end{align*}
+which give us the following value
+\begin{align*}
+\frac{GCI_{12}}{GCI_{23}}r^p=1.003669451690472.
+\end{align*}
+The previous value tells us that we are in the asymptotic range of convergence. Thus, we can say that the value meassured by the probe is
+\begin{align*}
+v(1,1.5,1)=-0.325222434200792\pm 0.1488774434957\%
+\end{align*}
+These values have been obtained using a tolerance of $eps=10^{-12}$ for the multigrid function.

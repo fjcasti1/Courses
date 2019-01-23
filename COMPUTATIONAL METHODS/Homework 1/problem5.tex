@@ -1,0 +1,49 @@
+\begin{solution}
+In this problem we are going to see how inadequate it is to use equispaced nodes instead of, for instance, Chebishev nodes. In the interval $[-1,1]$ we are going to use polynomial approximation with equispaced nodes to apporximate the function 
+\begin{align*}
+f(x)=\frac{1}{1+25x^2},
+\end{align*}
+and compute the $L_{\infty}$ error. In the following figure we ca see how the error grows with the number of nodes used. This clearly telling us that the nodes are not well distributed since using more nodes should give us more precision (at least for not too exotic problems). To understand this, as we saw in class, let's look at the function and the polynomial of degree 100 (highest degree used) together in the figure. It is obvious that the polynomial does not approximate the function at all when we get close to the boundries. This is causing the increasing error with $N$.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Error dependency on $N$.]{\includegraphics[scale=0.5]{IMAGES/problem5_1.eps}}
+\hfill
+\subfigure[Function and polynomial comparison.]{\includegraphics[scale=0.5]{IMAGES/problem5_2.eps}}
+\hspace*{\fill}
+\caption{Polynomial interpolation using equispaced nodes for the function $f(x)=\frac{1}{1+25x^2}$.}
+\end{figure}
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+ff = @(x) 1./(1+25*x.^2);
+N = 1:100;
+err = 0*N;
+xx = linspace(-1,1,1000)';
+for k = 1:length(N)
+    x = linspace(-1,1,N(k))';
+    W = baryWeights(x);
+    y = ff(x);
+    yy = bary(xx,y,x,W);
+    err(k) = norm(ff(xx)-yy,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem5_1','epsc')
+
+figure
+plot(xx,ff(xx))
+hold on
+plot(xx,yy,'r--')
+xlabel('$x$','fontsize',20,'interpreter','latex')
+ylabel('$f(x),p(x)$','fontsize',20,'interpreter','latex')
+legend({'$f(x)$','$p(x)$'},'Interpreter','latex','Location','north','fontsize',16)
+axis([-1 1 -2 2])
+grid on
+saveas(gcf,'IMAGES/problem5_2','epsc')
+\end{verbatim}
+\end{solution}

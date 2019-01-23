@@ -1,0 +1,38 @@
+\begin{questions}
+
+\question{ Let $(X, d)$ be a metric space and $Y$ a nonempty subset of $X$, $x \in X$.
+Show: $d(x, \bar{Y} ) = d(x, Y )$.}
+
+\begin{solution}
+  \begin{proof}
+ Let $h \in Y$ and $y \in \bar{Y}$. Since $Y$ is a subset of $\bar{Y}$, $h \in \bar{Y}$ as well. Then:
+ \begin{align*}
+ &d(x,\bar{Y}) = inf\{d(x,h) ; h \in \bar{Y}\}~, \\
+ &d(x, \bar{Y}) \leq d(x,h)~.
+ \end{align*}
+ Since $h$ was chosen arbitrarily, $d(x, \bar{Y})$ is a lower bound of $\{d(x,h);h \in Y\}$. By the definition of an infimum, 
+ \begin{align*}
+ d(x,Y) = inf\{d(x,h); h \in Y\} \geq d(x, \bar{Y})~.
+ \end{align*}
+ Next, since $y$ is a limit point of $Y$, $\exists (y_n)\in Y$ such that $(y_n) \rightarrow y$ as $n \rightarrow \infty$. By lemma 2.3,
+ \begin{align*}
+ d(x,y) = \lim_{n \rightarrow \infty}d(x, y_n)~.
+ \end{align*}
+Similarly as done before,
+ \begin{align*}
+ &d(x, Y) = inf\{d(x,y_n); y_n \in Y\}  \leq d(x, y_n)~~\forall n\in\N \\
+ &\Rightarrow d(x, Y) \leq d(x,y)~.
+ \end{align*}
+So $d(x,Y)$ is a lower bound, and by the definition of the infimum,
+ \begin{align*}
+ d(x,Y) \leq inf\{d(x,y); y \in \bar{Y}\} = d(x, \bar{Y})~.
+ \end{align*}
+We prove the statement by the two inequalities put together,
+\begin{align*}
+d(x,Y) = d(x,\bar{Y})~.
+\end{align*}
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

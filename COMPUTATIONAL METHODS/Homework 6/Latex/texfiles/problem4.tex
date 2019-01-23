@@ -1,0 +1,190 @@
+
+\begin{questions}
+
+\question{ Modify the code \texttt{fluidflowFD.m} to solve the equations
+\begin{align*}
+ w_t + \psi_y w_x - \psi_xw_y &= Pr \Delta w + RaPrT_x, \\
+ T_t + \psi_y T_x - \psi_xT_y &= \Delta T, \\
+\Delta \psi &= -w,
+\end{align*}
+where $(x,y) \in (0,1) \times (0,1)$ and $t>0$. For this exercise, set $Ra = 2 \times 10^5$ and $Pr = 0.71$ (air).
+
+The fluid is at rest at $t=0$, with $T = \psi = w = 0$. The boundary conditions for the stream function is $\psi_{Gamma} = 0$, which implies that there is no mass transfer through the boundary $\Gamma$. The value of the vorticity at the walls is expressed as $w_{\Gamma} = -\Delta \psi_{\Gamma}$ and the temperature at $\Gamma$ is defined by
+\begin{align*}
+T(t,x,y) = \begin{cases}
+2^9\tanh^4(100t)x^5(x-1)^4,& y =0,~0\leq x \leq 1,~t>0, \\
+0, & (x,y) \in \Gamma,~y\neq 0,~t>0.
+\end{cases}
+\end{align*}
+
+}
+
+\begin{solution}
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{p4_f1.eps}}
+\caption{Solution at $ t=1$ second}
+\end{figure}
+
+\end{solution}
+
+\end{questions}
+
+\subsubsection*{MATLAB}
+
+   \begin{verbatim}
+function HW6P4
+% Parameters
+N = 150;
+Ra = 2e5;
+Pr = 0.71;
+dt = 1e-5;
+
+
+h = 1/N; % N+1 points in each direction
+[xx,yy] = meshgrid(0:h:1); % 2D gridpoints
+
+% Laplacian with zero BCs
+o = ones(N-1,1);
+D2 = (diag(-2*o) + diag(o(1:N-2),-1)+ diag(o(1:N-2),1))/h^2;
+% We need evals and evects to solve Poisson equation
+[eV,eval] = eig(D2); lam = diag(eval);
+
+% Initial condition & pre-allocate memory (start with zeros at t = 0)
+u = 0*xx; v = u; w = u; str = u; T = u;
+
+% boundary condition
+%u(N+1,:) = 1;
+ii = 2:N; jj = 2:N;  % index for interior nodes
+wi = zeros(N-1,N-1); % interior values of vorticity
+Ti = zeros(N-1,N-1); % interior values of temperature
+
+count = 0;
+t = 0;
+Nplot = round(0.1/dt);
+% main loop
+while t<50
+    if mod(count,1000) == 0
+        sprintf('%d -- %f -- %f -- %f -- %f',count,t,norm(str,inf),...
+            norm(w,inf),norm(T,inf));
+    end
+
+   % update temperature at boundary
+   T = BCT(T,xx,t);
+
+    % update vorticity at boundary
+   w = BCw(u,v,w);
+
+   % advance temperature with forward Euler
+   [Trh,Tx] = Trhs(u,v,T);
+   Ti = Ti + dt*Trh;
+   T(ii,jj) = Ti;
+
+   % advance vorticity with forward Euler
+   wi = wi + dt*wrhs(u,v,w,Pr,Ra,Tx);
+   w(ii,jj) = wi;
+
+
+   % compute stream function with conjugate gradient
+   str(2:end-1,2:end-1) = SolvePoisson(wi);
+
+   % update velocity (interior nodes only)
+   u(ii,jj) =  (str(ii+1,jj)-str(ii-1,jj))/(2*h);
+   v(ii,jj) = -(str(ii,jj+1)-str(ii,jj-1))/(2*h);
+
+   t = t+dt;
+   count = count + 1;
+
+   % Plot results every now and then
+   if count == Nplot
+       plotresults(u,v,w,T,str);
+       shg
+       count = 0;
+       disp(t)
+       sprintf('%f -- %f -- %f',norm(T,inf),norm(w,inf),norm(str,inf));
+   end
+
+end
+
+    % Solve Poisson equation (Sylvester equation)
+    function S = SolvePoisson(wi)
+        ff = -eV'*wi*eV;
+        S = ff;
+        for j = 1:N-1
+            S(:,j) = ff(:,j)./(lam(j)+lam);
+        end
+        S = eV*S*eV';
+    end
+
+    % Right-hand side of vorticity equation
+    function wrh = wrhs(u,v,w,Pr,Ra,Tx)
+        wx = (w(ii,jj+1)-w(ii,jj-1))/(2*h);
+        wy = (w(ii+1,jj)-w(ii-1,jj))/(2*h);
+        Lw = (w(ii,jj+1)+w(ii,jj-1)+w(ii+1,jj)+w(ii-1,jj)-4*w(ii,jj))/h^2;
+        wrh = -u(ii,jj).*wx - v(ii,jj).*wy + (Pr)*Lw + Ra*Pr*Tx;
+    end
+
+ % Right-hand side of Temperature equation
+    function [Trh,Tx] = Trhs(u,v,T)
+        Tx = (T(ii,jj+1)-T(ii,jj-1))/(2*h);
+        Ty = (T(ii+1,jj)-T(ii-1,jj))/(2*h);
+        LT = (T(ii,jj+1)+T(ii,jj-1)+T(ii+1,jj)+T(ii-1,jj)-4*T(ii,jj))/h^2;
+        Trh = -u(ii,jj).*Tx - v(ii,jj).*Ty + LT;
+    end
+
+   function w = BCw(u,v,w)
+        % three point sided FD formula (second order accurate)
+        w(1,:) = -(-3*u(1,:)+4*u(2,:)-u(3,:))/(2*h);      % = -u_y @ y = 0
+        w(N+1,:) = (-3*u(N+1,:)+4*u(N,:)-u(N-1,:))/(2*h); % = -u_y @ y = 1
+        w(:,1) = (-3*v(:,1)+4*v(:,2)-v(:,3))/(2*h);       % =  v_x @ x = 0
+        w(:,N+1) = -(-3*v(:,N+1)+4*v(:,N)-v(:,N-1))/(2*h);% =  v_x @ x = 1
+    end
+ % Enforce boundary condition (Temperature)
+    function T = BCT(T,xx,t)
+        %T0 = @(x,y,t) 2^9 * tanh(100*t)^4 * x.^5 .* (x-1).^4 .* (y==0);
+        %T(1,:) = T0(x(1,:),y(1,:),t);
+        T(1,:) = 2^9*(tanh(100*t))^4*(xx(1,:).^5).*(xx(1,:)-1).^4;
+        %T(N+1,:) = 0;
+        %T(:,1) = 0;
+        %T(:,N+1) = 0;
+    end
+
+    % Plot results
+    function plotresults(u,v,w,T,str)
+       % Use a subset of gridpoints
+       ip = 1:3:N+1;
+       up = u(ip,ip); vp = v(ip,ip);
+       xp = xx(ip,ip); yp = yy(ip,ip);
+
+       % Velocity
+       subplot(2,2,1)
+       quiver(xp,yp,up,vp,10)
+       axis([0 1 0 1]), axis square
+       title('velocity field','fontsize',16)
+
+       % Temperature
+       subplot(2,2,2)
+       contourf(xx,yy,T);
+       H = colorbar; set(H,'fontsize',16)
+       axis square, title('Temperature','fontsize',16)
+
+       % Stream function
+       subplot(2,2,3)
+       mp = max(max(str));
+       mm = min(min(str));
+       contour(xx,yy,str,-logspace(-10,log10(-mm),30),'r'),  hold on
+       contour(xx,yy,str, logspace(-10,log10(mp),20),'k'),   hold off
+       axis square, title('streamlines (logscale)','fontsize',16)
+
+       % Vorticity
+       subplot(2,2,4)
+       logw = log10(abs(w));    logw(abs(w)==0) = nan;
+       contourf(xx,yy,logw,-3:0.5:2),
+       H = colorbar; set(H,'fontsize',16)
+       set(gca,'position',[0.5703 0.1100 0.3347 0.3412])
+       axis square, title('vorticity (log(abs(w))','fontsize',16)
+       drawnow
+
+    end
+end
+\end{verbatim}

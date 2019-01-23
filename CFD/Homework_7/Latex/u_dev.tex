@@ -1,0 +1,36 @@
+In this section we will show the finite difference equations needed to solve
+\begin{align*}
+\frac{\partial u}{\partial t}=\frac{1}{Re}\left(\frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2}\right),
+\end{align*}
+using ADI. Let $d_1=\frac{\Delta t}{2Re\Delta x^2}$ and $d_2=\frac{\Delta t}{2Re\Delta y^2}$.
+\subsection{Step 1. Implicit in x-direction}
+The differential equation discretized implicitly in the x-direction yields
+\begin{align*}
+\frac{u_{i+1/2,j}^{n+1/2}-u_{i+1/2,j}^n}{\Delta t/2}=\frac{1}{Re\Delta x^2}\left(u_{i+3/2,j}^{n+1/2}-2u_{i+1/2,j}^{n+1/2}+u_{i-1/2,j}^{n+1/2}\right)+\frac{1}{Re\Delta y^2}\left(u_{i+1/2,j+1}^{n}-2u_{i+1/2,j}^{n}+u_{i+1/2,j-1}^{n}\right).
+\end{align*}
+Using the definitions of $d_1$, $d_2$ and reorganizing the terms we obtain
+\begin{align*}
+-d_1u_{i-1/2,j}^{n+1/2}-(1+2d_1)u_{i+1/2,j}^{n+1/2}-d_1u_{i+3/2,j}^{n+1/2}=d_2u_{i+1/2,j-1}^n+(1-2d_2)u_{i+1/2,j}^n+d_2u_{i+1/2,j+1}^n,
+\end{align*}
+which gives us
+\begin{align*}
+a_{i+1/2,j}=-d_1,~~~~~~b_{i+1/2,j}=1+2d_1,~~~~~~c_{i+1/2,j}=-d_1,
+\end{align*}
+and
+\begin{align*}
+d_{i+1/2,j}=d_2u_{i+1/2,j-1}^n+(1-2d_2)u_{i+1/2,j}^n+d_2u_{i+1/2,j+1}^n.
+\end{align*}
+\subsubsection{Boundary Conditions}
+To account for the left boundary we have imposed $a_{3/2,j}=0$ and 
+\begin{align*}
+d_{3/2,j}=d_2u_{3/2,j-1}^n+(1-2d_2)u_{3/2,j}^n+d_2u_{3/2,j+1}^n+d_1u_{3/2,j},
+\end{align*}
+where $u_{3/2,j}$ is given by the boundary conditions
+
+\[ u_{3/2,j}=\begin{cases} 
+      U_{in1}(y_j) & x\leq 0 \\
+      0 & 100\leq x 
+   \end{cases}
+\]
+
+\subsection{Step 2. Implicit in y-direction}

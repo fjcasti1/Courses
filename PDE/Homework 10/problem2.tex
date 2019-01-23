@@ -1,0 +1,27 @@
+\begin{questions}
+\question{Let $u$ be as in \textsl{Problem 5.4.2}. Also assume that $u$ is twice partially differentiable with respect to $x$ on $[0,L]\times(0,T)$ and $\partial_xu$ and $\partial_x^2u$ are continuous on $[0,L]\times(0,T)$ and
+\begin{align*}
+(\partial_t-a\partial_x^2)u&=F(x,t),~~~~~~x\in[0,L],t\in(0,T),\\
+u(0,t)=0&=u(L,t),~~~~~~t\in(0,T),
+\end{align*}
+where $F:[0,L]\times(0,T)\rightarrow\R$ is continuous.
+
+Show: For every twice continuously differentiable $\phi:[0,L]\rightarrow\R$ with $\phi(0)=0=\phi(L)$, $\int_0^L\phi(x)u(x,t)dx$ is differentiable in $t\in(0,T)$ and
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx=\int_0^La\phi''(x)u(x,t)dx+\int_0^L\phi(x)F(x,t)dx,~~~~~~t\in(0,T).
+\end{align*}
+}
+\begin{solution}
+First, since $u$ and $\phi$ satisfy the assumptions of the \textsl{Problem 5.4.2}, the integral $\int_0^L\phi(x)u(x,t)dx$ is differentiable by the result of said problem. Then,
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx&=\int_0^L\phi(x)\frac{\partial}{\partial_t}u(x,t)dx\\
+&=\int_0^L\phi(x)\left[a\partial^2_xu(x,t)+F(x,T)\right]dx\\
+&=a\int_0^L\partial^2_xu(x,t)\phi(x)dx+\int_0^L\phi(x)F(x,T)dx.
+\end{align*}
+Integrating the first integral of the right hand side by parts twice and using that $\phi(0)=0=\phi(L)$,
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx&=\int_0^La\phi''(x)u(x,t)dx+\int_0^L\phi(x)F(x,T)dx.
+\end{align*}
+
+\end{solution}
+\end{questions}

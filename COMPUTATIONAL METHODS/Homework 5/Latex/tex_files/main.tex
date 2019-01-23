@@ -1,0 +1,45 @@
+% A (minimal) template for problem sets and solutions using the exam document class
+
+% Organization:
+%% Define new commands, macros, etc. in macros.tex
+%% Anything that you would put before \begin{document} should go in prelude.tex
+
+%% For multiple psets, each should get its own file to \input into main with a \section{}
+
+\input{prelude}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{float}
+\usepackage[final]{graphicx}
+\usepackage{subfig}
+
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{APM 506 HW 5}
+\author{Camille Moyer}
+\maketitle
+
+
+Acknowledgements: Worked in close collaboration with Palak Jain, Sandra Cole, and Francisco Castillo.
+\input{macros}
+
+%% Content goes here
+
+\section*{Problem 1}
+\input{problem1}
+
+\section*{Problem 2}
+\input{problem2}
+
+\section*{Problem 3}
+\input{problem3}
+
+\end{document}

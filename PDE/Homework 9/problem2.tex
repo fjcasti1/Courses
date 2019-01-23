@@ -1,0 +1,60 @@
+\begin{questions}
+\question{
+Let $f : [0, L] \to \mathbb{R}$ be twice continuously differentiable, $f(0) = 0 = f(L)$. Let $G$ be the Green’s function for the heat equation. Set
+\begin{align*}
+& u(x, t) = \int^L_0 G(x, y, t)f(y)dy, \quad x \in [0, L], t \in (0,\infty), \\
+& u(x, 0) = f(x), \quad x \in [0, L].
+\end{align*}
+\begin{enumerate}
+\item [(a)]
+Show that $u$ has continuous partial derivatives $\partial_t u(x, t)$ on $[0, L]\times(0,\infty)$ and on $(0, L) \times [0,\infty)$ and 
+\begin{align*}
+& \partial_tu(x, t) = \int^L_0 G(x, y, t) af''(y)dy, \quad x \in [0, L], t \in (0,\infty), \\
+& \partial_tu(x, 0) =af''(x), \quad x \in (0, L).
+\end{align*}
+\item[(b)]
+Show that $\partial_tu$ satisfies the heat equation with initial data $af''$,
+\begin{align*}
+&(\partial_t - a\partial_x^2)\partial_tu = 0 \quad \text{ on } \quad [0, L] \times (0, \infty) \\
+&\partial_tu(x, 0) = af''(x), \quad x \in (0, L) \\
+&\partial_tu(0, t) = 0 = \partial_tu(L, t), \quad t \in (0,\infty).
+\end{align*}
+\end{enumerate}
+}
+\begin{solution}
+Let 
+\begin{align*}
+u(x,t)=\int_0^LG(x,y,t)f(y)dy.
+\end{align*}
+Then,
+\begin{align*}
+\partial_tu(x,t)&=\int_0^L\partial_tG(x,y,t)f(y)dy\\
+&=\int_0^L\partial_t\left[\frac{2}{L}\sum_{m=1}^{\infty}\sin(\lambda_mx)\sin(\lambda_my)e^{-a\lambda_m^2t}\right]f(y)dy\\
+&=\int_0^La\left[-\frac{2}{L}\sum_{m=1}^{\infty}\lambda_m^2\sin(\lambda_mx)\sin(\lambda_my)e^{-a\lambda_m^2t}\right]f(y)dy\\
+&=\int_0^La\partial^2_yG(x,y,t)f(y)dy.
+\end{align*}
+Integrating by parts twice,
+\begin{align*}
+\partial_tu(x,t)&=\int_0^La\partial^2_yG(x,y,t)f(y)dy\\
+&=a\left[\partial_yG(x,y,t)f(y)\right]_0^L-a\int_0^L\partial_yG(x,y,t)f'(y)dy\\
+&=-a\int_0^L\partial_yG(x,y,t)f'(y)dy\\
+&=-a\left[G(x,y,t)f'(y)\right]_0^L+a\int_0^LG(x,y,t)f''(y)dy\\
+&=\int_0^LG(x,y,t)af''(y)dy.
+\end{align*}
+Further,
+\begin{align*}
+\partial_tu(x,0)&=\int_0^LG(x,y,0)af''(y)dy\\
+&=\int_0^L\left[\sum_{m=1}^{\infty}\frac{2}{L}\sin(\lambda_mx)\sin(\lambda_my)\right]af''(y)dy\\
+&=\sum_{m=1}^{\infty}\left[\frac{2}{L}\int_0^L\sin(\lambda_my)af''(y)dy\right]\sin(\lambda_mx)\\
+&=af''(x),
+\end{align*}
+where the last equality comes from the Fourier sine expansion of the function $af''(x)$. For the second part of the problem let $g(x)=af''(x)$ and $v(x,t)=\partial_tu(x,t)$. We can now rewrite the previous equations as
+\begin{align*}
+T(n) = \left\{ \begin{array}{cc} 
+                \int_0^LG(x,y,t)g(y)dy & \hspace{5mm} t>0,~~x\in[0,L] \\
+                g(x) & \hspace{5mm} t=0,~~x\in[0,L] \\
+                \end{array} \right.
+\end{align*}
+Note that $g(x)$ is continuous since $u(x,t)$ is twice differentiable. Therefore $g(x)$ is also bounded since $[0,L]$ is a compact set. By \textsl{Corollary 5.20}, $v(x,t)$ defines a solution to the heat equation with $v(x,0)=g(x)$. This proves the statement for $\partial_t u(x,t)$.
+\end{solution}
+\end{questions}

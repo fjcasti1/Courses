@@ -1,0 +1,23 @@
+\begin{questions}
+
+\question{Consider $\R$ with the absolute value. Let $a, b \in \R$ and $a < b$. Show
+that $I = (a, b)$ is open. }
+
+\begin{solution}
+  \begin{proof}
+ Let $y \in I$, then $a < y < b$ and $d(y,x) < (b-a) ~\forall~x \in I$. Set $\varepsilon = (b-a) - d(y,x) > 0$.
+ 
+ Now, let $z \in U_{\varepsilon}(y)$ such that $d(z,y) < \varepsilon$.
+ Then, $\forall x \in I$, by the triangle inequality,
+ \begin{align*}
+ d(z,x) &\leq d(z,y) + d(y,x) \\
+ & < \varepsilon + d(y,x) \\
+ & = (b-a) - d(y,x) + d(y,x) \\
+ & = (b-a) ~.
+ \end{align*}
+Thus $z \in I$. Since $z$ was chosen arbitrarily, $U_{\varepsilon}(y) \subseteq I$ and y is an interior point of $I$. Thus, every point in $I$ is an interior point of $I$ which implies, $I$ is open.
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

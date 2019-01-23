@@ -1,0 +1,230 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> >> >> >> >> >> >> Starting parallel pool (parpool) using the 'local' profile ...
+connected to 4 workers.
+ 
+ 
+ 
+ 
+--> STARTED Simulation with M=16 and N=8 and CFL=0.9
+ 
+Simulation with M=16 and N=8 and CFL=0.9 has reached time=1, and having a InfNorm(rhs)=9.9538e-06
+--> STARTED Simulation with M=32 and N=16 and CFL=0.9
+ 
+Simulation with M=32 and N=16 and CFL=0.9 has reached time=1, and having a InfNorm(rhs)=4.7366e-06
+--> STARTED Simulation with M=64 and N=32 and CFL=0.9
+ 
+Simulation with M=64 and N=32 and CFL=0.9 has reached time=1, and having a InfNorm(rhs)=5.1674e-06
+Simulation with M=16 and N=8 and CFL=0.9 has reached time=3, and having a InfNorm(rhs)=6.3321e-06
+Simulation with M=32 and N=16 and CFL=0.9 has reached time=3, and having a InfNorm(rhs)=6.2681e-06
+Simulation with M=16 and N=8 and CFL=0.9 has reached time=5, and having a InfNorm(rhs)=4.5833e-06
+--> STARTED Simulation with M=128 and N=64 and CFL=0.9
+ 
+Simulation with M=128 and N=64 and CFL=0.9 has reached time=1, and having a InfNorm(rhs)=6.7607e-06
+Simulation with M=32 and N=16 and CFL=0.9 has reached time=5, and having a InfNorm(rhs)=9.6129e-06
+Simulation with M=64 and N=32 and CFL=0.9 has reached time=3, and having a InfNorm(rhs)=6.8544e-06
+Simulation with M=16 and N=8 and CFL=0.9 has reached time=10, and having a InfNorm(rhs)=6.1528e-06
+Simulation with M=32 and N=16 and CFL=0.9 has performed 500 iterations. Time step=0.011605
+Simulation with M=16 and N=8 and CFL=0.9 has performed 500 iterations. Time step=0.0263
+--> Elapsed time is 0 hours, 0 minutes and 48.7118 seconds.
+Simulation with M=32 and N=16 and CFL=0.9 has reached time=10, and having a InfNorm(rhs)=7.2955e-06
+Simulation with M=64 and N=32 and CFL=0.9 has performed 500 iterations. Time step=0.0064113
+--> Elapsed time is 0 hours, 0 minutes and 54.7107 seconds.
+Simulation with M=64 and N=32 and CFL=0.9 has reached time=5, and having a InfNorm(rhs)=7.0063e-06
+--> Elapsed time is 0 hours, 0 minutes and 51.1061 seconds.
+Simulation with M=16 and N=8 and CFL=0.9 has reached time=15, and having a InfNorm(rhs)=6.8929e-06
+Simulation with M=16 and N=8 and CFL=0.9 has reached time=20, and having a InfNorm(rhs)=4.0215e-06
+Simulation with M=32 and N=16 and CFL=0.9 has performed 1000 iterations. Time step=0.011654
+--> Elapsed time is 0 hours, 1 minutes and 1.6636 seconds.
+Simulation with M=32 and N=16 and CFL=0.9 has reached time=15, and having a InfNorm(rhs)=9.076e-06
+ 
+--> FINISHED Simulation with M=16 and N=8 and CFL=0.9 obtaining T=0.38866
+--> Elapsed time is 0 hours, 1 minutes and 9.254 seconds.
+ 
+Simulation with M=32 and N=16 and CFL=0.9 has performed 1500 iterations. Time step=0.011677
+--> Elapsed time is 0 hours, 1 minutes and 14.8739 seconds.
+Simulation with M=32 and N=16 and CFL=0.9 has reached time=20, and having a InfNorm(rhs)=4.2751e-06
+Simulation with M=64 and N=32 and CFL=0.9 has performed 1000 iterations. Time step=0.0072343
+ 
+--> FINISHED Simulation with M=32 and N=16 and CFL=0.9 obtaining T=0.35212
+--> Elapsed time is 0 hours, 1 minutes and 26.3825 seconds.
+ 
+--> Elapsed time is 0 hours, 1 minutes and 18.6929 seconds.
+Simulation with M=64 and N=32 and CFL=0.9 has reached time=10, and having a InfNorm(rhs)=4.0666e-06
+Simulation with M=128 and N=64 and CFL=0.9 has performed 500 iterations. Time step=0.0051003
+Simulation with M=64 and N=32 and CFL=0.9 has performed 1500 iterations. Time step=0.0071123
+--> Elapsed time is 0 hours, 1 minutes and 39.5382 seconds.
+Simulation with M=128 and N=64 and CFL=0.9 has reached time=3, and having a InfNorm(rhs)=8.0479e-06
+--> Elapsed time is 0 hours, 1 minutes and 40.7636 seconds.
+Simulation with M=64 and N=32 and CFL=0.9 has performed 2000 iterations. Time step=0.0071032
+--> Elapsed time is 0 hours, 1 minutes and 51.1444 seconds.
+Simulation with M=64 and N=32 and CFL=0.9 has reached time=15, and having a InfNorm(rhs)=7.6887e-06
+Simulation with M=64 and N=32 and CFL=0.9 has performed 2500 iterations. Time step=0.0071063
+--> Elapsed time is 0 hours, 2 minutes and 10.5343 seconds.
+Simulation with M=64 and N=32 and CFL=0.9 has reached time=20, and having a InfNorm(rhs)=8.338e-06
+ 
+--> FINISHED Simulation with M=64 and N=32 and CFL=0.9 obtaining T=0.27771
+--> Elapsed time is 0 hours, 2 minutes and 26.1509 seconds.
+ 
+Simulation with M=128 and N=64 and CFL=0.9 has reached time=5, and having a InfNorm(rhs)=9.2142e-06
+Simulation with M=128 and N=64 and CFL=0.9 has performed 1000 iterations. Time step=0.0049155
+--> Elapsed time is 0 hours, 3 minutes and 0.95858 seconds.
+Simulation with M=128 and N=64 and CFL=0.9 has performed 1500 iterations. Time step=0.005089
+ 
+--> STARTED Simulation with M=256 and N=128 and CFL=0.9
+ 
+Simulation with M=256 and N=128 and CFL=0.9 has reached time=1, and having a InfNorm(rhs)=3.8093e-06
+--> Elapsed time is 0 hours, 4 minutes and 2.183 seconds.
+Simulation with M=128 and N=64 and CFL=0.9 has reached time=10, and having a InfNorm(rhs)=8.9666e-06
+Simulation with M=128 and N=64 and CFL=0.9 has performed 2000 iterations. Time step=0.0050524
+--> Elapsed time is 0 hours, 5 minutes and 4.0312 seconds.
+Simulation with M=128 and N=64 and CFL=0.9 has performed 2500 iterations. Time step=0.0050512
+Simulation with M=256 and N=128 and CFL=0.9 has performed 500 iterations. Time step=0.0028938
+--> Elapsed time is 0 hours, 5 minutes and 46.8594 seconds.
+Simulation with M=128 and N=64 and CFL=0.9 has reached time=15, and having a InfNorm(rhs)=6.6485e-06
+Simulation with M=128 and N=64 and CFL=0.9 has performed 3000 iterations. Time step=0.005051
+--> Elapsed time is 0 hours, 6 minutes and 39.9742 seconds.
+Simulation with M=128 and N=64 and CFL=0.9 has performed 3500 iterations. Time step=0.0050516
+--> Elapsed time is 0 hours, 7 minutes and 19.3857 seconds.
+Simulation with M=128 and N=64 and CFL=0.9 has reached time=20, and having a InfNorm(rhs)=6.8125e-06
+ 
+--> FINISHED Simulation with M=128 and N=64 and CFL=0.9 obtaining T=0.26731
+--> Elapsed time is 0 hours, 7 minutes and 56.7616 seconds.
+ 
+--> Elapsed time is 0 hours, 4 minutes and 41.0661 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 1000 iterations. Time step=0.0026723
+--> Elapsed time is 0 hours, 8 minutes and 38.4867 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has reached time=3, and having a InfNorm(rhs)=8.7943e-06
+Simulation with M=256 and N=128 and CFL=0.9 has performed 1500 iterations. Time step=0.0025647
+--> Elapsed time is 0 hours, 12 minutes and 50.0845 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has reached time=5, and having a InfNorm(rhs)=7.2754e-06
+Simulation with M=256 and N=128 and CFL=0.9 has performed 2000 iterations. Time step=0.0026249
+ 
+--> STARTED Simulation with M=512 and N=256 and CFL=0.9
+ 
+Simulation with M=512 and N=256 and CFL=0.9 has performed 500 iterations. Time step=0.0014364
+--> Elapsed time is 0 hours, 16 minutes and 38.1802 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 2500 iterations. Time step=0.002675
+--> Elapsed time is 0 hours, 20 minutes and 2.879 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 3000 iterations. Time step=0.0026701
+--> Elapsed time is 0 hours, 17 minutes and 51.6235 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has reached time=1, and having a InfNorm(rhs)=6.0228e-06
+--> Elapsed time is 0 hours, 23 minutes and 12.312 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 3500 iterations. Time step=0.0026614
+--> Elapsed time is 0 hours, 26 minutes and 17.6697 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has reached time=10, and having a InfNorm(rhs)=6.5394e-06
+Simulation with M=256 and N=128 and CFL=0.9 has performed 4000 iterations. Time step=0.0026599
+--> Elapsed time is 0 hours, 29 minutes and 32.4866 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 4500 iterations. Time step=0.0026597
+--> Elapsed time is 0 hours, 31 minutes and 53.7474 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 5000 iterations. Time step=0.0026594
+Simulation with M=512 and N=256 and CFL=0.9 has performed 1000 iterations. Time step=0.0014326
+--> Elapsed time is 0 hours, 34 minutes and 7.5094 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 5500 iterations. Time step=0.0026595
+--> Elapsed time is 0 hours, 36 minutes and 40.6423 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has reached time=15, and having a InfNorm(rhs)=5.892e-06
+Simulation with M=256 and N=128 and CFL=0.9 has performed 6000 iterations. Time step=0.0026596
+--> Elapsed time is 0 hours, 39 minutes and 40.5989 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 6500 iterations. Time step=0.0026597
+--> Elapsed time is 0 hours, 41 minutes and 52.9972 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has performed 7000 iterations. Time step=0.0026597
+--> Elapsed time is 0 hours, 43 minutes and 55.6094 seconds.
+Simulation with M=256 and N=128 and CFL=0.9 has reached time=20, and having a InfNorm(rhs)=8.7513e-06
+ 
+--> FINISHED Simulation with M=256 and N=128 and CFL=0.9 obtaining T=0.26754
+--> Elapsed time is 0 hours, 46 minutes and 2.0159 seconds.
+ 
+--> Elapsed time is 0 hours, 36 minutes and 17.0517 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 1500 iterations. Time step=0.0014098
+--> Elapsed time is 0 hours, 50 minutes and 35.8382 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 2000 iterations. Time step=0.001337
+--> Elapsed time is 1 hours, 2 minutes and 37.4774 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has reached time=3, and having a InfNorm(rhs)=4.9816e-06
+ 
+--> STARTED Simulation with M=1024 and N=512 and CFL=0.9
+ 
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 500 iterations. Time step=0.00071484
+Simulation with M=512 and N=256 and CFL=0.9 has performed 2500 iterations. Time step=0.0013037
+--> Elapsed time is 1 hours, 16 minutes and 23.483 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 3000 iterations. Time step=0.0012843
+--> Elapsed time is 1 hours, 28 minutes and 3.1632 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 3500 iterations. Time step=0.0012916
+--> Elapsed time is 1 hours, 39 minutes and 9.551 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has reached time=5, and having a InfNorm(rhs)=3.3929e-06
+Simulation with M=512 and N=256 and CFL=0.9 has performed 4000 iterations. Time step=0.0013112
+--> Elapsed time is 1 hours, 5 minutes and 22.1341 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 1000 iterations. Time step=0.00071457
+--> Elapsed time is 1 hours, 52 minutes and 6.422 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 4500 iterations. Time step=0.0013273
+--> Elapsed time is 2 hours, 3 minutes and 10.4703 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 5000 iterations. Time step=0.0013346
+--> Elapsed time is 2 hours, 14 minutes and 12.8206 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 5500 iterations. Time step=0.0013351
+--> Elapsed time is 2 hours, 24 minutes and 20.0368 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 6000 iterations. Time step=0.0013328
+--> Elapsed time is 1 hours, 55 minutes and 6.2568 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has reached time=1, and having a InfNorm(rhs)=4.0293e-06
+--> Elapsed time is 2 hours, 34 minutes and 12.8212 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 6500 iterations. Time step=0.0013303
+--> Elapsed time is 2 hours, 44 minutes and 35.8471 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 7000 iterations. Time step=0.0013288
+--> Elapsed time is 2 hours, 55 minutes and 4.3664 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has reached time=10, and having a InfNorm(rhs)=4.2206e-06
+Simulation with M=512 and N=256 and CFL=0.9 has performed 7500 iterations. Time step=0.0013282
+--> Elapsed time is 3 hours, 6 minutes and 37.7821 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 8000 iterations. Time step=0.001328
+--> Elapsed time is 3 hours, 15 minutes and 59.4758 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 8500 iterations. Time step=0.001328
+--> Elapsed time is 3 hours, 25 minutes and 59.5315 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 9000 iterations. Time step=0.0013279
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 1500 iterations. Time step=0.00071396
+--> Elapsed time is 3 hours, 34 minutes and 49.2256 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 9500 iterations. Time step=0.0013279
+--> Elapsed time is 3 hours, 43 minutes and 40.5172 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 10000 iterations. Time step=0.0013278
+--> Elapsed time is 3 hours, 52 minutes and 31.2183 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 10500 iterations. Time step=0.0013278
+--> Elapsed time is 4 hours, 1 minutes and 0.35821 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 11000 iterations. Time step=0.0013278
+--> Elapsed time is 4 hours, 8 minutes and 54.4034 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has reached time=15, and having a InfNorm(rhs)=8.5235e-06
+Simulation with M=512 and N=256 and CFL=0.9 has performed 11500 iterations. Time step=0.0013279
+--> Elapsed time is 3 hours, 34 minutes and 31.1649 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 2000 iterations. Time step=0.00071325
+--> Elapsed time is 4 hours, 19 minutes and 4.6914 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 12000 iterations. Time step=0.0013279
+--> Elapsed time is 4 hours, 27 minutes and 1.8891 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 12500 iterations. Time step=0.0013279
+--> Elapsed time is 4 hours, 34 minutes and 21.4602 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 13000 iterations. Time step=0.001328
+--> Elapsed time is 4 hours, 41 minutes and 40.8611 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 13500 iterations. Time step=0.001328
+--> Elapsed time is 4 hours, 49 minutes and 0.66534 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 14000 iterations. Time step=0.0013279
+--> Elapsed time is 4 hours, 56 minutes and 14.2139 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has performed 14500 iterations. Time step=0.0013279
+--> Elapsed time is 5 hours, 3 minutes and 9.2334 seconds.
+Simulation with M=512 and N=256 and CFL=0.9 has reached time=20, and having a InfNorm(rhs)=3.3466e-06
+ 
+--> FINISHED Simulation with M=512 and N=256 and CFL=0.9 obtaining T=0.26818
+--> Elapsed time is 5 hours, 11 minutes and 13.1847 seconds.
+ 
+--> Elapsed time is 4 hours, 25 minutes and 3.0876 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 2500 iterations. Time step=0.00071142
+--> Elapsed time is 5 hours, 21 minutes and 48.1676 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 3000 iterations. Time step=0.00070337
+--> Elapsed time is 6 hours, 14 minutes and 42.9558 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 3500 iterations. Time step=0.0006828
+--> Elapsed time is 7 hours, 16 minutes and 21.0774 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 4000 iterations. Time step=0.00066771
+--> Elapsed time is 8 hours, 7 minutes and 39.9758 seconds.
+Simulation with M=1024 and N=512 and CFL=0.9 has reached time=3, and having a InfNorm(rhs)=4.5623e-06
+Simulation with M=1024 and N=512 and CFL=0.9 has performed 4500 iterations. Time step=0.00065864

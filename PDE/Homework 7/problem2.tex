@@ -1,0 +1,166 @@
+\begin{questions}
+
+\question{
+Let $L$, $a > 0$. Consider the problem
+ \begin{eqnarray*}
+ \text{(PDE)} & (\partial_t-a\partial_x^2)u = 0, \quad 0 \leq x \leq L. t>0, \\
+ \text{(IC)} & u(x,0) = f(x), \quad 0 \leq x \leq L, \\
+ \text{(BC)} & \partial_x u (0,t) = 0 = \partial_x u (L,t), \quad t >0.
+ \end{eqnarray*}
+This equation is a model for heat diffusion in a (finite) rod of length $L$. The no flux boundary condition means that both ends of the rod are insulated.
+\begin{enumerate}
+\item[(a)]
+Use Fourier cosine series to solve (5.14), at least as far as (PDE) and (BC) are concerned, under an appropriate condition for $f$.
+\item[(b)]
+Explore two assumptions for $f$ under which (IC) is satisfied in meaningful though not necessarily literal ways.
+\item[(c)] 
+Show that $\int_0^L u(x, t)dx = \int_0^L u(x, 0)dx$ for all $t \geq 0$. \\
+Hint: These integrals are related to the Fourier cosine coefficient of index zero.
+\item[(d)]
+Show that $u(x,t) \to \frac{1}{L}\int_0^L f(x)dx$ as $t \to \infty$, uniformly in $x \in [0, L]$.
+\end{enumerate}
+}
+\begin{solution}
+The solution, if exists, can be expressed as a Fourier cosine series,
+\begin{align*}
+u(x,t)=\sum_{j=0}^\infty A_j(t)\cos(\lambda_jx),~~~~~~\lambda_j=j\frac{\pi}{L},
+\end{align*}
+with
+\begin{align*}
+A_j(t)=\frac{2}{L}\int_0^Lu(y,t)\cos(\lambda_j y)dy.
+\end{align*}
+If $u$ is a solution, it is sufficiently smooth that we can differentiate under the integral
+\begin{align*}
+A'_j(t)&=\frac{2}{L}\int_0^L\partial_tu(y,t)\cos(\lambda_j y)dy\\
+&=\frac{2}{L}\int_0^La\partial^2_yu(y,t)\cos(\lambda_j y)dy.\\
+\end{align*}
+Since the cosines and $u$ satisfy zero Neumann boundary conditions, we can integrate by parts twice and get
+\begin{align*}
+A'_j(t)&=-a\lambda_j^2\frac{2}{L}\int_0^Lu(y,t)\cos(\lambda_jy)dy=-a\lambda_j^2A_j(t).
+\end{align*}
+We have obtain the following ODE for $A_j(t)$,
+\begin{align*}
+A'_j(t)+a\lambda_j^2A_j(t)=0,
+\end{align*}
+which has the following solution,
+\begin{align*}
+A_j(t)=A_j(0)e^{-a\lambda_j^2t},~~~~j>0.
+\end{align*}
+For the case $j=0$, since $\lambda_0=0$, the ODE is
+\begin{align*}
+A'_0(t)=0,
+\end{align*}
+and
+\begin{align*}
+A_0(t)=A_0(0).
+\end{align*}
+Recall that
+\begin{align*}
+A_j(0)=\frac{2}{L}\int_0^Lf(y)\cos(\lambda_jy)dy,~~~~j> 0,
+\end{align*}
+and
+\begin{align*}
+A_0(0)=\frac{1}{L}\int_0^Lf(y)dy,~~~~j> 0,
+\end{align*}
+Thus, the solution $u(x,t)$ is uniquely determined. We now concentrate in provine uniqueness.
+
+\textbf{Claim} \textit{Let $f\in L^1\left([0,L],\R\right)$. Then the series $u$ with $A_j(t)$ and $A_j(0)$ given above converges uniformly on $[0,L]x[\epsilon,\infty)$ for all $\epsilon>0$. Moreover $u$ is inifitely often differentiable on $[0,L]x(0,\infty)$ and satisfies the PDE and BC.}
+
+\textit{Proof}. For $m\in\N$, set
+\begin{align*}
+u_m(x,t)=A_m(0)cos(\lambda_mx)e^{-a\lambda_m^2t}.
+\end{align*}
+Then $u$ is infinitely differentiable and 
+\begin{align*}
+\partial_x^k\partial_t^lu_m(x,t)=A_m(0)\frac{d^k}{dx^k}cos(\lambda_mx)\frac{d^l}{dt^l}e^{-a\lambda_m^2t}.
+\end{align*}
+Notice that
+\begin{align*}
+|A_m(0)|\leq \frac{2}{L}\int_0^L|f(x)|dx=:M_0<\infty.
+\end{align*}
+Let $t\geq\epsilon>0$. Then, by the form of $\lambda_m$,
+\begin{align*}
+\left|\partial_x^k\partial_t^lu_m(x,t)\right|&\leq |A_m(0)|\lambda_m^{k+2l}a^le^{-a\lambda_m^2t}\\
+&\leq M_0\lambda_m^{k+2l}a^le^{-a\lambda_m^2\epsilon}\\
+&\leq M_0~c~m^{k+2l}\eta^{(m^2)},
+\end{align*}
+where $\eta=e^{-a\lambda_1^2\epsilon}$. The ratio test implies that $\sum_{m=1}^{\infty}M_0~c~m^{k+2l}\eta^{(m^2)}$ converges. Then, by \textsl{Theorem 5.1}, each series $\sum_{m=1}^{\infty}\partial_x^k\partial_t^lu_m(x,t)$ (in particular the series for $u$) converges uniformly on $[0,L]x(0,\infty)$. Let $x\in[0,L]=I_1$ and $t>0$. Choose $I_2=(t_1,t_2)$ with $0<t_1<t_2<\infty$. Applying \textsl{Theorem 5.3} repeatedly implies that $u=\sum_{m=1}^{\infty}u_m$ has partial derivatives of all order and can be differentiated term by term on $I_xI_2$. Since each $u_m$ satisfies the PDE and BC, so does $u$ on $[0,L]x(0,\infty)$. Hence, we have proved existence. For part b) we will prove two claims.
+
+
+\textbf{Claim} \textit{Let $f : [0, L]\rightarrow \R$ be Lipschitz continuous, $f(L) = 0 = f(0)$. Then u is continuous on $[0, L]x[0,\infty)$ and $u(x, 0) = f(x)$ for all $x\in [0, L]$. In particular, $u(x, t)\rightarrow f(x)$ as $t\rightarrow 0$, uniformly in $x\in [0, L]$.}
+
+\textit{Proof}. Notice that the functions $u_m$ satisfy the estimate
+\begin{align*}
+|u_m(x,t)|\leq |A_m(0)|,~~~~x\in[0,L],~t\geq 0,~m\in\N,
+\end{align*}
+with $A_m(0)$ given above. Since $f$ is Lipschitz continuous, and $f(0)=0=f(L)$, the series
+\begin{align*}
+\sum_{m=0}^{\infty}|A_m(0)|<\infty,
+\end{align*}
+by \textsl{Exercise 4.3.3} and even extension. By \textsl{Theorem 5.1}, $u=\sum{m=1}^{\infty}u_m$ converges uniformly and is continuous on $[0,L]x[0,\infty)$. In Particular, $u(x, 0) = f(x)$ by \textsl{Exercise 4.3.4}. Let $\epsilon > 0$.
+Then there exists some $\delta > 0$ such that
+\begin{align*}
+|u(x,t)-u(y,0)|<\epsilon\text{ whenever }|x-y|+|t-0|<\delta.
+\end{align*}
+In particular
+\begin{align*}
+|u(x,t)-u(x,0)|<\epsilon\text{ whenever }0\leq t<\delta,\\
+|u(x,t)-f(x)|<\epsilon\text{ whenever }0\leq t<\delta.
+\end{align*}
+\textbf{Claim 2} \textit{Assume that $f : [0, L]\rightarrow\R$ is intergable and $\int_0^L|f(x)|^2dx<\infty$. Then the series $u$ defined satisfies}
+\begin{align*}
+\int_0^L|u(x, t) -f(x)|^2dx\rightarrow 0,~~~~t\rightarrow 0.
+\end{align*}
+\textit{Proof.} Let $\left<\phi,\psi\right> =\frac{2}{L}\int_0^L\phi(x)\psi(x)dx$ be the inner product of choice on $L^2([0, L], \R)$, the space of square integrable functions. Then ${v_j ; j\in \N}$ with $v_j =  cos(\lambda_jx)$ and $v_0=\frac{1}{\sqrt{2}}$ is an orthonormal basis. By the considerations at the beginning of section 5.1, 
+\begin{align*}
+\left<u(\cdot,t),v_m\right>=\left<f,v_m\right>e^{-a\lambda_m^2t},
+\end{align*}
+which are uniformly continuous functions on $\R_+$. Further,
+\begin{align*}
+\left|\left<u(\cdot,t),v_m\right>\right|\leq\left|\left<f,v_m\right>\right|,
+\end{align*}
+and, by Parseval's relation,
+\begin{align*}
+\sum_{m\in\N}\left|\left<f,v_m\right>\right|^2=||f||^2.
+\end{align*}
+The assertion now follows from \textsl{Theorem 4.11.}
+
+For part c) we just compute both integrals seperately and we find the same result. We start with
+\begin{align*}
+\int_0^Lu(x,t)dx&=\int_0^L\sum_{j=0}^{\infty}A_j(t)\cos(\lambda_jx) dx\\
+&=\int_0^LA_0(t)dx+\sum_{j=1}^{\infty}A_j(t)\int_0^L\cos(\lambda_jx) dx\\
+&=\int_0^LA_0(t)dx\\
+&=A_0(t)L=A_0(0)L,
+\end{align*}
+where we have used that $\lambda_0=0$, the integrals of the cosines are zero and recall that $A_0(t)=A_0(0)$.
+Now we calculate
+\begin{align*}
+\int_0^Lu(x,0)dx&=\int_0^L\sum_{j=0}^{\infty}A_j(0)\cos(\lambda_jx) dx\\
+&=\int_0^LA_0(0)dx+\sum_{j=1}^{\infty}A_j(0)\int_0^L\cos(\lambda_jx) dx\\
+&=A_0(0)L.
+\end{align*}
+Thus,
+\begin{align*}
+\int_0^Lu(x,t)dx=\int_0^Lu(x,0)dx,~~~~\text{for all }t\geq 0.
+\end{align*}
+
+For part d) notice that the limit to prove is no other than $A_0$,
+then
+\begin{align*}
+|u(x,t)-A_0|&=\left|\sum_{j=0}^{\infty}A_j\cos(\lambda_jx)e^{-a\lambda_j^2t}-A_0\right|\\
+&=\left|\sum_{j=1}^{\infty}A_j\cos(\lambda_jx)e^{-a\lambda_j^2t}\right|\\
+&\leq\sum_{j=1}^{\infty}\left|A_j\right|e^{-a\lambda_j^2t}\\
+&\leq A_0\sum_{j=1}^{\infty}e^{-a\lambda_j^2t}\\
+&\leq A_0\sum_{j=1}^{\infty}\left(e^{-akt}\right)^j,~~~~\text{for }t>0,\\
+\end{align*}
+where we have made $k=(\pi/L)^2$ and using that $\lambda_j^2\leq k^2j^2$. Now, using the geometric series formula,
+\begin{align*}
+|u(x,t)-A_0|&\leq A_0\frac{e^{-akt}}{1-e^{-akt}}\rightarrow 0\text{  as }t\rightarrow\infty.
+\end{align*}
+Hence,
+\begin{align*}
+u(x,t)\rightarrow \frac{1}{L}\int_0^Lf(x)dx
+\end{align*}
+as $t\rightarrow\infty$ uniformly in $x\in[0,L]$.
+\end{solution}
+\end{questions}

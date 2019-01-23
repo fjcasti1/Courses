@@ -1,0 +1,131 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{multicol}
+
+%\usepackage[font={small}, margin=1cm]{caption}
+\usepackage[margin=.1in]{geometry}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{0.8}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ra}{\rightarrow}
+
+\begin{document}
+\fontsize{7.5}{6}
+\selectfont
+\begin{multicols}{3}
+
+%\fontsize{12}{14}
+\selectfont
+
+% The Green's function
+\input{Intro_Greens_Function}
+% 5.17 Proposition
+\input{Prop_5_17}
+% 5.18 Proposition
+\input{Prop_5_18}
+% 5.19 thm
+\input{Thm_5_19}
+% 5.20 Corollary
+\input{Cor_5_20}
+%Exercises
+\input{Probl_5_3_1}
+\input{Probl_5_3_2}
+\input{Probl_5_3_3}
+\input{Probl_5_3_4}
+\input{Probl_5_3_5}
+\input{Thm_5_21}
+\input{Thm_5_22}
+% 5.4.1 Inhomogeneous boundary contitions
+\input{Sec_5_4_1}
+%Exercises
+\input{Probl_5_4_1}
+\input{Probl_5_4_2}
+\input{Probl_5_4_3}
+\input{Probl_5_4_4}
+\input{Probl_5_4_14}
+% Chapter 6 The Laplace equation
+\input{Intro_Lapl_Eq}
+\input{Intro_Lapl_Eq_Rect}
+\input{Lapl_Eq_Rect}
+\input{Thm_6_1}
+% Exercises
+\input{Probl_6_1_3}
+\input{Lapl_Eq_Disk}
+\input{Thm_6_3}
+\input{Thm_6_4}
+% Exercises
+\input{Probl_6_2_1}
+\input{Probl_6_2_2}
+%Maximum principles for the Laplacian - Skip to 6.3.2. Weak maximum principle in higher space dimentions
+\input{Weak_max_pple}
+\input{Thm_6_7}
+\input{Cor_6_8}
+\input{Cor_6_9}
+\input{Cor_6_10}
+% Exercises
+Assume in all these exercises that $\Omega$ is a bdd open subset of $\R^n, \Delta$ the Laplacian and $L$ the PD operator defined in (6.27).
+\input{Probl_6_3_1}
+\input{Probl_6_3_2}
+\input{Probl_6_3_5}
+% Chapter 7 Gauss' thm and Green's formulas
+\input{Intro_Chapter_7}
+\input{Thm_7_1}
+\input{Thm_7_2}
+\input{Thm_7_3}
+ %The following result will be used a couple of times. 
+\input{Prop_7_4}
+
+% Boundary value problems for the Laplace equation
+Consider  $\Omega \subseteq \R^n$. $\Delta u = f$ on $\Omega, \beta(x) \partial_{\nu} u(x) + \alpha(x) u(x) = g(x), x \in \partial \Omega$ (7.3). Here $\alpha$ and $\beta$ are nonneg cont real-valued fctns on $\partial \Omega, \alpha(x) + \beta(x) > 0 \; \forall \; x \in \partial \Omega$. Special cases:  $u = g$ on $\partial \Omega$: Dirichlet BCs, $\partial_{\nu}u = g$ on $\partial \Omega$: Neumann BCs, $\partial_{\nu} u + \alpha(x)u = g$ on $\partial \Omega$: Robin BCs.
+\input{Thm_7_5}
+\input{Thm_7_6}
+%7.3 Boundary value problems for the wave equation
+\input{Sec_7_3}
+% Exercises
+In the following, $\Omega$ is always a normal set contained in $\R^n$. 
+%{\bf E7.3.1}. Consider a cont fctns $u: \bar{\Omega} \ra \R$ with cont bdd derivatives on $\Omega$. Show $\int_{\Omega} u \partial_j u dx = 1/2 \int_{\partial \Omega}u^2 \nu_j d \sigma, j = 1, \dots, n$. 
+\input{Probl_7_3_3}
+\input{Probl_7_3_4}
+\input{Probl_7_3_5}
+\input{Probl_7_3_8}
+\input{Probl_7_3_10}
+% Chapter 9 The heat equation on the whole real line
+Consider $u: \R \times \R_+ \ra \R$ solving $\partial_t u(x,t) = \partial_x^2 u(x,t), x \in \R, t > 0, u(x,0) = u_0(x), x \in \R$ (9.1), for $u_0: \R \ra \R$. 
+% 9.1 The Gaussian kernel
+\input{Intro_9_1}
+\input{L_9_1}
+\input{Prop_9_2}
+\input{Thm_9_3}
+\input{Thm_9_4}
+\input{Thm_9_5}
+% Exercises
+\input{Probl_9_1_1}
+\input{Probl_9_1_5}
+
+\input{Intro_9_3}
+\input{Prop_9_6}
+\input{Rem_9_7}
+\input{Thm_9_8}
+
+% Identities
+{\bf Identities} $\sin^2x = (1-\cos 2x)/2, \cos^2x = (1+\cos 2x)/2$, $e^{ix}=\cos x + i \sin x, e^{-ix}=\cos x - i \sin x$,  $2\cos x=(e^{ix}+e^{-ix}), 2i\sin x=(e^{ix}-e^{-ix}), 2 \cosh x=(e^x+e^{-x}), 2\sinh x=(e^x-e^{-x}). \cosh^2 x-\sinh^2x=1$. 
+{\bf Sum and Difference Formula} $\sin(A\pm B)=\sin A \cos B\pm \cos A \sin B$. $\cos(A\mp B)=\cos A \cos B\pm \sin A \sin B$. $\tan(A \pm B)=(\tan A\pm \tan B)/(1\mp \tan A \tan B)$.
+{\bf Double Angle Formula}  $\sin(2A)=2 \sin A \cos A$. $\cos(2A)=\cos^2 A-\sin^2 A=2 \cos^2 A-1=1-2\sin^2 A$. $\tan(2A)=(2\tan A)/(1-\tan^2 A)$. 
+{\bf Half Angle Formula} $\sin(A/2)=\pm \sqrt{(1-\cos A)/2}$. $\cos(A/2)=\pm \sqrt{(1+\cos A)/2}$. $\tan(A/2)=(1-\cos A)/(\sin A) = (\sin A)/(1+\cos A)$. 
+{\bf Product to Sum} $\cos A \cos B=(1/2)(\cos(A+B)+\cos(A-B))$. $\sin A \sin B=(1/2)(\cos(A-B)-\cos(A+B)$. $\sin A \cos B=(1/2)(\sin(A+B)+\sin(A-B)$. 
+{\bf Sum to Product} $\sin A\pm \sin B=2\sin((A\pm B)/2)\cos((A\mp B)/2)$. $\cos A - \cos B=-2\sin((A+B)/2)\sin((A-B)/2)$. $\cos A + \cos B=2\cos((A+B)/2)\cos((A-B)/2)$. 
+{\bf Geometric Sum} $\sum_{k=1}^{\infty}q^k=q/(1-q)$. $\sum_{k=1}^n q^k=(q-q^{n-1})/(1-q)$. 
+{\bf General ODE Solutions}  $y''=y(t)\implies y=c_1e^{-t}+c_2e^t \qed \; dy/dt+p(t)y=g(t) \implies y=(\int u(t)g(t))/u(t) + c$ where $u(t)=$exp$(\int p(t)dt) \qed \; y'=x; x'=y \implies x=c_1 \cosh t + c_2 \sinh t, y=c_1\sinh t+c_2 \cosh t$ or $x=c_1e^t+c_2e^{-t}, y=c_1e^t-c_2e^{-t} \qed \; y'=-x; x'=y \implies y=c_1 \cos t + c_2 \sin t, x=c_1\sin t-c_2 \cos t \qed \; x'=x+y; y'=-x+y \implies x=e^t(c_1 \cos t+c_2 \sin t); y=e^t(-c_1\sin t +c_2 \cos t) \qed \; v'=\gamma v, v(z,0)=u_0 \implies v=u_0e^{\gamma t} \qed$ Variation of consts formula $x' = \alpha x, x(0) = x_0, x(t)=x_0 e^{\alpha t}, y' = \alpha y + F(t) \implies y(t) = y(0) e^{\alpha t} + \int_0^t e^{\alpha s} F(t-s) ds$.
+
+\end{multicols}
+\end{document}

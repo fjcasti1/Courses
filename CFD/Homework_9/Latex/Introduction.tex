@@ -1,0 +1,13 @@
+In this assignment we will study a one dimensional hyperbolic PDE
+\begin{align*}
+\frac{\partial u}{\partial t}+\frac{\partial \left(\frac{u^2}{2}\right)}{\partial x}=0,~~~~~~x\in[3,7],
+\end{align*}
+with initial condition
+\begin{align*}
+u(x,t=0)=\left\{ \begin{array}{cc} 
+	\frac{1}{4}+\frac{1}{2}\sin(\frac{\pi}{4}(x-3)) & x<4.5 \\
+	\frac{1}{4}+\frac{1}{2}\sin(\frac{\pi}{4}(x-3))+\left[1+\cos(2\pi x)\right]\cos(8\pi x) & 4.5\leq x\leq 5.5 \\
+	\frac{1}{4}+\frac{1}{2}\sin(\frac{\pi}{4}(x-3)) & x>5.5 \\
+                \end{array} \right.
+\end{align*}
+and periodic boundary conditions. We will use a second order TVD scheme to solve the given hyperbolic PDE. The equations in index form of this method are detailed at the end of this document.

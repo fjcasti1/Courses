@@ -1,0 +1,87 @@
+\textbf{Derive Newtons iteration for this function. Show that the iteration is well-defined so long as $x_k\neq 1$ and that the convergence rate is expected to be similar to that of the bisection method (and certainly not quadratic).}
+
+\vspace{0.3in}
+Newton's method for finding successively better approximations to the roots of a real-valued function is the following,
+\begin{align*}
+x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}.
+\end{align*}
+Given the function
+\begin{align*}
+f(x)=(x-1)^2e^x,
+\end{align*}
+and its derivative
+\begin{align*}
+f'(x)=(x^2-1)e^x,
+\end{align*}
+we can obtain the iteration for this problem
+\begin{align*}
+x_{n+1}=x_n-\frac{(x_n-1)^2e^{x_n}}{(x_n^2-1)e^{x_n}}=x_n-\frac{(x_n-1)}{(x_n+1)}.
+\end{align*}
+Note that this is not defined for $x_n=-1$. Clearly the root of the function is $x^*=1$. To find the rate of convergence let $\epsilon_n=x_n-x^*=x_n-1$, and $g(x_n)=\frac{f(x_n)}{f'(x_n)}$. Then, rewriting the first equation in this terms we get
+\begin{align*}
+\epsilon_{n+1}=\epsilon_n-g(x_n).
+\end{align*}
+Further, 
+\begin{align*}
+g(x_n)=g(\epsilon_n+1)=g(1)+g'(1)\epsilon_n+\frac{\epsilon_n^2}{2}g''(\xi),
+\end{align*}
+by Taylor expansion. The values of $g$ and $g'$ are known,
+\begin{align*}
+g(1)=\frac{f(1)}{f'(1)}=0,~~~~~~g'(x)=\frac{2}{(x+1)^2}\Rightarrow g'(1)=\frac{1}{2}.
+\end{align*}
+Hence,
+\begin{align*}
+g(x_n)=\frac{1}{2}\epsilon_n+\frac{\epsilon_n^2}{2}g''(\xi),
+\end{align*}
+and 
+\begin{align*}
+\lim_{\epsilon\to 0}\frac{\epsilon_{n+1}}{\epsilon_{n}}=\frac{1}{2}.
+\end{align*}
+Note that the convergence rate is linear and equal to the one of the bisection method. It differes from the quadratic convergence rate talked in class because this function and its derivative have the same root $x^*=1$. For the convergence rate to be quadratic, the root of the function should not be a root of the derivative.
+
+\vspace{0.3in}
+
+\textbf{Implement Newtons method and observe its performance starting from $x_0 = 2$.}
+
+\vspace{0.3in}
+
+After implementing the method in \textsl{Matlab} the root $x^*=1$ was found in 42 iterations, with a time of the order of $0.009~s$. In the following figure we can see the function given and the roots calculated by the Newton's method until convergence.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{prob1roots.eps}}
+\caption{Newton's method performance.}
+\end{figure}
+
+\vspace{0.3in}
+
+\textbf{How easy would it be to apply the bisection method? Explain.}
+
+\vspace{0.3in}
+
+For this case the bisection method would not have worked since it relies on a change of sign at both sides of the root, and this is not the case with this function which is nonnegative for all values of $x$.
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 1
+xx = linspace(-3,3,1e4);
+f = @(x) (x - 1).^2.*exp(x);
+df = @(x) (x.^2 - 1).*exp(x);
+
+tic
+[x,niter,conv]=newton(f,df,2,1e-12,100)
+time=toc
+% To obtain the roots, modified newton function
+[x,niter,conv]=newton_vector(f,df,2,1e-12,100);
+
+figure
+plot(xx,f(xx),'linewidth',1.5)
+hold on
+plot(x,0,'r*')
+grid on
+axis([-2 2.5 -1 7.5])
+set(gca,'fontsize',axisfontsize)
+xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
+ylabel('$y$','interpreter','latex','fontsize',labelfontsize)
+saveas(gcf,'Latex/FIGURES/prob2roots','epsc')
+\end{verbatim}

@@ -1,0 +1,126 @@
+Suppose the discretization of a boundary value problem, such as the Poisson equation, leads to the matrix equation
+\begin{align*}
+uA + Bu = f,
+\end{align*}
+that needs to be solved for $u$. Here $u$ is $n \times m$, $A$ is $m \times m$, $B$ is $n \times n$, and $f$ is $n \times m$.
+
+\begin{questions}
+
+\question{Assuming both $A$ and $B$ are non-defective matrices, with $A = V_A \Lambda_AV_A^{-1}$ and $B = V_B \Lambda_BV_B^{-1}$, show that the solution $u$ is given by $u = V_B UV_A^{-1}$, where
+\begin{align*}
+U_{i,j} = \frac{F_{i,j}}{\alpha_j + \beta_i},
+\end{align*}
+$F = V_B^{-1}fV_A$, and $\alpha_k$ and $\beta_k$ are the diagonal entries of $\Lambda_A$ and $\Lambda_B$ respectively.
+ }
+
+\begin{solution}
+
+We begin with,
+\begin{align*}
+& uA + Bu = f \\
+\Rightarrow ~& uV_A \Lambda_AV_A^{-1} + V_B \Lambda_BV_B^{-1} u = f~.
+\end{align*}
+We then multiple the entire equation by $V_B^{-1}$ from the left and $V_A$ from the right to obtain,
+\begin{align*}
+V_B^{-1}uV_A\Lambda_A + \Lambda_B V_B^{-1} u V_A = V_B^{-1} f V_A~.
+\end{align*}
+Then let $U = V_B^{-1}uV_A$ and $F = V_B^{-1} f V_A$ so that,
+\begin{align*}
+U\Lambda_A + \Lambda_B U = F~.
+\end{align*}
+Which in matrix form,
+\begin{align*}
+&\begin{bmatrix}
+\tilde{u}_{11}& \cdots & \tilde{u}_{1m} \\
+\tilde{u}_{21}& \cdots & \tilde{u}_{2m} \\
+\vdots& ~ & \vdots \\
+\tilde{u}_{n1}& \cdots & \tilde{u}_{nm}
+\end{bmatrix} \begin{bmatrix}
+\alpha_1 & 0 & \cdots & 0 \\
+0 & \alpha_2 & ~ & \vdots \\
+\vdots & ~& \ddots & ~ \\
+0 & \cdots & 0 & \alpha_m
+\end{bmatrix} + \begin{bmatrix}
+\beta_1 & 0 & \cdots & 0 \\
+0 & \beta_2 & ~ & \vdots \\
+\vdots & ~& \ddots & ~ \\
+0 & \cdots & 0 & \beta_m
+\end{bmatrix}\begin{bmatrix}
+\tilde{u}_{11}& \cdots & \tilde{u}_{1m} \\
+\tilde{u}_{21} & \cdots & \tilde{u}_{2m} \\
+\vdots& ~ & \vdots \\
+\tilde{u}_{n1} & \cdots & \tilde{u}_{nm}
+\end{bmatrix} = \begin{bmatrix}
+\tilde{f}_{11} & \cdots & \tilde{f}_{1m} \\
+\tilde{f}_{21} & \cdots & \tilde{f}_{2m} \\
+\vdots & ~ & \vdots \\
+\tilde{f}_{n1} & \cdots & \tilde{f}_{nm}
+\end{bmatrix}~,
+\end{align*}
+shows us,
+\begin{align*}
+ \begin{cases} \tilde{u}_{11}\alpha_1 + \beta_1 \tilde{u}_{11} = \tilde{f}_{11} \\ \tilde{u}_{12}\alpha_2 + \beta_1 \tilde{u}_{12} = \tilde{f}_{12} \\ \vdots \end{cases} \Rightarrow ~U_{i,j} = \frac{F_{i,j}}{\alpha_j + \beta_i}~.
+\end{align*}
+Then, to get back our solution, we use $u = V_B U V_A^{-1}$.
+
+\end{solution}
+
+\question{Using part (a), solve the Poisson equation $\Delta u = \sin(x)\cos(100y)$ on $[0,1] \times [0,1]$ (with zero Dirichlet boundary conditions) using 100 points in the $x$ direction and 300 in the $y$ direction. Estimate the accuracy of your solution.
+}
+
+\begin{solution}
+
+Following the exact scheme above, we obtain a solution for $u$ depicted in the figure below,
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P2F2.eps}}
+\caption{Surface of $u$}
+\end{figure}
+
+The error, found by comparing $uD2A + D2Bu$ and $f$, where $D2A$ and $D2B$ are the centered finite difference matrices for $x$ and $y$ respectively, is $2.2451e-12$. 
+
+\end{solution}
+
+\end{questions}
+
+\subsubsection*{MATLAB}
+
+    \begin{verbatim}
+% % Laplacian with zero BCs
+m = 100;
+hA = 1/(m-1);
+D2A = (gallery('tridiag',m,1,-2,1))/(hA^2);
+[eVA,evalA] = eig(full(D2A)); lamA = diag(evalA);
+n = 300;
+hB = 1/(n-1);
+D2B = (gallery('tridiag',n,1,-2,1))/(hB^2);
+[eVB,evalB] = eig(full(D2B)); lamB = diag(evalB);
+
+y = linspace(0,1,300);
+x = linspace(0,1,100);
+[xx,yy] = meshgrid(x,y);
+f = sin(xx).*cos(100.*yy);
+
+F = eVB'*f*eVA;
+
+U = zeros(size(f));
+
+for j = 1:m
+    U(:,j) = F(:,j)./(lamB + lamA(j));
+end
+
+u = eVB*U*eVA';
+
+sol = u*D2A' + D2B*u;
+
+err = norm(sol - f,inf);
+
+figure
+plot(xx,sol(1,:),'r*',xx,f(1,:),'bo'); hold on
+plot(xx,sol(2,:),'g*',xx,f(2,:),'mo')
+plot(xx,sol(end,:),'k*',xx,f(end,:),'yo')
+grid on
+
+figure
+surf(xx,yy,u,'EdgeColor','none')
+\end{verbatim}

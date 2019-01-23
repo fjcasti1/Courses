@@ -1,0 +1,80 @@
+\begin{questions}
+\question{\textbf{Part a)} Let $|x|$ be the Eucliden norm of $x\in\R^n$. Show: $\Delta |x|=\frac{n-1}{x}$ for all $x\in\R^n,~x\neq 0$.
+}
+\begin{solution}
+Recall that 
+\begin{align*}
+|x|=\sqrt{\sum_{i=1}^nx_i^2}.
+\end{align*}
+Then,
+\begin{align*}
+\partial_j|x|=\frac{1}{2}\frac{2x_j}{\sqrt{\sum_{i=1}^nx_i^2}}=\frac{x_j}{|x|},
+\end{align*}
+and
+\begin{align*}
+\partial_j^2|x|=\frac{|x|-x_j\partial_j|x|}{|x|^2}=\frac{|x|-\frac{x_j^2}{|x|}}{|x|^2}=\frac{1}{|x|}-\frac{1}{|x|^3}x_j^2.
+\end{align*}
+Finally,
+\begin{align*}
+\Delta|x|=\sum_{j=1}^n\partial_j^2|x|&=\sum_{j=1}^n\left(\frac{1}{|x|}-\frac{1}{|x|^3}x_j^2\right)\\
+&=\frac{n}{|x|}-\frac{1}{|x|^3}\sum_{j=1}^nx_j^2\\
+&=\frac{n}{|x|}-\frac{1}{|x|^3}|x|^2\\
+&=\frac{n-1}{|x|}~~~~~~\forall x\in\R^n,~x\neq 0.
+\end{align*}
+\end{solution}
+\question{\textbf{Part b)} Let $y\in\R^n$ be fixed and define $u:\R^n\rightarrow\R$ by
+\begin{align*}
+u(x)=\frac{|y|^2-|x|^2}{|x-y|^n}.
+\end{align*}
+Show that $\Delta u=0$ for all $x\in\R^n,~x\neq y$.
+}
+\begin{solution}
+Let $z=x-y$. Then, by the previous part of the problem,
+\begin{align*}
+\partial_j|z|=\frac{z_j}{|z|},
+\end{align*}
+and
+\begin{align*}
+\partial_j(|z|^{-n})=-n|z|^{-n-1}\frac{z_j}{|z|}=-n|z|^{-(n+2)}z_j.
+\end{align*}
+In addition, let's compute
+\begin{align*}
+\partial_j\left(|y|^2-|x|^2\right)=-2|x|\partial_j|x|=-2x_j.
+\end{align*}
+Expressing $u(x)=u(x)=\left(|y|^2-|x|^2\right)|z|^{-n}$,
+\begin{align*}
+\partial_ju(x)&=\partial_j\left(|y|^2-|x|^2\right)|z|^{-n}+\left(|y|^2-|x|^2\right)\partial_j\left(|z|^{-n}\right)\\
+&=-2x_j|z|^{-n}-n\left(|y|^2-|x|^2\right)|z|^{-(n+2)}z_j.
+\end{align*}
+Further, using the product rule like before,
+\begin{align*}
+\partial^2_ju(x)&=-2|z|^{-n}+2nx_j|z|^{-(n+2)}z_j+2nx_j|z|^{-(n+2)}z_j\\
+&~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+n(n+2)\left(|y|^2-|x|^2\right)|z|^{-(n+4)}z^2_j-n\left(|y|^2-|x|^2\right)|z|^{-(n+2)}\\
+&=-2|z|^{-n}+4nx_j|z|^{-(n+2)}z_j+(n^2+2n)\left(|y|^2-|x|^2\right)|z|^{-(n+4)}z^2_j-n\left(|y|^2-|x|^2\right)|z|^{-(n+2)}.
+\end{align*}
+Finally,
+\begin{align*}
+\Delta u(x)&=\sum_{j=1}^n\partial^2_ju(x)\\
+&=-2n|z|^{-n}+4n|z|^{-(n+2)}\sum_{j=1}^nx_jz_j+(n^2+2n)\left(|y|^2-|x|^2\right)|z|^{-(n+4)}|z|^2-n^2\left(|y|^2-|x|^2\right)|z|^{-(n+2)}\\
+&=z^{-(n+2)}\left[-2n|z|^2+4n\sum_{j=1}^nx_jz_j+(n^2+2n)\left(|y|^2-|x|^2\right)-n^2\left(|y|^2-|x|^2\right)\right]\\
+&=z^{-(n+2)}\left[-2n|z|^2+4n\sum_{j=1}^nx_jz_j+2n\left(|y|^2-|x|^2\right)\right].
+\end{align*}
+We stop now to calculate two terms of the previous expression separately,
+\begin{align*}
+|z|^2=\sum_{j=1}^n(x_j-y_j)^2=(x^2_j+y^2_j-2x_jy_j)=|x|^2+|y|^2-2\sum_{j=1}^nx_jy_j,
+\end{align*}
+and
+\begin{align*}
+\sum_{j=1}^nx_jz_j=\sum_{j=1}^nx_j(x_j-y_j)=\sum_{j=1}^nx_j^2-\sum_{j=1}^nx_jy_j=|x|^2-\sum_{j=1}^nx_jy_j.
+\end{align*}
+Plugging the previous results in we get,
+\begin{align*}
+\Delta u(x)&=z^{-(n+2)}\left[-2n|x|^2-2n|y|^2+4n\sum_{j=1}^nx_jy_j+4n|x|^2-4n\sum_{j=1}^nx_jy_j+2n|y|^2-2n|x|^2\right].
+\end{align*}
+Hence, since all the terms cancel,
+\begin{align*}
+\Delta u(x)=0~~~~\forall x\in\R^n,~x\neq y.
+\end{align*}
+
+\end{solution}
+\end{questions}

@@ -1,0 +1,71 @@
+\begin{questions}
+\question{
+Use the properties of the Green’s function to derive Theorem 6.4 from
+Theorem 6.3.
+}
+\begin{solution}
+Let $\Omega$ be a circular disk in $\R^2$ and $f:\partial \Omega\rightarrow\R$ be continuous and $2\pi$-periodic. Define the sequence $(f_n)$, $f_n:\R\rightarrow\R$ as
+\begin{align*}
+f_n(\theta)=\int_\theta^{\theta+\frac{1}{n}}f(\eta)d\eta=\int_0^1f(\theta+\frac{\tau}{n})d\tau.
+\end{align*}
+To prove that $f_n$ is Lipschitz continuous we use the Mean Value Theorem, but first we take the derivative using Leibniz formula
+\begin{align*}
+f_n'(\theta)=n\frac{\partial}{\partial\theta}\int_\theta^{\theta+\frac{1}{n}}f(\eta)d\eta=n\left[f\left(\theta+\frac{1}{n}\right)-f(\theta)\right].
+\end{align*}
+Thus, since $f$ is bounded, $f_n'$ is also bounded and
+\begin{align*}
+\left|f_n'(\theta)\right|\leq M_n,~~~\forall\theta\in\R.
+\end{align*}
+by the MVT, for each $n$, there exists an $\xi_n$ such that,
+\begin{align*}
+f_n(x)-f_n(y)=f'_n(\xi_n)(x-y),~~~~\forall x,y\in\R,~~\xi_n\in[x,y].
+\end{align*}
+Then,
+\begin{align*}
+\left|f_n(x)-f_n(y)\right|=|f'_n(\xi_n)||x-y|\leq M_n|x-y|.
+\end{align*}
+Hence, $f_n$ is Lipschitz continuous. Further, $f_n\rightarrow f$ as $n\rightarrow\infty$ uniformly if $\left|f_n-f\right|\rightarrow 0\text{ as }n\rightarrow\infty$ uniformly. Then,
+\begin{align*}
+\left|f_n-f\right|&=\sup\left|\int_0^1f\left(\theta+\frac{\eta}{n}\right)d\eta-f(\theta)\right|\\
+&=\sup\left|\int_0^1\left[f\left(\theta+\frac{\eta}{n}\right)-f(\theta)\right]d\eta\right|\\
+&\leq\sup\int_0^1\left|f\left(\theta+\frac{\eta}{n}\right)-f(\theta)\right|d\eta\\
+&=\sup\int_0^1\left|f\left(\theta+\frac{\eta}{n}\right)-f(\theta)\right|d\eta,
+\end{align*}
+which goes to zero as $n\rightarrow\infty$ since $f$ is continuous. Next, define
+\begin{align*}
+v_n(r,\theta)=\int_{-\pi}^{\pi}f_n(\eta)G(r,\eta-\theta)d\eta,
+\end{align*}
+and
+\begin{align*}
+v(r,\theta)=\int_{-\pi}^{\pi}f(\eta)G(r,\eta-\theta)d\eta
+\end{align*}
+for $0\leq r <a$, $\theta\in\R$. Then,
+\begin{align*}
+|v_n-v|&=\sup_r\sup_{\theta}\left|\int_{-\pi}^{\pi}f_n(\eta)G(r,\eta-\theta)d\eta-\int_{-\pi}^{\pi}f(\eta)G(r,\eta-\theta)d\eta\right|\\
+&=\sup_r\sup_{\theta}\left|\int_{-\pi}^{\pi}G(r,\eta-\theta)\left[f_n(\eta)-f(\eta)\right]d\eta\right|\\
+&\leq\sup_r\sup_{\theta}\int_{-\pi}^{\pi}G(r,\eta-\theta)\left|f_n(\eta)-f(\eta)\right|d\eta.
+\end{align*}
+Recall that the Green's function is positive and bounded. Hence, since we just proved that $f_n\rightarrow f$ as $n\rightarrow\infty$ uniformly, $v_n\rightarrow v$ as $n\rightarrow\infty$ uniformly as well.
+Now we would like to show that $v(r,\theta)\rightarrow f(\theta)$ as $r\to a$ uniformly. Consider
+\begin{align*}
+|v(r,\theta)-f(\theta)|\leq|v(r,\theta)-v_n(r,\theta)|+|v_n(r,\theta)-f_n(\theta)|+|f_n(\theta)-f(\theta)|,
+\end{align*}
+where we have already proved that the first and last terms go to zero uniformly as $n\to\infty$. Therefore, we are left to prove that $|v_n(r,\theta)-f_n(\theta)|\to 0$ as $n\to a$,
+\begin{align*}
+|v_n(r,\theta)-f_n(\theta)|&=\left|\int_{-\pi}^{\pi}G(r,\eta-\theta)f_n(\eta)d\eta-f_n(\theta)\right|\\
+&=\left|\int_{-\pi}^{\pi}G(r,\eta-\theta)f_n(\eta)d\eta-\int_{-\pi}^{\pi}G(r,\eta-\theta)f_n(\theta)d\eta\right|\\
+&=\left|\int_{-\pi}^{\pi}G(r,\eta-\theta)\left[f_n(\eta)-f_n(\theta)\right]d\eta\right|\\
+&\leq\int_{-\pi}^{\pi}G(r,\eta-\theta)\left|f_n(\eta)-f_n(\theta)\right|d\eta\\
+&\leq\int_{-\pi}^{\pi}G(r,\eta-\theta)M_n\left|\eta-\theta\right|d\eta\\,
+\end{align*}
+where we have used that $\int_{-\pi}^{\pi}G(r,\eta-\theta)d\eta=1$. Now, since $G(r,\eta-\theta)\to 0$ as $r\to a$,
+\begin{align*}
+|v_n(r,\theta)-f_n(\theta)|\to 0\text{ as }r\to a.
+\end{align*}
+Thus, we also have that
+\begin{align*}
+|v(r,\theta)-f(\theta)|\to 0\text{ as }r\to a.
+\end{align*}
+Finally, since the Green's function is not defined at $r=a$, we extend $v$ by making $v(a,\theta)=f(\theta)$. Since $v$ is continuous on $[0,a)\times\R$ and $|v(r,\theta)-f(\theta)|\to 0\text{ as }r\to a$, for every $\epsilon>0$ there exists some $\delta$ such that, if $|r-a|<\delta$, $|v(r,\theta)-f(\theta)|<\epsilon$. Hence, $v$ is continuous on $[0.a]\times\R$.
+\end{solution}
+\end{questions}

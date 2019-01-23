@@ -1,0 +1,80 @@
+In this problem we are going t approximate the function 
+$$ f(x)=e^{\sin(5x)}$$
+using Chebyshev's interpolation of degree ten (using eleven points) and using the orthonormal basis provided by the \textit{Legendre polynomials}. It will be shown that the Legendre polynomials, which we show in the figure 1, give the best approximation of that degree as we proved in Problem 1.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{LegendrePols.eps}}
+\caption{Legendre Polynomials.}
+\end{figure}
+
+In the following figure we show the function $f$ and the two approximations made. To the naked eye both of them seem very accurate, however we can see how the Legendre polynomials give us a better approximation by looking at the error in figure 3. 
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.6]{Approximations_p2.eps}}
+\caption{Approximations using Chebyshev and Legendre polynomials.}
+\end{figure}
+The sudden drops in the error are in fact the points used to do the approximation, so the error is indeed zero. Since we are using logarithmic scale we see thos drops. We can see how the error of Chebyshev's method is higher. We can compute the $L_2$ error of the two methods,
+\begin{align*}
+e_{Chebyshev}=0.07800109011,~~~~~~e_{Legendre}=0.05183155462,
+\end{align*}
+and see how the Legendre polynomials, as proved in problem 1, give us the best approximation.
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.6]{Error_p2.eps}}
+\caption{Error of the approximations.}
+\end{figure}
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 2
+clear all
+close all
+clc
+format long
+legendfontsize=12;
+labelfontsize=14;
+f = @(x) exp(sin(5*x));
+f= chebfun(f);
+f_cheb = chebfun(f,11);
+xx=linspace(-1,1,1000);
+P=legpoly(0:10,'norm');
+
+figure
+plot(P)
+grid on
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/LegendrePols','epsc')
+saveas(gcf,'Latex/FIGURES/LegendrePols','fig')
+
+f_N=0;
+for k=1:11
+    f_N=f_N+(f'*P(:,k))*P(:,k);
+end
+%%
+figure
+plot(f,'linewidth',2)
+hold on
+plot(f_N,'linewidth',2)
+plot(f_cheb,'linewidth',2)
+grid on
+legend({'$f(x)=e^{\sin(5x)}$','Legendre','Chebishev'}...
+    ,'fontsize',legendfontsize,'interpreter','latex','location','north')
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Approximations_p2','epsc')
+saveas(gcf,'Latex/FIGURES/Approximations_p2','fig')
+
+Error_cheb=norm(f-f_cheb,2)
+Error_app=norm(f-f_N,2)
+%%
+figure
+semilogy(abs(f-f_cheb))
+hold on
+semilogy(abs(f-f_N))
+grid on
+axis([-1 1 1e-4 0.35])
+legend({'$e_{Cheb}$','$e_{Leg}$'},'fontsize',legendfontsize,'interpreter','latex')
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Error_p2','epsc')
+saveas(gcf,'Latex/FIGURES/Error_p2','fig')
+
+\end{verbatim}

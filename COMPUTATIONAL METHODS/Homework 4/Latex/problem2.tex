@@ -1,0 +1,85 @@
+\textbf{Find all the roots of $f(z) = z^8 + 15z^4 − 16$ on the complex plane.}
+
+\vspace{0.3in}
+
+In order to use the angle to distinguish the different roots, none of them should share the same angle. To find out if this is the case we compute the roots manually, which is easily done by factorizing the polynomial
+\begin{align*}
+z^8 + 15z^4 − 16=(z-1)(z+1)(z^2+1)(z^4+16)=0.
+\end{align*}
+Hence, the roots are
+\begin{align*}
+x_k=-1,1,\pm i,\sqrt{2}(1\pm i),\sqrt{2}(-1\pm i).
+\end{align*}
+and are shown in the next figure. Note that the angle can be computed as the arc tangent of quotient of the imaginary and real part of the complex roots, and its different for every root.
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.55]{prob2roots.eps}}
+\caption{Newton's method performance.}
+\end{figure}
+
+After obtaining the different roots depending on the initial guess we can plot the angle of the Newton's method solution and obtain the following fractals.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Angle fractal]{\includegraphics[scale=0.55]{colormap.eps}}
+\hspace*{\fill}
+\subfigure[Iterations fractal]{\includegraphics[scale=0.55]{colormap2.eps}}
+\hspace*{\fill}
+\caption{Fractals obtained with Newton's method.}
+\end{figure}
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 2
+n = 200;
+
+[x,y]=meshgrid(linspace(-3,3,n));
+z = x+y*1i;
+z_roots = [1, -1, -1i, 1i, ...
+    sqrt(2)*(1+1i),sqrt(2)*(1-1i),sqrt(2)*(-1+1i),sqrt(2)*(-1-1i)];
+
+% We now compute the roots using Newton's method:
+r = nan(size(z)); niter = r; conv = r; % allocate memory
+f = @(z) z^8+15*z^4-16;
+df = @(z) 8*z^7+60*z^3;
+for k = 1:n
+    for j = 1:n
+        [r(k,j),niter(k,j),conv(k,j)] = newton(f,df,z(k,j),1e-16,200);
+    end
+end
+%%
+% Plotting the angle of the Newton's method solution, we obtain a fractal:
+close all
+figure
+pcolor(x, y, round(angle(r),3));
+mp = colormap;
+colormap jet
+shading interp
+hold on
+plot(z_roots, 'k.','markersize',20); axis equal; axis tight; hold off;
+axis([-2 2 -2 2])
+xlabel('$\Re(x_k)$','interpreter','latex','fontsize',labelfontsize)
+ylabel('$\Im(x_k)$','interpreter','latex','fontsize',labelfontsize)
+saveas(gcf,'Latex/FIGURES/colormap','epsc')
+
+% Plot the number of iterations required in a colormap
+figure
+pcolor(x, y, niter);
+shading flat, hold on
+plot(z_roots, 'k.','markersize',20); axis equal; axis tight; hold off;
+axis([-2 2 -2 2])
+colorbar
+xlabel('$\Re(x_k)$','interpreter','latex','fontsize',labelfontsize)
+ylabel('$\Im(x_k)$','interpreter','latex','fontsize',labelfontsize)
+saveas(gcf,'Latex/FIGURES/colormap2','epsc')
+
+% Plot the roots in the complex plane
+figure
+plot(real(z_roots),imag(z_roots),'b.','markerSize',12)
+grid on
+axis([-1.5 1.5 -1.5 1.5])
+set(gca,'fontsize',axisfontsize)
+xlabel('$\Re(x_k)$','interpreter','latex','fontsize',labelfontsize)
+ylabel('$\Im(x_k)$','interpreter','latex','fontsize',labelfontsize)
+saveas(gcf,'Latex/FIGURES/prob2roots','epsc')
+\end{verbatim}

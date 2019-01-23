@@ -1,0 +1,117 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{multicol}
+
+%\usepackage[font={small}, margin=1cm]{caption}
+\usepackage[margin=.1in]{geometry}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{0.8}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ra}{\rightarrow}
+
+\begin{document}
+
+\fontsize{7.5}{6}
+\selectfont
+\begin{multicols}{3}
+% CHAPTER 4: Elements of Fourier Series
+%\input{Def_4_1}
+% Section 4.1: Inner Product Spaces
+% 4.1.1 The Cauchy-Schwarz inequality
+\input{Thm_4_2}
+%\input{Cor_4_3}
+%\input{Ex_4_4}
+% Section 4.2: General Fourier Expansion
+%\input{Def_4_5}
+%\input{Ex_4_6}  
+\input{Prop_4_7}
+\input{Thm_4_8}
+%\input{Cor_4_9}
+\input{Thm_4_10}
+\input{Thm_4_11}
+% Exercises
+%{\bf Exercises} Recall that a Hilbert space is an inner product space that is a Banach space under the norm induced by the inner product. 
+\input{Prob_4_2_1}
+\input{Prob_4_2_2}
+\input{Prob_4_2_3}
+% Section 4.3: Classic Fourier series
+\input{Thm_4_12}
+% 4.3.1 Complex Fourier series
+%\input{Def_4_13}
+\input{Prop_4_14}
+\input{Rem_4_15}
+\input{Thm_4_17}
+% Exercises
+\input{Prob_4_3_1}
+\input{Prob_4_3_2}
+\input{Prob_4_3_3}
+% 4.3.2 Real Fourier series
+%\input{Intro_4_3_2}
+\input{Thm_4_18}
+\input{Lem_4_19}
+\input{Rem_4_20}
+% Exercises
+%\input{Prob_4_3_3}
+\input{Prob_4_3_4}
+%\input{Prob_4_3_5}
+\input{Prob_4_3_6}
+% Generalized (weak) solutions to the vibrating string equation
+%\input{Intro_4_4}
+%\input{Def_4_21}
+\input{Def_4_22}
+\input{Thm_4_23}
+%\input{Prob_4_4_1}
+%\input{Def_4_24}
+%\input{Def_4_25}
+%\input{Thm_4_26}
+% CHAPTER 5: The heat equation
+\input{Intro_5} 
+% Section 5.1: Existence and uniqueness of solutions via Fourier series
+\input{Intro_5_1}
+\input{Thm_5_1}
+%\input{Thm_5_2}
+\input{Thm_5_3}
+%\input{Thm_5_4}
+%\input{Rem_5_5}
+\input{Thm_5_6}
+\input{Thm_5_7}
+% Behavior of solutions as $t \ra \infty$
+\input{Thm_5_8}
+\input{Thm_5_9}
+% Exercises
+%\input{Prob_5_1_1}
+%\input{Prob_5_1_2}
+\input{Prob_5_1_3}
+%\input{Prob_5_1_4}
+% Section 5.2: Maximum principle for the heat equation
+%\input{Intro_5_2}
+\input{Thm_5_10}
+\input{Thm_5_11}
+\input{Cor_5_12}
+
+% 5.2.1 Estimates and qualitative behavior of solutions
+%{\bf Estimates and qualitative behavior of solutions} Theorem 5.11 also provides estimates for solutions. 
+\input{Thm_5_13}
+\input{Thm_5_14}
+% Example 5.15
+%\input{Ex_5_15}
+% Exercises
+%\input{Prob_5_2_1}
+\input{Prob_5_2_3}
+%\input{Prob_5_2_6}
+\input{Prob_5_2_11}
+% Identities
+\input{Apendix}
+
+\end{multicols}
+\end{document}

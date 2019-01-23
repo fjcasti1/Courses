@@ -1,0 +1,28 @@
+\begin{questions}
+
+\question{ Let $(X, d)$ be a metric space and $A$ and $B$ be subsets of $X$. Show: If $A$ and $B$ are compact sets, so is $A\cup B$.}
+
+\begin{solution}
+  \begin{proof}
+  Let $n,j,k\in\N$. Assume $A$ and $B$ are compact. Let $(x_n)$ be a sequence in $A\cup B$. Let $(x_{n_j})$ be a subsequence of $(x_n)$  that is entirely in either $A$ or in $B$. Without loss of generality assume that $(x_{n_j})$ is entirely in $A$. Since $A$ is compact, the subsequence has itself a subsequence $(x_{n_{j_k}})$ which has a limit in $x$ in $A$, and therefore $x\in A\cup B$. Similarly in the case of the subsequence being entirley in $B$. Therefore, it has been proven that the sequence $(x_n)\in A\cup B$ has a subsequence $(x_{n_{j_k}})$ which has a limit in $A\cup B$. Thus, $A\cup B$ is compact.
+  \end{proof}
+\end{solution}
+
+\question{ If $A \subseteq B$ and $A$ is closed and $B$ is compact, then $A$ is compact.}
+
+\begin{solution}
+  \begin{proof}
+  Let $(x_n)$ be a sequence in $A$. Since $A\subseteq B$, $(x_n)$ is also in $B$. Then, since $B$ is compact, there exists a convergent subsequence $(x_{n_j})$ of $(x_n)$ and its limit $x$ is in $B$. Since $A$ is closed, the limit $x\in A$. Therefore $A$ is compact.
+  \end{proof}
+\end{solution}
+
+\question{ If $A$ is closed and $B$ is compact, then $A \cap B$a is compact.}
+
+\begin{solution}
+  \begin{proof}
+  Let $(x_n)$ be an arbitrary sequence in $A\cap B$, then $(x_n)\in B$. Since $B$ is compact, there exists a subsequence $(x_{n_j})\in B$ which has a limit $x$ in $B$. Since $(x_n)$ is in the $A\cap B$, it is also in $A$, and so is the subsequence $(x_{n_j})$. Then, since $A$ is closed, the limit $x$ of $(x_{n_j})$ is also in $A$. Thus, since $(x_n)$ was chosen arbitrarily, $A$ is compact.	
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

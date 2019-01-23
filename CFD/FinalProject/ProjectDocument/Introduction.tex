@@ -1,0 +1,10 @@
+In this assignment we will study the solution to the following system
+\begin{align*}
+\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}&=0\\
+\frac{\partial u}{\partial t}+\frac{\partial u^2}{\partial x}+\frac{\partial uv}{\partial y} &=-\frac{\partial p}{\partial x} +\frac{1}{Re}\left(\frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2}\right)\\
+\frac{\partial v}{\partial t}+\frac{\partial uv}{\partial x}+\frac{\partial v^2}{\partial y} &=-\frac{\partial p}{\partial y}+ \frac{1}{Re}\left(\frac{\partial^2 v}{\partial x^2}+\frac{\partial^2 v}{\partial y^2}\right)\\
+\frac{\partial Y}{\partial t}+u\frac{\partial Y}{\partial x}+v\frac{\partial Y}{\partial y} &= \frac{1}{ReSc}\left(\frac{\partial^2 Y}{\partial x^2}+\frac{\partial^2 Y}{\partial y^2}\right)\\
+\end{align*}
+and the boundary conditions specified by the problem (no-slip at the talls, parabolic profiles at the inlets, normal velocity at the outlet...). We will use the fractional step method with \texttt{Adams-Bashforth/Crank Nicolson} with ADI for the momentum equations on a staggered mesh and the \texttt{WENO-5-TVD-RK-3/Crank Nicolson} for the mass fraction equation. The first one is second order in space and time although we don't expect to see this order of convergence since, among other reasons, we take averages many times within the code. The latter is third order in space and fith order in space. Again, we do not expect to see this order of convergence since we are using $u$ and $v$, that are obtained using the first method, and also due to the many times we take averages in the code. An observed order of convergence between one and two is what seems most reasonable.
+
+In problem 1 I solve for the boundary conditions and give the solutions required. In problem 2, after running many different boundary conditions I give the solution to a modified problem. In the bonus problem, the change on Reynolds and Schmidt numbers make it very difficult for the fluid to mix well. Some changes are introduced from problem 2 to increase the mixing parameter $T$.

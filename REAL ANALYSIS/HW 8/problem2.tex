@@ -1,0 +1,22 @@
+\begin{questions}
+
+\question{Consider $\R$ with the metric induced by the absolute value. Let $S\subseteq\R$. $S$ is called \textit{order-dense} if for any $a,b\in\R$ with $a<b$ there exists some $s\in S$ such that $a<s<b$.
+Show that $S$ is order-dense if and only if $S$ is dense (i.e. $\R\subseteq \bar{S}$).}
+
+\begin{solution}
+  \begin{proof}
+  $(\Rightarrow)$  Let $x\in\R$. Since $S$ is \textit{order-dense}, for each $n\in\N$ there exists some $s_n\in S$ and $a,b\in\R$ with $a=x-\frac{1}{n}$ and $b=x+\frac{1}{n}$ such that:
+  \begin{align*}
+  a<s_n<b~,
+  \end{align*}
+  \begin{align*}
+  x-\frac{1}{n}<s_n<x+\frac{1}{n}~.
+  \end{align*}
+  The last equation means that $\left|s_n-x\right|<\frac{1}{n}$, which implies that $s_n\rightarrow x$ as $n\rightarrow\infty$. Therefore $x\in\bar{S}$. Thus, $\R\subseteq\bar{S}$ and $S$ is dense.
+  
+  $(\Leftarrow)$ Assume $S$ is dense and let $a,b\in\R$ with $a<b$. Consider $I=(a,b)$. Let $x\in I$. In the previous problem we showed that, for some $\epsilon$, we can define an open ball $U_{\epsilon}(x)\subseteq I$. Since $S$ is dense in $\R$, $x$ is a limit point of $S$ and, by Lemma 4.11, $U_{\epsilon}(x)\cap S\neq\emptyset$. Therefore, there exists some $s\in S$ that is also in $U_{\epsilon}(x)$ and then $a<s<b$. Thus, $S$ is \textit{order-dense} in $\R$.
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

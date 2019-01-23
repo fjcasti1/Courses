@@ -1,0 +1,148 @@
+Compute the solution to the systems for the given initial conditions using \textbf{rk4.m}. Plot your results in the phase plane (that is,$ y(t)$ vs. $x(t)$).
+
+\begin{questions}
+\question{Using initial conditions with $x(0)^2 + y(0)^2$ both smaller and larger than $1$ (inside and outside the unit circle), solve
+\begin{align}
+& x'(t) = -4y + x(1-x^2-y^2), \\
+& y'(t) = 4x + y(1 - x^2 -y^2),
+\end{align}
+over the interval $0 < t < 10$. What is the final state of the system? Justify your answer with a plot showing the trajectories in the $(x,y)$-plane for a few different initial conditions. Note that you have to supply the initial conditions separately.
+}
+
+\begin{solution}
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P1F1.eps}}
+\caption{Maximum Error of Cubic Spline Interpolation}
+\end{figure}
+
+
+The solution for this problem is stable for intital conditions that fall both inside of and outside of the circle of radius 2. The solutions spiral in or out towards the circle and then remain there indefinitely.
+
+\end{solution}
+
+
+\question{Using initial conditions with $x(0)^2 + y(0)^2$ both inside and outside circles of radius 1 and 2, solve 
+\begin{align}
+& x'(t) = -4y + x(1-x^2-y^2)(4 - x^2 -y^2), \\
+& y,(t) = 4x + y(1 - x^2 -y^2)(4-x^2-y^2),
+\end{align}
+over the interval $0 < t < 10$. What are the final states of the system? Justify your answer with
+a plot showing the trajectories in the $(x,y)$-plane for a few different initial conditions.
+}
+
+\begin{solution}
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P1F2.eps}}
+\caption{Maximum Error of Cubic Spline Interpolation}
+\end{figure}
+
+The solution for this problem is stable for initial conditions that  fall within the circle of radius 4. If the initial condition falls on or outside of the outer circle the trajectories blow outwards. The trajectories for initial conditions inside of the outer circle spiral towards the circle of radius 2 and remain there indefinitely.
+
+\end{solution}
+
+\subsection*{MATLAB}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Part 1
+   \item Part 2
+\end{itemize}
+
+
+\subsection*{Part 1}
+
+\begin{verbatim}
+F = @(t,y) [-4*y(2) + y(1)*(1-y(1)^2-y(2)^2); ...
+            4*y(1) + y(2)*(1-y(1)^2-y(2)^2)];
+tspan = [0 10];
+theta = pi/4;
+r = 0.25;
+y0 = [r*cos(theta);r*sin(theta)];
+N = 200;
+
+[t,y] = rk4(F,tspan,y0,N);
+
+r = 1.6;
+theta2 = pi/6;
+y0_2 = [r*cos(theta2);r*sin(theta2)];
+[t,y2] = rk4(F,tspan,y0_2,N);
+
+r = 2;
+y0_3 = [r*cos(theta);r*sin(theta)];
+[t,y3] = rk4(F,tspan,y0_3,N);
+
+figure
+comet(y(:,1),y(:,2)) %phase plot
+axis([-1.5 1.5 -1.5 1.5])
+hold on
+comet(y2(:,1),y2(:,2))
+comet(y3(:,1),y3(:,2))
+p1 = plot(y0(1),y0(2),'r*')
+p2 = plot(y0_2(1),y0_2(2),'b*')
+p3 = plot(y0_3(1),y0_3(2),'g*')
+plot(cos(0:0.001:2*pi),sin(0:0.001:2*pi), '--m')
+pbaspect([1 1 1])
+grid on
+legend([p1 p2 p3],{"r = 0.25,theta = pi/4","r = 1.6,theta = pi/6","r = 2,theta = pi/6"})
+\end{verbatim}
+
+
+\subsection*{Part 2}
+
+\begin{verbatim}
+F = @(t,y) [-4*y(2) + y(1)*(1-y(1)^2-y(2)^2)*(4-y(1)^2-y(2)^2); ...
+            4*y(1) + y(2)*(1-y(1)^2-y(2)^2)*(4-y(1)^2-y(2)^2)];
+
+tspan = [0 10];
+theta = pi/4;
+r = 0.25;
+y0 = [r*cos(theta);r*sin(theta)];
+N = 200;
+
+[t,y] = rk4(F,tspan,y0,N);
+
+r = 1.6;
+theta2 = pi/6;
+y0_2 = [r*cos(theta2);r*sin(theta2)];
+[t,y2] = rk4(F,tspan,y0_2,N);
+
+r = 2;
+y0_3 = [r*cos(theta);r*sin(theta)];
+[t,y3] = rk4(F,tspan,y0_3,N);
+y0_4 = [r*cos(theta*4);r*sin(theta*4)];
+[t,y4] = rk4(F,tspan,y0_4,N);
+y0_5 = [r*cos(theta*2);r*sin(theta*2)];
+[t,y5] = rk4(F,tspan,y0_5,N);
+
+r = 1.99;
+y0_6 = [r*cos(0);r*sin(0)];
+[t,y6] = rk4(F,tspan,y0_6,N);
+
+figure
+comet(y(:,1),y(:,2)) %phase plot
+axis([-2.5 2.5 -2.5 2.5])
+hold on
+comet(y2(:,1),y2(:,2))
+comet(y3(:,1),y3(:,2))
+comet(y4(:,1),y4(:,2))
+comet(y5(:,1),y5(:,2))
+comet(y6(:,1),y6(:,2))
+p1 = plot(y0(1),y0(2),'r*')
+p2 = plot(y0_2(1),y0_2(2),'b*')
+p3 = plot(y0_3(1),y0_3(2),'g*')
+p4 = plot(y0_4(1),y0_4(2),'y*')
+p5 = plot(y0_5(1),y0_5(2),'c*')
+p6 = plot(y0_6(1),y0_6(2),'k*')
+l7 = plot(cos(0:0.001:2*pi),sin(0:0.001:2*pi), '--m')
+l8 = plot(2*cos(0:0.001:2*pi),2*sin(0:0.001:2*pi), '--m')
+legend([p1 p2 p3 p4 p5 p6],{"r = 0.25,theta = pi/4","r = 1.6,theta = pi/6","r = 2,theta = pi/6",...
+                            "r = 2,theta = 2pi/3","r = 2,theta = pi/3","r = 1.99,theta = 0"})
+pbaspect([1 1 1])
+grid on
+\end{verbatim}
+
+\end{questions}

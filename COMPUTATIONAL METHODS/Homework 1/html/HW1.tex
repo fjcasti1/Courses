@@ -1,0 +1,334 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item APM 506 HOMEWORK 1 - FRANCISCO CASTILLO
+   \item Problem 1
+   \item Problem 2
+   \item Problem 3
+   \item Problem 4
+   \item Problem 5
+\end{itemize}
+
+
+\subsection*{APM 506 HOMEWORK 1 - FRANCISCO CASTILLO}
+
+\begin{verbatim}
+clear all; close all; clc
+format long
+\end{verbatim}
+
+
+\subsection*{Problem 1}
+
+\begin{verbatim}
+intf=zeros(1,21);
+for k=-10:1:10
+    f = chebfun(@(x) exp(-1i*k*x)*exp(sin(x)),[-pi,pi]);
+    intf(k+11)=integral(f,-pi,pi);
+end
+intf'
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}
+ans =
+
+ -0.000000001729727 - 0.000000000000001i
+  0.000000000000000 - 0.000000034673039i
+  0.000000625844464 - 0.000000000000001i
+  0.000000000000000 + 0.000010048184493i
+ -0.000141300427373 + 0.000000000000000i
+ -0.000000000000000 - 0.001705653312950i
+  0.017197833556866 - 0.000000000000000i
+ -0.000000000000000 + 0.139288321767876i
+ -0.852927764164121 - 0.000000000000001i
+  0.000000000000001 - 3.550999378424362i
+  7.954926521012847 + 0.000000000000000i
+  0.000000000000000 + 3.550999378424362i
+ -0.852927764164121 + 0.000000000000001i
+ -0.000000000000000 - 0.139288321767876i
+  0.017197833556866 - 0.000000000000000i
+ -0.000000000000000 + 0.001705653312950i
+ -0.000141300427373 - 0.000000000000000i
+  0.000000000000000 - 0.000010048184493i
+  0.000000625844464 + 0.000000000000001i
+  0.000000000000000 + 0.000000034673039i
+ -0.000000001729727 + 0.000000000000001i
+
+\end{verbatim} \color{black}
+    
+
+\subsection*{Problem 2}
+
+\begin{verbatim}
+x=-1:0.005:1;
+x_0=0.4;
+f = chebfun(@(x) exp(x)*sin(3*x));
+df = chebfun(@(x) exp(x)*(sin(3*x)+3*cos(3*x)));
+ddf = chebfun(@(x) exp(x)*(6*cos(3*x)-8*sin(3*x)));
+
+H=[0.1;0.05;0.025];
+ddf_approx=zeros(3,1);
+for k=1:3
+    h=H(k);
+    ddf_approx(k)=(15*(f(x_0-h)+f(x_0+h))-1.5*(f(x_0-2*h)+f(x_0+2*h))+(1/9)*(f(x_0-3*h)+f(x_0+3*h))-(245/9)*f(x_0))/(10*h^2);
+end
+% figure(1)
+% figure('units','normalized','outerposition',[0 0 1 1])
+figure(1)
+plot(x,f(x),x,df(x),x,ddf(x),x_0,ddf(x_0),'*',x_0,ddf_approx(1),'s',x_0,ddf_approx(2),'s',x_0,ddf_approx(3),'s')
+grid on
+legend({'$f(x)$','$f''(x)$','$f''''(x)$'},'Interpreter','latex')
+xlabel('$x$','Interpreter','latex')
+set(gca,'fontsize',18)
+saveas(gcf,'IMAGES/problem2_1','epsc')
+
+P=polyfit(log(H),log(abs(ddf(x_0)-ddf_approx)),1);
+h=0.01:1e-3:0.15;
+figure(2)
+loglog(H,abs(ddf(x_0)-ddf_approx),'*')
+grid on
+xlabel('$h$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+set(gca,'fontsize',14)
+hold on
+loglog(h,exp(P(1)*log(h)+P(2)))
+grid on
+axis([2e-2 1.2e-1 1e-12 1e-2])
+saveas(gcf,'IMAGES/problem2_2','epsc')
+P
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}
+P =
+
+   5.990378959014029   3.227778361027343
+
+\end{verbatim} \color{black}
+    
+\includegraphics [width=4in]{HW1_01.eps}
+
+\includegraphics [width=4in]{HW1_02.eps}
+
+
+\subsection*{Problem 3}
+
+\begin{verbatim}
+clear all
+close all
+format long
+x_0=pi/3;
+f = @(x) tan(x);
+fp = @(x) (1/cos(x))^2;
+H=logspace(-1,-14,100);
+for k = 1:length(H)
+    h = H(k);
+    df1(k) = (f(x_0+h)-f(x_0))/h;
+    df2(k) = (f(x_0+h)-f(x_0-h))/(2*h);
+    df4(k) = (-5/60*f(x_0+2*h)+2/3*f(x_0+h)-2/3*f(x_0-h)+5/60*f(x_0-2*h))/h;
+    df6(k) = 0.1*(15*(f(x_0+h)-f(x_0-h))/(2*h)-6*(f(x_0+2*h)-f(x_0-2*h))/(4*h)+(f(x_0+3*h)-f(x_0-3*h))/(6*h));
+end
+figure('units','normalized','outerposition',[0 0 1 1])
+loglog(H,abs(df1-fp(x_0)),'*',H,abs(df2-fp(x_0)),'*',H,abs(df4-fp(x_0)),'*',H,abs(df6-fp(x_0)),'*',H,H/2,'--',H,H.^(2)/6,'--',H,H.^(4)/30,'--',H,H.^6/140,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$h$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem3','epsc')
+h1=H(find(abs(df1-fp(x_0))==min(abs(df1-fp(x_0)))))
+h1_op=eps^(1/2)
+h2=H(find(abs(df2-fp(x_0))==min(abs(df2-fp(x_0)))))
+h2_op=(2*eps)^(1/(2+1))
+h4=H(find(abs(df4-fp(x_0))==min(abs(df4-fp(x_0)))))
+h4_op=(4*eps)^(1/(4+1))
+h6=H(find(abs(df6-fp(x_0))==min(abs(df6-fp(x_0)))))
+h6_op=(6*eps)^(1/(6+1))
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}
+h1 =
+
+     4.430621457583887e-09
+
+
+h1_op =
+
+     1.490116119384766e-08
+
+
+h2 =
+
+     2.535364493970111e-06
+
+
+h2_op =
+
+     7.629394531250005e-06
+
+
+h4 =
+
+     2.364489412645407e-04
+
+
+h4_op =
+
+     9.765624999999997e-04
+
+
+h6 =
+
+     3.853528593710536e-05
+
+
+h6_op =
+
+   0.007497934451474
+
+\end{verbatim} \color{black}
+    
+\includegraphics [width=4in]{HW1_03.eps}
+
+
+\subsection*{Problem 4}
+
+\begin{verbatim}
+close all
+clear all
+clc
+% Part a
+N = 1:100;
+err = 0*N;
+ff = @(x) abs(x).^3;
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+loglog(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4a','epsc')
+% Part b
+ff = @(x) exp(-1/sin(2*x^2));
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4b','epsc')
+
+% Part c
+ff = @(x) 1/sin(1+x^2);
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$ ','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4c','epsc')
+
+% Part d
+ff = @(x) sinh(x)^2;
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4d','epsc')
+\end{verbatim}
+
+\includegraphics [width=4in]{HW1_04.eps}
+
+\includegraphics [width=4in]{HW1_05.eps}
+
+\includegraphics [width=4in]{HW1_06.eps}
+
+\includegraphics [width=4in]{HW1_07.eps}
+
+
+\subsection*{Problem 5}
+
+\begin{verbatim}
+close all
+clear all
+clc
+ff = @(x) 1./(1+25*x.^2);
+N = 1:100;
+err = 0*N;
+xx = linspace(-1,1,1000)';
+for k = 1:length(N)
+    x = linspace(-1,1,N(k))';
+    W = baryWeights(x);
+    y = ff(x);
+    yy = bary(xx,y,x,W);
+    err(k) = norm(ff(xx)-yy,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem5_1','epsc')
+
+figure
+plot(xx,ff(xx))
+hold on
+plot(xx,yy,'r--')
+xlabel('$x$','fontsize',20,'interpreter','latex')
+ylabel('$f(x),p(x)$','fontsize',20,'interpreter','latex')
+legend({'$f(x)$','$p(x)$'},'Interpreter','latex','Location','north','fontsize',16)
+axis([-1 1 -2 2])
+grid on
+saveas(gcf,'IMAGES/problem5_2','epsc')
+\end{verbatim}
+
+\includegraphics [width=4in]{HW1_08.eps}
+
+\includegraphics [width=4in]{HW1_09.eps}
+
+
+
+\end{document}
+    

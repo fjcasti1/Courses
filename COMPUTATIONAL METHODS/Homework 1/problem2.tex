@@ -1,0 +1,92 @@
+\begin{solution}
+We start by expanding $f(x+h)$ and $f(x-h)$ up to eigth order,
+\begin{align*}
+f(x\pm h)=&f(x)\pm hf'(x)+\frac{h^2}{2}f''(x)\pm\frac{h^3}{3!}f'''(x)+\frac{h^4}{4!}f^{(IV)}(x)\pm\frac{h^5}{5!}f^{(V))}(x)+\frac{h^6}{6!}f^{(VI)}(x)\\
+&\pm\frac{h^7}{7!}f^{(VII))}(x)+\frac{h^8}{8!}f^{(VIII)}(x)+\mathcal{O}(h^9).
+\end{align*}
+By adding both $f(x+h)$ and $f(x-h)$ together, crossing out many terms, 
+\begin{align*}
+f(x+h)+f(x-h)=2f(x)+h^2f''(x)+\frac{2h^4}{4!}f^{(IV)}+\frac{2h^6}{6!}f^{(VI)}+\frac{2h^8}{8!}f^{(VIII)}+\mathcal{O}(h^9),
+\end{align*}
+we can now isolate the second derivative
+\begin{align*}
+f''(x)=\frac{f(x-h)-2f(x)+f(x+h)}{h^2}-\frac{h^2}{12}f^{(IV)}-\frac{2h^4}{6!}f^{(VI)}-\frac{2h^6}{8!}f^{(VIII)}+\mathcal{O}(h^9).
+\end{align*}
+If we want sixth order precision we need to get rid of the firs two leading terms of the error. In order to do so we use more stencil points. We can express the second derivative as
+\begin{align*}
+f''(x)=\frac{f(x-2h)-2f(x)+f(x+2h)}{4h^2}-\frac{h^2}{3}f^{(IV)}-\frac{2h^4}{45}f^{(VI)}-\frac{h^6}{315}f^{(VIII)}+\mathcal{O}(h^9),
+\end{align*}
+and
+\begin{align*}
+f''(x)=\frac{f(x-3h)-2f(x)+f(x+3h)}{9h^2}-\frac{3h^2}{4}f^{(IV)}-\frac{9h^4}{40}f^{(VI)}-\frac{81h^6}{2240}f^{(VIII)}+\mathcal{O}(h^9).
+\end{align*}
+Multiplying the three equations by $a,b,c$, respectively, and adding them together we can impose the condition that the coefficients of the second and fourth order error terms must be zero, obtaining a sixth order approximation. The system of equations to solve is then
+\begin{align*}
+&\frac{a}{12}+\frac{b}{3}+\frac{3c}{4}=0,\\
+&\frac{0}{360}+\frac{2b}{45}+\frac{9c}{40}=0.
+\end{align*}
+The solutions are $a=15c$, $b=-6c$, and $c$ will vanish from the system. Once we put this values in the equations and add them together we get the final result
+\begin{align*}
+f''(x)=&\frac{15\left[f(x-h)+f(x+h)\right]-\frac{3}{2}\left[f(x-2h)+f(x+2h)\right]+\frac{1}{9}\left[f(x-3h)+f(x+3h)\right]-\frac{245}{9}f(x)}{10h^2}\\&-\frac{h^6}{560}f^{(VIII)}(x)+\mathcal{O}(h^7),
+\end{align*}
+a sixth order approximation to the second derivative.
+In the figure 1 we can see the funtion and its derivatives
+\begin{align*}
+f(x)=e^x\sin{(3x)},~~~~~~f'(x)=e^x\left(\sin{(3x)}+3\cos{(3x)}\right),~~~~~~f''(x)=e^x\left(6\cos{(3x)}-8\sin{(3x)}\right),
+\end{align*}
+as well as the value of the second derivative at the point $x_0=0.4$.
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.7]{IMAGES/problem2_1.eps}\caption{The function $f(x)$ and its two first derivatives. It is also included the value of the second derivative at $x_0=0.4$ (asterisk) and the approximated value (square) using the approximation derived above.}
+\end{figure}
+We can see that the approximated value for the three values of $h$ is very accurate as we cannot distinguish any square from the astersik. However, in the following figure we can see the error and, in logarithmic scale, seems to have a linear dependency on $h$. 
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.7]{IMAGES/problem2_2.eps}}
+\caption{Error of the approximation.}
+\end{figure}
+We made a linear fitting and found out that the slope was $m=5.990378959014029$. This proves that the approximation is, indeed, of sixth order.
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+x=-1:0.005:1;
+x_0=0.4;
+f = chebfun(@(x) exp(x)*sin(3*x));
+df = chebfun(@(x) exp(x)*(sin(3*x)+3*cos(3*x)));
+ddf = chebfun(@(x) exp(x)*(6*cos(3*x)-8*sin(3*x)));
+
+H=[0.1;0.05;0.025];
+ddf_approx=zeros(3,1);
+for k=1:3
+    h=H(k);
+    ddf_approx(k)=(15*(f(x_0-h)+f(x_0+h))-1.5*(f(x_0-2*h)+f(x_0+2*h))
+    +(1/9)*(f(x_0-3*h)+f(x_0+3*h))-(245/9)*f(x_0))/(10*h^2);
+end
+
+figure(1)
+plot(x,f(x),x,df(x),x,ddf(x),x_0,ddf(x_0),'*',x_0,ddf_approx(1),'s',
+x_0,ddf_approx(2),'s',x_0,ddf_approx(3),'s')
+grid on
+legend({'$f(x)$','$f''(x)$','$f''''(x)$'},'Interpreter','latex')
+xlabel('$x$','Interpreter','latex')
+set(gca,'fontsize',18)
+saveas(gcf,'IMAGES/problem2_1','epsc')
+
+P=polyfit(log(H),log(abs(ddf(x_0)-ddf_approx)),1);
+h=0.01:1e-3:0.15;
+figure(2)
+loglog(H,abs(ddf(x_0)-ddf_approx),'*')
+grid on
+xlabel('$h$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+set(gca,'fontsize',14)
+hold on
+loglog(h,exp(P(1)*log(h)+P(2)))
+grid on
+axis([2e-2 1.2e-1 1e-12 1e-2])
+saveas(gcf,'IMAGES/problem2_2','epsc')
+P =
+
+   5.990378959014029   3.227778361027343
+
+\end{verbatim}
+\end{solution}

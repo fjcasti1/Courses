@@ -1,0 +1,18 @@
+\begin{questions}
+
+\question{Show that $\sum_{n=1}^{\infty} \sin (2^{-n}t)$ converges uniformly in $t\in [−a, a]$ for every $a>0$ and provides a continuously differentiable function on $\R$. (A function is continuously differentiable if it is differentiable and its derivative is continuous.)}
+
+\begin{solution}
+  \begin{proof}
+Let $f_n=\sin (2^{-n}t)$ for all $n\in\N$ so that $(f_n)$ is a sequence of differentiable functions $f_n:I\rightarrow\R$, with $I=[-a,a]$, for all $a\in\R$ with $a>0$. Let $t_0=0$ ($t_0\in I$ for all $a>0$) such that
+\begin{align*}
+\sum_{n=1}^{\infty}f_n(t_0)=\sum_{n=1}^{\infty}0=0~.
+\end{align*}
+Therefore, $\sum_{n=1}^{\infty}f_n(t_0)$ converges in $\R$. Next, define the sequence of positive numbers $M_n=\left(\frac{1}{2}\right)^n$ such that
+\begin{align*}
+||f'_n(t)||=||2^{-n}\cos(2^{-n}t)||\leq||2^{-n}||=2^{-n}=M_n~~\forall n\in\N.
+\end{align*}
+Observe that $\sum_{n=1}^{\infty}M_n$ converges in $\R$ since it is a geometric series $\sum_{n=1}^{\infty}q^n$ with $|q|<1$. Thus, by the \textit{Problem 6.4.1} solved above, $\sum_{n=1}^{\infty}\sin (2^{-n}t)$ converges uniformly in $t\in I$ and provides a differentiable function $f:I\rightarrow\R$ such that $f'(t)=\sum_{n=1}^{\infty}2^{-n}\cos (2^{-n}t)$. Note that $f'(t)$ is continuous since it a sum of continuous functions (cosines), thus $f$ is continuously differentiable.
+\end{proof}
+\end{solution}
+\end{questions}

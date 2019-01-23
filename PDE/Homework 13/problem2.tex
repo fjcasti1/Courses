@@ -1,0 +1,80 @@
+\begin{questions}
+\question{
+Let $\Omega$ be an open bounded subset of $\R^2$. Let $u:\overline{\Omega}\to\R$ be continuous and twice continuously differentiable on $\Omega$ and satisfy
+\begin{align*}
+(\partial_x^2+\partial_y^2)u-\partial_xu+\partial_yu\geq 0,~~~~~~(x,y)\in\Omega.
+\end{align*}
+Prove from scratch that $\max_{\overline{\Omega}}u=\max_{\partial\Omega}u$.
+}
+\begin{solution}
+Case 1: Let
+\begin{align*}
+(\partial_x^2+\partial_y^2)u-\partial_xu+\partial_yu> 0,~~~~~~(x,y)\in\Omega.
+\end{align*}
+Since $u$ is continuous on $\overline{\Omega}$, there exists some $(x,y)\in\overline{\Omega}$ such that
+\begin{align*}
+u(x,y)=\max_{\overline{\Omega}}u.
+\end{align*}
+If $(x,y)\in\Omega$, then $\partial_xu=\partial_yu=0$ and $\partial^2_xu\leq 0$, $\partial^2_yu\leq 0$, so
+\begin{align*}
+(\partial_x^2+\partial_y^2)u-\partial_xu+\partial_yu=(\partial_x^2+\partial_y^2)u\leq 0 ,~~~~~~(x,y)\in\Omega,
+\end{align*}
+a contradiction. Hence, $(x,y)\in\partial\Omega$ and the assertion follows.
+
+Case 2: Let
+\begin{align*}
+(\partial_x^2+\partial_y^2)u-\partial_xu+\partial_yu\geq 0,~~~~~~(x,y)\in\Omega.
+\end{align*}
+For $\epsilon>0$, set
+\begin{align*}
+u_{\epsilon}(x,y)=u(x,y)+\epsilon c(-x+y)+\epsilon |(x,y)|^2,\quad (x,y)\in\overline{\Omega},
+\end{align*}
+where $|(x,y)|$ denotes the Euclidean norm and $c > 0$ will be determined. Then,
+\begin{align*}
+\partial_xu_{\epsilon}=\partial_xu-\epsilon c+2\epsilon x,
+\end{align*}
+and
+\begin{align*}
+\partial_yu_{\epsilon}=\partial_xu+\epsilon c+2\epsilon y.
+\end{align*}
+Now the second derivatives,
+\begin{align*}
+\partial^2_xu_{\epsilon}=\partial^2_xu+2\epsilon,
+\end{align*}
+and
+\begin{align*}
+\partial^2_yu_{\epsilon}=\partial^2_xu+2\epsilon.
+\end{align*}
+Thus,
+\begin{align*}
+(\partial_x^2+\partial_y^2-\partial_x+\partial_y)u_{\epsilon}=(\partial_x^2+\partial_y^2-\partial_x+\partial_y)u+4\epsilon+2\epsilon c+2\epsilon(y-x),~~~~~~(x,y)\in\Omega.
+\end{align*}
+Using the fact that $(\partial_x^2+\partial_y^2-\partial_x+\partial_y)u\geq 0$ and $\epsilon>0$,
+\begin{align*}
+(\partial_x^2+\partial_y^2-\partial_x+\partial_y)u_{\epsilon}&>2\epsilon c+2\epsilon(y-x).
+\end{align*}
+We can express the last term of the previous equation as
+\begin{align*}
+2\epsilon(y-x)=2\epsilon\sum_{j=1}^2b_jx_j,
+\end{align*}
+where $x_1=x$, $b_1=-1$, $x_2=y$, $b_2=1$. Then,
+\begin{align*}
+2\epsilon(y-x)&=2\epsilon\sum_{j=1}^2b_jx_j\\
+&>-2\epsilon\left|\sum_{j=1}^2b_jx_j\right|\\
+&\geq -2\epsilon\left|b\right|\sqrt{x^2+y^2}\\
+&> -2\epsilon\sqrt{x^2+y^2}.
+\end{align*}
+Since $\Omega$ is bounded, we can find a $c$ such that $c>\sqrt{x^2+y^2}$ and
+\begin{align*}
+(\partial_x^2+\partial_y^2-\partial_x+\partial_y)u_{\epsilon}&>2\epsilon c+2\epsilon(y-x)\\
+&>2\epsilon c-2\epsilon\sqrt{x^2+y^2}\\
+&=2\epsilon \left(c-\sqrt{x^2+y^2}\right)\\
+&>0.
+\end{align*}
+By Case 1, 
+\begin{align*}
+\max_{\overline{\Omega}}u_\epsilon=\max_{\partial\Omega}u_\epsilon.
+\end{align*}
+
+\end{solution}
+\end{questions}

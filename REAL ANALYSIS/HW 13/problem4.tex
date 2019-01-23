@@ -1,0 +1,31 @@
+\begin{questions}
+
+\question{Let $f : U \rightarrow Z$ be Frechet differentiable at $x\in U$. Further assume
+there exist some $\epsilon> 0$ and $\Lambda > 0$ such that $U_{\epsilon}(x)\subseteq U$ and $||f(y)-f(x)||\leq
+\Lambda||y-x||$ for all $y\in U_{\epsilon}(x)$.
+
+Show: The operator norm of $Df(x)$ satisfies $||Df(x)||\leq \Lambda$.}
+
+\begin{solution}
+  \begin{proof}
+Let $X$ and $Z$ be normed vector spaces and $U$ an open subset of $X$. Let $x\in U$ and $v\in X$. Since $U$ is open, there exists some $\epsilon>0$ such that $U_{\epsilon}(x)\subseteq U$. Set $\delta\in (0,\frac{\epsilon}{1+||v||})$. Then $x+tv\in U$ for all $t\in(-\delta,\delta)$. Lastly, let $\Lambda>0$.
+
+Since $f$ is Frechet differentiable at $x\in U$, by \textit{Theorem 6.23} $f$is Gateaux differentiable at $x$ and $\partial f(x,v)=Df(x)v$ for all $v\in X$. By the definition of Gateaux differentiable, $f$ is differentiable at $x$ in the direction of every $v$. By \textit{Problem 6.5.1} solved above,
+\begin{align*}
+||Df(x)v||=||\partial f(x,v)||\leq \Lambda||v||~,
+\end{align*}
+which gives us
+\begin{align*}
+\frac{||Df(x)v||}{||v||}\leq \Lambda~\forall v\neq 0.
+\end{align*}
+Therefore $\Lambda$ constitutes an upper bound of the quotient above. Since $Df(x)$ is a bounded linear operator, by \textit{Lemma 5.3}
+\begin{align*}
+||Df(x)||=\sup \left\{\frac{||Df(x)v||}{||v||};\forall v\in  X, v\neq 0\right\}~.
+\end{align*}
+Then, by the definition of a supremum,
+\begin{align*}
+||Df(x)||\leq \Lambda~.
+\end{align*}
+\end{proof}
+\end{solution}
+\end{questions}

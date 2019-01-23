@@ -1,0 +1,18 @@
+\begin{questions}
+
+\question{Let $X$ be a metric space. Show that the countable union of separable
+sets is separable: If $\{S_n; n \in \N \}$ is a countable family of separable set $S_n$ in
+$X$, then $\cup_{n \in \N}S_n$ is separable.}
+
+\begin{solution}
+  \begin{proof}
+ Let $x\in S_n$. Therefore $x$ is also in $\cup_{n\in\N}S_n$. Since $S_n$ is separable, $\exists M_n$ such that
+ \begin{align*}
+ M_n\subseteq S_n\subseteq \overline{M_n}~,
+ \end{align*}
+ and, since $M_n$ is dense in $S_n$, $\exists (x_n)\in M_n$ such that $x_n\rightarrow x$. Therefore, $x\in S_n$ is a limit point of $M_n$ and $x\in\overline{M_n}$. Similarly, $\forall x\in\cup_{n\in\N}S_n$, $\exists (x_n)\in\cup_{n\in\N}M_n$ such that $x_n\rightarrow x$, so x is a limit point of $\cup_{n\in\N} M_n$, then $x\in\cup_{n\in\N}\overline{M_n}$.
+ Thus, $\cup_{n\in\N} S_n\subseteq\cup_{n\in\N}\overline{M_n}$ meaning that $\cup_{n\in\N}S_n$ is separable.  \end{proof}
+\end{solution}
+
+
+\end{questions}

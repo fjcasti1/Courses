@@ -1,0 +1,100 @@
+\begin{questions}
+
+\question{Determine all solutions $u=u(x_1,x_2)$ of
+\begin{align*}
+(1-u)\frac{\partial u}{\partial x_1}+(1+u)\frac{\partial u}{\partial x_2}&=1,~~x_1,x_2\in\R,\\
+u(x_1,x_2)&=0,~~x_1=x_2.
+\end{align*}
+Where are the solutions defined? Interpret your results in the light of the genereal local existence theorem.
+}
+\begin{solution}
+We can rewrite the PDE as
+\begin{align*}
+(1-u)\partial_1u+(1+u)\partial_2u=1,
+\end{align*}
+with a parametrized initial condition 
+\begin{align*}
+u(z,z)=0.
+\end{align*}
+Therefore we can obtain
+\begin{align*}
+g(z)=\begin{pmatrix*}[r]
+z\\
+z
+\end{pmatrix*},
+\end{align*}
+and
+\begin{align*}
+a(x,u)=g(z)=\begin{pmatrix*}[r]
+1-u\\
+1+u
+\end{pmatrix*}~\Rightarrow~
+a(g(z),u_0(g(z)))=\begin{pmatrix*}[r]
+1\\
+1
+\end{pmatrix*}.
+\end{align*}
+We now rewrite the PDE as a system of ODE, the \textit{Characteristic System},
+\begin{align*}
+&\partial_t\xi_1=1-v,~~~~\xi_1(z,0)=z\\
+&\partial_t\xi_2=1+v,~~~~\xi_2(z,0)=z\\
+&\partial_tv=1,~~~~~~~~~~v(z,0)=0.\end{align*}
+Given the previous system, we have to start by solving for $v$
+\begin{align*}
+v(z,t)=t+f_3(z).
+\end{align*}
+By imposing the initial condition we find that $f_3(z)=0$ and
+\begin{align*}
+v(z,t)=v(t)=t.
+\end{align*}
+Now we solve for $\xi_1$
+\begin{align*}
+\partial_t\xi_1=1-t~\Rightarrow~\xi_1(z,t)=t-\frac{1}{2}t^2+f_1(z),
+\end{align*}
+and imposing the initial condition we find that $f_1(z)=z$ and
+\begin{align*}
+\xi_1(z,t)=z+t-\frac{1}{2}t^2.
+\end{align*}
+Now we solve for $\xi_2$
+\begin{align*}
+\partial_t\xi_2=1+t~\Rightarrow~\xi_2(z,t)=t+\frac{1}{2}t^2+f_2(z),
+\end{align*}
+and imposing the initial condition we find that $f_2(z)=z$ and
+\begin{align*}
+\xi_2(z,t)=z+t+\frac{1}{2}t^2.
+\end{align*}
+To obtain the solution $u(x_1,x_2)=v(t(x_1,x_2))$ we need to find $t(x_1,x_2)$ by solving
+\begin{align*}
+x_1(z,t)=z+t-\frac{1}{2}t^2,
+x_2(z,t)=z+t+\frac{1}{2}t^2.
+\end{align*}
+Let us compute $x_2-x_1$
+\begin{align*}
+x_2-x_1=t^2~\Rightarrow~t=\pm\sqrt{x_2-x_1},
+\end{align*}
+and finally
+\begin{align*}
+u(x_1,x_2)=\pm\sqrt{x_2-x_1}
+\end{align*}
+and we see that by applying the initial condition we cannot get rid of any of the two signs,
+\begin{align*}
+u(x_1,x_1)=\pm\sqrt{x_1-x_1}=0.
+\end{align*}
+Therefore we see that there is not an unique solution. In order to relate this to the general local existence theorem, we compute first
+\begin{align*}
+g(z)=\begin{pmatrix*}[r]
+1\\
+1
+\end{pmatrix*},
+\end{align*}
+and now the determinant
+\begin{align*}
+det(g'(z),a(g(z),u_0(g(z))))=det\left(\begin{pmatrix*}[r]
+1 1\\
+1 1
+\end{pmatrix*}\right)=0.
+\end{align*}
+Thus, according to the \textsl{Theorem 3.7}, we cannot guarantee that there exists an open neighborhood $U$ and an uniquely determined function $u:U\rightarrow\R$ that is solution to the Cauchy problem, which is in agreement with the results obtained.
+\end{solution}
+
+\end{questions}

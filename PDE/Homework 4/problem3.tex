@@ -1,0 +1,54 @@
+\begin{questions}
+\question{
+Let $u$ solve
+\begin{eqnarray*}
+(\partial_t^2 - c^2 \partial_x^2)u(x,t) &=& \phi(x,t), \quad x,t \in \mathbb{R}. \\
+u(x,0)&=&0, \quad x \in \mathbb{R}, \\
+\partial_t u(x,0)&=&0, \quad x \in \mathbb{R}\\
+\end{eqnarray*}
+and $\tilde{u}$ solve
+\begin{eqnarray*}
+(\partial_t^2 - c^2 \partial_x^2)\tilde{u}(x,t) &=& 0, \quad x,t \in \mathbb{R}. \\
+\tilde{u}(x,0)&=&f(x), \quad x \in \mathbb{R}, \\
+\partial_t \tilde{u}(x,0)&=&g(x), \quad x \in \mathbb{R}\\
+\end{eqnarray*}
+Prove that $U = u + \tilde{u}$ solves
+\begin{eqnarray*}
+(\partial_t^2 - c^2 \partial_x^2)U(x,t) &=& \phi(x,t), \quad x,t \in \mathbb{R}. \\
+U(x,0)&=&f(x), \quad x \in \mathbb{R}, \\
+\partial_t U(x,0)&=&g(x), \quad x \in \mathbb{R}\\
+\end{eqnarray*}
+This is a special case of the so-called principle of superposition. It works here
+because the problem is linear.
+
+}
+\begin{solution}
+We start by proving that $U$ satisfies the PDE,
+\begin{align*}
+(\partial_t^2-c^2\partial_x^2)U&=(\partial_t^2-c^2\partial_x^2)(u+\tilde{u})\\
+&=\partial_t^2(u+\tilde{u})-c^2\partial_x^2(u+\tilde{u})\\
+&=\partial_t^2u+\partial_t^2\tilde{u}-c^2\partial_x^2u-c^2\partial_x^2\tilde{u}
+&=(\partial_t^2-c^2\partial_x^2)u+(\partial_t^2-c^2\partial_x^2)\tilde{u}\\
+&=\phi(x,t)+0
+&=\phi(x,t)
+\end{align*}
+Now we check that it satisfies the first initial condition,
+\begin{align*}
+U(x,0)&=u(x,0)+\tilde{u}(x,0)\\
+&=0+f(x)\\
+&=f(x).
+\end{align*}
+To check the second initial condition we first calculate
+\begin{align*}
+\partial_tU(x,t)=\partial_t(u+\tilde{u})=\partial_tu(x,t)+\partial_t\tilde{u}(x,t),
+\end{align*}
+and make $t=0$,
+\begin{align*}
+\partial_tU(x,0)&=\partial_tu(x,0)+\partial_t\tilde{u}(x,0)\\
+&=0+g(x)\\
+&=g(x).
+\end{align*}
+Hence, since $U=u+\tilde{u}$ satisfies the PDE and the initial conditions, it is the solution.
+\end{solution}
+
+\end{questions}

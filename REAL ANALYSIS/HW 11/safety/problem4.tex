@@ -1,0 +1,34 @@
+\begin{questions}
+
+\question{Let $X$ be a metric space $(f_n)$ be sequence of continuous functions
+from $X$ to $\R$ such that $\{f_n; n\in\N\}$ is equicontinuous. Let $f$ be a continuous
+function from $X$ to $\R$ and assume that there exists a dense subset $A$ of $X$
+such that $f_n(x)\rightarrow f(x)$ pointwise for $x\in A$. Show that $f_n\rightarrow f$ pointwise on $X$.}
+
+\begin{solution}
+  \begin{proof}
+Let $x\in X$. Since $X\subseteq\overline{A}$ (because $A$ is dense in $X$), there exists a sequence $(x_k)$ in $A$, and therefore also in $X$, sucht that $x_k\rightarrow x$. By triangle inequality, for all $n\in\N$,
+\begin{align*}
+d(f_n(x),f(x))\leq d(f_n(x),f_n(x_k))+d(f_n(x_k),f(x_k))+
+d(f(x_k),f(x))~.
+\end{align*}
+Since $\{f_n;n\in\N\}$ is equicontinuous, for $x\in X$ and for every $\varepsilon >0$, there exists some $\delta_1>0$ such that , for every $x_k\in X$ and every $f_n\in\{f_n;n\in\N\}$:
+\begin{align*}
+d(x,x_k)<\delta_1\Rightarrow d(f_n(x),f_n(x_k))<\varepsilon /3~.
+\end{align*}
+Similarly, since $f$ is continuous on $X$, for $x\in X$ and for every $\varepsilon >0$, there exists some $\delta _2>0$ such that for every $x_k\in X$:
+\begin{align*}
+d(x,x_k)<\delta_2\Rightarrow d(f(x_k),f(x))<\varepsilon /3~.
+\end{align*}
+Lastly, since $f_n\rightarrow f$ pointwise on $A$ as $n\rightarrow\infty$, for each $x_k\in X$ there exists an $N\in\N$ such that
+\begin{align*}
+d(f_n(x_k),f(x_k))<\varepsilon /3~,~~ \forall n\in\N,~\text{with } n>N~.
+\end{align*}
+Therefore, choosing $\delta =\min\{\delta_1,\delta_2\}$:
+\begin{align*}
+d(x,x_k)<\delta\Rightarrow d(f_n(x),f(x))< \frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\frac{\varepsilon}{3}=\varepsilon~~\forall n>N.
+\end{align*}
+Thus, since $x$ is a point defined in $X$, $f_n\rightarrow f$ pointwise on $X$.
+  \end{proof}
+\end{solution}
+\end{questions}

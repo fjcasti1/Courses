@@ -1,0 +1,57 @@
+\begin{questions}
+
+\question{Let $(X, d)$ be a metric space. Then $BUC(X)=BUC(X, \K)$ denotes the
+set of bounded uniformly continuous functions on $X$ with values in $\K = \R$
+or $\K = \C$. Show: $BUC(X)$ is a closed linear subspace of $B(X)$ with the
+supremum norm.}
+
+\begin{solution}
+  \begin{proof}
+ Since the zero function, $\zero (x) = 0~ \forall ~x \in X$, is uniformly continuous and obviously bounded, it is an element of $BUC(X)$. Therefore $BUC(X)$ is nonempty.
+ 
+ Now let $f,g \in BUC(X)$ and $\alpha,\beta \in \K$. From a previous result we know that $B(X)$ is a linear subspace of $\R^x$, therefore $\alpha f+\beta g$ is a bounded function.
+ 
+ Let $(x_n),(y_n)$ be sequences in $X$ with $d(x_n, y_n) \rightarrow 0$ as $n \rightarrow \infty$. Since $f$ and $g$ are uniformly continuous,
+ \begin{align*}
+ d(f(x_n),f(y_n)) \rightarrow 0~,
+ \end{align*}
+and
+\begin{align*}
+d(g(x_n),g(y_n)) \rightarrow 0
+\end{align*}
+as $n \rightarrow \infty$.
+
+Consider now
+
+\begin{align*}
+d(\alpha f(x_n) + \beta g(x_n), \alpha f(y_n) + \beta g(y_n)) &= sup\{|\alpha f(x_n) + \beta g(x_n) - \alpha f(y_n) - \beta g(y_n)|\} \\
+& \leq sup\{|\alpha (f(x_n) - f(y_n))|+|\beta (g(x_n) - g(y_n))|\} \\
+& \leq sup\{|\alpha (f(x_n) - f(y_n))|\}+sup\{|\beta (g(x_n) - g(y_n))|\} \\
+& = \|\alpha (f(x_n) - f(y_n))\|_{\infty}+\|\beta (g(x_n) - g(y_n))\|_{\infty} \\
+& = |\alpha | d(f(x_n),f(y_n)) + | \beta| d(g(x_n), g(y_n))\rightarrow 0 \text{ as } n\rightarrow\infty~,
+\end{align*}
+by the uniform continuity of both $f$ and $g$. Therefore, $\alpha f + \beta g$ is uniformly continuous by theorem 3.12. Thus, $\alpha f + \beta g\in BUC(X)$.
+
+To show that $BUC(X)$ is closed let $(f_n)$ be a sequence of functions in $BUC(X)$ and $f \in B(X)$ such that $f_n \rightarrow f$ uniformly,
+\begin{align*}
+\|f_n - f\|_{\infty} \rightarrow 0 \text{ as }n \rightarrow \infty~.
+\end{align*}
+Let $\varepsilon > 0$, then $\exists~k \in \N$ such that,
+\begin{align*}
+|f_k(x) - f(x)| \leq \frac{\varepsilon}{3}~\forall x \in X~.
+\end{align*}
+Since $f_k$ is uniformly continuous, $\exists ~\delta > 0$ such that
+\begin{align*}
+|f_k(x) - f_k(y)| < \frac{\varepsilon}{3}~\forall x,y \in X~ \text{with}~d(x,y) < \delta~.
+\end{align*}
+Consider $x,y \in X$ with $d(x,y) < \delta$, then
+\begin{align*}
+|f(x) - f(y)| \leq |f(x) - f_k(x)| + |f_k(x) - f_k(y)| + |f_k(y) - f(y)| < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon~.
+\end{align*}
+Concluding that $f$ is uniformly continuous as well, so $f \in BUC(X)$. Thus, $BUC(X)$ is a closed set.
+
+  \end{proof}
+\end{solution}
+
+
+\end{questions}
