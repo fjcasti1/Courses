@@ -1,0 +1,68 @@
+\textbf{($\textit{Best Approximation}$) Prove the following statements.}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Let $e_1, \cdots, e_N$ be an orthonormal system in an inner product space $H$, let $\lambda_1, \cdots, \lambda_N~ \in ~ \mathbb{C}$ and let $f~\in~H$. Then
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2,
+\end{align*}
+where $c_j = \langle f,e_j \rangle$ and $\| \cdot \|$ is the norm induced by the inner product. }
+\newline
+
+To prove that the statement we start by writing the left side of the equation as an inner product,
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2=<f-\sum_{j=1}^N\lambda_je_j|f-\sum_{j=1}^N\lambda_je_j>.
+\end{align*}
+By appllying linearity and antilinearity of the inner product we get
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2&=<f-\sum_{j=1}^N\lambda_je_j|f-\sum_{j=1}^N\lambda_je_j>\\
+&=<f|f>-\sum_{j=1}^N<\lambda_je_j|f>-\sum_{j=1}^N<f|\lambda_je_j>+\sum_{j=1}^N<\lambda_je_j|\lambda_je_j>\\
+&=||f||^2-\sum_{j=1}^N\lambda_j<e_j|f>-\sum_{j=1}^N\lambda_j^*<f|e_j>+\sum_{j=1}^N<\lambda_je_j|\lambda_je_j>\\
+&=||f||^2-\sum_{j=1}^N\lambda_jc_j^*-\sum_{j=1}^N\lambda_j^*c_j+\sum_{j=1}^N||\lambda_j||^2.
+\end{align*}
+where we have used the linearity and antilinearity properties again, and that $c_j=<f|e_j>$. By adding and substracting $\sum_{j=1}^N<c_j|c_j>$ and rewriting the previous equation in terms of inner product again we get
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2&=||f||^2-\sum_{j=1}^N<\lambda_j|c_j>-\sum_{j=1}^N<c_j|\lambda_j>+\sum_{j=1}^N<\lambda_j|\lambda_j>\\
+&~~~~~~~~~~~~~~~+\sum_{j=1}^N<c_j|c_j>-\sum_{j=1}^N<c_j|c_j>,
+\end{align*}
+which, again by linearity and antilinearity, we can group together as
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2&=||f||^2+\sum_{j=1}^N<\lambda_j-c_j|\lambda_j>-\sum_{j=1}^N<\lambda_j-c_j|c_j>-\sum_{j=1}^N<c_j|c_j>\\
+&=||f||^2+\sum_{j=1}^N<\lambda_j-c_j|\lambda_j-c_j>-\sum_{j=1}^N<c_j|c_j>\\
+&=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2.
+\end{align*}
+Thus, we have proven that
+\begin{align*}
+\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2.
+\end{align*}
+
+\item \textbf{Let $f_N = \sum_{j=1}^{N} \langle f,e_j \rangle e_j$. Then $\|f - f_N\| \leq \|f - g\|$ for all $g$ in the span of $e_1, \cdots, e_N$. }
+\newline
+
+To prove that
+\begin{align*}
+||f-f_N||\leq||f-g||,
+\end{align*}
+we will show that their squares
+\begin{align*}
+||f-f_N||^2\leq||f-g||^2.
+\end{align*}
+Taking into account that $f_N=\sum_{j=1}^N<f|e_j>e_j$ and $g=\sum_{j=1}^N\lambda_je_j$ and using the previous proof we have that
+\begin{align*}
+||f-f_N||^2&=\left|\left|f-\sum_{j=1}^N<f|e_j>e_j\right|\right|^2\\
+&=||f||^2+\sum_{j=1}^N|<f|e_j>-c_j|^2-\sum_{j=1}^N|c_j|^2\\
+&=||f||^2+\sum_{j=1}^N|<f|e_j>-<f|e_j>|^2-\sum_{j=1}^N|c_j|^2\\
+&=||f||^2-\sum_{j=1}^N|<f|e_j>|^2,
+\end{align*}
+and
+\begin{align*}
+||f-g||^2&=\left|\left|f-\sum_{j=1}^N\lambda_je_j\right|\right|^2\\
+&=||f||^2+\sum_{j=1}^N|\lambda_j-c_j|^2-\sum_{j=1}^N|c_j|^2\\
+&=||f||^2+\sum_{j=1}^N|\lambda_j-<f|e_j>|^2-\sum_{j=1}^N|c_j|^2\\
+&\geq||f||^2-\sum_{j=1}^N|<f|e_j>|^2\\
+&=||f-f_N||^2.
+\end{align*}
+Thus, we have proved that
+\begin{align*}
+||f-f_N||\leq||f-g||
+\end{align*}
+
+\end{enumerate}

@@ -1,0 +1,52 @@
+($\textit{Best Approximation}$) Prove the following statements.
+\begin{questions}
+
+\question{Let $e_1, \cdots, e_N$ be an orthonormal system in an inner product space $H$, let $\lambda_1, \cdots, \lambda_N~ \in ~ \mathbb{C}$ and let $f~\in~H$. Then
+\begin{align*}
+\norm[\bigg]{ f - \sum_{j=1}^{N} \lambda_je_j }^2 = \norm{f}^2 + \sum_{j=1}^{N} |  \lambda_j - c_j |^2 - \sum_{j=1}^{N} |c_j|^2
+\end{align*},
+where $c_j = \langle f,e_j \rangle$ and $\| \cdot \|$ is the norm induced by the inner product. }
+
+\begin{solution}
+
+Using the rules for normed vector spaces with functions and vectors, as well as the fact that $\lambda_i \bar{\lambda_i} = |\lambda_i|^2$ we get
+
+\begin{align*}
+\norm[\bigg]{ f - \sum_{j=1}^{N} \lambda_je_j }^2 &= \langle f - \sum_{j=1}^{N} \lambda_je_j, f - \sum_{j=1}^{N} \lambda_je_j \rangle \\
+& = \|f\|^2 - \langle f, \sum_{j=1}^{N} \lambda_je_j  \rangle - \langle \sum_{j=1}^{N} \lambda_je_j , f \rangle + \langle \sum_{j=1}^{N} \lambda_je_j , \sum_{j=1}^{N} \lambda_je_j  \rangle \\
+& = \|f\|^2 - \sum_{j=1}^{N} \overline{ \lambda_j} \langle f, e_j \rangle + \sum_{j=1}^{N} \lambda_j \langle \overline{ f,e_j} \rangle + \sum_{j,i=1}^{N} \langle \lambda_je_j,\lambda_ie_i \rangle \\
+& = \|f\|^2 - \sum_{j=1}^{N} \overline{ \lambda_j} c_j - \sum_{j=1}^{N} \lambda_j \overline{c_j} + \sum_{j,i=1}^{N} \lambda_j \overline{ \lambda_i} \langle e_j,e_i \rangle \\
+& (\text{note that all terms for}~ \langle e_j,e_i \rangle = 0~ \text{for}~ j \neq i~ \text{and}~1 ~\text{for}~j=i) \\
+& = \|f\|^2 - \sum_{j=1}^{N} \overline{ \lambda_j} c_j - \sum_{j=1}^{N} \lambda_j \overline{c_j} + \sum_{j=1}^{N} \lambda_j \overline{ \lambda_j} \\
+& = \|f\|^2 - \sum_{j=1}^{N} \overline{ \lambda_j} c_j - \sum_{j=1}^{N} \lambda_j \overline{c_j} + \sum_{j,i=1}^{N} \lambda_j \overline{ \lambda_j}  + \sum_{j=1}^{N} c_j \overline{c_j} - \sum_{j=1}^{N} c_j \overline{c_j} \\
+& = \|f\|^2 + \sum_{j=1}^{N} (-\overline{ \lambda_j} c_j - \lambda_j \overline{c_j} +  \lambda_j \overline{ \lambda_j} + c_j \overline{c_j}) - \sum_{j=1}^{N} c_j \overline{c_j} \\
+& = \|f\|^2 + \sum_{j=1}^{N} [ \lambda_j (\overline{\lambda_j}-\overline{c_j}) - c_j(\overline{\lambda_j}-\overline{c_j})] - \sum_{j=1}^{N} c_j \overline{c_j} \\
+& = \|f\|^2 + \sum_{j=1}^{N} [ (\lambda_j-c_j) (\overline{\lambda_j-c_j })] - \sum_{j=1}^{N} c_j \overline{c_j} \\
+& = \|f\|^2 + \sum_{j=1}^{N} |\lambda_j-c_j |^2 - \sum_{j=1}^{N} |c_j|^2~.
+\end{align*}
+
+\end{solution}
+\newpage
+
+\question{Let $f_N = \sum_{j=1}^{N} \langle f,e_j \rangle e_j$. Then $\|f - f_N\| \leq \|f - g\|$ for all $g$ in the span of $e_1, \cdots, e_N$. }
+
+\begin{solution}
+
+Note that if $\|f - f_N\| \leq \|f - g\|$ then $\|f - f_N\|^2 \leq \|f - g\|^2$ and that $g = \sum_{j=1}^{N} \lambda_je_j$. Calculating $\|f - f_N\|^2$ we get
+\begin{align*}
+\|f - f_N\|^2 &= \norm[\bigg]{ f -  \sum_{j=1}^{N} \langle f,e_j \rangle e_j }^2 \\
+& = \langle f -  \sum_{j=1}^{N} \langle f,e_j \rangle e_j,f -  \sum_{j=1}^{N} \langle f,e_j \rangle e_j \rangle \\
+& = \|f\|^2 - \langle f, \sum_{j=1}^{N} c_je_j \rangle - \langle \sum_{j=1}^{N} c_je_j, f \rangle + \langle \sum_{j=1}^{N} c_je_j,\sum_{i=1}^{N} c_ie_i \rangle \\
+& (\text{Using the same reasoning for the last term as above)} \\
+& = \|f\|^2 - \sum_{j=1}^{N} \overline{ c_j}c_j - \sum_{j=1}^{N} c_j \overline{c_j} + \sum_{j=1}^{N} c_j\overline{c_j} \\
+& = \|f\|^2 - \sum_{j=1}^{N} |c_j|^2~.
+\end{align*}
+Then, using the equation from part 1 and the fact that $\sum_{j=1}^{N} |  \lambda_j - c_j |^2$ is a nonnegative term,
+\begin{align*}
+\|f\|^2 - \sum_{j=1}^{N} |c_j|^2~ \leq~ \|f\|^2 + \sum_{j=1}^{N} |\lambda_j-c_j |^2 - \sum_{j=1}^{N} |c_j|^2~,
+\end{align*}
+which implies $\|f - f_N\|^2 \leq \|f - g\|^2$ and in turn $\|f - f_N\| \leq \|f - g\|$.
+\end{solution}
+
+
+\end{questions}

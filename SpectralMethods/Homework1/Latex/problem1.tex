@@ -1,0 +1,37 @@
+\textbf{Show that the trapezoidal rule
+\begin{align*}
+\int_0^{2\pi} f(x)dx = \frac{2\pi}{N}\sum_{j=0}^{N-1} f(x_j),
+\end{align*}
+where $x_j = 2\pi j/N$, is exact for $f(x) = \exp(inx)$ for $|n|<N$ (but not for $|n|=N$). Conclude that the trapezoidal rule is exact for all functions in the span of $\{\exp(inx)\}_{|n|<N}$. }
+\newline
+
+First, we compute the integral,
+\begin{align*}
+\int_0^{2\pi} e^{inx} ~dx =2\pi\delta_{n0},
+\end{align*}
+where $\delta$ is the Kronecker-delta. For the right hand side we start considering the case where $n < |N|$ and $n \neq 0$,
+\begin{align*}
+\frac{2\pi}{N}\sum_{j=0}^{N-1} f(x_j)&=\frac{2\pi}{N}\sum_{j=0}^{N-1} e^{inx_j} \\
+&= \frac{2\pi}{N}\sum_{j=0}^{N-1} e^{\left(\frac{i2\pi n j}{N} \right)} \\
+&=  \frac{2\pi}{N}\sum_{j=0}^{N-1} \left[e^{\left(\frac{i2\pi n}{N} \right)}\right]^j \\
+& = \left(\frac{2\pi}{N}\right)\left(\frac{1-e^{i2\pi n}}{1-e^{\left(\frac{i2\pi n}{N}\right)}} \right) \\
+& = 0,~~~~~~\forall n<|N|,n\neq 0,
+\end{align*}
+where we have applied the geometric sum formula and that $e^{i2\pi n}=1$. We note that, if $n=N$ the solution would not be defined. Lastly, for $n=0$,
+\begin{align*}
+\frac{2\pi}{N}\sum_{j=0}^{N-1} f(x_j)=\frac{2\pi}{N}\sum_{j=0}^{N-1} 1 = \frac{2\pi}{N} N = 2\pi~.
+\end{align*}
+
+Finally, let $g$ be a function in the $\text{span} \{e^{inx}\}_{|n|<N}$. Hence, we can write
+\begin{align*}
+g(x) = \sum_{|n|<N} c_ne^{inx},
+\end{align*}
+with $c_n$ being constant coefficients. Then,
+\begin{align*}
+\int_0^{2\pi} g(x)~dx &=\int_0^{2\pi} \sum_{|n|<N} c_n  e^{inx}~dx\\
+&= \sum_{|n|<N} c_n\left( \int_0^{2\pi} e^{inx}~dx \right)\\ 
+&= \sum_{|n|<N} c_n \left( \frac{2\pi}{N}\sum_{j=0}^{N-1} e^{inx_j} \right)\\ 
+&= \frac{2\pi}{N} \sum_{j=0}^{N-1} \sum_{|n|<N} c_ne^{inx_j} \\
+&= \frac{2\pi}{N} \sum_{j=0}^{N-1} g(x_j)~.
+\end{align*}
+Thus, the trapezoidal rule is exact for all functions in the span of $\{\exp(inx)\}_{|n|<N}$.

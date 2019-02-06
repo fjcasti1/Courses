@@ -1,0 +1,43 @@
+
+\begin{questions}
+
+\question{Show that the trapezoidal rule
+\begin{align*}
+\int_0^{2\pi} f(x)dx = \frac{2\pi}{N}\sum_{j=0}^{N-1} f(x_j),
+\end{align*}
+where $x_j = 2\pi j/N$, is exact for $f(x) = \exp(inx)$ for $|n|<N$ (but not for $|n|=N$). Conclude that the trapezoidal rule is exact for all functions in the span of $\{\exp(inx)\}_{|n|<N}$. }
+
+\begin{solution}
+
+We begin by assuming $n < |N|$ and $n \neq 0$. Then, for the right hand side,
+\begin{align*}
+\frac{2\pi}{N}\sum_{j=0}^{N-1} e^{inx_j} &= \frac{2\pi}{N}\sum_{j=0}^{N-1} e^{in\left(\frac{2\pi j}{N} \right)} \\
+&=  \frac{2\pi}{N}\sum_{j=0}^{N-1} \left(e^{in\left(\frac{2\pi}{N} \right)}\right)^j \\
+& = \left(\frac{2\pi}{N}\right)\left(\frac{1-e^{in2\pi}}{1-e^{in\left(\frac{2\pi}{N}\right)}} \right) \\
+& = 0~.
+\end{align*}
+We note, that if $n=N$ the solution would not be defined. Next, for the left hand side, we find
+\begin{align*}
+\int_0^{2\pi} e^{inx} ~dx &= \frac{1}{in}\left[e^{inx}\right]_0^{2\pi} = \frac{1}{in} \left[\cos(2\pi n)+i\sin(2\pi n) - 1\right] = 0~.
+\end{align*}
+Thus the equality holds.
+
+Now assume $n=0$. We compute,
+\begin{align*}
+\frac{2\pi}{N}\sum_{j=0}^{N-1} e^{i(0)x_j} = \frac{2\pi}{N}\sum_{j=0}^{N-1} 1 = \left(\frac{2\pi}{N} \right) N = 2\pi~,
+\end{align*}
+and
+\begin{align*}
+\int_0^{2\pi} e^{i(0)x} ~dx = \int_0^{2\pi} ~dx = 2\pi~.
+\end{align*}
+
+Finally, let $g$ be a function such that $g \in \text{span} \{e^{inx}\}_{|n|<N}$. Thus it is of the form $g(x) = \sum_{|n|<N} c_ne^{inx}$ with $c_n$ being constant coefficients. Then,
+\begin{align*}
+\int_0^{2\pi} g(x)~dx &= \sum_{|n|<N} c_n\left( \int_0^{2\pi} e^{inx}~dx \right)\\ &= \sum_{|n|<N} c_n \left( \frac{2\pi}{N}\sum_{j=0}^{N-1} e^{inx_j} \right)\\ &= \frac{2\pi}{N} \sum_{j=0}^{N-1} \sum_{|n|<N} c_ne^{inx_j} \\
+&= \frac{2\pi}{N} \sum_{j=0}^{N-1} g(x_j)~.
+\end{align*}
+Thus, the trapezoidal rule is exact for all functions in the span of $\{\exp(inx)\}_{|n|<N}$.
+
+\end{solution}
+
+\end{questions}

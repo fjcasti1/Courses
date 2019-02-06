@@ -1,0 +1,40 @@
+\textbf{(\textit{Fourier-Galerkin method}) Let $\mathcal{L}$ be a differential operator of the form $\mathcal{L} = \sum_{k=0}^m \alpha_k\frac{d^k}{dx^k}$, with $\alpha_k\in\C$. Suppose we are interested in solving the differential equation $\mathcal{L}u=g$. Let
+\begin{align*}
+u_N=\sum_{n=-N/2}^{N/2}c_ne^{inx},
+\end{align*}
+where the coefficients $c_n$ are chosen so that $\langle\mathcal{L}u_N-g,e^{ikx}\rangle=0$ for $k=-N/2,\dots,N/2$. Show that $||\mathcal{L}u_N-g||\leq ||\mathcal{L}w-g||$ for all $w$ in the span of $\{e^{inx}\}_{|n|\leq N/2}$.}
+\newline
+
+Let's first compute the result of
+\begin{align*}
+\mathcal{L}u_N &= \sum_{k=0}^m \alpha_k\frac{d^k}{dx^k}\left[\sum_{n=-N/2}^{N/2}c_ne^{inx}\right]\\
+&=\sum_{n=-N/2}^{N/2}c_n\sum_{k=0}^m \alpha_k(in)^ke^{inx}.
+\end{align*}
+Before we continue, we work on the other piece of information, $\langle\mathcal{L}u_N-g,e^{ikx}\rangle=0$, which implies
+\begin{align*}
+\langle\mathcal{L}u_N,e^{ilx}\rangle=\langle g,e^{ilx}\rangle,
+\end{align*}
+where we have used the index $l$ for future convenience. Now,
+\begin{align*}
+\langle\mathcal{L}u_N,e^{ilx}\rangle &= \sum_{n=-N/2}^{N/2}c_n\sum_{k=0}^m \alpha_k(in)^k\langle e^{inx},e^{ilx}\rangle\\
+&= \sum_{n=-N/2}^{N/2}c_n\sum_{k=0}^m \alpha_k(in)^k2\pi \delta_{nl}\\
+&= 2\pi c_l\sum_{k=0}^m \alpha_k(il)^k\\
+&= \langle g,e^{ilx}\rangle.
+\end{align*}
+Hence, retaking the index $n$,
+\begin{align*}
+\langle\mathcal{L}u_N,e^{inx}\rangle &= 2\pi c_n\sum_{k=0}^m \alpha_k(in)^k = \langle g,e^{inx}\rangle.
+\end{align*}
+Further, we can rewrite  $\mathcal{L}u_N$ as
+\begin{align*}
+\mathcal{L}u_N &= \sum_{n=-N/2}^{N/2}c_n\sum_{k=0}^m \alpha_k(in)^ke^{inx}\\
+&= \frac{1}{2\pi}\sum_{n=-N/2}^{N/2}2\pi c_n\sum_{k=0}^m \alpha_k(in)^ke^{inx}\\
+&= \frac{1}{2\pi}\sum_{n=-N/2}^{N/2} \langle g,e^{inx}\rangle e^{inx}\\
+&= \sum_{n=-N/2}^{N/2} \langle g,\frac{e^{inx}}{\sqrt{2\pi}}\rangle \frac{e^{inx}}{\sqrt{2\pi}}\\
+&= \sum_{n=-N/2}^{N/2} \langle g,e_n\rangle e_n,
+\end{align*}
+where we are denoting $e_n=\frac{e^{inx}}{\sqrt{2\pi}}$ as the orthonormal vectors. Note that the set of $\{e_n\}_{|n|\leq N/2}$ form an orthonormal base. Since $\mathcal{L}u_N$ can be written as
+\begin{align*}
+\mathcal{L}u_N = \sum_{n=-N/2}^{N/2} \langle g,e_n\rangle e_n,
+\end{align*}
+by the previous result in problem 2, $||\mathcal{L}u_N-g||\leq||\mathcal{L}w-g||$ for all $g$ in the span of $e_1, \cdots, e_N$. 
