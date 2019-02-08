@@ -1,30 +1,77 @@
-\begin{verbatim}
+\textbf{Let $f(x)=3/(5-4\cos(x))$. Compute its Fourier approximation for $N = 20 : 10 : 500$ and plot the error using \textsl{loglog}. What is the largest strip around the real axis for which $f$ can be extended to an analytic function? How does this relate to the error bound for analytic functions derived in class?}
+\newline
+
+In this case the function $f$ is $2\pi$-periodic, as we can see in figure 1, and analytic inside the strip $|\Im(z)|\leq a$. To determine the value of $a$, we solve
+\begin{align*}
+5-4\cos(z)=0 \Rightarrow z=\cos^{-1}(5/4)\approx\ln(2)i. 
+\end{align*}
+Hence, $a\approx \ln(2)$. 
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=1]{P5_1.eps}}
+\caption{Graph of the function to approximate.}
+\end{figure}
+
+Given that the function is $2\pi$-periodic and analytic inside the strip $|\Im(z)|\leq a$, the error is bounded as follows
+\begin{align*}
+\left|\mathcal{F}[u](x)-\mathcal{F}_N[u](x)\right|\leq \frac{4\pi M}{a}e^{-aN} = \frac{4\pi M}{\ln(2)}e^{-\ln(2)N} = \frac{4\pi M}{\ln(2)}2^{-N} \propto 2^{-N},
+\end{align*}
+where $M = \max_{x\in[0,2\pi]}|f(x-ai)|$. We can check in the last figure how this convergence is much faster. The points that separate from the error bound are due to round-off errors.
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=1]{P5_2.eps}}
+\caption{Approximation error and its bound.}
+\end{figure}
+
+\subsection*{Matlab code for this problem}\begin{verbatim}
 %% Problem 5
-N = 20:10:500;
-x = chebfun('x',[0 2*pi]);
+clear variables; close all; clc
+figformat='epsc';
+
+% Plot function
+
+x0 = -2*pi;
+xf = 2*pi;
+x = chebfun('x',[x0 xf]);
 f = 3./(5-4*cos(x));
 
 figure
-plot(f,'linewidth',2)
+plot(f,'b-','linewidth',2)
+hold on
+plot([0 0],[0 3.5],'r--')
 grid on
 xlabel('$x$','interpreter','latex')
 ylabel('$f(x)=\frac{3}{5-4\cos(x)}$','interpreter','latex')
 set(gca,'fontsize',14)
+set(gca,'XTick',x0:pi/2:xf) 
+xticklabels({'-2\pi','-3\pi/2','-\pi','-\pi/2','0','\pi/2','\pi','3\pi/2','2\pi'})
 txt='Latex/FIGURES/P5_1';
 saveas(gcf,txt,figformat)
 
-for j = 1:length(N)
+%%
+% Approximation and error
+N = 20:10:500;
+x0 = 0;
+xf = 2*pi;
+x = chebfun('x',[x0 xf]);
+f = 3./(5-4*cos(x));
+
+parfor j = 1:length(N)
     A = exp(1i*x*(-N(j):N(j)));
     lambda = 1/(2*pi)*A'*f;
     fn = A*lambda;
     err(j) = norm(f-fn,Inf);
 end
-
+%%
 figure
-loglog(err,'*','MarkerSize',12)
+loglog(N,err,'*','MarkerSize',12)
+hold on
+loglog(N,2.^(-abs(N)),'r','linewidth',2)
 grid on
+axis([10 500 1e-16 1e-1])
 xlabel('$N$','interpreter','latex')
 ylabel('Error','interpreter','latex')
+legend('Approximation Error','Error Bound')
 set(gca,'fontsize',14)
 txt='Latex/FIGURES/P5_2';
 saveas(gcf,txt,figformat)

@@ -1,31 +1,130 @@
+\textbf{Let $f(x)=\sin^3(x/2)$. Compute its Fourier approximation for $N = 20 : 10 : 500$ and plot the error using \textsl{loglog}. Does this convergence plot agree with the error bound derived in class? Explain.}
+\newline
+
+The first thing to notice is that the function is not $2\pi$-periodic, as we can see in the figure below.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=1]{P4_1.eps}}
+\caption{Original function $f(x)$.}
+\end{figure}
+
+Hence, we will approximate the error using the following upper bound,
+\begin{align*}
+\left|\mathcal{F}[u](x)-\mathcal{F}_N[u](x)\right|\leq \frac{2}{m-1}||u^{(m)}||_2\frac{1}{N^{m-1}}.
+\end{align*}
+The theory states that the function $u$, its $m-1$ derivatives and their periodic extensions must be continuous. Therefore we construct the periodic extension of $f$, $f_p(x) = |\sin^3(x/2)|$, shown below.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=1]{P4_2.eps}}
+\caption{Periodic extension of $f$.}
+\end{figure}
+
+Now we can check how many continuous derivatives does $f_p$ have:
+\begin{itemize}
+\item First Derivative:
+\begin{align*}
+f'_p(x)=
+\end{align*}
+\item Second Derivative:
+\begin{align*}
+f''_p(x)=
+\end{align*}
+\item Third Derivative:
+\begin{align*}
+f'''_p(x)=
+\end{align*}
+\end{itemize}
+Since the third derivative is discontinuous at $x=0$, $m=3$. Thus, our error is
+\begin{align*}
+\left|\mathcal{F}[u](x)-\mathcal{F}_N[u](x)\right|\leq ||u^{(m)}||_2\frac{1}{N^2}\propto N^{-2}.
+\end{align*}
+
+However, this is a conservative bound. It is no taking into consideration the particular function we are working with. In this case, it is possible to perform one more integreation by parts and the error in fact decays as $N^{-3}$, as show in the figure below.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=1]{P4_3.eps}}
+\caption{Approximation error and its bound.}
+\end{figure}
+
+\subsection*{Matlab code for this problem}
 \begin{verbatim}
 %% Problem 4
-N = 20:10:500;
-x = chebfun('x',[0 2*pi]);
+clear variables; close all; clc
+figformat='png';
+
+% Plot function
+x0 = -2*pi;
+xf = 2*pi;
+x = chebfun('x',[x0 xf]);
 f = sin(x/2).^3;
 
 figure
-plot(f,'linewidth',2)
+plot(f,'b-','linewidth',2)
+hold on
+plot([0 0],[-1 1],'r--')
 grid on
+axis([x0 xf -1 1])
 xlabel('$x$','interpreter','latex')
 ylabel('$f(x)=\sin^3(x/2)$','interpreter','latex')
 set(gca,'fontsize',14)
+set(gca,'XTick',x0:pi/2:xf) 
+xticklabels({'-2\pi','-3\pi/2','-\pi','-\pi/2','0','\pi/2','\pi','3\pi/2','2\pi'})
 txt='Latex/FIGURES/P4_1';
 saveas(gcf,txt,figformat)
 
-for j = 1:length(N)
+x0 = -2*pi;
+xf = 0;
+x = chebfun('x',[x0 xf]);
+fp1 = -sin(x/2).^3;
+x0 = 0;
+xf = 2*pi;
+x = chebfun('x',[x0 xf]);
+fp2 = sin(x/2).^3;
+
+x0 = -2*pi;
+xf = 2*pi;
+figure
+plot(fp1,'b-','linewidth',2)
+hold on
+plot(fp2,'b-','linewidth',2)
+plot([0 0],[0 1],'r-')
+grid on
+axis([x0 xf 0 1])
+xlabel('$x$','interpreter','latex')
+ylabel('$f_p(x)=|\sin^3(x/2)|$','interpreter','latex')
+set(gca,'fontsize',14)
+set(gca,'XTick',x0:pi/2:xf) 
+xticklabels({'-2\pi','-3\pi/2','-\pi','-\pi/2','0','\pi/2','\pi','3\pi/2','2\pi'})
+txt='Latex/FIGURES/P4_2';
+saveas(gcf,txt,figformat)
+
+% Approximation and Error
+N = 20:10:500;
+x0 = 0;
+xf = 2*pi;
+x = chebfun('x',[x0 xf]);
+f = sin(x/2).^3;
+
+parfor j = 1:length(N)
     A = exp(1i*x*(-N(j):N(j)));
     lambda = 1/(2*pi)*A'*f;
     fn = A*lambda;
     err(j) = norm(f-fn,Inf);
 end
 
+% Plot Error
 figure
-loglog(err,'*','MarkerSize',12)
+loglog(N,err,'*','MarkerSize',12)
+hold on
+loglog(N,abs(N).^-3,'r-')
 grid on
+% axis([20 510 1e-10 1e-1])
 xlabel('$N$','interpreter','latex')
 ylabel('Error','interpreter','latex')
 set(gca,'fontsize',14)
-txt='Latex/FIGURES/P4_2';
+txt='Latex/FIGURES/P4_3';
 saveas(gcf,txt,figformat)
 \end{verbatim}
