@@ -1,0 +1,43 @@
+\textbf{Let $f(x)=\sum_{n=-\infty}^{\infty}\frac{1}{(1+i)(n+1/2)^6}e^{inx}$. Compute the Fourier coefficients of $f$ using a DFT or FFT on 11 points to obtain $\hat{v}_k$ and verify the aliasing formula for the coefficients: 
+\begin{align*}
+\hat{v}_k-\hat{f}_k=\sum_{m\neq 0}\hat{f}_{k+mN}
+\end{align*}}
+\newline
+
+For this problem we inmediately have
+\begin{align*}
+\hat{f}_k=\frac{1}{(1+i)(k+1/2)^6}.
+\end{align*}
+To compute $\hat{v}_k=\frac{1}{N}\sum_0^{N-1}f(x_j)e^{-ikx_j}$ we need first $f(x_j)$. We can compute the values of the function using the information given by the problem, truncating the sum at $n=1000$ (because for higher values of $n$ we reach machine precision when calculating the remainder terms of the sum):
+\begin{align*}
+f(x_j)=\sum_{n=-1000}^{1000}\frac{1}{(1+i)(n+1/2)^6}e^{inx_j}.
+\end{align*}
+Once we have these values it is easy to compute $\hat{v}_k$. The right hand side of the equation is calculated for every value of $k$ in a loop in MATLAB, see code below. We have obtained an accuracy of $10^{-14}$ between the two sides of the equation. So the aliasing formula is verified.
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 2 
+x0=0;
+xf=2*pi;
+N=11;
+K=5;
+L=1e3;
+x=linspace(x0,xf,N+1);
+x(end)=[];
+k=-K:K;
+l=-L:L;
+
+fhat = 1./((1+1i)*(k+(1/2)).^6);
+fxj = 1./((1+1i)*(l+(1/2)).^6)*exp(1i*l'*x);
+vhat = (1/N)*fxj*exp(-1i*x'*k);
+
+lhs = vhat-fhat;
+m = l;
+m(1001) = [];
+
+rhs = zeros(1,11);
+for l = 1:length(k)
+   rhs(l) = sum(1./((1+1i)*((k(l)+m*N)+(1/2)).^6));
+end
+diff = lhs-rhs
+\end{verbatim}

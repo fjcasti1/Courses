@@ -1,0 +1,89 @@
+\textbf{Write a function that solves Burgers equation
+\begin{align*}
+&u_t+uu_x=\varepsilon u_{xx},~~~~~x\in(0,1),~~t\in(0,t_{max}]\\
+&u(0,x)=sin^4(\pi x)
+\end{align*}
+and periodic boundary conditions. Use Fourier to compute derivatives in space and ode113 to advance in time. Solve this PDE for $\varepsilon= 0.1,0.01,$ and $0.001$. In each case, can you find solutions that areaccurate to three digits at $t= 1$?}
+\newline
+
+Since the domain is $1$-periodic, in order to use Fourier DFT comfortably we will change the space variable $x$ to work with a PDE and boundary conditions $2\pi$-periodic. The convenient change of variable is $y = 2\pi x$. Now $y$ is $2\pi$-periodic. Then, the PDE is changed as follows,
+\begin{align*}
+&u_t+2\pi uu_y=4\pi^2\varepsilon u_{yy},~~~~~y\in(0,2\pi),~~t\in(0,t_{max}]\\
+&u(0,y)=sin^4(y/2).
+\end{align*}
+We can easily solve this PDE using Fourier Derivatives, see code below. The errors I have obtained, using the infinity norm, are:
+\begin{center}
+ \begin{tabular}{||c c c||} 
+ \hline
+ $\varepsilon$ & $N$ & Error \\ [0.5ex] 
+ \hline\hline
+ $0.1$  & $64$ & $0.4192\cdot 10^{-3}$ \\ 
+ \hline
+ $0.01$  & $64$ & $0.4839\cdot 10^{-3}$ \\
+ \hline
+ $0.001$ & $512$ & $0.9414\cdot 10^{-3}$ \\
+ \hline
+\end{tabular}
+\end{center}
+We can see how, the smaller the $\varepsilon$ (and therefore more insignificant the diffusion), the more difficult it is to obtain an accurate solution.
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 3
+tmax = 1;
+eps = [1e-1 1e-2 1e-3]';
+tol = 1e-3;
+mesh = zeros(length(eps),1);
+E = zeros(length(eps),1);
+for m=1:length(eps)
+    j = 5;
+    N = 2^j;
+    error = 1;
+    u = PDE_solve(N,tmax,eps(m),false);
+    while (error>tol && N<2048)
+        j = j+1;
+        N = 2^j;
+        ufine = PDE_solve(N,tmax,eps(m),false);
+        error = norm(u(end,:)-ufine(end,2:2:end),inf);
+        u = ufine;
+        j
+    end
+    m
+    mesh(m) = N;
+    E(m) = error;
+end
+mesh
+E
+
+function [u,x]=PDE_solve(N,tmax,eps,movie)
+x0 = 0;
+xf = 2*pi;
+h = (xf-x0)/N;
+x = x0 + h*(1:N)';
+u0 = sin(x/2).^4;
+ 
+tic;
+[t,u] = ode113(@(t,u) rhs(u,N,eps), [0 tmax], u0);
+toc
+if movie
+    figure
+    for k = 1:2:length(t)
+        plot(x,u(k,:));
+        axis([x0 xf -.2 1.2]);
+        drawnow
+    end
+end
+
+end
+ 
+function y = rhs(u,N,eps)
+    vhat = fft(u);
+    what = 1i*[0:N/2-1 0 -N/2+1:-1]' .* vhat;
+    what2 = -([0:N/2-1 N/2 -N/2+1:-1].^2)' .* vhat;
+    
+    ux = real(ifft(what));
+    uxx = real(ifft(what2));
+    
+    y = 4*pi^2*eps*uxx-2*pi*u.*ux;
+end
+\end{verbatim}

@@ -21,22 +21,7 @@ The theory states that the function $u$, its $m-1$ derivatives and their periodi
 \caption{Periodic extension of $f$.}
 \end{figure}
 
-Now we can check how many continuous derivatives does $f_p$ have:
-\begin{itemize}
-\item First Derivative:
-\begin{align*}
-f'_p(x)=
-\end{align*}
-\item Second Derivative:
-\begin{align*}
-f''_p(x)=
-\end{align*}
-\item Third Derivative:
-\begin{align*}
-f'''_p(x)=
-\end{align*}
-\end{itemize}
-Since the third derivative is discontinuous at $x=0$, $m=3$. Thus, our error is
+We can easily compute the first three derivatives and check that all of them except the third one are continuous at $x=0$. Thus, $m=3$ and our error is bounded by
 \begin{align*}
 \left|\mathcal{F}[u](x)-\mathcal{F}_N[u](x)\right|\leq ||u^{(m)}||_2\frac{1}{N^2}\propto N^{-2}.
 \end{align*}

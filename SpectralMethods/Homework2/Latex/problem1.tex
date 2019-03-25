@@ -1,0 +1,35 @@
+\textbf{Suppose $f$ is $2\pi$−periodic and analytic in the complex strip $|Im(z)|<a$  with $|f(z)|\leq M_{f,a}$ for all $z$ in this strip. Show that
+\begin{align*}
+\left|\int_0^{2\pi}f(x)dx-\frac{2\pi}{N}\sum_{j=0}^{N-1}f(2\pi j/N)\right|=\mathcal{O}\left(M_{f,a}e^{-(a-\varepsilon)N}\right),~~\text{ as }N\rightarrow\infty
+\end{align*}
+for every $\varepsilon > 0$
+}
+\newline
+
+Let us recall that 
+\begin{align*}
+\hat{f}_k=\frac{1}{2\pi}\int_0^{2\pi}f(x)e^{-ikx}dx,
+\end{align*}
+and
+\begin{align*}
+\hat{v}_k=\frac{1}{N}\sum_{j=0}^{N-1}f(x_j)e^{-ikx_j},
+\end{align*}
+with $x_j=2\pi j/N$, $j=0,\dots,N-1$. Therefore, using the aliasing formula as well,
+\begin{align*}
+\left|\int_0^{2\pi}f(x)dx-\frac{2\pi}{N}\sum_{j=0}^{N-1}f(2\pi j/N)\right| &= 2\pi\left|\hat{f}_0-\hat{v}_0\right|\\
+&= 2\pi\left|\hat{f}_0-\hat{f}_0-\sum_{m\neq 0}\hat{f}_mN\right|\\
+&= 2\pi\left|\sum_{m\neq 0}\hat{f}_mN\right|.
+\end{align*}
+Since the function is analytic in the complex strip $|Im(z)|<a$ , we can say that it is analytic in the complex strip $|Im(z)|\leq a-\varepsilon$, for every $\varepsilon>0$. Hence, we can use the bound studied in class,
+\begin{align*}
+\left|\int_0^{2\pi}f(x)dx-\frac{2\pi}{N}\sum_{j=0}^{N-1}f(2\pi j/N)\right| &= 2\pi\left|\sum_{m\neq 0}\hat{f}_mN\right|\\
+&= 4\pi M_{f,a}\sum_{m\neq 0}e^{-(a-\varepsilon)\left|mN\right|}\\
+&= 8\pi M_{f,a}\sum_{m=1}^{\infty}e^{-(a-\varepsilon)mN}\\
+&\leq 8\pi M_{f,a}\sum_{k=N}^{\infty}e^{-(a-\varepsilon)k}\\
+&\leq \frac{8\pi M_{f,a}}{a-\varepsilon}e^{-(a-\varepsilon)N}.
+\end{align*}
+Thus,
+\begin{align*}
+\left|\int_0^{2\pi}f(x)dx-\frac{2\pi}{N}\sum_{j=0}^{N-1}f(2\pi j/N)\right|=\mathcal{O}\left(M_{f,a}e^{-(a-\varepsilon)N}\right),~~\text{ as }N\rightarrow\infty
+\end{align*}
+for every $\varepsilon > 0$
