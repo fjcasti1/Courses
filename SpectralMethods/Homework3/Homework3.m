@@ -1,5 +1,24 @@
 %% HOMEWORK 3 - FRANCISCO CASTILLO
 clear all; close all;
+% % % %% Problem 4 - 6.7 Trefethen
+% % % Nmax = 50; E = zeros(Nmax,1);
+% % % for N = 1:Nmax;
+% % %     [D,x] = cheb(N);
+% % %     v = 1./(1+x.^2); vprime = -2*x.*v.^2;    % analytic in [-1,1]
+% % %     E(N) = norm(D*v-vprime,inf);
+% % % end
+% % % % Define ellipse and potential on it.
+% % % a = sqrt(2) ; b = 1;
+% % % phif = log(0.5*(a+b));
+% % % % Plot results:
+% % % figure
+% % % semilogy(1:Nmax,E(:),'.','markersize',12)
+% % % line(1:Nmax,E(:))
+% % % hold on
+% % % semilogy(1:Nmax,exp(-(phif+log(2))*(1:Nmax)))
+% % % axis([0 Nmax 1e-16 1e3]), grid on
+% % % set(gca,'xtick',0:10:Nmax,'ytick',(10).^(-15:5:0))
+% % % xlabel N, ylabel error, title('1/(1+x^2)')
 
 % % % %% Problem 5 - 8.4 Trefethen
 % % % 
