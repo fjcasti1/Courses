@@ -83,45 +83,77 @@ clear all; close all;
 % % %     end
 % % %     time2(k) = toc;
 % % % end
-%% Problem 5 - 8.5 Trefethen
+% % % %% Problem 5 - 8.5 Trefethen
+% % % 
+% % % % Grid and initial data:
+% % % 
+% % % Nvector = [20,24,48];
+% % % time2 = zeros(length(Nvector),1);
+% % % for k = 1:1%length(Nvector)
+% % %     N=Nvector(k);
+% % %     [D,x] = cheb(N);  y = x;
+% % %     D2 = D^2;
+% % %     D2 = D2(2:end-1,2:end-1);
+% % %     L = kron(eye(N-1),D2)+kron(D2,eye(N-1));
+% % %     A = [zeros(size(L)) eye(size(L)); L zeros(size(L))];
+% % %     dt = 6/N^2;
+% % %     [xx,yy] = meshgrid(x(2:N),y(2:N));
+% % %     x = xx(:); y = yy(:);
+% % % 
+% % %     plotgap = round((1/3)/dt); dt = (1/3)/plotgap;
+% % %     u0 = exp(-40*((x-.4).^2 + y.^2));
+% % %     u = u0;
+% % %     % Time-stepping by leap frog formula:
+% % %     [ay,ax] = meshgrid([.56 .06],[.1 .55]); clf
+% % %     tic
+% % %     for n = 0:3*plotgap
+% % %         t = n*dt;
+% % %         if rem(n+.5,plotgap)<1     % plots at multiples of t=1/3
+% % %           uu = reshape(u,N-1,N-1);
+% % %           i = n/plotgap+1;
+% % %           subplot('position',[ax(i) ay(i) .36 .36])
+% % %           [xxx,yyy] = meshgrid(-1:1/16:1,-1:1/16:1);
+% % %           uuu = interp2(xx,yy,uu,xxx,yyy,'cubic');
+% % %           mesh(xxx,yyy,uuu), axis([-1 1 -1 1 -0.15 1])
+% % %           colormap(1e-6*[1 1 1]); title(['t = ' num2str(t)]), drawnow
+% % %         end
+% % %     % ------------------------------ %    
+% % %     % -- Using matrix exponential -- %
+% % %     % ------------------------------ %    
+% % %         v = expm(A*t)*[u0;zeros(size(u0))];
+% % %         u = v(1:length(u0));
+% % %     end
+% % %     time2(k) = toc;
+% % % end
 
-% Grid and initial data:
-
-Nvector = [20,24,48];
-time2 = zeros(length(Nvector),1);
-for k = 1:1%length(Nvector)
-    N=Nvector(k);
-    [D,x] = cheb(N);  y = x;
-    D2 = D^2;
-    D2 = D2(2:end-1,2:end-1);
-    L = kron(eye(N-1),D2)+kron(D2,eye(N-1));
-    A = [zeros(size(L)) eye(size(L)); L zeros(size(L))];
-    dt = 6/N^2;
-    [xx,yy] = meshgrid(x(2:N),y(2:N));
-    x = xx(:); y = yy(:);
-
-    plotgap = round((1/3)/dt); dt = (1/3)/plotgap;
-    u0 = exp(-40*((x-.4).^2 + y.^2));
-    u = u0;
-    % Time-stepping by leap frog formula:
-    [ay,ax] = meshgrid([.56 .06],[.1 .55]); clf
-    tic
-    for n = 0:3*plotgap
-        t = n*dt;
-        if rem(n+.5,plotgap)<1     % plots at multiples of t=1/3
-          uu = reshape(u,N-1,N-1);
-          i = n/plotgap+1;
-          subplot('position',[ax(i) ay(i) .36 .36])
-          [xxx,yyy] = meshgrid(-1:1/16:1,-1:1/16:1);
-          uuu = interp2(xx,yy,uu,xxx,yyy,'cubic');
-          mesh(xxx,yyy,uuu), axis([-1 1 -1 1 -0.15 1])
-          colormap(1e-6*[1 1 1]); title(['t = ' num2str(t)]), drawnow
-        end
-    % ------------------------------ %    
-    % -- Using matrix exponential -- %
-    % ------------------------------ %    
-        v = expm(A*t)*[u0;zeros(size(u0))];
-        u = v(1:length(u0));
-    end
-    time2(k) = toc;
+%% Problem 7
+close all
+f = chebfun('3/(5-4*cos(x))',[-pi,pi]);
+plot(f)
+grid on
+N = 2:2:50;
+for k = 1:length(N)
+    fcheb = chebfun('3/(5-4*cos(x))',[-pi,pi],N(k));
+    ffour = chebfun('3/(5-4*cos(x))',[-pi,pi],N(k),"trig");
+    errcheb(k) = norm(f-fcheb,inf);
+    errfour(k) = norm(f-ffour,inf);
+    % b
+    [~,x] = cheb(N(k)); x = pi*x;
+    hcheb(k) = max(abs(x(2:end)-x(1:end-1)));
+    hfour(k) = 2*pi/(N(k));
 end
+% a
+figure
+plot(N,errcheb,'b',N,errfour,'r')
+% b
+figure
+plot(hcheb.^(-1),errcheb,'b',hfour.^(-1),errfour,'r')
+hold on
+plot(hcheb.^(-1),errcheb,'b*',hfour.^(-1),errfour,'r*')
+% c
+hcheb./hfour
+
+
+
+
+
