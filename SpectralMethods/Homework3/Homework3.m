@@ -1,8 +1,83 @@
 %% HOMEWORK 3 - FRANCISCO CASTILLO
 clear all; close all;
-% % % %% Problem 4 - 6.7 Trefethen
+labelfontsize = 14;
+figformat = 'png';
+% % % %% Problem 1 - 8.4 ATAP
+% % % % 
+% % % rho = 0.5*pi+sqrt(0.25*pi^2-1);
+% % % orderAcuracy('tan(x)',50,2,rho)
+% % % 
+% % % rho = (0.5*pi+sqrt(0.25*pi^2+1));
+% % % orderAcuracy('tanh(x)',40,2,rho)
+% % % 
+% % % rho = (3+sqrt(8));
+% % % orderAcuracy('log((x+3)/4)/(x-1)',30,2,rho,'log1')
+% % % 
+% % % k = atan(pi/2);
+% % % rho = k+sqrt(k^2-1);
+% % % orderAcuracy('tan(tan(x))',460,20,rho)
+% % % 
+% % % rho = -1;
+% % % orderAcuracy('(1+x)*log(1+x)',460,20,rho,'(1+x)log(1+x)wrong')
+% % % orderAcuracy('(1+x)*log(1+x)',460,20,rho,'(1+x)log(1+x)right')
+% % % 
+% % % nn = 2:2:20;
+% % % err = 0*nn;
+% % % for k = 1:length(nn)
+% % %     N = nn(k);
+% % %     x = -.98:0.02:1;
+% % %     F = 0*x;
+% % %     FN = F;
+% % %     for j = 1:length(x) 
+% % %         f = chebfun('cos(t^2)', [-1 x(j)]);
+% % %         fN = chebfun('cos(t^2)', [-1 x(j)],N);
+% % %         F(j) = sum(f);
+% % %         FN(j) = sum(fN);
+% % %         F = [0 F]; FN = [0 FN]; x = [-1 x];
+% % %     end
+% % %     err(k) = norm(F-FN);
+% % % end
+% % % figure
+% % % semilogy(nn,err,'r*')
+% % % grid on
+% % % xlabel('$N$','interpreter','latex')
+% % % ylabel('$\|f-p_N\|$','interpreter','latex')
+% % % set(gca,'fontsize',labelfontsize)
+% % % txt='Latex/FIGURES/integral';
+% % % saveas(gcf,txt,figformat)
+% % % 
+% % % function orderAcuracy(func,Nmax,Nstep,rho,namefig)
+% % %     labelfontsize = 14;
+% % %     figformat = 'png';
+% % %     if nargin < 5
+% % %         namefig = func;
+% % %     end
+% % %     f = chebfun(func);
+% % %     nn = 0:Nstep:Nmax; ee = 0*nn;
+% % %     for j=1:length(nn)
+% % %         n = nn(j);
+% % %         fn = chebfun(f,n+1);
+% % %         ee(j) = norm(f-fn);
+% % %     end
+% % %     figure
+% % %     if strcmp(namefig,'(1+x)log(1+x)right')
+% % %         semilogy(nn,2000*nn.^(-3.8),'-b')
+% % %     else 
+% % %         semilogy(nn,rho.^(-nn),'-b')
+% % %     end
+% % %     hold on
+% % %     semilogy(nn,ee,'r*')
+% % %     grid on
+% % %     xlabel('$N$','interpreter','latex')
+% % %     ylabel('$\|f-p_N\|$','interpreter','latex')
+% % %     set(gca,'fontsize',labelfontsize)
+% % %     txt=['Latex/FIGURES/' namefig];
+% % %     saveas(gcf,txt,figformat)
+% % % end
+
+% % % %% Problem 3 - 6.7 Trefethen
 % % % Nmax = 50; E = zeros(Nmax,1);
-% % % for N = 1:Nmax;
+% % % for N = 1:Nmax
 % % %     [D,x] = cheb(N);
 % % %     v = 1./(1+x.^2); vprime = -2*x.*v.^2;    % analytic in [-1,1]
 % % %     E(N) = norm(D*v-vprime,inf);
@@ -12,20 +87,19 @@ clear all; close all;
 % % % phif = log(0.5*(a+b));
 % % % % Plot results:
 % % % figure
-% % % semilogy(1:Nmax,E(:),'.','markersize',12)
-% % % line(1:Nmax,E(:))
+% % % semilogy(1:Nmax,E(:),'r*')
 % % % hold on
 % % % semilogy(1:Nmax,exp(-(phif+log(2))*(1:Nmax)))
 % % % axis([0 Nmax 1e-16 1e3]), grid on
 % % % set(gca,'xtick',0:10:Nmax,'ytick',(10).^(-15:5:0))
-% % % xlabel N, ylabel error, title('1/(1+x^2)')
-
-% % % %% Problem 5 - 8.4 Trefethen
-% % % 
+% % % xlabel N, ylabel error
+% % % txt='Latex/FIGURES/P6_7';
+% % % saveas(gcf,txt,figformat)
+% % % %% Problem 4 - 8.4 Trefethen
+% % % format long
 % % % % Grid and initial data:
-% % % 
 % % % Nvector = [24,48];
-% % % time2 = zeros(length(Nvector),1);
+% % % time = zeros(length(Nvector),1);
 % % % for k = 1:length(Nvector)
 % % %     N=Nvector(k);
 % % %     [D,x] = cheb(N);  y = x;
@@ -60,7 +134,7 @@ clear all; close all;
 % % %         unew = 2*u - uold + dt^2*L*u; 
 % % %         uold = u; u = unew;
 % % %     % --------------- %
-% % %     % -- Using fft -- %
+% % %     % -- Using fft -- % Done in Program 20
 % % %     % --------------- %
 % % %     %     uxx = zeros(N+1,N+1); uyy = zeros(N+1,N+1);
 % % %     %     ii = 2:N;
@@ -81,15 +155,16 @@ clear all; close all;
 % % %     %                      W1(ii)./(1-y(ii).^2).^(3/2);
 % % %     %     end
 % % %     end
-% % %     time2(k) = toc;
+% % %     time(k) = toc;
 % % % end
-% % % %% Problem 5 - 8.5 Trefethen
-% % % 
+
+%% Problem 5 - 8.5 Trefethen
+
 % % % % Grid and initial data:
 % % % 
-% % % Nvector = [20,24,48];
-% % % time2 = zeros(length(Nvector),1);
-% % % for k = 1:1%length(Nvector)
+% % % Nvector = [24];
+% % % time = zeros(length(Nvector),1);
+% % % for k = 1:length(Nvector)
 % % %     N=Nvector(k);
 % % %     [D,x] = cheb(N);  y = x;
 % % %     D2 = D^2;
@@ -123,7 +198,7 @@ clear all; close all;
 % % %         v = expm(A*t)*[u0;zeros(size(u0))];
 % % %         u = v(1:length(u0));
 % % %     end
-% % %     time2(k) = toc;
+% % %     time(k) = toc;
 % % % end
 
 %% Problem 7
@@ -144,16 +219,27 @@ for k = 1:length(N)
 end
 % a
 figure
-plot(N,errcheb,'b',N,errfour,'r')
+semilogy(N,errcheb,'b',N,errfour,'r')
+hold on
+semilogy(N,errcheb,'b*',N,errfour,'r*')
+grid on
+xlabel('$N$','interpreter','latex')
+ylabel('$Error$','interpreter','latex')
+set(gca,'fontsize',labelfontsize)
+legend('Chebishev', 'Fourier')
+txt='Latex/FIGURES/P7_a';
+saveas(gcf,txt,figformat)
 % b
 figure
-plot(hcheb.^(-1),errcheb,'b',hfour.^(-1),errfour,'r')
+semilogy(hcheb.^(-1),errcheb,'b',hfour.^(-1),errfour,'r')
 hold on
-plot(hcheb.^(-1),errcheb,'b*',hfour.^(-1),errfour,'r*')
+semilogy(hcheb.^(-1),errcheb,'b*',hfour.^(-1),errfour,'r*')
+grid on
+xlabel('$1/h$','interpreter','latex')
+ylabel('$Error$','interpreter','latex')
+set(gca,'fontsize',labelfontsize)
+legend('Chebishev', 'Fourier')
+txt='Latex/FIGURES/P7_b';
+saveas(gcf,txt,figformat)
 % c
 hcheb./hfour
-
-
-
-
-

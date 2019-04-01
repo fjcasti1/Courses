@@ -19,14 +19,14 @@ for k = 1:length(Nvector)
     tic
     for n = 0:3*plotgap
         t = n*dt;
-        if rem(n+.5,plotgap)<1     % plots at multiples of t=1/3
-          i = n/plotgap+1;
-          subplot('position',[ax(i) ay(i) .36 .36])
-          [xxx,yyy] = meshgrid(-1:1/16:1,-1:1/16:1);
-          vvv = interp2(xx,yy,vv,xxx,yyy,'cubic');
-          mesh(xxx,yyy,vvv), axis([-1 1 -1 1 -0.15 1])
-          colormap(1e-6*[1 1 1]); title(['t = ' num2str(t)]), drawnow
-        end
+%         if rem(n+.5,plotgap)<1     % plots at multiples of t=1/3
+%           i = n/plotgap+1;
+%           subplot('position',[ax(i) ay(i) .36 .36])
+%           [xxx,yyy] = meshgrid(-1:1/16:1,-1:1/16:1);
+%           vvv = interp2(xx,yy,vv,xxx,yyy,'cubic');
+%           mesh(xxx,yyy,vvv), axis([-1 1 -1 1 -0.15 1])
+%           colormap(1e-6*[1 1 1]); title(['t = ' num2str(t)]), drawnow
+%         end
         uxx = zeros(N+1,N+1); uyy = zeros(N+1,N+1);
         ii = 2:N;
         for i = 2:N                % 2nd derivs wrt x in each row
