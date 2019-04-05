@@ -75,6 +75,41 @@ figformat = 'png';
 % % %     saveas(gcf,txt,figformat)
 % % % end
 
+%% Problem 2 - 8.7 ATAP
+
+% % % rho=1+sqrt(2);
+% % % orderAcuracy('sqrt(x^2+1)',50,2,rho)
+% % % 
+% % % function orderAcuracy(func,Nmax,Nstep,rho,namefig)
+% % %     labelfontsize = 14;
+% % %     figformat = 'png';
+% % %     if nargin < 5
+% % %         namefig = func;
+% % %     end
+% % %     f = chebfun(func);
+% % %     nn = 0:Nstep:Nmax; ee = 0*nn;
+% % %     for j=1:length(nn)
+% % %         n = nn(j);
+% % %         fn = chebfun(f,n+1);
+% % %         ee(j) = norm(f-fn);
+% % %     end
+% % %     figure
+% % %     if strcmp(namefig,'(1+x)log(1+x)right')
+% % %         semilogy(nn,2000*nn.^(-3.8),'-b')
+% % %     else 
+% % %         semilogy(nn,rho.^(-nn),'-b')
+% % %     end
+% % %     hold on
+% % %     semilogy(nn,ee,'r*')
+% % %     grid on
+% % %     xlabel('$N$','interpreter','latex')
+% % %     ylabel('$\|f-p_N\|$','interpreter','latex')
+% % %     set(gca,'fontsize',labelfontsize)
+% % %     txt=['Latex/FIGURES/' namefig];
+% % %     saveas(gcf,txt,figformat)
+% % % end
+
+
 % % % %% Problem 3 - 6.7 Trefethen
 % % % Nmax = 50; E = zeros(Nmax,1);
 % % % for N = 1:Nmax
@@ -206,7 +241,7 @@ close all
 f = chebfun('3/(5-4*cos(x))',[-pi,pi]);
 plot(f)
 grid on
-N = 2:2:50;
+N = 2:2:100;
 for k = 1:length(N)
     fcheb = chebfun('3/(5-4*cos(x))',[-pi,pi],N(k));
     ffour = chebfun('3/(5-4*cos(x))',[-pi,pi],N(k),"trig");
@@ -242,4 +277,13 @@ legend('Chebishev', 'Fourier')
 txt='Latex/FIGURES/P7_b';
 saveas(gcf,txt,figformat)
 % c
-hcheb./hfour
+figure
+plot(N,hcheb./hfour,'r*')
+grid on
+axis([0 N(end) 0 pi])
+xlabel('$N$','interpreter','latex')
+ylabel('$h_{Cheb}/h_{Fourier}$','interpreter','latex')
+set(gca,'fontsize',labelfontsize)
+legend('Chebishev', 'Fourier')
+txt='Latex/FIGURES/P7_c';
+saveas(gcf,txt,figformat)

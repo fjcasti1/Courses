@@ -1,7 +1,12 @@
-\textbf{}
+\textbf{Explain how the entries of the Chebishev differentiation matrix $D_N$ could be computed by suitable calls to chebfft rather than by explicit formulas as in Theorem 7. What is the asymptotic operation count for this method as $N\rightarrow\infty$?}
 \newline
+We can express the Chebishev interpolant of $f$ as
+\begin{align*}
+p_N(x) = \sum_{i=0}^Nl_j(x)f_j.
+\end{align*}
+Thus, the derivative can be expressed as,
+\begin{align*}
+p'_N(x) = \sum_{i=0}^Nl'_j(x)f_j.
+\end{align*}
+We could call chebfft to compute each derivative $l'_j(x)$, and introducing the results as columns in a matrix. The matrix formed would be the Chebishev differentiation matrix. Since the interpolant requires $N$ flops and the fft requires $N\log{N}$ assuming that we take full advantage of the algorightm, i.e., having $N$ as a power of 2. In addition, we have to call chebfft $N$ times, so the total number of flops grows as $N^3\log{N}$ as $N\rightarrow\infty$.
 
-\subsection*{Matlab code for this problem}
-\begin{verbatim}
-
-\end{verbatim}
