@@ -23,6 +23,7 @@ while t<tobs(end)
     else
         t=t+dt;
     end
+    cccc
     u = uold +dt*(D2*u+exp(u));
     
 %     u_n3 = u_n2+dt*D*(23*u_n2-16*u_n1+5*u_n)/12;
