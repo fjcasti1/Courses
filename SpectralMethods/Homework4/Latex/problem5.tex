@@ -1,0 +1,16 @@
+\textbf{Modify the code \textsc{fluidflow.m} to solve the equations 
+\begin{align*}
+\omega+\psi_y\omega_x-\psi_x\omega_y &= Pr\Delta\omega+RaPrT_x,\\
+T_t+\psi_yT_x-\psi_xT_y &= \Delta T,\\
+\Delta\psi &= -\omega,
+\end{align*}
+where $(x,y)\in (0,1)\times (0,1)$ and $t>0$. Here $\omega$ is the fluid vorticity, $\psi$ the stream function and $T$ the temperature. The independent non-dimensional constants are the Rayleigh number $Ra$, which reflects the buoyant contribution, and the Prandtl number $Pr$, which is the ratio of viscous to thermal diffusion. For this exercise, set to $Ra = 2\cdot 10^5$ and $Pr=0.71$ (air). The fluid is at rest at $t= 0$, with $T=\psi=\omega= 0$. The boundary condition for the stream function is $\left.\psi\right|_{\Gamma}=0$, which implies that there is no mass transfer through the boundary $\Gamma$. The value of the vorticity at the walls is expressed as $\omega_{\Gamma}=-\left.\Delta\psi\right|_{\Gamma}$ and the temperature at $\Gamma$ is defined by
+\begin{align*}
+T(t,x,y) = 
+\begin{cases}
+       2^9\tanh^4(100t)x^5(x-1)^4,&  y=0, x\in [0,1], t>0,\\
+       0,& (x,y)\in\Gamma, y\neq 0, t>0.
+\end{cases}
+\end{align*}
+}
+\newline

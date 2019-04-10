@@ -18,7 +18,7 @@ u = u0;
 h = 1-x(2);
 dt = h/2;
 t = 0;
-tf = 1;
+tf = 10;
 count=0;
 
 while t<tf
@@ -49,10 +49,10 @@ while t<tf
         zlim([-1 1])
         drawnow
         shg
-        saveas(gcf,'Latex/FIGURES/P4','png')
         xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
         ylabel('$y$','interpreter','latex','fontsize',labelfontsize)
         zlabel('$u(x,y)$','interpreter','latex','fontsize',labelfontsize)
         set(get(gca,'ZLabel'),'Rotation',0)
+        saveas(gcf,'Latex/FIGURES/P4','png')
     end
 end

@@ -38,3 +38,4 @@ ylabel('$u(x)$','fontsize',labelfontsize,'interpreter','latex')
 set(get(gca,'ylabel'),'rotation',0)
 txt = 'Latex/FIGURES/P1_b';
 saveas(gcf,txt,'png')
+

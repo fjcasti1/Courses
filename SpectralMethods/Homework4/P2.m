@@ -1,11 +1,13 @@
 %% Homework 4, Problem 2 - Francisco Castillo'
 clear all; close all; clc;
 labelfontsize = 14;
+markersize = 4;
 linewidth = 2;
 
 N = 50;
 V = [7,8];
-figure('units','normalized','outerposition',[0 0 1 1])
+levels = log10([1e-2 1e-3 1e-4 1e-5 1e-6]);
+% figure('units','normalized','outerposition',[0 0 1 1])
 for j=1:length(V)
     v = V(j);
     dt = v/N^2;
@@ -67,12 +69,12 @@ for j=1:length(V)
 
 
     subplot(2,2,j+2)
-    contourf(xx,yy,log10(ps))
+    contourf(xx,yy,log10(ps),levels)
     c = colorbar;
     hold on
     plot([-8,8],[0,0],'k')
     plot([0,0],[-8,8],'k')
-    plot(real(dtee),imag(dtee),'r*')
+    plot(real(dtee),imag(dtee),'r*','markersize',markersize)
     plot(r./s,'b','linewidth',linewidth)
     xlabel('$\Re(\lambda)$','interpreter','latex','fontsize',labelfontsize)
     ylabel('$\Im(\lambda)$','interpreter','latex','fontsize',labelfontsize)

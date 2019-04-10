@@ -49,14 +49,14 @@ while t<.1%200
    T = T + dt*(-v.*(D*T)-u.*(T*Dp)+T*D2p+D2*T);
    
    % compute stream function
-   tic 
-   wi = w(2:end-1,2:end-1); wi=wi(:);
-   psi(2:end-1,2:end-1) = reshape(up\(lo\(-wi(per))),N-2,N-2);
-   time1(i) = toc;
-   tic
-   psi2(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1),-w(2:end-1,2:end-1));
-   time2(i) = toc;
-   diff(i) = norm(psi-psi2);
+%    tic 
+%    wi = w(2:end-1,2:end-1); wi=wi(:);
+%    psi(2:end-1,2:end-1) = reshape(up\(lo\(-wi(per))),N-2,N-2);
+%    time1(i) = toc;
+%    tic
+   psi(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1),-w(2:end-1,2:end-1));
+%    time2(i) = toc;
+%    diff(i) = norm(psi-psi2);
 
    % Update Velocity
    u = D*psi;
@@ -77,10 +77,6 @@ while t<.1%200
    count = count + 1;
    if count == 200
        
-%        clev = [-734.8568e-009   -35.1228e-006    -1.5250e-003   -12.5292e-003   -22.7080e-003...
-%    -31.9941e-003   -44.0936e-003   -57.0353e-003   -69.0273e-003   -78.5768e-003   -84.4691e-003...
-%    -85.9000e-003   -82.4650e-003   -74.1142e-003   -61.1339e-003   -44.1653e-003   -23.8358e-003...
-%     -5.3693e-003   494.0942e-006   610.6630e-006   159.8619e-006    13.2590e-006    15.1974e-009];
        subplot(2,2,1)
        contourf(xx,yy,psi)
        axis([0 1 0 1]), axis square
@@ -111,31 +107,31 @@ while t<.1%200
               
        count = 0;
    end
-   t
+%    t
 end
 %%
-n = 1:i;
-figure
-plot(n,time1./time2)
-hold on
-plot(n,mean(time1./time2)*ones(size(N)),'r')
-plot(n,std(time1./time2)*ones(size(N))+mean(time1./time2)*ones(size(N)),'r-.')
-plot(n,-std(time1./time2)*ones(size(N))+mean(time1./time2)*ones(size(N)),'r-.')
-grid on
-xlim([0 n(end)])
-xlabel('$n$','interpreter','latex','fontsize',14)
-ylabel('$time_1/time_2$','interpreter','latex','fontsize',14)
-ylabel('$t_{LU}/t_{Sylvester}$','interpreter','latex','fontsize',14)
-saveas(gcf,'Latex/FIGURES/P5_comparison','png')
-
-figure
-plot(n,diff)
-grid on
-xlabel('$n$','interpreter','latex','fontsize',14)
-ylabel('$\|\psi_{LU}-\psi_{Sylvester}\|$','interpreter','latex','fontsize',14)
-ylabel('$\|\psi_{LU}-\psi_{Sylvester}\|_2$','interpreter','latex','fontsize',14)
-xlim([0 n(end)])
-saveas(gcf,'Latex/FIGURES/P5_diff','png')
+% n = 1:i;
+% figure
+% plot(n,time1./time2)
+% hold on
+% plot(n,mean(time1./time2)*ones(size(n)),'r')
+% plot(n,(mean(time1./time2)+std(time1./time2))*ones(size(n)),'r-.')
+% plot(n,(mean(time1./time2)-std(time1./time2))*ones(size(n)),'r-.')
+% grid on
+% xlim([0 n(end)])
+% xlabel('$n$','interpreter','latex','fontsize',14)
+% ylabel('$time_1/time_2$','interpreter','latex','fontsize',14)
+% ylabel('$t_{LU}/t_{Sylvester}$','interpreter','latex','fontsize',14)
+% saveas(gcf,'Latex/FIGURES/P5_comparison','png')
+% 
+% figure
+% plot(n,diff)
+% grid on
+% xlabel('$n$','interpreter','latex','fontsize',14)
+% ylabel('$\|\psi_{LU}-\psi_{Sylvester}\|$','interpreter','latex','fontsize',14)
+% ylabel('$\|\psi_{LU}-\psi_{Sylvester}\|_2$','interpreter','latex','fontsize',14)
+% xlim([0 n(end)])
+% saveas(gcf,'Latex/FIGURES/P5_diff','png')
 
 
 function Ty0 = TempBC(t,x)

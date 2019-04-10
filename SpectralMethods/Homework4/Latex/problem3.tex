@@ -1,3 +1,30 @@
+\textbf{Consider the nonlinear initial value problem
+\begin{align*}
+u_t=u_{xx}+e^u,~~~~x\in [-1,1],~~t>0,~~u(\pm 1,t)=u(x,0)=0,
+\end{align*}
+for the unknown function $u(x,t)$. To at least eight digits of accuracy, what is $u(0,3.5)$, and what is the time $t_5$ such that $u(0,t_5)=5$.
+}
+\newline
+
+The numerical scheme used in this problem is the following,
+\begin{align*}
+u^{n+1}=u^{n}+\Delta t\left[Du^{n}+e^{u^{n}}\right].
+\end{align*}
+We have obtained the solutions shown in figure 4 and the following results,
+\begin{align*}
+t_5&=3.53594879,\\
+u(0,3.5)&=3.53878310.
+\end{align*}
+
+It is evident given the results that the solutions starts developing slowly but, because of the exponential non-linear term, it accelerates quickly. This can be appreciated by realizing that it takes the solution $t=3.5$ to reach the red curve, and only $t_5-3.5 = 0.03594879$ to get to the blue curve.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.75]{P3.png}\caption{WRITE CAPTION.}
+\end{figure}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
 %% Homework 4, Problem 3 - Francisco Castillo'
 clear all; close all; clc;
 labelfontsize = 14;
@@ -52,3 +79,4 @@ while u0<5
 end
 legend([h1 h2],'$u(x,t_5)$', '$u(x,3.5)$','interpreter','latex')
 saveas(gcf,'Latex/FIGURES/P3','png')
+\end{verbatim}
