@@ -87,5 +87,5 @@ saveas(gcf,'Latex/FIGURES/P2','png')
 function res = analytic_sol(x,t)
     res = zeros(size(x));
     res(x>=-t) = exp(-60*(x(x>=-t)+t-0.5).^2);
-    res(x<-t) = exp(-60*(x(x<-t)+t-0.5).^2);
+    res(x<-t) = exp(-60*(x(x<-t)+t+0.5).^2);
 end

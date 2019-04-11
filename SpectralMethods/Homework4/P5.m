@@ -16,8 +16,9 @@ Dp = D';
 D2 = D^2; D2p = D2';
 indb = find(xx==0|xx==1|yy==0|yy==1); % For what?? Impose BCs in velocities
  
-% laplacian
-L = kron(eye(N-2),D2(2:end-1,2:end-1))+kron(D2(2:end-1,2:end-1),eye(N-2));  %Laplacian of the interior
+
+% Laplacian of the interior
+L = kron(eye(N-2),D2(2:end-1,2:end-1))+kron(D2(2:end-1,2:end-1),eye(N-2));  
 %Linv = inv(L);
 [lo,up,per] = lu(L,'vector');  % LU factorization
  
@@ -33,47 +34,57 @@ count = 0;
 t = 0;
 
 % boundary condition
-T(1,:) = TempBC(t,x);
+Topt = 'blocked convection';
+if (strcmp(Topt,'natural convection'))
+    T(1,:) = TempBC(t,x);
+elseif (strcmp(Topt,'blocked convection'))
+	T(end,:) = TempBC(t,x);
+end
 
 % main loop
 i=0;
 while t<.1%200
     i=i+1;
-   % vorticity 
-   w = v*Dp-D*u;  % w = dvdx-dudy
-    
-   % Advance Vorticity
-   w =  w + dt*(-v.*(D*w)-u.*(w*Dp)+Pr*(w*D2p+D2*w)+Ra*Pr*T*Dp);
-   
-   % Advance Temperature
-   T = T + dt*(-v.*(D*T)-u.*(T*Dp)+T*D2p+D2*T);
-   
-   % compute stream function
-%    tic 
-%    wi = w(2:end-1,2:end-1); wi=wi(:);
-%    psi(2:end-1,2:end-1) = reshape(up\(lo\(-wi(per))),N-2,N-2);
-%    time1(i) = toc;
-%    tic
-   psi(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1),-w(2:end-1,2:end-1));
-%    time2(i) = toc;
-%    diff(i) = norm(psi-psi2);
+    % vorticity 
+    w = v*Dp-D*u;  % w = dvdx-dudy
 
-   % Update Velocity
-   u = D*psi;
-   v = -psi*Dp;
-   
-   % BC's for u,v,T. Vorticity is calculated from u,v. Stream-function is
-   % obtained from w.
-   u(indb) = 0;
-   v(indb) = 0;
-   T(:,1) = 0;
-   T(:,end) = 0;
-   T(end,:) = 0;
-   T(1,:) = TempBC(t,x);
-   
-   % Advance time
-   t = t+dt;
-  
+    % Advance Vorticity
+    w =  w + dt*(-v.*(D*w)-u.*(w*Dp)+Pr*(w*D2p+D2*w)+Ra*Pr*T*Dp);
+
+    % Advance Temperature
+    T = T + dt*(-v.*(D*T)-u.*(T*Dp)+T*D2p+D2*T);
+
+    % compute stream function
+    %    tic 
+    %    wi = w(2:end-1,2:end-1); wi=wi(:);
+    %    psi(2:end-1,2:end-1) = reshape(up\(lo\(-wi(per))),N-2,N-2);
+    %    time1(i) = toc;
+    %    tic
+    psi(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1),-w(2:end-1,2:end-1));
+    %    time2(i) = toc;
+    %    diff(i) = norm(psi-psi2);
+
+    % Update Velocity
+    u = D*psi;
+    v = -psi*Dp;
+
+    % BC's for u,v,T. Vorticity is calculated from u,v. Stream-function is
+    % obtained from w.
+    u(indb) = 0;
+    v(indb) = 0;
+    T(:,1) = 0;
+    T(:,end) = 0;
+    if (strcmp(Topt,'natural convection'))
+        T(1,:) = TempBC(t,x); 
+        T(end,:) = 0;
+    elseif (strcmp(Topt,'blocked convection'))
+        T(1,:) = 0;
+        T(end,:) = TempBC(t,x);
+    end
+
+    % Advance time
+    t = t+dt;
+
    count = count + 1;
    if count == 200
        
@@ -81,17 +92,17 @@ while t<.1%200
        contourf(xx,yy,psi)
        axis([0 1 0 1]), axis square
        colormap(hot)
-       title('streamlines','fontsize',16)
+       title('Streamlines','fontsize',16)
         
        subplot(2,2,2)
        contourf(xx,yy,w,30)
        axis([0 1 0 1]), axis square
-       title('vorticity','fontsize',16)
+       title('Vorticity','fontsize',16)
       
        subplot(2,2,3)
        contourf(xx,yy,T)
        axis([0 1 0 1]), axis square
-       title('Temperature field','fontsize',16)
+       title('Temperature','fontsize',16)
        colormap(jet)
        colorbar
        caxis([0 1])
@@ -101,14 +112,20 @@ while t<.1%200
        subplot(2,2,4)
        quiver(xx,yy,u./speed,v./speed)
        axis([0 1 0 1]), axis square
-       title('normalized velocity','fontsize',16)
+       title('Velocity','fontsize',16)
        
        drawnow
               
        count = 0;
    end
-%    t
+
 end
+if (strcmp(Topt,'natural convection'))
+    saveas(gcf,'Latex/FIGURES/P5','png')
+elseif (strcmp(Topt,'blocked convection'))
+    saveas(gcf,'Latex/FIGURES/P5_blocked','png')
+end
+
 %%
 % n = 1:i;
 % figure
