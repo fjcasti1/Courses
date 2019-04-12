@@ -6,10 +6,12 @@ D2 = D^2;
 D2 = D2(2:end-1,2:end-1);
  
 % 2D grid
-[X,Y] = meshgrid(x);
+[X,Y] = meshgrid(x,x);
  
  
- 
+ surf(X,Y,X+Y)
+ plot3(X
+ cccc
  
 % Initial condition
 u0 = exp(-20*(X.^2+Y.^2));
