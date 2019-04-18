@@ -3,8 +3,8 @@ clear all; close all; clc;
 labelfontsize = 14;
 linewidth = 2;
 
-N = 50;
-dt = 8e-1/N^3;
+N = 200;
+dt = 8e-1/N^4;
 [D,x] = cheb(N); % D:(N+1)x(N+1), x:(N+1)x1
 x = x(2:N);
 D2=D^2;
@@ -25,7 +25,7 @@ while u0<5
         k=k+1;
     else
         t=t+dt;
-        dt = 8e-1/N^3;
+        dt = 8e-1/N^4;
     end
 
     u = u +dt*(D2*u+exp(u));

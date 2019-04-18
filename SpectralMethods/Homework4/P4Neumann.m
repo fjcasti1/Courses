@@ -1,5 +1,5 @@
 %% Homework 4, Problem 4 -  Francisco Castillo
-clear all; close all; clc
+clear all; clc
 labelfontsize = 14;
 %% 2D wave equation Chebyshev+Leap-frog, ZERO Neumann BC'S
 N = 64;
@@ -16,11 +16,13 @@ u0 = exp(-40*((X-0.2).^2+Y.^2));
 u = u0;
  
 h = 1-x(2);
-dt = h/2;
+dt = h/2
+
+
 t = 0;
 tf = 10;
 count=0;
-
+figure
 while t<tf
     if t+dt>tf
         dt = tf-t;

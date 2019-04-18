@@ -18,8 +18,8 @@ format long;
 
 %%
 % Parameters
-N = 40;  %40
-Re = 1200;
+N = 30;  %40
+Re = 100;
 dt = 1e-6;
  
 % Grid and diff matrices
@@ -39,8 +39,10 @@ gp = g;
 wp = w;
 % Everything initialized to zero
 count = 0;
-TU = 10;
+TU = 1;
 Nsteps = TU/dt;
+global mgraph;
+mgraph = 1000;
 
 for m=1:Nsteps
     % Prediction, interior
@@ -85,19 +87,54 @@ for m=1:Nsteps
     w(end,2:end-1) = -(D2(end,:)*psi(:,2:end-1))./r(2:end-1)';
     g(end,:) = r;
     % Observables
-    m
-    if (mod(m,0000)==0)
-        psi
-        g
-        w
-        keyboard
+%     m
+    if (mod(m,mgraph)==0)
+        fprintf('Progress: %d %% \n',m*100/Nsteps)
+        if max(max(isnan(w)))==1
+            m
+            ccc
+        end
+        if max(max(isnan(w)))==1
+            m
+            ccc
+        end
+        if max(max(isnan(w)))==1
+            m
+            ccc
+        end
+        subplot(1,3,1)
+       contourf(rr,zz,psi)
+       axis([0 1 0 1]), axis square
+       title('Streamlines','fontsize',16)
+        
+       subplot(1,3,2)
+       contourf(rr,zz,w)
+       axis([0 1 0 1]), axis square
+       title('Vorticity','fontsize',16)
+      
+       subplot(1,3,3)
+       contourf(rr,zz,g)
+       axis([0 1 0 1]), axis square
+       title('Ang Momentum','fontsize',16)
+
+     drawnow
+ 
+%         psi
+%         g
+%         w
+%         keyboard
     end
 end
 function [rhsg,rhsw] = RHS(m,r,Re,psi,g,w,D,D2,Dp,D2p)
+    global mgraph;
     rhsg = ((D*psi).*(g*Dp)-(psi*Dp).*(D*g))*diag(1./r)+(1/Re)*(D2*g+g*D2p-g*Dp*diag(1./r));
     rhsw = ((D*psi).*(w*Dp)-(psi*Dp).*(D*w))*diag(1./r)-w.*(D*psi)*diag(1./r.^2)...
         -2*g.*(D*g)*diag(1./r.^3)+(1/Re)*(D2*w+w*D2p+w*Dp*diag(1./r)-w*diag(1./r.^2));
-
+	if (mod(m,mgraph)==0)
+        rhsg
+        rhsw
+        keyboard
+    end
 %     if (mod(m,100)==0)
 %         keyboard
 %     end

@@ -10,8 +10,6 @@ D2 = D2(2:end-1,2:end-1);
  
  
  surf(X,Y,X+Y)
- plot3(X
- cccc
  
 % Initial condition
 u0 = exp(-20*(X.^2+Y.^2));

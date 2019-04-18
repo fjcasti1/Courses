@@ -34,7 +34,7 @@ count = 0;
 t = 0;
 
 % boundary condition
-Topt = 'blocked convection';
+Topt = 'natural convection';
 if (strcmp(Topt,'natural convection'))
     T(1,:) = TempBC(t,x);
 elseif (strcmp(Topt,'blocked convection'))
