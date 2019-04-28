@@ -18,40 +18,28 @@ format long;
 
 %%
 % Parameters
-N = 60;  %40 % Number of points
+N = 20;  % Number of Grid Points
 Re = 1000;
-dt = 1e-12;
+dt = 1e-8;
  
 % Grid and diff matrices
-[D,xch] = cheb(N-1);
-
-% % % % % r = 0.5*xch.^2-cos(xch)+cos(1)+1/2;
-% % % % % 
-% % % % % figure 
-% % % % % plot(xch,r)
-% % % % % grid on
-% % % % % 
-% % % % % figure
-% % % % % plot(xch,0.2*ones(size(xch)),'b*')
-% % % % % hold on
-% % % % % plot(r,0*r,'r*')
-% % % % % plot(-r,0*r,'g*')
-% % % % % grid on
-% % % % % axis([-1 1 -0.4 0.4])
-% % % % % cccc
-% % % % % 
-% % % % % 
-
-
-r = (-xch+1)/2; D = -2*D;   % To trasnlate the domain to [0,1]
+[D,xch] = cheb(N-1);  
+r = xch.^2; D = 0.5*diag(1./xch)*D;   % To trasnlate the domain to [1,1]
 [rr,zz] = meshgrid(r);
-cccc
+
 Dp = D';
 D2 = D^2; D2p = D2';
-indb = find(rr==0|rr==1|zz==0|zz==1); % For what?? Impose BCs in velocities
+indb = find(rr==-1|rr==1|zz==0|zz==1); % For what?? Impose BCs in velocities
+
+% laplacian
+A = D2(2:end-1,2:end-1);
+B = D2p(2:end-1,2:end-1)-Dp(2:end-1,2:end-1)*diag(1./r(2:end-1));
+L = kron(eye(N-2),A)+kron(B',eye(N-2));  %Laplacian of the interior
+%Linv = inv(L);
+[lo,up,per] = lu(L,'vector');  % LU factorization
 
 % Initial velocity & pre-allocate memory
-psi = 0*rr;
+psi = 1*rr;
 g = psi;
 w = psi;
 gp = g;
@@ -62,7 +50,7 @@ uz = uw;
 % Everything initialized to zero
 count = 0;
 TU = 1;
-Nsteps = TU/dt
+Nsteps = TU/dt;
 global mgraph;
 mgraph = 1000;
 
@@ -71,6 +59,11 @@ for m=1:Nsteps
     % Calculate vorcity and angular momentum
     w = D*ur-uz*Dp;
     g = uw*diag(r);
+    
+%     g
+%     w
+%     psi
+%     keyboard
 
     if(max(max(isnan(w))) || max(max(isinf(w))))
         m
@@ -94,9 +87,10 @@ for m=1:Nsteps
     wp(2:end-1,2:end-1) = w(2:end-1,2:end-1) + dt*rhsw(2:end-1,2:end-1);
 
     % Solve Streamfunction, interior
-    psi(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1)-Dp(2:end-1,2:end-1)*diag(1./r(2:end-1)),-wp(2:end-1,2:end-1))*diag(r(2:end-1));
+%     psi(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1)-Dp(2:end-1,2:end-1)*diag(1./r(2:end-1)),-wp(2:end-1,2:end-1))*diag(r(2:end-1));
+    C = -wp(2:end-1,2:end-1)*diag(r(2:end-1)); C=C(:);
+    psi(2:end-1,2:end-1) = reshape(up\(lo\(C(per))),N-2,N-2);
 
-    
     if(max(max(isnan(wp))) || max(max(isinf(wp))))
         m
         keyboard
@@ -135,6 +129,11 @@ for m=1:Nsteps
     % Calculate vorcity and angular momentum
     wp = D*ur-uz*Dp;
     gp = uw*diag(r);
+    
+% %     gp
+% %     wp
+% %     psi
+% %     keyboard
 
     if(max(max(isnan(wp))) || max(max(isinf(wp))))
         m
@@ -157,7 +156,9 @@ for m=1:Nsteps
     w(2:end-1,2:end-1) = 0.5*(w(2:end-1,2:end-1)+wp(2:end-1,2:end-1)+dt*rhsw(2:end-1,2:end-1));
     
     % Solve Streamfunction, interior
-    psi(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1)-Dp(2:end-1,2:end-1)*diag(1./r(2:end-1)),-w(2:end-1,2:end-1))*diag(r(2:end-1));
+%     psi(2:end-1,2:end-1) = sylvester(D2(2:end-1,2:end-1),D2p(2:end-1,2:end-1)-Dp(2:end-1,2:end-1)*diag(1./r(2:end-1)),-w(2:end-1,2:end-1))*diag(r(2:end-1));
+    C = -w(2:end-1,2:end-1)*diag(r(2:end-1)); C=C(:);
+    psi(2:end-1,2:end-1) = reshape(up\(lo\(C(per))),N-2,N-2);
 
     if(max(max(isnan(w))) || max(max(isinf(w))))
         m
@@ -179,7 +180,7 @@ for m=1:Nsteps
     uz = (psi*Dp)*diag(1./r);
 
     % Boundary Conditions imposed directly on the velocities (so far updated the interior)
-    % Axis and Outer Radius: no slip boundary condition (the axis has no flow)
+    % Outer Radius (Left & Right): no slip boundary condition
         ur(:,[1 end]) = 0;
         uw(:,[1 end]) = 0;
         uz(:,[1 end]) = 0;
@@ -191,7 +192,7 @@ for m=1:Nsteps
         ur(end,:) = 0;
         uw(end,:) = 1;
         uz(end,:) = 0;
-
+    
     % Observables
     %     m
     if (mod(m,mgraph)==0)
@@ -240,8 +241,8 @@ function [rhsg,rhsw] = RHS(m,r,Re,psi,g,w,D,D2,Dp,D2p,ur,uw,uz)
     
     rhsg = -ur.*(g*Dp)-uz.*(D*g)+(1/Re)*(D2*g+g*D2p-g*Dp*diag(1./r));
     rhsw = -ur.*(w*Dp)-uz.*(D*w)+ur.*w*diag(1./r)...
-        +2*g.*(D*g*diag(1./r.^3))+(1/Re)*(D2*w+w*D2p+w*Dp*diag(1./r)-w*diag(1./r.^2));
-    
+        +2*g.*(D*g*diag(1./abs(r.^3)))+(1/Re)*(D2*w+w*D2p+w*Dp*diag(1./r)-w*diag(1./r.^2));
+%     keyboard
 %     if m == 10
 %         keyboard
 %     end

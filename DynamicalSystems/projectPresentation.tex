@@ -1,0 +1,254 @@
+\documentclass[compress]{beamer}
+\input{BEAMERoptions.tex}					                                         \usepackage[english]{babel}
+\usepackage{graphics}
+\usepackage{multimedia} % for movies and sound
+\usepackage{times}
+
+\title{The Knife Edge Viscometer}
+\author[F. Castillo-Carrasco]{\emph{Francisco Castillo-Carrasco} }
+\date{\today}
+% Show ASU logo in title page
+%%%%%%%%%%%%%%%%%%%%%%
+\institute[Mathematics and Statistics]{
+\includegraphics[height=.9cm]{ASUlogo.pdf} \\
+{\color{ASUred} SCHOOL OF \textbf{MATHEMATICAL AND STATISTICAL SCIENCES}}}
+%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Presentation Starts Here %%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%%% Title frame %%%%%
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[pausesections]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section[Introduction]{Introduction}
+
+\subsection{The Knife Edge Viscometer}
+\begin{frame} \frametitle{The Knife Edge Viscometer}
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{KEviscometer.png}
+\end{figure}
+\end{frame}
+
+\subsection{Quick Motivation}
+\begin{frame} \frametitle{Quick Motivation}
+Why do we study this problem?
+\begin{itemize}
+\item How to measure surface shear viscosity remains a controversial issue.
+
+\item Monomolecular layers are key in broad areas
+\begin{itemize}
+\item Pharmaceuticals: interfacial processing.
+\item Food processing: surfactants.
+\item Natural: Gas absorption into a fluid (lungs, oceans).
+\end{itemize}
+\item Applications where a high degree of mixing is desired (microbioreactors), although at a low level of shear stress.
+\end{itemize}
+\end{frame}
+
+\subsection{Governing Equations}
+\begin{frame} \frametitle{Governing Equations}
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[scale=.95]{scheme.pdf}
+\column{0.5\textwidth}
+\pause
+\vspace{-8mm}
+{\footnotesize
+\begin{block}{Cylindrical Coordinates}
+$\psi\equiv$ Stream function\\
+$\gamma\equiv$ Angular momentum\\
+$\eta\equiv$ Azimuthal vorticity
+\begin{align*}
+\textbf{u} = (u,v,w) &= \left(-\frac{1}{r}\frac{\partial\psi}{\partial z},\frac{\gamma}{r},\frac{1}{r}\frac{\partial\psi}{\partial r}\right)\\
+\nabla\times\textbf{u} &= \left(-\frac{1}{r}\frac{\partial\gamma}{\partial z},\eta,\frac{1}{r}\frac{\partial\gamma}{\partial r}\right)
+\end{align*}
+\vspace{-4mm}
+\end{block}}
+\end{columns}
+\pause
+{\small
+\vspace{-5mm}
+\begin{align*}
+\frac{\partial\gamma}{\partial
+t}-\frac{1}{r}\frac{\partial\psi}{\partial
+z}\frac{\partial\gamma}{\partial
+r}+\frac{1}{r}\frac{\partial\psi}{\partial
+r}\frac{\partial\gamma}{\partial
+z}&=\frac{1}{Re}\left(\frac{\partial^2\gamma}{\partial
+z^2}+\frac{\partial^2\gamma}{\partial
+r^2}-\frac{1}{r}\frac{\partial\gamma}{\partial
+r}\right)\\
+\frac{\partial \eta}{\partial t}-\frac{1}{r}\frac{\partial
+\psi}{\partial z}\frac{\partial \eta}{\partial
+r}+\frac{1}{r}\frac{\partial \psi}{\partial r}\frac{\partial
+\eta}{\partial z}+\frac{\eta}{r^2}\frac{\partial \psi}{\partial
+z}-\frac{2\gamma}{r^3}\frac{\partial \gamma}{\partial
+z}&=\frac{1}{Re}\left(\frac{\partial^2\eta}{\partial
+z^2}+\frac{\partial^2\eta}{\partial
+r^2}+\frac{1}{r}\frac{\partial\eta}{\partial
+r}-\frac{\eta}{r^2}\right)\\
+\frac{\partial^2\psi}{\partial z^2}+\frac{\partial^2\psi}{\partial
+r^2}-\frac{1}{r}\frac{\partial\psi}{\partial r}&=-r\eta
+\end{align*}}
+\end{frame}
+
+
+\subsection{Boundary Conditions}
+
+\begin{frame} \frametitle{Boundary Conditions}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[scale=0.8]{scheme.pdf}
+\column{0.6\textwidth}
+\pause
+\vspace{-6mm}
+{\small
+\begin{block}{Bottom (no slip)}
+\vspace{-5mm}
+\begin{align*}
+\psi=\gamma=0~\text{ at } z=0\\
+\eta=\left.-\frac{1}{r}\frac{\partial^2\psi}{\partial z^2}\right|_{z=0}
+\end{align*}
+\end{block}}
+\pause
+\vspace{-1mm}
+{\small
+\begin{block}{End Wall (no slip)}
+\vspace{-5mm}
+\begin{align*}
+\psi=\gamma=0~\text{ at } r=A_R\\
+\eta=\left.-\frac{1}{A_R}\frac{\partial^2\psi}{\partial r^2}\right|_{r=A_R}
+\end{align*}
+\end{block}}
+\pause
+\vspace{-1mm}
+{\small
+\begin{block}{Axis (symmetry)}
+\vspace{-5mm}
+\begin{align*}
+\psi=\gamma=\eta=0~\text{ at } r=0\\
+\text{Are we sure?  }
+\left(\left.-\frac{1}{r}\frac{\partial\psi}{\partial r}\right|_{r=0}= 0\right)
+\end{align*}
+\end{block}}
+\end{columns}
+\end{frame}
+
+
+\begin{frame} \frametitle{Boundary Conditions (II)}
+\begin{columns}
+\column{0.4\textwidth}
+\includegraphics[scale=0.8]{scheme.pdf}
+$$v = \frac{\gamma}{r}$$
+\column{0.6\textwidth}
+{\small
+\begin{block}{Top (stress balance)}
+\vspace{-5mm}
+\begin{align*}
+\psi=0~\text{ at } z=A_H\\
+\eta=\left.-\frac{1}{r}\frac{\partial^2\psi}{\partial z^2}\right|_{z=A_H}\\
+\frac{\partial^2 v}{\partial r^2}+\frac{1}{r}\frac{\partial v}{\partial r}-\frac{v}{r^2} = \frac{1}{Bo}\frac{\partial v}{\partial z}~~~~ \forall r\neq A_R/2, z=A_H\\
+v=1 ~~~~ r= A_R/2, z=A_H
+\end{align*}
+\end{block}}
+\pause
+{\small
+\begin{block}{The limit $Bo\rightarrow\infty$}
+\vspace{-5mm}
+\begin{align*}
+\frac{\partial^2 v}{\partial r^2}+\frac{1}{r}\frac{\partial v}{\partial r}-\frac{v}{r^2} = 0
+\end{align*}
+\pause
+The bulk flow and the monolayer are decoupled!
+Analytic solution possible
+\end{block}}
+\end{columns}
+\end{frame}
+
+\section[Results]{Results}
+
+\subsection{Observables}
+\begin{frame}\frametitle{Observables}
+\begin{columns}
+\column{0.4\textwidth}
+\begin{block}{Global}
+\begin{itemize}
+\item Kinetic Energy
+\begin{align*}
+E_k = \frac{1}{2}\int \|\textbf{u}\|^2dV
+\end{align*}
+\item Enstrophy
+\begin{align*}
+E_w = \int \|\nabla\times\textbf{u}\|^2dV
+\end{align*}
+\item Angular Momentum
+\begin{align*}
+E_{\gamma} = \int \gamma^2dV
+\end{align*}
+\end{itemize}
+\end{block}
+\column{0.4\textwidth}
+\begin{block}{Local}
+We probe the value of the three velocity components:
+\begin{align*}
+u &= -\frac{1}{r}\frac{\partial\psi}{\partial z}\\
+v &= \frac{\gamma}{r}\\
+w &= \frac{1}{r}\frac{\partial\psi}{\partial r}
+\end{align*}
+ at the point $\left(\frac{3}{4}A_H,\frac{3}{4}A_R\right)$.
+\end{block}
+\end{columns}
+\end{frame}
+
+\subsection{Parameter Sweep}
+
+\begin{frame}\frametitle{Parameter Sweep}
+\begin{figure}
+\centering
+\includegraphics[scale=1.2]{parGraphalpha0e0.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Scaling}
+\begin{figure}
+\centering
+\includegraphics[scale=1]{bifCurveScaled_E.pdf}
+\end{figure}
+\end{frame}
+
+\subsection{Time-series at the bifurcation}
+\begin{frame}\frametitle{At the Hopf Bifurcation}
+We now focus on the results for $Bo = 20$ and $Re = 1270, 1300$ (right after the bifurcation).
+
+\centering
+\href{https://mathpost.asu.edu/~kiko/research/alpha0.html}{\beamergotobutton{Zero Forcing Frequency Webpage}}
+
+Thanks to Jason Yalim.
+\end{frame}
+\subsection{Movies}
+\begin{frame}\frametitle{Flow Field Animations}
+\movie[externalviewer]{MOVIES IMPOSSIBLE TO EMBED IN THE BEAMER PRESENTATION}{movie.mp4}
+\end{frame}
+
+\begin{frame}
+\centering
+\Huge
+Thank you.
+\end{frame}
+
+\end{document}
