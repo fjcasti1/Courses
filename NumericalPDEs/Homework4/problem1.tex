@@ -1,0 +1,47 @@
+\begin{questions}
+
+\question{
+Show that the Jacobi spectral radius $\mu = \cos(\pi h)$ for
+Laplace's equation on the unit square with second-order accurate
+central differences.  Write-up only the 1D version.  {\em Hint:}\/ In
+1D, set $A = {\rm tridiag}[-1~ 2~ -1]$.  Then the iteration matrix $B
+= \frac{1}{2} {\rm tridiag}[1~ 0~ 1]$.  Then show that $Bv = \cos(\pi
+h) \, v$ where the 1D eigenvector
+\begin{displaymath}
+	v = [\sin(\pi h),~ \sin(2 \pi h),~ \cdots,~ \sin(n \pi h)] .
+\end{displaymath}
+Note that here $h = 1/(n+1)$.
+}
+\begin{solution}
+Since $A=L+D+U=\text{diag}([-1~2~-1])$ and we are using the Jacobi iteration, $M=D=\text{diag}(2)$. Hence,
+\begin{align*}
+B=M^{-1}(M-A)=\text{diag}(1/2)*\text{tridiag}([1~0~1])=\frac{1}{2}\text{tridiag}([1~0~1])
+\end{align*}
+We start with the first point of our domain,i.e. the first row of the product $Bv$,
+\begin{align*}
+(Bv)_1=\frac{1}{2}v_2=\frac{1}{2} \sin(2\pi h)=\cos(\pi h)\sin(\pi h).
+\end{align*}
+We continue with the interior points, where $j\in[2,n-1]$,
+\begin{align*}
+(Bv)_j=\frac{1}{2}\left(v_{j-1}+v_{j+1}\right)&=\frac{1}{2}\left[\sin(j\pi h)\cos(\pi h)-\sin(\pi h)\cos(j\pi h)+\sin(j\pi h)\cos(\pi h)+\sin(\pi h)\cos(j\pi h)\right]\\
+&=\cos(\pi h)\sin(j\pi h).
+\end{align*}
+Finally, for the last point $j=n$,
+\begin{align*}
+(Bv)_n=\frac{1}{2}v_{n-1}=\frac{1}{2}\sin((n-1)\pi h)&=\frac{1}{2}\sin(n\pi h-\pi h)\\
+&=\frac{1}{2}\left[\sin(n\pi h)\cos(\pi h)-\sin(\pi h)\cos(n\pi h)\right]\\
+&=\frac{1}{2}\left[\sin(n\pi h)\cos(\pi h)+\sin(n\pi h)\cos(\pi h)\right]\\
+&=\cos(\pi h)\sin(n\pi h),
+\end{align*}
+where we have used the following relations:
+\begin{align*}
+\sin(n\pi h)&=\sin((n+1)\pi h-\pi h)=\sin(\pi-\pi h)=\sin(\pi h)\\
+\cos(n\pi h)&=\cos((n+1)\pi h-\pi h)=\cos(\pi-\pi h)=-\cos(\pi h).
+\end{align*}
+Thus, we have obtained that
+\begin{align*}
+(Bv)_j=\cos(\pi h)\sin(j\pi h),
+\end{align*}
+which means that the eigenvalue is $\lambda=\cos(\pi h)$ and the eigenvector $v$ has components $v_j=\sin(j\pi h)$.
+\end{solution}
+\end{questions}

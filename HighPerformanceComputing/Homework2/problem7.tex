@@ -1,0 +1,39 @@
+\begin{questions}
+
+\question{The machine epsilon for IEEE single-precision numbers is $2^{-23}\approx 1.2\times 10^{-7}$. In this respect, single-precision IEEE floating-point is roughly equivalent to 7 decimal digits. On the other hand, 7 decimal digits do not suffice to represent an IEEE single-precision floating-point number uniquely. This exercise outlines a proof. 
+Consider real numbers $x$ such that $10\leq x < 16$,
+(a) The numbers in this interval that are exactly representable in $7$ decimal digits are $10.00000$, $10.00001$, $10.00002$,\dots, $15.99999$. How many numbers are in the set?
+}
+\begin{solution}
+There are $10^5$ numbers for the decimal values multiplied by $6$ for the integer part from $0$ to $5$. There are a total of
+\begin{align*}
+N_a=6\cdot 10^5.
+\end{align*}
+\end{solution}
+
+\question{The numbers in [10, 16) that are exactly representable in IEEE format. How many numbers are in this set?
+}
+\begin{solution}
+There are $2^{21}$ for the bits after the second decimal bit, multiplied by $3$i for the combinations of the first $2$, making a total of
+\begin{align*}
+N_b=3\cdot 2^{21}=6291456>N_a.
+\end{align*}
+\end{solution}
+\newpage
+\question{Explain how the pigeonhole principle implies that at least two different IEEE single-precision numbers have the same 7-digit decimal representation (and why that proves the result).
+}
+\begin{solution}
+It is inmediate that since $N_b>N_a$, the seven digit decimali representation cannot represent all the numbers represented by the IEE single precision format. In addition, least two different IEEE single-precision numbers have the same 7-digit decimal representation.
+\end{solution}
+
+\question{Explain why 8 decimal digits also don’t suffice to represent IEEE single-precision numbers
+uniquely.
+}
+\begin{solution}
+Same as in part (a), we have that the total number of elements in this set is
+\begin{align*}
+N_c=6\cdot 10^6<N_b.
+\end{align*}
+Since $N_c<N_b$, 8 decimal digits also don't suffice to represent IEE single-precision numbers uniquely. The discussion is the same as above.
+\end{solution}
+\end{questions}

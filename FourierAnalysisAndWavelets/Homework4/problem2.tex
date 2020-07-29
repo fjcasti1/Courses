@@ -1,0 +1,68 @@
+\begin{questions}
+
+\question{Prove \textsc{Theorem 3.4}.
+}
+\begin{itemize}
+\item Shifts or translations. If $y\in S_n$ and $z_k=y_{k+1}$, then $\mathcal{F}[z]_j=w^j\mathcal{F}[y]_j$, where $w=e^{i\frac{2\pi}{n}}$.
+\end{itemize}
+\begin{solution}
+This is simply proved by calculating the Discrete Fourier Transform of $z_k$.
+\begin{align*}
+\mathcal{F}[z]_k&=\sum_{j=0}^{n-1}z_j\overline{w}^{jk}\\
+&=\sum_{j=0}^{n-1}y_{j+1}\overline{w}^{jk}~~~~~~~\text{making}~~l=j+1\\
+&=\sum_{l=1}^{n}y_{l}\overline{w}^{(l-1)k}\\
+&=\sum_{l=1}^{n}y_{l}\overline{w}^{lk}\overline{w}^{-k}\\
+&=\overline{w}^{-k}\sum_{l=1}^{n}y_{l}\overline{w}^{lk}\\
+&=\overline{w}^{-k}\sum_{l=0}^{n-1}y_{l}\overline{w}^{lk}\\
+&=w^k\mathcal{F}[y]_k,
+\end{align*}
+where in the last step we have applied the definition of the $DFT$ and not that $\overline{w}^{-k}=w^k$.
+\end{solution}
+\begin{itemize}
+\item Convolutions. If $y\in S_n$ and $z\in S_n$, then the sequence defined by
+\begin{align*}
+[y*z]_k:=\sum_{j=0}^{n-1}y_jz{k-j}
+\end{align*}
+is also in $S_n$.
+\end{itemize}
+\begin{solution}
+To prove periodicity of the convolution we compute
+\begin{align*}
+[y*z]_{k+n}=\sum_{j=0}^{n-1}y_jz_{k-j+n}=\sum_{j=0}^{n-1}y_jz_{k-j+n}=[y*z]_{k},
+\end{align*}
+where we have used that $z\in S_n$. Hence, $[y*z]_k\in S_n$.
+\end{solution}
+\begin{itemize}
+\item The Convolution Theorem. $\mathcal{F}[y*z]_k=\mathcal{F}[y]_k\mathcal{F}[z]_k$
+\end{itemize}
+\begin{solution}
+This is easily proved starting from the $DFT$ of the convolution,
+\begin{align*}
+\mathcal{F}[y*z]_k&=\sum_{j=0}^{n-1}[y*z]_j\overline{w}^{jk}\\
+&=\sum_{j=0}^{n-1}\sum_{m=0}^{n-1}y_mz_{j-m}\overline{w}^{jk}\\
+&=\sum_{j=0}^{n-1}\sum_{m=0}^{n-1}y_mz_{j-m}\overline{w}^{(j-m)k}\overline{w}^{mk}\\
+&=\sum_{m=0}^{n-1}y_m\overline{w}^{mk}\sum_{j=0}^{n-1}z_{j-m}\overline{w}^{(j-m)k}.
+\end{align*}
+Applying perioidicity to the second sum, $\sum_{j=0}^{n-1}z_{j-m}\overline{w}^{(j-m)k}=\sum_{j=0}^{n-1}z_j\overline{w}^{jk}$, we obtain the desired result:
+\begin{align*}
+\mathcal{F}[y*z]_k&=\sum_{m=0}^{n-1}y_m\overline{w}^{mk}\sum_{j=0}^{n-1}z_{j}\overline{w}^{jk}=\mathcal{F}[y]_k\mathcal{F}[z]_k
+\end{align*}
+\end{solution}
+\begin{itemize}
+\item If $y\in S_n$ is a sequence of real numbers, then
+\begin{align*}
+\mathcal{F}[y]_{n-k}=\overline{\mathcal{F}[y]_{k}},~~~~~~~~\text{for}~~ 0\leq k-n\leq n-1.
+\end{align*}
+\end{itemize}
+\begin{solution}
+Like in the previous cases, computations suffice to prove the statement. We start with
+\begin{align*}
+\mathcal{F}[y]_{n-k}=\sum_{j=0}^{n-1}y_j\overline{w}^{j(n-k)}=\sum_{j=0}^{n-1}y_j\overline{w}^{jn}\overline{w}^{-jk}.
+\end{align*}
+Note that $\overline{w}^{jn}=1$. Then,
+\begin{align*}
+\mathcal{F}[y]_{n-k}=\sum_{j=0}^{n-1}y_j\overline{w}^{-jk}=\sum_{j=0}^{n-1}\overline{y_j\overline{w}^{jk}}=\overline{\sum_{j=0}^{n-1}y_j\overline{w}^{jk}}=\overline{\mathcal{F}[y]_k}.
+\end{align*}
+\end{solution}
+
+\end{questions}

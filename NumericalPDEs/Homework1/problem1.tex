@@ -1,0 +1,31 @@
+\begin{questions}
+
+\question{Suppose a double precision floating point number is stored on a
+computer using 64 bits in the following way: sign 1 bit, exponent 8
+bits, and mantissa 55 bits.  A given real number $r$ is written as
+\begin{align*}
+r = \pm m 2^n
+\end{align*}
+where the mantissa $m$ satisfies $1/2 \le m < 1$ and $-128\leq n \le 127$.  Give the following numbers in both base 2 and base 10
+scientific notation:
+\begin{enumerate}
+\item [(a)] What is the largest positive number $realmax$ that can be stored?
+\item [(b)] What is the smallest positive number $realmin$ that can be stored?
+\item [(c)] What is the machine epsilon $\epsilon_M$ (take the leading 1 in $m$ to be a phantom)?
+\end{enumerate}
+}
+\begin{solution}
+We calculate the largest positive number as
+\begin{align*}
+realmax\approx 2^{127}\approx 1.7014\cdot 10^{38},
+\end{align*}
+and the smallest positive number as
+\begin{align*}
+realmin = 2^{-128}\approx 1.4694\cdot 10^{-39}.
+\end{align*}
+Lastly, the machine epsilon is
+\begin{align*}
+\varepsilon_M=\frac{1}{2}2^{-55}=2^{-56}\approx 1.3878\cdot 10^{-17}
+\end{align*}
+\end{solution}
+\end{questions}

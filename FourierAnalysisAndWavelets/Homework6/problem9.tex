@@ -1,0 +1,59 @@
+\begin{questions}
+
+\question{For $j\in\Z$, let $V_j$ be the space of all finite energy signals $f$ that are continuous and piecewise linear, with possible corners occurring only at the dyadic points $k/2^j$, $k\in\Z$.
+ 
+(a) Show that $\{V_j\}_{j\in\Z}$ satisfies properties 1, 3, and 4 in the definition of a multiresolution analysis.
+}
+\begin{solution}
+\begin{itemize}
+\item (Nested) $V_j\subset V_{j+1}$.\\
+As it happens with Haar, the nested property holds since the set of multiples of $2^{-j}$ consists in every other element of the set of multiples of $2^{-(j+1)}$. Therefore, the set of multiples of $2^{-j}$ is contained in the set of multiples of $2^{-(j+1)}$. This translates in that the functions in $V_{j+1}$ can always represent the functions in $V_j$ but the inverse is not always true.
+\item (Separation) $\bigcap V_j=\{0\}$.\\
+Let $\varphi(2^jx-k)$ represent the "tent function" of spread $2^j$ and its translates. Let $f\in V_{-j}$ with $j>0$. Then $f$ must be a linear combination of $\varphi(x/2^j-k)$ whose elements are positive on the base of the tent of length $2^{j}$. As $j$ gets larger, this base gets larger as well. Since the support of $f$ must remain finite, if it belongs to all the $V_{-j}$ as $j\rightarrow\infty$, then the positive values of $f$ must be zero.
+\end{itemize}
+\end{solution}
+\question{(b) Let $\varphi(x)$ be the "tent function",
+\begin{align*}
+\varphi(x)=\begin{cases}
+x+1, & -1\leq x\leq 0,\\
+1-x, & 0< x\leq 1,\\
+0, & |x|>1.
+\end{cases}
+\end{align*}
+Show that $\{\varphi(x-k)\}_{k\in\Z}$ is a (nonorthonormal) basis for $V_0$. Find the scaling relation for $\varphi$.
+}
+\begin{solution}
+We will show that $\varphi(x)$ is a linear combination of $\varphi(2x+1)$, $\varphi(2x)$ and $\varphi(2x-1)$:
+\begin{align*}
+\varphi(x)=\frac{1}{2}\varphi(2x+1)+\varphi(2x)+\frac{1}{2}\varphi(2x-1).
+\end{align*}
+Given the scaling by the factor of two and the translation of the function $\varphi$, we can encounter the following cases:
+\begin{itemize}
+\item Suppose $x<-1$, then $2x+1<-1$, $2x<-2$ and $2x-1<-3$. Therefore,
+\begin{align*}
+\frac{1}{2}\varphi(2x+1)+\varphi(2x)+\frac{1}{2}\varphi(2x-1)=\frac{1}{2}0+0+\frac{1}{2}0=0=\varphi(x)
+\end{align*}
+\item Suppose $x\in[-1,-\frac{1}{2}]$, then $2x+1\in[-1,0]$, $2x\in[-2,-1]$ and $2x-1\in[-3,-2]$. Therefore,
+\begin{align*}
+\frac{1}{2}\varphi(2x+1)+\varphi(2x)+\frac{1}{2}\varphi(2x-1)=\frac{1}{2}(2x+2)+0+\frac{1}{2}0=x+1=\varphi(x)
+\end{align*}
+\item Suppose $x\in[-\frac{1}{2},0]$, then $2x+1\in[0,1]$, $2x\in[-1,0]$ and $2x-1\in[-2,-1]$. Therefore,
+\begin{align*}
+\frac{1}{2}\varphi(2x+1)+\varphi(2x)+\frac{1}{2}\varphi(2x-1)=\frac{1}{2}(1-2x-1)+(2x+1)+\frac{1}{2}0=x+1=\varphi(x)
+\end{align*}	
+\item Suppose $x\in[0,\frac{1}{2}]$, then $2x+1\in[1,2]$, $2x\in[0,1]$ and $2x-1\in[-1,0]$. Therefore,
+\begin{align*}
+\frac{1}{2}\varphi(2x+1)+\varphi(2x)+\frac{1}{2}\varphi(2x-1)=\frac{1}{2}0+(1-2x)+\frac{1}{2}(2x-1+1)=1-x=\varphi(x)
+\end{align*}
+\item Suppose $x\in[\frac{1}{2},1]$, then $2x+1\in[2,3]$, $2x\in[1,2]$ and $2x-1\in[0,1]$. Therefore,
+\begin{align*}
+\frac{1}{2}\varphi(2x+1)+\varphi(2x)+\frac{1}{2}\varphi(2x-1)=\frac{1}{2}0+0+\frac{1}{2}(1-2x+1)=1-x=\varphi(x)
+\end{align*}
+\item Suppose $x>1$, then $2x+1>3$, $2x>2$ and $2x-1>1$. Therefore,
+\begin{align*}
+\frac{1}{2}\varphi(2x+1)+\varphi(2x)+\frac{1}{2}\varphi(2x-1)=\frac{1}{2}0+0+\frac{1}{2}0=0=\varphi(x)
+\end{align*}
+\end{itemize}
+Thus, the relation has been proven.
+\end{solution}
+\end{questions}

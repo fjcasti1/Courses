@@ -1,0 +1,22 @@
+\begin{questions}
+
+\question{Let $f$ and $g$ be $2\pi$-periodic, piecewise smooth functions having Fourier series $f(x)=\sum_n\alpha_ne^{inx}$ and $g(x)=\sum_n\beta_ne^{inx}$, and define the convolution of $f$ and $g$ to be $f*g(x)=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(t)g(x-t)dt$. Show that the complex form of the Fourier series for $f*g$ is 
+\begin{align*}
+f*g(x)=\sum_{n=-\infty}^{\infty}\alpha_n\beta_ne^{inx}~.
+\end{align*}
+}
+\begin{solution}
+To prove the result is rather simple, it suffices with plugging in the Fourier series of the different functions in the convolution definition and operate:
+\begin{align*}
+f*g(x)=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(t)g(x-t)dt&=\frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_n\alpha_ne^{int}\sum_m\beta_me^{im(x-t)}dt\\
+&=\frac{1}{2\pi}\sum_n\sum_m\alpha_n\beta_me^{imx}\int_{-\pi}^{\pi}e^{int}e^{-imt}dt\\
+&=\frac{1}{2\pi}\sum_n\sum_m\alpha_n\beta_me^{imx}\int_{-\pi}^{\pi}e^{i(n-m)t}dt.
+\end{align*}
+We know that the set of complex exponentials is orthogonal. Hence, the integral is zero if $n\neq m$ and $2\pi$ if $n=m$. Therefore,
+\begin{align*}
+f*g(x)&=\frac{1}{2\pi}\sum_n\sum_m\alpha_n\beta_me^{imx}\int_{-\pi}^{\pi}e^{i(n-m)t}dt\\
+&=\sum_n\alpha_n\beta_ne^{inx},
+\end{align*}
+and the result is proved.
+\end{solution}
+\end{questions}

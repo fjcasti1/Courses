@@ -1,0 +1,42 @@
+\begin{questions}
+
+\question{Use Parseval's equation 
+\begin{align*}
+\left\langle f,g\right\rangle=\sum_{k=1}^{\infty}a_k\overline{b}_k,
+\end{align*}
+to the show that
+\begin{align*}
+\left\langle \psi_{0m},\psi_{0l}\right\rangle=\frac{1}{2} \sum_{k\in\Z}\overline{p_{1-k+2m}}p_{1-k+2l},
+\end{align*}
+where $\psi$ is defined as 
+\begin{align*}
+\psi(x)=\sum_{k\in\Z}(-1)^k\overline{p_{1-k}}\phi(2x-k).
+\end{align*}
+}
+\begin{solution}
+To start, let $\psi_{jk}=2^{j/2}\psi(2^jx-k)$, $k\in\Z$. Then,
+\begin{align*}
+\psi_{0m}&=\psi(x-m)=\sum_{k_1\in\Z}(-1)^{k_1}\overline{p_{1-k_1}}\phi(2x-(k_1+2m)),\\
+\psi_{0l}&=\psi(x-l)=\sum_{k_2\in\Z}(-1)^{k_2}\overline{p_{1-k_2}}\phi(2x-(k_2+2l)).
+\end{align*}
+Next, 
+\begin{align*}
+\left\langle \psi_{0m},\psi_{0l}\right\rangle&=\left\langle \sum_{k_1\in\Z}(-1)^{k_1}\overline{p_{1-k_1}}\phi(2x-(k_1+2m)),\sum_{k_2\in\Z}(-1)^{k_2}\overline{p_{1-k_2}}\phi(2x-(k_2+2l))\right\rangle\\
+&=\sum_{k_1\in\Z}\sum_{k_2\in\Z}(-1)^{k_1+k_2}\overline{p_{1-k_1}}p_{1-k_2}\left\langle \phi(2x-(k_1+2m)),\phi(2x-(k_2+2l))\right\rangle.
+\end{align*}
+Since the set $\left\lbrace\phi_{jk}=2^{j/2}\phi(2^jx-k); k\in\Z\right\rbrace$ is an orthonormal base,
+\begin{align*}
+\left\langle \phi(2x-(k_1+2m)),\phi(2x-(k_2+2l))\right\rangle=\delta_{k_1+2m,k_2+2l}.
+\end{align*}
+Further, making $k_2=k_1+2m-2l$,
+\begin{align*}
+\left\langle \psi_{0m},\psi_{0l}\right\rangle&=\sum_{k_1\in\Z}(-1)^{k_1+k_1+2m-2l}\overline{p_{1-k_1}}p_{1-k_1-2m+2l}\frac{1}{2}\\
+&=\frac{1}{2}\sum_{k_1\in\Z}(-1)^{2(k_1+m-l)}\overline{p_{1-k_1}}p_{1-k_1-2m+2l}\\
+&=\frac{1}{2}\sum_{k_1\in\Z}\overline{p_{1-k_1}}p_{1-k_1-2m+2l}.
+\end{align*}
+Finally, we make $k=k_1+2m$ and obtain the desired result,
+\begin{align*}
+\left\langle \psi_{0m},\psi_{0l}\right\rangle&=\frac{1}{2}\sum_{k\in\Z}\overline{p_{1-k+2m}}p_{1-k+2l}.
+\end{align*}
+\end{solution}
+\end{questions}

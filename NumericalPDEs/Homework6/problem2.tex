@@ -1,0 +1,20 @@
+\begin{questions}
+
+\question{Show that the two-step Lax-Wendroff method reduces to the original
+Lax-Wendroff scheme for $u_t + A u_x = 0$.
+}
+\begin{solution}
+We start with the first step of the method
+\begin{align*}
+w_{i+1/2}^{n+1/2}&=\half\left(w_i^n+w_{i+1}^n\right)-\half\frac{\Delta t}{\Delta x}A\left(w_{i+1}^n-w_i^n\right),\\
+w_{i-1/2}^{n+1/2}&=\half\left(w_i^n+w_{i-1}^n\right)-\half\frac{\Delta t}{\Delta x}A\left(w_{i}^n-w_{i-1}^n\right),
+\end{align*}
+and plug the terms into the second step,
+\begin{align*}
+w_i^{n+1}&=w_i^n-\frac{\Delta t}{\Delta x}A\left(w_{i+1/2}^{n+1/2}-w_{i-1/2}^{n+1/2}\right),\\
+&=w_i^n-\frac{\Delta t}{\Delta x}A\left[\half\left(w_i^n+w_{i+1}^n\right)-\half\frac{\Delta t}{\Delta x}A\left(w_{i+1}^n-w_i^n\right)-\half\left(w_i^n+w_{i-1}^n\right)+\half\frac{\Delta t}{\Delta x}A\left(w_{i}^n-w_{i-1}^n\right)\right],\\
+&=w_i^n-\half A\frac{\Delta t}{\Delta x}\left(w_{i+1}^n-w_{i-1}^n\right)+\half A^2\frac{\Delta t^2}{\Delta x^2}\left(w_{i+1}^n-2w_i^n+w_{i-1}^n\right),
+\end{align*}
+and we obtain the desired the original Lax-Wendroff scheme for $u_t + A u_x = 0$.
+\end{solution}
+\end{questions}

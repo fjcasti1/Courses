@@ -1,0 +1,59 @@
+\begin{questions}
+
+\question{
+For $du/dt = f(u)$, derive
+\begin{displaymath} 
+	||e_l|| \equiv ||u(t_{n+1}) - u^{n+1}|| \approx 
+        \frac{3 \gamma^2 - 4 \gamma +2}{3 \gamma (1 - \gamma)^2}~
+	||u_1 - u_2||
+\end{displaymath} 
+for the TR/TR version of calculating the local error for TRBDF2, where
+$u_1 \equiv u^{n+1} = u_{TRBDF2}$ and $u_2 \equiv u_{TR/TR}$.
+}
+\begin{solution}
+Equations (7) and (8) of the notes give us that
+\begin{align*}
+e_l=k_{\gamma}\Delta t_n^3u'''\approx 2k_{\gamma}\Delta t_n\left(\frac{1}{\gamma}f_n-\frac{1}{\gamma(1-\gamma)}f_{n+\gamma}+\frac{1}{1-\gamma}f_{n+1}\right),
+\end{align*}
+where
+\begin{align*}
+k_{\gamma}=\frac{-3\gamma^2+4\gamma-2}{12(2-\gamma)}.
+\end{align*}
+For the right hand side we first compute $u_1$, which is obtained by substituting $u_{n+\gamma}$ from the $TR$ step into the $BDF2$ step (similar to what was done with equation (1) in the first problem),
+\begin{align*}
+u_1=u_{n+1}^{TRBDF2}=\frac{1-\gamma}{2-\gamma}\Delta t_nf_{n+1}+\frac{1}{\gamma(2-\gamma)}\left[u_n+\gamma\frac{\Delta t_n}{2}\left(f_n+f_{n+\gamma}\right)\right]-\frac{(1-\gamma)^2}{\gamma(2-\gamma)}u_n.
+\end{align*}
+Reorganizing and simplifying the previous equation,
+\begin{align*}
+u_1=u_n+\frac{1}{2-\gamma}\frac{\Delta t_n}{2}f_n+\frac{1}{2-\gamma}\frac{\Delta t_n}{2}f_{n+\gamma}+\frac{1-\gamma}{2-\gamma}\Delta t_nf_{n+1}.
+\end{align*}
+Further, we compute $u_2$ by taking to consecutives $TR$ steps,
+\begin{align*}
+u_{n+\gamma}-\gamma\frac{\Delta t_n}{2}f_{n+\gamma}&=u_n+\gamma
+\frac{\Delta t_n}{2}f_n,\\
+u_{n+1}-(1-\gamma)\frac{\Delta t_n}{2}f_{n+1}&=u_{n+\gamma}+(1-\gamma)\frac{\Delta t_n}{2}f_{n+\gamma},
+\end{align*}
+obtaining
+\begin{align*}
+u_2=u_{n+1}^{TR/TR}=(1-\gamma)\frac{\Delta t_n}{2}f_{n+1}+\gamma\frac{\Delta t_n}{2}f_{n+\gamma}+u_n+\gamma
+\frac{\Delta t_n}{2}f_n+(1-\gamma)\frac{\Delta t_n}{2}f_{n+\gamma},
+\end{align*}
+\begin{align*}
+u_2=u_n+\gamma\frac{\Delta t_n}{2}f_n+\frac{\Delta t_n}{2}f_{n+\gamma}+(1-\gamma)\frac{\Delta t_n}{2}f_{n+1}.
+\end{align*}
+Now we can compute the difference
+\begin{align*}
+u_1-u_2=\frac{(1-\gamma)^2}{2-\gamma}\frac{\Delta t_n}{2}f_n-\frac{1-\gamma}{2-\gamma}\frac{\Delta t_n}{2}f_{n+\gamma}+\gamma\frac{1-\gamma}{2-\gamma}\frac{\Delta t_n}{2}f_{n+1}
+\end{align*}
+We can now prove the result
+\begin{align*}
+||e_l||&\approx\left|\left|2k_{\gamma}\Delta t_n\left(\frac{1}{\gamma}f_n-\frac{1}{\gamma(1-\gamma)}f_{n+\gamma}+\frac{1}{1-\gamma}f_{n+1}\right)\right|\right|\\
+&=2\Delta t_n|k_{\gamma}|\left|\left|\frac{1}{\gamma}f_n-\frac{1}{\gamma(1-\gamma)}f_{n+\gamma}+\frac{1}{1-\gamma}f_{n+1}\right|\right|\\
+&=2\Delta t_n\frac{3\gamma^2-4\gamma+2}{12(2-\gamma)}\left|\left|\frac{1}{\gamma}f_n-\frac{1}{\gamma(1-\gamma)}f_{n+\gamma}+\frac{1}{1-\gamma}f_{n+1}\right|\right|\\
+&=\left|\left|2\Delta t_n\frac{3\gamma^2-4\gamma+2}{12(2-\gamma)}\left(\frac{1}{\gamma}f_n-\frac{1}{\gamma(1-\gamma)}f_{n+\gamma}+\frac{1}{1-\gamma}f_{n+1}\right)\right|\right|\\
+&=\left|\left|\frac{3 \gamma^2 - 4 \gamma +2}{3 \gamma (1 - \gamma)^2}\left(\frac{(1-\gamma)^2}{2-\gamma}\frac{\Delta t_n}{2}f_n-\frac{1-\gamma}{2-\gamma}\frac{\Delta t_n}{2}f_{n+\gamma}+\gamma\frac{1-\gamma}{2-\gamma}\frac{\Delta t_n}{2}f_{n+1}\right)\right|\right|\\
+&=\left|\left|\frac{3 \gamma^2 - 4 \gamma +2}{3 \gamma (1 - \gamma)^2}\left(u_1-u_2\right)\right|\right|\\
+&=\frac{3 \gamma^2 - 4 \gamma +2}{3 \gamma (1 - \gamma)^2}\left|\left|u_1-u_2\right|\right|.
+\end{align*}
+\end{solution}
+\end{questions}

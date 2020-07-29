@@ -1,0 +1,132 @@
+\textbf{Consider the first order linear initial boundary value problem
+\begin{align*}
+u_t=u_x, ~~~~x\in[-1,1],~~t>0,~~u(\pm 1,t)=u(x,0)=0,
+\end{align*}
+with initial data $u(x,0) = \exp(-60(x-1/2)^2)$. Write a program to solve this problem by a matrix-based Chebyshev spectral discretization in $x$ coupled with the third order Adams-Bashforth formula in $t$, 
+\begin{align*}
+u^{(n+3)} = u^{(n+2)}+\frac{1}{12}\Delta t\left(23f^{(n+2)}-16f^{(n+1)}+5f^{(n)}\right).
+\end{align*}
+Initial values can be supplied from the exact solution. Take $N=50$ and \newline $\Delta t=\nu N^{-2}$, where $\nu$ is a parameter. For each of the two choices $\nu = 7$ and $\nu = 8$, produce one plot of the computed solution at $t=1$ and another that superimposes the stability region in the $\lambda\Delta t$-plane, the eigenvalues of the spatial discretization matrix, and its $\epsilon$-pseudospectra fpr $\epsilon=10^{-2},10^{-3},\dots,10^{-6}$. Comment on the results.
+}
+\newline
+
+We start by finding the exact solution using characteristics,
+
+\begin{align*}
+u(x,t) = 
+\begin{cases}
+       e^{-60(x+t-1/2)^2},& x\geq -t,\\
+       e^{-60(x+t+1/2)^2},& x\leq -t.
+\end{cases}
+\end{align*}
+
+Further, we use Chebyshev differentiation matrices,
+\begin{align*}
+u_t &= u_x,\\
+u_t &= Du = f,
+\end{align*}
+and the AB time-stepping method:
+\begin{align*}
+u^{(n+3)} &= u^{(n+2)}+\frac{1}{12}\Delta t\left(23f^{(n+2)}-16f^{(n+1)}+5f^{(n)}\right),\\
+&= u^{(n+2)}+\frac{1}{12}\Delta tD\left(23u^{(n+2)}-16u^{(n+1)}+5u^{(n)}\right).
+\end{align*}
+To start the simulation we use the exact solution. The results obtained are shown in the following figure. In the top two figures we see the exact solution (red) superposed with the numberical solution (blue). As we can see, for $\nu=7$ (left) we have a correct numerical solution while for $\nu=8$ (right) the numerical solution blows up. This can be further understood looking at the bottom figures. As we can see in the bottom left graph, the eigenvalues near the border of the stability region are susceptible to perturbations. Hence, by just increasing $\nu$ to 8, those eigenvalues are now outside of the stability region (bottom-right figure), giving us an understanding of why the numerical simulation is unstable.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1.2]{P2.png}\caption{Numerical and analytical solution of the PDE for $\nu = 7$ and $\nu = 8$ (top) and pseudo-spectra with stability regions and eigenvalues in the $\lambda\Delta t$-plane for those two values of $\nu$ (bottom).}
+\end{figure}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Homework 4, Problem 2 - Francisco Castillo'
+clear all; close all; clc;
+labelfontsize = 14;
+markersize = 4;
+linewidth = 2;
+
+N = 50;
+V = [7,8];
+levels = log10([1e-2 1e-3 1e-4 1e-5 1e-6]);
+% figure('units','normalized','outerposition',[0 0 1 1])
+for j=1:length(V)
+    v = V(j);
+    dt = v/N^2;
+    tf = 1;
+
+    [D,x] = cheb(N); % D:(N+1)x(N+1), x:(N+1)x1
+    D = D (2:end,2:end);
+    u_n = analytic_sol(x(2:end),0);
+    u_n1 = analytic_sol(x(2:end),dt);
+    u_n2 = analytic_sol(x(2:end),2*dt);
+
+    t = 2*dt;
+    while t<tf
+        if (t+dt>tf)
+            dt=tf-t;
+            t=t+dt;
+        else
+            t=t+dt;
+        end
+
+        u_n3 = u_n2+dt*D*(23*u_n2-16*u_n1+5*u_n)/12;
+        u = [analytic_sol(1,t);u_n3];
+
+        u_n = u_n1;
+        u_n1 = u_n2;
+        u_n2 = u_n3;
+
+        res = analytic_sol(x,t);
+
+        subplot(2,2,j)
+        plot(x,u,'b*')
+        hold on
+        plot(x,u,'b')
+        plot(x,res,'r*')
+        plot(x,res,'r')
+        grid on
+        axis([-1 1 0 1])
+        xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
+        ylabel('$u(x,t)$','interpreter','latex','fontsize',labelfontsize)
+        hold off
+        shg
+    end
+    %%
+    % Adams-Bashforth stability region and pseudo-spectra of this problem
+    dt = v/N^2;
+    ee = eig(D);
+    dtee = dt*ee;
+    xr = 6.5*linspace(min(real(dtee)),0.1,50);
+    yr = 2*linspace(min(imag(dtee)),max(imag(dtee)),50);
+    [xx,yy] = meshgrid(xr,yr);
+    zz = xx+1i*yy;
+    ps = 0*zz;
+    for k=1:numel(zz)
+        ps(k) = min(svd(eye(size(D))*zz(k)-dt*D));
+    end
+
+    z = exp(1i*pi*(0:200)/100); r = z-1;
+    s = (23-16./z+5./z.^2)/12;
+
+
+    subplot(2,2,j+2)
+    contourf(xx,yy,log10(ps),levels)
+    c = colorbar;
+    hold on
+    plot([-8,8],[0,0],'k')
+    plot([0,0],[-8,8],'k')
+    plot(real(dtee),imag(dtee),'r*','markersize',markersize)
+    plot(r./s,'b','linewidth',linewidth)
+    xlabel('$\Re(\lambda)$','interpreter','latex','fontsize',labelfontsize)
+    ylabel('$\Im(\lambda)$','interpreter','latex','fontsize',labelfontsize)
+    axis([-1 0.1 -1 1])
+    grid on
+end
+
+saveas(gcf,'Latex/FIGURES/P2','png')
+
+function res = analytic_sol(x,t)
+    res = zeros(size(x));
+    res(x>=-t) = exp(-60*(x(x>=-t)+t-0.5).^2);
+    res(x<-t) = exp(-60*(x(x<-t)+t+0.5).^2);
+end
+\end{verbatim}

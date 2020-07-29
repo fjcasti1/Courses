@@ -1,0 +1,44 @@
+
+\begin{questions}
+
+\question{Prove that the Lax-Friedrichs (LF) method is {\em
+  positivity-preserving}\/ (i.e., if $u^n_j > 0$ for all $j$, then
+$u^{n+1}_j > 0$ for all $j$) for Burgers' equation $u_t + (u^2/2)_x =
+0$.  The LF discretization of Burgers' equation is
+\begin{displaymath}
+        u^{n+1}_j = \frac{1}{2} \left(u^n_{j-1} + u^n_{j+1}\right) -
+        \frac{\Delta t}{4 \Delta x} \left((u^n_{j+1})^2 - (u^n_{j-1})^2\right)
+\end{displaymath}
+{\em Hint:}\/ For stability, $\Delta t \le \Delta
+x/\max_i\{|u^n_i|\}$.}
+
+\begin{solution}
+
+Let $M = \max_j|u_j|$. Then , for the method to be stable, 
+\begin{align*}
+\Delta t \leq \frac{\Delta x}{M}.
+\end{align*} 
+Taking common factor in the LF discretization of Burgers' equation,
+\begin{align*}
+u^{n+1}_j = \frac{1}{2}\left(u_{j-1}^n+u_{j+1}^n\right)\left[1-\frac{\Delta t}{2\Delta x}\left(u_{j+1}^n - u_{j-1}^n\right)\right].
+\end{align*}
+Since we assume that $u^n_j > 0$ for all $j$, the factor $\half\left(u_{j-1}^n+u_{j+1}^n\right)$ is positive for all $j$. Once we know that, we can procede as follows
+\begin{align*}
+u^{n+1}_j &= \frac{1}{2}\left(u_{j-1}^n+u_{j+1}^n\right)\left[1-\frac{\Delta t}{2\Delta x}\left(u_{j+1}^n - u_{j-1}^n\right)\right],\\
+&\geq \frac{1}{2}\left(u_{j-1}^n+u_{j+1}^n\right)\left[1-\frac{\Delta t}{2\Delta x}\left(u_{j+1}^n + u_{j-1}^n\right)\right],\\
+&\geq \frac{1}{2}\left(u_{j-1}^n+u_{j+1}^n\right)\left[1-\frac{\Delta t}{\Delta x}M\right],
+\end{align*}
+where we have used that 
+\begin{align*}
+\frac{u_{j+1}^n + u_{j-1}^n}{2}\leq M.
+\end{align*}
+To finish, by the stability condition, $\frac{\Delta t}{\Delta x}M\leq 1$. Hence,
+\begin{align*}
+u^{n+1}_j &\geq \frac{1}{2}\left(u_{j-1}^n+u_{j+1}^n\right)\left[1-\frac{\Delta t}{\Delta x}M\right]\geq 0.
+\end{align*}
+
+Thus LF is \textit{positivity-preserving} for Burger's equation.
+
+\end{solution}
+
+\end{questions}

@@ -1,0 +1,11 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Introduction}{4}{0}{1}
+\beamer@subsectionintoc {1}{1}{The Knife Edge Viscometer}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{Quick Motivation}{5}{0}{1}
+\beamer@subsectionintoc {1}{3}{Governing Equations}{6}{0}{1}
+\beamer@subsectionintoc {1}{4}{Boundary Conditions}{9}{0}{1}
+\beamer@sectionintoc {2}{Results}{16}{0}{2}
+\beamer@subsectionintoc {2}{1}{Observables}{16}{0}{2}
+\beamer@subsectionintoc {2}{2}{Parameter Sweep}{17}{0}{2}
+\beamer@subsectionintoc {2}{3}{Time-series at the bifurcation}{19}{0}{2}
+\beamer@subsectionintoc {2}{4}{Movies}{20}{0}{2}

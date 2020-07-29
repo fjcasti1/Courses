@@ -1,0 +1,55 @@
+\begin{questions}
+
+\question{Prove the second part of \textsl{Theorem 5.18} using the proof of the first part as a guide.
+}
+\begin{solution}
+We start the proof with the orthonormality condition stated as
+\begin{align*}
+\int\psi(x)\overline{\phi(x-l)}dx=0,
+\end{align*}
+where $\delta$ is the Kronecker-delta and $l\in\Z$. By the Plancherel's identity for the Fourier Transform,
+\begin{align*}
+\int_{-\infty}^{\infty}\psi(x)\overline{\phi(x-l)}dx&=\int_{-\infty}^{\infty}\hat{\psi}(\eta)\overline{\hat{\phi}(\eta)e^{-il\eta}} d\eta,\\
+&=\int_{-\infty}^{\infty}\hat{\psi}(\eta)\overline{\hat{\phi}(\eta)}e^{il\eta} d\eta.
+\end{align*}
+Like in the first part of the proof, we divide the real line into the intervals $I_j=[2\pi j,2\pi(j+1)]$ for $j\in\Z$ and the equation can be written as
+\begin{align*}
+\sum_{j\in\Z}\int_{2\pi j}^{2\pi (j+1)}\hat{\psi}(\eta)\overline{\hat{\phi}(\eta)}e^{il\eta} d\eta=0.
+\end{align*}
+Now replace $\eta$ by $\eta+2\pi j$,
+\begin{align*}
+\int_{0}^{2\pi}\sum_{j\in\Z}\hat{\psi}(\eta+2\pi j)\overline{\hat{\phi}(\eta+2\pi j)}e^{il\eta} d\eta=0,
+\end{align*}
+where we have used that $e^{2\pi ilj}=1$ for $j,l\in\Z$. Let 
+\begin{align*}
+G(\eta)=2\pi\sum_{j\in\Z}\hat{\psi}(\eta+2\pi j)\overline{\hat{\phi}(\eta+2\pi j)}.
+\end{align*}
+The orthonormality condition can be then expressed as
+\begin{align*}
+\frac{1}{2\pi}\int_{0}^{2\pi}G(\eta)e^{il\eta} d\eta=0.
+\end{align*}
+Note that $G(\eta)$ is periodic,
+\begin{align*}
+G(\eta+2\pi)&=2\pi\sum_{j\in\Z}\hat{\psi}(\eta+2\pi+2\pi j)\overline{\hat{\phi}(\eta+2\pi+2\pi j)},\\
+&=2\pi\sum_{j\in\Z}\hat{\psi}(\eta+2\pi (j+1))\overline{\hat{\phi}(\eta+2\pi (j+1))},\\
+&=2\pi\sum_{j'\in\Z}\hat{\psi}(\eta+2\pi j'))\overline{\hat{\phi}(\eta+2\pi j'))},\\
+&=G(\eta).
+\end{align*}
+Hence, $G(\eta)$ accepts a Fourier representation,
+\begin{align*}
+G(\eta)=\sum_{l\in\Z}\alpha_le^{ilx},
+\end{align*}
+where the coefficients are given by
+\begin{align*}
+\alpha_l=\frac{1}{2\pi}\int_0^{2\pi}G(\eta)e^{-il\eta}d\eta.
+\end{align*}
+This implies that the orthogonality condition can be written as $\alpha_{-l}=0$ and this implies that $G(\eta)=0$. Therefore,
+\begin{align*}
+2\pi\sum_{j\in\Z}\hat{\psi}(\eta+2\pi j)\overline{\hat{\phi}(\eta+2\pi j)}=0.
+\end{align*}
+The proof is finished by simply dividing by $2\pi$ and taking the conjugate of the whole equation,
+\begin{align*}
+\sum_{j\in\Z}\hat{\phi}(\eta+2\pi j)\overline{\hat{\psi}(\eta+2\pi j)}=0.
+\end{align*}
+\end{solution}
+\end{questions}

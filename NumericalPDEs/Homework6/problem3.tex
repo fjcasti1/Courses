@@ -1,0 +1,47 @@
+
+\begin{questions}
+
+\question{Show that Burgers' equation $u_t + u u_x = \nu u_{xx}$ with
+$u(x,t=0) = u_l,~ x < 0$ and $u(x,t=0) = u_r < u_l,~ x > 0$ has a
+traveling wave solution of the form $u(x, t) = w(x - s t)$ by deriving
+an ODE for $w$ and showing that the ODE is solved by
+\begin{displaymath}
+	w(y) = u_r + \frac{1}{2} (u_l - u_r) \left[ 1 - 
+	\tanh \frac{(u_l - u_r) y}{4 \nu} \right]
+\end{displaymath}
+where $s = (u_l + u_r)/2$. }
+
+\begin{solution}
+
+Firs, let $y = x-st$. By the chain rule
+\begin{align*}
+& u_t = \frac{\partial w(y)}{\partial t} =\frac{\partial w(y)}{\partial y}\frac{\partial y}{\partial t} = -sw'.
+\end{align*}
+Similarly,
+\begin{align*}
+& u_x = w',\\
+& u_{xx} = w''.
+\end{align*}
+With the obtained derivatives plugged into the Burgers' equation we get a second order, non linear ODE for $w$,
+\begin{align*}
+-sw'+ww' = \nu w''
+\end{align*}
+Given $w$, we can compute
+\begin{align*}
+w' & = -\frac{1}{2}(u_l-u_r)\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\left(\frac{(u_l-u_r)}{4\nu} \right),
+\end{align*}
+and,
+\begin{align*}
+w'' & = \frac{(u_l-u_r)^3}{(4\nu)^2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right) ~.
+\end{align*}
+Substituting the terms into the obtained ODE we find that the given $w$ is indeed a solution
+\begin{align*}
+-sw'+ww' &= -\frac{1}{2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\left(\frac{(u_l-u_r)^2}{4\nu} \right)\left[-s+u_r+\frac{1}{2}(u_l-u_r)\left(1-\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right)\right)\right] \\
+& = -\frac{1}{2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\left(\frac{(u_l-u_r)^2}{4\nu} \right)\left[-\frac{1}{2}(u_l-u_r)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right)\right] \\
+& = \nu\frac{(u_l-u_r)^3}{(4\nu)^2}\text{sech}^2\left(\frac{(u_l-u_r)y}{4\nu}\right)\tanh\left(\frac{(u_l-u_r)y}{4\nu}\right) \\
+& = \nu w''~.
+\end{align*}
+
+\end{solution}
+
+\end{questions}

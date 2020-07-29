@@ -1,0 +1,18 @@
+*.aux
+<<<<<<< HEAD
+*.png
+*.jpg
+*.mat
+*.html
+*.fig
+=======
+>>>>>>> SecondYear/master
+*.log
+*.gz
+*.tar
+*.bbl
+*.blg
+*.dvi
+*.eps
+*-eps-converted*
+*.m~

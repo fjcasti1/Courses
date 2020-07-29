@@ -1,0 +1,54 @@
+\begin{questions}
+
+\question{
+Let 
+\begin{align*}
+\phi(x)= \left\{
+\begin{array}{ll}
+      1 & $if $ 0\leq x<1, \\
+      0 & $otherwise.$ \\
+\end{array} 
+\right.
+\end{align*}
+Show that
+\begin{align*}
+\left(\phi*\phi\right)(x)= \left\{
+\begin{array}{ll}
+      1-|x-1| & $if $ 0\leq x<2, \\
+      0 & $otherwise.$ \\
+\end{array} 
+\right.
+\end{align*}
+}
+\begin{solution}
+Given the definition of the convolution,
+\begin{align*}
+\left(\phi*\phi\right)(x)=\int_{-\infty}^{\infty}\phi(x-t)\phi(t)dt,
+\end{align*}
+note that the convolution will be zero for those values of $x$ that make the functions $\phi(t)$ and $\phi(x-t)$ not overlap. A simple graph of the functions demonstrates that they overlap as long as $x\in[0,2)$. We have now two different situations:
+\begin{itemize}
+\item $x\in[0,1)$. Then,
+\begin{align*}
+\left(\phi*\phi\right)(x)&=\int_{-\infty}^{\infty}\phi(x-t)\phi(t)dt\\
+&=\int_{0}^{x}\phi(x-t)\phi(t)dt\\
+&=\int_{0}^{x}dt\\
+&=x,
+\end{align*}
+which we can rewrite as
+\begin{align*}
+\left(\phi*\phi\right)(x)=1-(1-x)
+\end{align*}
+\item $x\in[1,2)$. Then,
+\begin{align*}
+\left(\phi*\phi\right)(x)&=\int_{-\infty}^{\infty}\phi(x-t)\phi(t)dt\\
+&=\int_{x-1}^{1}\phi(x-t)\phi(t)dt\\
+&=\int_{x-1}^{1}dt\\
+&=1-(x-1)
+\end{align*}
+We can now summarize both results as
+\begin{align*}
+\left(\phi*\phi\right)(x)=1-|x-1|~~\text{for }x\in[0,2)
+\end{align*}
+\end{itemize}
+\end{solution}
+\end{questions}

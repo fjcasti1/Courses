@@ -1,0 +1,12 @@
+\begin{questions}
+
+\question{\textit{Filtering}. Let
+\begin{align*}
+f(t)=e^{-t^2/10}\left(\sin 2t+2\cos 4t+0.4\sin t\sin 50t\right).
+\end{align*}
+Discretize $f$ by setting $y_k=f(2k\pi/256)$, $k=1\dots 256$. Use the fast Fourier transform to compute $\hat{y}_k$ for $0\leq k\leq 256$. Filter out the high-frequency terms by setting $\hat{y}_k=0$ for $m\leq k\leq 255-m$ with $m=6$; then apply the inverse fast Fourier transform to this new set of $\hat{y}_k$ to compute the $y_k$(now filtered); plot the new values of $y_k$ and compare with the original function. Experiment with other values of $m$.
+}
+\begin{solution}
+\textit{The solution to this problem below, with the \textsl{Matlab} code.}
+\end{solution}
+\end{questions}

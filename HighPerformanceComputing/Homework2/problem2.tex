@@ -1,0 +1,43 @@
+\begin{questions}
+
+\question{Let $x=1/3$.
+(a) Find the binary representation of $x$.
+}
+\begin{solution}
+Similarly as in the previous problem, we obtain
+\begin{align*}
+x=\frac{1}{3}_{10}=0.0101\overline{01}\dots
+\end{align*}
+\end{solution}
+\question{
+(b) Find the IEEE-754 single precision representation $\hat{x}$ of $x$ when rounding to nearest. 
+}
+\begin{solution}
+To find the normalized representation we must make $a_0=1$ such as
+\begin{align*}
+1.01\overline{01}\dots\times 2^{-2},
+\end{align*}
+and cut at the 23rd digit,
+\begin{align*}
+\hat{x}=1.01010101010101010101011\times 2^{-2}.
+\end{align*}
+Note that we have rounded to nearest in $a_{23}$.
+\end{solution}
+\question{
+(c) What is the absolute error due to rounding? In other words, what is $|\hat{x}-x|$?
+}
+\begin{solution}
+We begin using geometric series to represent both quantities as
+\begin{align*}
+x=S=\frac{a}{1-r},
+\end{align*}
+and
+\begin{align*}
+\hat{x}=S_N+2^{-23}=\frac{a(1-r^{N+1})}{1-r}+2^{-23}
+\end{align*}
+with $a=r=1/4$ and $N=11$. Therefore,
+\begin{align*}
+|\hat{x}-x|=|S_N+2^{-23}-S|=\left|2^{-23}-\frac{r^{N+1}}{1-r}\right|=\left|2^{-23}-\frac{(1/4)^{N+1}}{3/4}\right|=9.934\cdot 10^{-9}.
+\end{align*}
+\end{solution}
+\end{questions}

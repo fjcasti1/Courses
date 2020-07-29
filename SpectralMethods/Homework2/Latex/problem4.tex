@@ -1,0 +1,122 @@
+\textbf{Modify Program 7 so that you can verify that the data in the first curve of Output 7 match the prediction of Theorem 4(a). Verify also that the third and fourth curves match the predictions of parts (c) and (d).}
+\newline
+
+In this problem we verify the convergence rates of Theorem 4. For all cases let $w$ be the $v$th spectral derivative on the grid $h\mathbb{Z}$. Since we are going to be working with the first derivative, $v=1$.
+
+First, we focus on the function $u=|sin(x)|^3$, which has $2=p-1$ continuous derivatives in $L^2(\mathbb{R})$ and a $p=3$rd derivative of bounded variation. Hence,
+\begin{align*}
+|w_j - u^{(v)}(x_j)| = \mathcal{O}(h^{p-v}) = \mathcal{O}(h^{3-1}) = \mathcal{O}(h^{2})~\text{as}~h \rightarrow 0,
+\end{align*}
+which we can verify in the next figure.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.7]{P4_1.eps}\caption{Error convergence for $u=|sin(x)|^3$.}
+\end{figure}
+
+Second, the function $ u = \frac{1}{1+\sin^2(x/2)}$ is analytic in a strip in the complex plane. We find this strip as follows
+\begin{align*}
+1 + \sin^2(z/2) = 0 ~\Rightarrow ~a = \text{Imag}(2 \arcsin(i))~\Rightarrow~ a \approx 1.76~.
+\end{align*}
+Then, according to the theorem,
+\begin{align*}
+|w_j - u^{(v)}(x_j)| = \mathcal{O}\left(e^{-(a-\varepsilon)/h)}\right)~\text{as}~h \rightarrow 0~,
+\end{align*}
+for every $\varepsilon>0$ (we have chosen $10^{-4}$). We can verify this result in the following figure.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.7]{P4_2.eps}\caption{Error convergence for $ u = \frac{1}{1+\sin^2(x/2)}$.}
+\end{figure}
+
+Lastly, $u = \sin(10x)$ is band-limited. It is possible to find $a >0$ such that $u$ can be extended to an entire function and for $z \in \mathbb{C}$, $|u(z)| = o(e^{a|z|})$ as $z \rightarrow \infty$. Note that
+
+\begin{align*}
+|\sin(10z)| = \biggl| \frac{e^{i10z}-e^{-i10z}}{2i} \biggr| = \biggl| \frac{e^{i10x}e^{-10y} - e^{-i10x}e^{10y}}{2i} \biggr| \leq \biggl| \frac{e^{-10y}-e^{10y}}{2} \biggr| \leq e^{10|z|}~,
+\end{align*}
+where we have made $z=x+iy$. Further,
+\begin{align*}
+\lim_{z \rightarrow \infty} \frac{|\sin(10z)|}{|e^{a|z|}|} \leq \lim_{z \rightarrow \infty} \frac{e^{10|z|}}{e^{a|z|}} = 0 ~\Rightarrow ~a > 10.
+\end{align*}
+According to the theorem,
+\begin{align*}
+w_j = u^{(v)}(x_j),
+\end{align*}
+as long as $h =2\pi/N \leq \pi/a$. Hence,
+\begin{align*}
+w_j = u^{(v)}(x_j),
+\end{align*}
+for $N>2a=20$, which is clearly seen in the next figure, where for $N>20$ the error is machine precision.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.7]{P4_3.eps}\caption{Error convergence for $u = \sin(10x)$.}
+\end{figure}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 4
+close all
+figformat='epsc';
+linewidth=2;
+% Compute derivatives for various values of N:
+Nmax = 50; E = zeros(3,Nmax/2-2);
+for N = 6:2:Nmax
+    h = 2*pi/N; x = h*(1:N)';
+    column = [0 .5*(-1).^(1:N-1).*cot((1:N-1)*h/2)]';
+    D = toeplitz(column,column([1 N:-1:2]));
+    v = abs(sin(x)).^3;                     % 3rd deriv in BV
+    vprime = 3*sin(x).*cos(x).*abs(sin(x));
+    E(1,N/2-2) = norm(D*v-vprime,inf);
+    v = exp(-sin(x/2).^(-2));               % C-infinity
+    vprime = .5*v.*sin(x)./sin(x/2).^4;
+    E(2,N/2-2) = norm(D*v-vprime,inf);
+    v = 1./(1+sin(x/2).^2);                 % analytic in a strip
+    vprime = -sin(x/2).*cos(x/2).*v.^2;
+    E(3,N/2-2) = norm(D*v-vprime,inf);
+    v = sin(10*x); vprime = 10*cos(10*x);   % band-limited
+    E(4,N/2-2) = norm(D*v-vprime,inf);
+end
+Nvector = 6:2:Nmax;
+hvector = 2*pi./Nvector;
+
+
+p = 3;
+v = 1;
+
+figure
+semilogy(Nvector,E(1,:),'*')
+hold on
+semilogy(Nvector,hvector.^(p-v),'linewidth',linewidth)
+grid on
+xlabel('$N$','interpreter','latex')
+ylabel('$|w_j-u^{(v)(x_j)}|$','interpreter','latex')
+set(gca,'fontsize',14)
+txt='Latex/FIGURES/P4_1';
+saveas(gcf,txt,figformat)
+
+a = 1.76;
+e = 1e-4;
+
+figure
+semilogy(Nvector,E(3,:),'*')
+hold on
+semilogy(Nvector,exp(-pi*(a-e)./hvector),'linewidth',linewidth)
+grid on
+xlabel('$N$','interpreter','latex')
+ylabel('$|w_j-u^{(v)(x_j)}|$','interpreter','latex')
+set(gca,'fontsize',14)
+txt='Latex/FIGURES/P4_2';
+saveas(gcf,txt,figformat)
+
+figure
+semilogy(Nvector,E(4,:),'*')
+hold on
+plot([20 20],[1e-16 10],'r--','linewidth',linewidth)
+axis([5 51 1e-16 2e1])
+grid on
+xlabel('$N$','interpreter','latex')
+ylabel('$|w_j-u^{(v)(x_j)}|$','interpreter','latex')
+set(gca,'fontsize',14)
+txt='Latex/FIGURES/P4_3';
+saveas(gcf,txt,figformat)
+\end{verbatim}

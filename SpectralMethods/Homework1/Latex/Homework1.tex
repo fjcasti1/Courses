@@ -1,0 +1,89 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+\usepackage{mathtools}
+
+\graphicspath{{./FIGURES/}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\zero}{\mathbb{O}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+ 
+\title{Spectrall Methods}%replace X with the appropriate number
+\author{Francisco Castillo\\Homework 1} %if necessary, replace with your course title
+ 
+\maketitle
+\section*{Problem 1}
+\input{problem1}
+\newpage
+\section*{Problem 2}
+\input{problem2}
+\newpage
+\section*{Problem 3}
+\input{problem3}
+\newpage
+\section*{Problem 4}
+\input{problem4}
+\newpage
+\section*{Problem 5}
+\input{problem5}
+
+
+%\begin{figure}[H]
+%\centering     %%% not \center
+%\hspace*{\fill}
+%\subfigure[$f(x)=|x|^3$.]{\includegraphics[scale=0.5]{IMAGES/problem4a.eps}}
+%\hfill
+%\subfigure[$f(x)=exp\left(\frac{-1}{\sin{(2x^2)}}\right)$.]{\includegraphics[scale=0.5]{IMAGES/problem4b.eps}}
+%\hspace*{\fill}
+
+%\hspace*{\fill}
+%\subfigure[$f(x)=\frac{1}{\sin{(1+x^2)}}$.]{\includegraphics[scale=0.5]{IMAGES/problem4c.eps}}
+%\hfill
+%\subfigure[$f(x)=\sinh{x}$.]{\includegraphics[scale=0.5]{IMAGES/problem4d.eps}}
+%\hspace*{\fill}
+%\caption{Error of the polynomial interpolation on Chebyshev nodes for the different functions.}
+%\end{figure}
+
+\end{document}

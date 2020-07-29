@@ -1,0 +1,57 @@
+\begin{questions}
+
+\question{
+Derive the growth factor $G$ for TRBDF2 for $du/dt = - \alpha u$,
+$\alpha > 0$, and show that the method is L-stable (assuming it is
+A-stable---proof given at the end of this problem set) for $0 < \gamma
+< 1$.  {\em Hint:}\/ First show that the growth factor is given by
+($\Delta \equiv \gamma \alpha \Delta t > 0$):
+\begin{displaymath} 
+        G(\Delta t, \gamma) = 
+        \frac{\frac{1-\frac{\gamma \alpha \Delta t}{2}}
+        {1+\frac{\gamma \alpha \Delta t}{2}} - (1 - \gamma)^2}
+        {\gamma (2-\gamma) + \gamma (1-\gamma) \alpha \Delta t} =
+        \frac{\frac{2-\Delta}{2+\Delta} - (1 - \gamma)^2}
+        {\gamma (2-\gamma) + (1-\gamma) \Delta} .
+\end{displaymath}
+{\em Note:} For $\gamma = 1$, the BDF2 step disappears, and $G
+\rightarrow G_{TR}$; similarly, for $\gamma = 0$, the TR step
+disappears, the BDF2 step $\rightarrow$ TR, and $G \rightarrow
+G_{TR}$.  In both case, $k_\gamma \rightarrow -1/12$ (the TR value).
+
+Also note that for $u_t = D u_{xx}$, $G(k)$ has the same form with
+\begin{displaymath} 
+        \alpha = \frac{4 D}{h^2} \sin^2\left(\frac{k h}{2}\right) .
+\end{displaymath}
+}
+\begin{solution}
+We start by obtaining the growth function for the $TR$ step. Let $u_{n+\gamma}=g^{TR}(k)u_n$ and, using the given PDE, $f_{n+\gamma}=-\alpha u_{n+\gamma}=-\alpha g^{TR}(k)u_n$. Hence,
+\begin{align*}
+u_{n+\gamma}-\gamma\frac{\Delta t_n}{2}f_{n+\gamma}&=u_n+\gamma
+\frac{\Delta t_n}{2}f_n,\\
+g^{TR}(k)u_n+\alpha\gamma\frac{\Delta t_n}{2} g^{TR}(k)u_n&=u_n-
+\alpha\gamma\frac{\Delta t_n}{2}u_n,\\
+g^{TR}(k)&=\frac{1-\alpha\gamma\frac{\Delta t_n}{2}}{1+\alpha\gamma\frac{\Delta t_n}{2} },\\
+g^{TR}(k)&=\frac{2-\Delta}{2+\Delta},
+\end{align*}
+where $\Delta=\alpha\gamma\Delta t$. We continue with the $BDF2$ step, noting that $u_{n+1}=g^{TR}(k)g^{BDF2}(k)u_n$ and $f_{n+1}=-\alpha u_{n+1}=-\alpha g^{TR}(k)g^{BDF2}(k)u_n$,
+\begin{align*}
+u_{n+1}-\frac{1-\gamma}{2-\gamma}\Delta tf_{n+1}&=\frac{1}{\gamma(2-\gamma)}u_{n+\gamma}-\frac{(1-\gamma)^2}{\gamma(2-\gamma)}u_n\\
+g^{TR}(k)g^{BDF2}(k)u_n+\alpha\frac{1-\gamma}{2-\gamma}\Delta tg^{TR}(k)g^{BDF2}(k)u_n&=\frac{1}{\gamma(2-\gamma)}g^{TR}(k)u_n-\frac{(1-\gamma)^2}{\gamma(2-\gamma)}u_n\\
+g^{BDF2}(k)&=\frac{\frac{1}{\gamma(2-\gamma)}g^{TR}(k)-\frac{(1-\gamma)^2}{\gamma(2-\gamma)}}{g^{TR}(k)+\alpha\frac{1-\gamma}{2-\gamma}\Delta tg^{TR}(k)}\\
+g^{BDF2}(k)&=\frac{g^{TR}(k)-(1-\gamma)^2}{\gamma(2-\gamma)g^{TR}(k)+\alpha\gamma(1-\gamma)\Delta tg^{TR}(k)}.
+\end{align*}
+Finally,
+\begin{align*}
+G(k)=g^{TR}(k)g^{BDF2}(k)=\frac{g^{TR}(k)-(1-\gamma)^2}{\gamma(2-\gamma)+\alpha\gamma(1-\gamma)\Delta t},
+\end{align*}
+\begin{align*}
+G(k)=\frac{\frac{2-\Delta}{2+\Delta}-(1-\gamma)^2}{\gamma(2-\gamma)+(1-\gamma)\Delta}.
+\end{align*}
+The method is $L$-stable since
+\begin{align*}
+\lim_{\Delta\rightarrow\infty} |G(k)|=\lim_{\Delta\rightarrow\infty} \left|\frac{\frac{2-\Delta}{2+\Delta}-(1-\gamma)^2}{\gamma(2-\gamma)+(1-\gamma)\Delta}\right|=0,
+\end{align*}
+since the denominator grows proportionally to $\Delta^2$ and the numerator proportionally to $\Delta$.
+\end{solution}
+\end{questions}

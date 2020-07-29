@@ -1,0 +1,52 @@
+\begin{questions}
+
+\question{Prove that the forward Euler method for the heat equation $u_t =
+u_{xx}$
+\begin{displaymath}
+	u^{n+1}_i = u^n_i + \frac{\Delta t}{\Delta x^2} 
+	\left( u^n_{i+1} - 2 u^n_i + u^n_{i-1} \right)
+\end{displaymath}
+is (a) first-order accurate}
+
+\begin{solution}
+
+To find the local truncation error we Taylor expand
+\begin{align*}
+u(t+\Delta t) = u + \frac{\Delta t}{\Delta x^2}\left[u(x+\Delta x,t) - 2u + u(x - \Delta x,t)\right]+\tau \Delta t,
+\end{align*}
+which gives,
+\begin{align*}
+&u + \Delta t u_t + \frac{\Delta t^2}{2}u_{tt}+\cdots = u + \frac{\Delta t}{\Delta x^2}\left[\left(u + \Delta xu_x + \frac{\Delta x^2}{2}u_{xx}+\cdots\right) -2u+\left(u - \Delta x u_x + \frac{\Delta x^2}{2}u_{xx}+\cdots\right)\right]+\tau \Delta t.
+\end{align*}
+Cancelling terms, it is easy to obtain
+\begin{align*}
+\tau = \frac{\Delta t}{2}u_{tt}\Rightarrow \tau = \mathcal{O}(\Delta t)~.
+\end{align*}
+
+Hence, the given method is first order accurate.
+
+\end{solution}
+
+\question{(b) conditionally stable.  What is the
+restriction on $\Delta t$? }
+
+\begin{solution}
+
+Our first step will be obtain the growth function $g(k)$. Let $u_i^n = e^{ikx_i}$ and $u_i^{n+1} = g(k)e^{ikx_i}$, then
+\begin{align*}
+&g(k)e^{ikx_i} = e^{ikx_i} + \frac{\Delta t}{\Delta x^2}\left(e^{ikx_{i+1}} -2e^{ikx_i} + e^{ikx_{i-1}}\right)\\
+& \Rightarrow g(k) = 1 - 2\frac{2\Delta t}{\Delta x^2}\left(1 - \cos(k \Delta x)\right)~,
+\end{align*}
+where we hav simply cancelled the exponential $e^{ikx_i}$ since it is common factor in the equation, and done some algbraic operations. For the method to be stable we need to impose the condition $\|g(k)\|\leq 1$, which lead us to
+\begin{align*}
+\left|1 - 2\frac{2\Delta t}{\Delta x^2}\left(1 - \cos(k \Delta x)\right)\right| \leq 1.
+\end{align*}
+This inequality is satisfied provided that
+\begin{align*}
+\Delta t \leq \frac{\Delta x^2}{2}~.
+\end{align*}
+Thus, Forward Euler is stable as long as $\Delta t \leq \frac{\Delta x^2}{2}$.
+
+\end{solution}
+
+\end{questions}

@@ -1,0 +1,67 @@
+\begin{questions}
+
+\question{ (a) Using the trapezoidal rule integration method to approximate
+$Q^n \approx \overline{Q}(t) = \int u(x, t) dx$, show that
+discretizations of $u_t + f_x = 0$ of the form
+\begin{displaymath} 
+	u^{n+1}_i = u^n_i - \frac{\Delta t}{\Delta x}
+	\left(F_{i+\half} - F_{i-\half}\right)
+\end{displaymath}
+are conservative. }
+
+\begin{solution}
+
+Using the trapezoidal rule we get the following
+\begin{align*}
+Q^n = \int u^n(x,t)dx = \sum_{j=0}^{N-1} \frac{1}{2}\left(u^n_{j+1}+u^n_j\right)\Delta x~,
+\end{align*}
+and
+\begin{align*}
+Q^{n+1} = \int u^{n+1}(x,t)dx &= \sum_{j=0}^{N-1} \frac{1}{2}\left(u^{n+1}_{j+1}+u^{n+1}_j\right)\Delta x\\
+&=\sum_{j=0}^{N-1} \frac{1}{2}\left(u^n_{j+1}+u^n_j\right)\Delta x+\frac{1}{2}\Delta t \sum_{j=0}^{N-1}\left(F_{j-1/2}-F_{j+3/2}\right)\\
+&= Q^n +\frac{1}{2}\Delta t \sum_{j=0}^{N-1}\left(F_{j-1/2}-F_{j+3/2}\right).
+\end{align*}
+From here it is easy to find,
+\begin{align*}
+\frac{dQ}{dt} \approx \frac{Q^{n+1}-Q^n}{\Delta t} &= \frac{1}{2} \sum_{j=0}^{N-1}\left(F_{j-1/2}-F_{j+3/2}\right) \\
+& = \frac{1}{2}\left(F_{-1/2}+F_{1/2}-F_{N-1/2}-F_{N+1/2}\right),
+\end{align*}
+where we have used that the series is a telescoping series.
+We can define the flux at the two boundaries as
+\begin{align*}
+F_0 = \frac{1}{2}\left( F_{-1/2}+F_{1/2}\right),
+\end{align*}
+and
+\begin{align*}
+F_N = \frac{1}{2}\left( F_{N-1/2}+F_{N+1/2}\right).
+\end{align*}
+In the previous, the nodes outside of the grid are ghost nodes. Finally we have obtained
+\begin{align*}
+\frac{dQ}{dt} \approx F_0-F_N,
+\end{align*}
+which proves that the discretization is conservative since the change of the conserved quantity $Q$ is the different between the inflow and the outflow.
+
+\end{solution}
+
+\question{ (b) For nonlinear diffusion, $f(u) = - D(u) u_x$
+and $F_{i+\half} = f_{i+\half}$.  Show that if homogeneous Neumann
+boundary conditions $u_x(x_L, t) = 0 = u_x(x_R, t)$ are imposed via
+ghost points, $Q$ is constant in time.}
+
+\begin{solution}
+
+If homogeneous boundary conditions are imposed, the quantity must be conserved because there is no flux through the boundaries. Formally, we have
+\begin{align*}
+F_0 = -D(u_0)u_x|_{x=x_0} = 0,
+\end{align*}
+and
+\begin{align*}
+F_N = -D(u_N)u_x|_{x=x_N}=0,
+\end{align*}
+which makes
+\begin{align*}
+\frac{dQ}{dt} \approx 0~.
+\end{align*}
+Hence, $Q$ is constant in time.
+\end{solution}
+\end{questions}

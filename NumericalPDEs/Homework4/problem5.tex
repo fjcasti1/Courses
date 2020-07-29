@@ -1,0 +1,134 @@
+\begin{questions}
+
+\question{
+Compute the first two conjugate gradient iterates $x_1$ and $x_2$
+with $x_0 = (0,0)$ with and without preconditioning to the solution $x
+= (0,1)$ of $A x = b$:
+\begin{displaymath}
+	A = \left[ 
+	\begin{array}{rr} 
+	9 & 1 \\
+	1 & 1
+	\end{array}
+	\right] ,~~
+	b = \left[ 
+	\begin{array}{r} 
+	1\\
+	1
+	\end{array}
+	\right] ,~~
+	M = \left[ 
+	\begin{array}{rr} 
+	9 & 0 \\
+	0 & 1
+	\end{array}
+	\right] .
+\end{displaymath}
+Calculate $||e_1^{CG}||_1$ and $||e_1^{PCG}||_1$.  Note that while
+both CG and PCG give the exact $x$ in two steps $x_2 = (0, 1)$, PCG
+gives a much better $x_1$.
+}
+\begin{solution}
+\begin{itemize}
+\item \textbf{CG:}
+We start without using preconditioning. Since $x_0=0$, $r_0=b$ and $\beta_1=0$. Then,
+\begin{align*}
+d_1=r_0+\beta_1d_0=r_0=b,
+\end{align*}
+and,
+\begin{align*}
+\alpha_1=\frac{r_0^Tr_0}{d_1^TAd_1}=1/6.
+\end{align*}
+Then new guess is
+\begin{align*}
+x_1=x_0+\alpha_1d_1=\left[
+	\begin{array}{r r} 
+	1/6 \\
+	1/6 \\
+	\end{array} \right],
+\end{align*}
+and the new residual is
+\begin{align*}
+r_1=r_0+\alpha_1Ad_1=\left[
+	\begin{array}{r r} 
+	-2/3 \\
+	2/3 \\
+	\end{array} \right],
+\end{align*}
+We repeat the process again,
+\begin{align*}
+&\beta_2=\frac{r_1^Tr_1}{r_0^Tr_0}=4/9,\\
+&d_2=r_1+\beta_2d_1=\left[
+	\begin{array}{r r} 
+	-2/9 \\
+	10/9 \\
+	\end{array} \right],\\
+&\alpha_2=\frac{r_1^Tr_1}{d_2^TAd_2}=3/4,\\
+&x_2=x_1+\alpha_2d_2=\left[
+	\begin{array}{r r} 
+	0 \\
+	1 \\
+	\end{array} \right].\\		
+\end{align*}
+\item \textbf{PCG:}
+Now we use preconditioning. Since $x_0=0$, $r_0=b$ and $\beta_1=0$. We solve
+\begin{align*}
+Mz_0=r_0\Rightarrow z_0=\left[
+	\begin{array}{r r} 
+	1/9 \\
+	1 \\
+	\end{array} \right].
+\end{align*}
+Then,
+\begin{align*}
+d_1=z_0+\beta_1d_0=r_0=z_0,
+\end{align*}
+and,
+\begin{align*}
+\alpha_1=\frac{z_0^Tr_0}{d_1^TAd_1}=5/6.
+\end{align*}
+Then new guess is
+\begin{align*}
+x_1=x_0+\alpha_1d_1=\left[
+	\begin{array}{r r} 
+	5/54 \\
+	5/6 \\
+	\end{array} \right],
+\end{align*}
+and the new residual is
+\begin{align*}
+r_1=r_0+\alpha_1Ad_1=\left[
+	\begin{array}{r r} 
+	-2/3 \\
+	2/27 \\
+	\end{array} \right],
+\end{align*}
+We repeat the process again,
+\begin{align*}
+&Mz_1=r_1\Rightarrow z_1=\left[
+	\begin{array}{r r} 
+	-2/27 \\
+	2/27 \\
+	\end{array} \right],\\
+&\beta_2=\frac{z_1^Tr_1}{z_0^Tr_0}=4/81,\\
+&d_2=z_1+\beta_2d_1=\left[
+	\begin{array}{r r} 
+	-50/729 \\
+	10/81 \\
+	\end{array} \right],\\
+&\alpha_2=\frac{z_1^Tr_1}{d_2^TAd_2}=27/20,\\
+&x_2=x_1+\alpha_2d_2=\left[
+	\begin{array}{r r} 
+	0 \\
+	1 \\
+	\end{array} \right].\\		
+\end{align*}
+\end{itemize}
+To finish we compute
+\begin{align*}
+||e^{(1)}_{CG}||_1&=1\\
+||e^{(1)}_{PCG}||_1&=0.2593.
+\end{align*}
+The $PCG$ method gives indeed a much better $x_1$.
+\end{solution}
+\end{questions}
