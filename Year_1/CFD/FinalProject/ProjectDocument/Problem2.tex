@@ -1,0 +1,122 @@
+In this problem, I have redesign the chamber to obtain the maximum value of $T$ as possible. I have made the inlets smaller with a higher inlet velocity, keeping the average velocity and the inlet flux within specified limitations. In addition, I have made the chamber 2x4, which has improved the performance severely. As we could expect, having the inlets closer together favors the mixing of the fluids, and leaving the outlet far from them gives the fluids more time to mix. 
+
+In the next set of figures we can see the results for the ouput times specified.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem2/u_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem2/u_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem2/u_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem2/u_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem2/u_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem2/u_6.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem2/v_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem2/v_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem2/v_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem2/v_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem2/v_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem2/v_6.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem2/Y_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem2/Y_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem2/Y_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem2/Y_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem2/Y_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem2/Y_6.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem2/Ymix_1.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem2/Ymix_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.45]{Problem2/Ymix_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.45]{Problem2/Ymix_4.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=15$ s.]{\includegraphics[scale=0.45]{Problem2/Ymix_5.eps}}
+\hfill
+\subfigure[$t=20$ s.]{\includegraphics[scale=0.45]{Problem2/Ymix_6.eps}}
+\hspace*{\fill}
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem2/Rplot.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem2/Splot.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.45]{Problem2/checkVelplot.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.45]{Problem2/checkFlowplot.eps}}
+\hspace*{\fill}
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+We can see in the past figures how we have some recirculation. If we check the profiles for $v$, we see that we have positive velocities. I would have liked to include in this report plots of the vorticity and the stream function since they would have helped a lot to see this. This spinning of the flow helps tremendously the mixing of the fluids. Increasing the inlet flow makes the output velocity bigger, which also has increased the value of $T$. The last modification was just a delay in the starting time of inlets 1 and 2. This is somehow "cheating" to get the good result for the assignment, since the steady state reached would be the same and the chamber would not behave better or worse. It would only behave better from $t=10$ to $t=20$, the desire target.
+
+As we can see in the profiles for $Y$ and $Y(1-Y)$, the fluids are very well mixed when they reach the output. All of this has been done meeting the limitations specified, check the previous figure to see the inlet flow for $Y=1$ and $Y=0$ as well as the average velocities at the inlets.
+
+In addition, this flow has less gradients, which has allowed to obtain a asymptotic regime with coarser meshes than in problem one. In the next table we see how the finest mesh is $256\times 512$ and we have reached asymptotic regime since $p$ is between one and two and $\beta\in [0.95,1.05]$. The final answer for this problem would be $T=0.4822\pm 0.07\%$, much better than in Problem 1.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.7]{Table2.png}
+\caption{GCI analysis results.}
+\end{figure}

@@ -1,0 +1,77 @@
+\begin{questions}
+
+\question{Prove \textit{Lemma 7.23}. The product, maximum, and minimum of two simple functions are simple. The maximum of two functions f and g is defined by $(f \vee g)(x) = \max\{ f(x), g(x) \}$. The minimum of two functions f and g is defined by $(f \wedge g)(x) = \min\{ f(x), g(x) \}$}.
+
+\begin{solution}
+  \begin{proof}
+Let $f, g : \Omega\rightarrow \R_+$ be simple (not necessarily in canonical representation),
+\begin{align*}
+f =\sum_{j=1}^m\alpha_j\chi_{A_j},~~g =\sum_{k=1}^n\beta_k\chi_{B_k}.
+\end{align*}
+We set
+\begin{align*}
+A=\bigcup_{j=1}^mA_j,~~B=\bigcup_{k=1}^nB_k,
+\end{align*}
+\begin{align*}
+A_{m+1}=(A\cup B)\setminus A,~~B_{n+1}=(A\cup B)\setminus B,
+\end{align*}
+\begin{align*}
+\alpha_{m+1} = 0 =\beta_{n+1}.
+\end{align*}
+Since $\mathcal{B}$ is a ring, $A$, $B$, $A\cup B$, and $A_{m+1}$ and $B_{n+1}$ are elements in $\mathcal{B}$.
+Define
+\begin{align*}
+C_{jk}=A_j\cap B_k,~~j=1,...,m+1,~~k=1,...,n+1.
+\end{align*}
+Let $C_{jk}\neq\emptyset$ and note that for each $j,k$, $C_{jk}\in\mathcal{B}$. 
+\begin{enumerate}[a)]
+\item The product of two simple functions is a simple function.
+
+The functions $f$ and $g$ can be expressed as
+\begin{align*}
+f=\sum_{j=1}^m\alpha_j\chi_{A_j}=\sum_{j=1}^{m+1}\alpha_j\sum_{k=1}^{n+1}\chi_{C_{jk}}=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\alpha_j\chi_{C_{jk}},
+\end{align*}
+and
+\begin{align*}
+g=\sum_{k=1}^n\beta_k\chi_{B_k}=\sum_{k=1}^{n+1}\beta_k\sum_{j=1}^{m+1}\chi_{C_{jk}}=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\beta_k\chi_{C_{jk}}.
+\end{align*}
+Therefore, the product $fg$ can be written as
+\begin{align*}
+fg=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\alpha_j\beta_k\chi_{C_{jk}}.
+\end{align*}
+Thus, $fg$ can be written as a linear combination of indicator functions and therefore it is a simple function.
+\item The maximum of two simple functions is a simple function.
+
+The maximum of $f$ and $g$ can be expressed as follows:
+\begin{align*}
+(f \vee g)(x) &= \max\{ f(x), g(x) \}\\
+&=\max\left\lbrace\sum_{j=1}^m\alpha_j\chi_{A_j}(x),\sum_{k=1}^n\beta_k\chi_{B_k}(x)\right\rbrace\\
+&=\max\left\lbrace\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\alpha_j\chi_{C_{jk}}(x),\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\beta_k\chi_{C_{jk}}(x)\right\rbrace\\
+&=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\max\left\lbrace\alpha_j,\beta_k\right\rbrace\chi_{C_{jk}}(x)\\
+&=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\gamma_{jk}\chi_{C_{jk}}(x).
+\end{align*}
+Where we have made $\gamma_{jk}=\max\left\lbrace\alpha_j,\beta_k\right\rbrace$. Therefore,
+\begin{align*}
+(f \vee g)=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\gamma_{jk}\chi_{C_{jk}},
+\end{align*}
+and as it happened before, $(f \vee g)$ can be written as a linear combination of indicator functions and therefore it is a simple function.
+
+\item The minimum of two simple functions is a simple function.
+
+The minimum of $f$ and $g$ can be expressed as follows:
+\begin{align*}
+(f \wedge g)(x) &= \min\{ f(x), g(x) \}\\
+&=\min\left\lbrace\sum_{j=1}^m\alpha_j\chi_{A_j}(x),\sum_{k=1}^n\beta_k\chi_{B_k}(x)\right\rbrace\\
+&=\min\left\lbrace\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\alpha_j\chi_{C_{jk}}(x),\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\beta_k\chi_{C_{jk}}(x)\right\rbrace\\
+&=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\min\left\lbrace\alpha_j,\beta_k\right\rbrace\chi_{C_{jk}}(x)\\
+&=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\delta_{jk}\chi_{C_{jk}}(x).
+\end{align*}
+Where we have made $\delta_{jk}=\min\left\lbrace\alpha_j,\beta_k\right\rbrace$. Therefore,
+\begin{align*}
+(f \wedge g)=\sum_{j=1}^{m+1}\sum_{k=1}^{n+1}\delta_{jk}\chi_{C_{jk}},
+\end{align*}
+and as it happened before, $(f \wedge g)$ can be written as a linear combination of indicator functions and therefore it is a simple function.
+\end{enumerate}
+\end{proof}
+\end{solution}
+\end{questions}

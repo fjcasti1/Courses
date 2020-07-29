@@ -1,0 +1,30 @@
+\begin{questions}
+
+\question{Let $\mu_1$, $\mu_2: \mathcal{B}\rightarrow [0,\infty]$ be two measures on the $\sigma$-ring $\mathcal{B}$ on $\Omega$. Define $\mu(B) = \mu_1(B)+\mu_2(B)$, $B\in\mathcal{B}$.
+
+Show that $\mu$ is a measure on $\mathcal{B}$.}
+
+\begin{solution}
+  \begin{proof}
+  \begin{enumerate}[a)]
+  \item To prove non-negativity we take into account that since $\mu_1$ and $\mu_2$ are measures themselves, by \textit{Definition 7.10} they are non-negative. Then, since $\mu$ is the sum of two non-negative quantities, it must be itsel non-negative.
+  \item To prove that $\mu$ is additive let $A$,$B$ be disjoint sets in $\mathcal{B}$. Since $\mu_1$ and $\mu_2$ are both measures, by \textit{Definition 7.10}, they are both additive,
+  \begin{align*}
+  \mu\left(A\uplus B\right)&=\mu_1\left(A\uplus B\right)+\mu_2\left(A\uplus B\right)\\
+  &=\mu_1(A)+\mu_1(B)+\mu_2(A)+\mu_2(B)\\
+  &=\mu_1(A)+\mu_2(A)+\mu_1(B)+\mu_2(B)\\
+  &=\mu(A)+\mu(B).
+  \end{align*}
+  Thus $\mu$ is additive.
+  \item To prove that $\mu$ is continuous from below let $(A_n)$ be an increasing sequence in $\mathcal{B}$ with\newline $\bigcup_{n\in\N}A_n\in\mathcal{B}$. By \textit{Definition 7.10}, $\mu_1$ and $\mu_2$ are continuous from below,
+  \begin{align*}
+  \mu\left(\bigcup_{n=1}^{\infty}A_n\right)&=\mu_1\left(\bigcup_{n=1}^{\infty}A_n\right)+\mu_2\left(\bigcup_{n=1}^{\infty}A_n\right)\\
+  &=\lim_{n\rightarrow\infty}\mu_1(A_n)+\lim_{n\rightarrow\infty}\mu_2(A_n)\\
+  &=\lim_{n\rightarrow\infty}\left(\mu_1(A_n)+\mu_2(A_n)\right)\\
+  &=\lim_{n\rightarrow\infty}\mu(A_n).
+  \end{align*}
+  Thus, $\mu$ is continuous from below.
+  \end{enumerate}
+\end{proof}
+\end{solution}
+\end{questions}

@@ -1,0 +1,27 @@
+\begin{questions}
+
+\question{Let $X$ be a complete metric space,$x\in X$, $r > 0$ and $f : \overline{U}_r(x)\rightarrow X$.
+Assume that there is some $k\in (0, 1)$ such that:
+\begin{enumerate}[i)]
+\item $d(f(y), f(z)) \leq kd(y, z)$ for all $y, z \in \overline{U}_r(x)$.
+\item $d(x, f(x)) \leq r ( 1 - k)$.
+\end{enumerate}
+Show: $f$ has a fixed point in $\overline{U}_r(x)$.}
+
+\begin{solution}
+  \begin{proof}
+  By $i)$ it is inmediate that $f$ is a contraction, which implies that $f$ is a generalized contraction. On the other hand, since $\overline{U}_r(x)$ is a closed subset of the complete set $X$, it is also complete. Lastly, in order to use \textit{Theorem 4.48} we need to prove that the function $f$ maps the closed ball into itself.
+Let $y\in f(\overline{U}_r(x))$, then there exists a $z\in \overline{U}_r(x)$ such that $f(z)=y$. Since $z\in \overline{U}_r(x)$, $d(x,z)\leq r$. Now analyze $d(x,y)$:
+\begin{align*}
+d(x,y)&\leq d(x,f(x))+d(f(x),y)\\
+&=d(x,f(x))+d(f(x),f(z))\\
+&\leq r(1-k)+kd(x,z)\\
+&\leq r(1-k)+kr\\
+&=r~.
+\end{align*}
+Therefore, $y\in \overline{U}_r(x)$ and $f(\overline{U}_r(x))\subseteq\overline{U}_r(x)$. So the function maps the closed ball into itself. By \textit{Theorem 4.48}, $f$ has an unique fixed point in $\overline{U}_r(x)$.
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

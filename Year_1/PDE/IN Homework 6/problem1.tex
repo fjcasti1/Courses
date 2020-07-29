@@ -1,0 +1,58 @@
+\begin{questions}
+
+\question{Let $\Gamma$ be the fundamental solution of the heat equation in one space dimension defined by (9.2). Let $b : \R_+ \to \R$ and $a : \R_+\to \R_+$ be continuous. Let $B(t) = \int_0^tb(s)ds$ and $A(t) = \int_0^ta(s)ds$. Assume $A(t) > 0$ for all $t > 0$. Define
+\begin{align*}
+\tilde{\Gamma}(t,x)=\Gamma(x+B(t),A(t)),\quad x\in\R,t>0.
+\end{align*}
+
+Show that 
+\begin{align*}
+\partial_t\tilde{\Gamma}(t,x)=b(t)\partial_x\tilde{\Gamma}(t,x)+a(t)\partial^2_x\tilde{\Gamma}(t,x)
+\end{align*}
+}
+\begin{solution}
+By simply applying chain rule we get
+\begin{align*}
+\partial_t\tilde{\Gamma}(t,x)=B'(t)\partial_x\tilde{\Gamma}(t,x)+A'(t)\partial_t\tilde{\Gamma}(t,x).
+\end{align*}
+By the Fundamental Theorem of Calculus, $A'(t)=a(t)$ and $B'(t)=b(t)$. Further, by (9.3), $\partial_t\tilde{\Gamma}(t,x)=\partial^2_x\tilde{\Gamma}(t,x)$. Hence,
+\begin{align*}
+\partial_t\tilde{\Gamma}(t,x)=b(t)\partial_x\tilde{\Gamma}(t,x)+a(t)\partial^2_x\tilde{\Gamma}(t,x).
+\end{align*}
+\end{solution}
+\question{Show that
+\begin{align*}
+\int_{\R}\tilde{\Gamma}(t,x)dx=1,\quad \int_{\R}x\tilde{\Gamma}(t,x)dx=-B(t),
+\end{align*}
+and
+\begin{align*}
+\int_{\R}(x+B(t))^2\tilde{\Gamma}(t,x)dx=2A(t).
+\end{align*}
+}
+\begin{solution}
+Let's start with the first one. Consider a change of variables similar to the tone used in the notes, $x+B(t)=y(4t)^{1/2}$. Then,
+\begin{align*}
+\int_{\R}\tilde{\Gamma}(t,x)dx&=\int_{\R}\Gamma(x+B(t),A(t))dx\\
+&=\int_{\R}\Gamma(y(4A(t))^{1/2},A(t))\cdot(4A(t))^{1/2}dy\\
+&=\pi^{-1/2}\int_{\R}e^{-y^2}dy=1.
+\end{align*}
+For the next one, consider the change of variables $y=x+B(t)$, then
+\begin{align*}
+\int_{\R}x\tilde{\Gamma}(t,x)dx&=\int_{\R}(y-B(t))\Gamma(x+B(t),A(t))dx\\
+&=\int_{\R}y(4\pi A(t))^{-1/2}e^{-y^2(4A(t))^{-1}}dy-\int_{\R}B(t)(4\pi A(t))^{-1/2}e^{-y^2(4A(t))^{-1}}dy\\
+&=\left.-A(t)^{-1/2}\pi^{-1/2}e^{-y^2(4A(t))^{-1}}\right|_{-\infty}^{\infty}-B(t)\int_{\R}(4\pi A(t))^{-1/2}e^{-y^2(4A(t))^{-1}}dy\\
+&=0-B(t)=-B(t),
+\end{align*}
+where we have used the first part of the proof for the second integral. For the last one, we use integration by parts,
+\begin{align*}
+\int_{\R}(x+B(t))^2\tilde{\Gamma}(t,x)dx&=\int_{\R}-\sqrt{\frac{A(t)}{\pi}}(x+B(t))\left(-(x+B(t))(2A(t))^{-1}e^{-(x+B(t))^2(4A(t))^{-1}}\right)dx\\
+&=\left.-\sqrt{\frac{A(t)}{\pi}}(x+B(t))e^{-(x+B(t))^2(4A(t))^{-1}}\right|_{-\infty}^{\infty}+\sqrt{\frac{A(t)}{\pi}}\int_{\R}e^{-(x+B(t))^2(4A(t))^{-1}}dx\\
+&=0+\sqrt{\frac{A(t)}{\pi}}(4\pi A(t))^{1/2}\int_{\R}(4\pi A(t))^{-1/2}e^{-(x+B(t))^2(4A(t))^{-1}}dx\\
+&=\sqrt{\frac{A(t)}{\pi}}(4\pi A(t))^{1/2}\\
+&=\sqrt{\frac{A(t)}{\pi}}(4\pi A(t))^{1/2}\\
+&=2A(t),
+\end{align*}
+where we have used the first result again.
+\end{solution}	
+
+\end{questions}

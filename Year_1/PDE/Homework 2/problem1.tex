@@ -1,0 +1,71 @@
+\begin{questions}
+
+\question{Show that the Cauchy problem
+\begin{align*}
+(u-1)\partial_1u+\partial_2u=u,~~~~u(0,x_2)=1,
+\end{align*}
+has at least two solutions for $x_1\geq 0,x_2\in\R$. Why does this result not contradict the local uniqueness result we proved in class?}
+\begin{solution}
+From the PDE above we can write its \textit{Characteristic System}
+\begin{align*}
+\partial_t\xi_1(z,t)=v(z,t)-1,~~~~\xi_1(z,0)=0,\\
+\partial_t\xi_2(z,t)=1,~~~~\xi_1(z,0)=z,\\
+\partial_tv(z,t)=v,~~~~v(z,0)=1.
+\end{align*}
+We solve first for $v$
+\begin{align*}
+v(z,t)=f_3(z)e^t,
+\end{align*}
+and imposing the initial condition we find $f_3(z)=1$, so
+\begin{align*}
+v(z,t)=e^t=v(t).
+\end{align*}
+Now we solve for $\xi_1$
+\begin{align*}
+\xi_1(z,t)=e^t-t+f_1(z),
+\end{align*}
+and imposing the initial condition we find $f_1(z)=-1$, so
+\begin{align*}
+\xi_1(z,t)=e^t-t-1.
+\end{align*}
+Now we solve for $\xi_2$
+\begin{align*}
+\xi_2(z,t)=t+f_2(z),
+\end{align*}
+and imposing the initial condition we find $f_2(z)=z$, so
+\begin{align*}
+\xi_2(z,t)=z+t.
+\end{align*}
+We can obtain the solution $u(x_1,x_2)=v(t(x_1,x_2))$ by finding $t$ as a function of $x_1$ and $x_2$. However, as we see in the figure, for the same value of $x_1$ there exists two possible values of $t$ and therefore two possible solutions. Thus, the solution $u$ is not uniquely defined.
+\begin{center}
+\includegraphics[scale=1]{x_1}
+\end{center}
+Given the initial condition $u(0,x_2)=1$, we can find the parametrized line 
+\begin{align*}
+g(z)=\begin{pmatrix*}[r]
+0\\
+z
+\end{pmatrix*}~\Rightarrow~g'(z)=\begin{pmatrix*}[r]
+0\\
+1
+\end{pmatrix*},
+\end{align*}
+and looking at the PDE we can observe that
+\begin{align*}
+a(x,u)=\begin{pmatrix*}[r]
+u-1\\
+1~~~
+\end{pmatrix*}~\Rightarrow~a(g(z),u_0(g(z)))=\begin{pmatrix*}[r]
+0\\
+1
+\end{pmatrix*}.
+\end{align*}
+We can know compute the \textit{Characteristic Determinant}
+\begin{align*}
+det(g'(z),a(g(z),u_0(g(z))))=0,
+\end{align*}
+and by \textsl{Theorem 3.7} we cannot guarantee that there exists an open neighborhood $U$ and an uniquely determined function $u:U\rightarrow\R$ that is solution to the Cauchy problem, as we already discussed above.
+
+\end{solution}
+
+\end{questions}

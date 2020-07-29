@@ -1,0 +1,7 @@
+In this assignment we will study the solution to the following system
+\begin{align*}
+\frac{\partial u}{\partial t}+\frac{\partial u^2}{\partial x}+\frac{\partial uv}{\partial y} &= \frac{1}{Re}\left(\frac{\partial^2 u}{\partial x^2}+\frac{\partial^2 u}{\partial y^2}\right)\\
+\frac{\partial v}{\partial t}+\frac{\partial uv}{\partial x}+\frac{\partial v^2}{\partial y} &= \frac{1}{Re}\left(\frac{\partial^2 v}{\partial x^2}+\frac{\partial^2 v}{\partial y^2}\right)\\
+\frac{\partial Y}{\partial t}+u\frac{\partial Y}{\partial x}+v\frac{\partial Y}{\partial y} &= \frac{1}{ReSc}\left(\frac{\partial^2 Y}{\partial x^2}+\frac{\partial^2 Y}{\partial y^2}\right)\\
+\end{align*}
+and periodic boundary conditions. We will use an \texttt{Adams-Bashforth Crank-Nicolson} method for $u$ and $v$ on a staggered mesh and a \texttt{WENO-5 TVD-RK-3} method with Crank-Nicolson for $Y$ on a cell centered mesh.

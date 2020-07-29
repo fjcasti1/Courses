@@ -1,0 +1,67 @@
+\begin{questions}
+
+\question{Solve the linear size-structured population problem
+\begin{align*}
+\partial_tu+\gamma(t)\partial_xu+\mu u=f(x,t),~~~~x,t\in\R,\\
+u(x,0)=u_0(x),~~~~~~~x\in\R.
+\end{align*}
+
+Assume that $f : \R^2\rightarrow\R$ and $u_0 : \R\rightarrow\R$ are continuously differentiable. Further $\gamma : \R_+\rightarrow\R_+$ is continuous and $\mu\geq 0$ is a constant.
+Show also: If $u_0(x) = 0$ for $x\leq 0$ and $f(x,t) = 0$ for all $x\leq 0$, $t\geq 0$,
+then $u(x, t) = 0$ for all $x\leq 0$, $t\geq 0$.
+
+}
+\begin{solution}
+We start by writing the \textit{Characteristic System} corresponding to this problem,
+\begin{align*}
+\partial_t\xi_1(z,t)=\gamma(t),~~~~~~\xi_1(z,0)=z,\\
+\partial_t\xi_2(z,t)=1,~~~~~~\xi_2(z,0)=0,\\
+\partial_tv(z,t)=f(x,t)-\mu v,~~~~~~v(z,0)=u_0(z).
+\end{align*}
+We start by solving for $\xi_2$,
+\begin{align*}
+\xi_2(z,t)=t+h_2(z).
+\end{align*}
+Imposing the initial condition
+\begin{align*}
+\xi_2(z,0)=h_2(z)=0,
+\end{align*}
+we get
+\begin{align*}
+\xi_2(z,t)=t.
+\end{align*}
+Now we solve for $\xi_1$,
+\begin{align*}
+\xi_1(z,t)=\int_0^t\gamma(s)ds+h_1(z).
+\end{align*}
+Imposing the initial condition
+\begin{align*}
+\xi_1(z,0)=h_1(z)=z,
+\end{align*}
+we get
+\begin{align*}
+\xi_1(z,t)=z+g(t),
+\end{align*}
+where we have defined
+\begin{align*}
+g(t)=\int_0^t\gamma(s)ds.
+\end{align*}
+Observe that $g(0)=0$ and, since $\gamma(s)>0$ for all $s$, $g(t_2)>g(t_1)$ if $t_2>t_1$. Finally, we solve for $v$ retaking its ordinary differential equation
+\begin{align*}
+\partial_tv(z,t)=-\mu v(z,t)+f(z+g(t),t).
+\end{align*}
+By Duhamel's formula we have
+\begin{align*}
+v(z,t)=u_0(z)e^{-\mu t}+\int_0^te^{-\mu(t-s)}f(z+g(s),s)ds.
+\end{align*}
+Now we can obtain the solution $u(x,t)$ by plugging in $z=x-g(t)$,
+\begin{align*}
+u(x,t)=u_0(x-g(t))e^{-\mu t}+\int_0^te^{-\mu(t-s)}f(x-\left(g(t)-g(s)\right),s)ds.
+\end{align*}
+Now we analyze the argument of the function $u_0$ and the first argument of $f$. Since $g(t)$ is nonnegative for all $t$, if $x$ is negative, then $x-g(t)$ is also negative and $u(x-g(t)=0$. On the other hand,
+\begin{align*}
+g(t)-g(s)=\int_0^t\gamma(r)dr-\int_0^s\gamma(r)dr,
+\end{align*}
+and, since $t\geq s$, it is nonnegative. Therefore, if $x$ is negative and $t$ nonnegative, then $x-(g(t)-g(s))$ is also negative and $f(x-(g(t)-g(s)),s)=0$. Thus, for all $x\leq 0$ and $t\geq 0$, $u(x,t)=0$.
+\end{solution}
+\end{questions}

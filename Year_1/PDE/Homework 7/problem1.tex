@@ -1,0 +1,76 @@
+\begin{questions}
+\question{
+Consider the wave equation
+\begin{eqnarray}
+(PDE) & (\partial_t^2 - \partial_x^2)u = 0, &0 \leq x \leq \pi,t \in \mathbb{R}, \nonumber\\
+(IC) & u(x,0) =  f(x), & 0 \leq  x \leq \pi, \label{eq5}\\
+ & \partial_t u(x,0) =g(x),& 0 \leq  x \leq \pi, \nonumber\\
+(BC) & \partial_xu(0,t) = 0 = \partial_xu(L,t), & t \in \mathbb{R}. \nonumber
+\end{eqnarray}
+with $f$ and $g$ in $C[0, \pi]$.
+\begin{enumerate}
+\item[(c)]
+Check whether the d'Alembert formula provides a generalized solution.
+\end{enumerate}
+}
+\begin{solution}
+Let $\phi:[0,\pi]\rightarrow\R$ be a twice differentiable function with $\phi'(0)=0=\phi'(\pi)$. Define $v(x,t)=\frac{1}{2}\left[f(x+ct)+f(x-ct)\right]$ and $w(x,t)=\frac{1}{2c}\int_{x-ct}^{x+ct}g(y)dy$. Recall that $f$ and $g$ are continuous on $[0,\pi]$ and extended in an even and $2\pi$-periodic way. Then, using Leibniz rule,
+\begin{align*}
+\frac{d}{dt}\int_0^\pi\phi(x)v(x,t)dx=&\frac{c}{2}\left[\phi(\pi)f(\pi+ct)-\phi(0)f(ct)\right]-\frac{c}{2}\int_{ct}^{\pi+ct}\phi'(y-ct)f(y)dy\\
+&-\frac{c}{2}\left[\phi(\pi)f(\pi-ct)-\phi(0)f(-ct)\right]+\frac{c}{2}\int_{-ct}^{\pi-ct}\phi'(y+ct)f(y)dy\\
+&=\frac{c}{2}\int_{-ct}^{\pi-ct}\phi'(y+ct)f(y)dy-\frac{c}{2}\int_{ct}^{\pi+ct}\phi'(y-ct)f(y)dy,\\
+\end{align*}
+where we have used that $f$ is even around $0$ and $\pi$. Notice that 
+\begin{align*}
+\left.\frac{d}{dt}\int_0^\pi\phi(x)v(x,t)dx\right|_{t=0}=0.
+\end{align*}
+Using Leibniz rule again,
+\begin{align*}
+\frac{d^2}{dt^2}\int_0^\pi\phi(x)v(x,t)dx=&-\frac{c^2}{2}\left[\phi'(\pi)f(\pi+ct)-\phi'(0)f(ct)\right]+\frac{c^2}{2}\int_{ct}^{\pi+ct}\phi''(y-ct)f(y)dy\\
+&-\frac{c^2}{2}\left[\phi'(\pi)f(\pi-ct)-\phi'(0)f(-ct)\right]+\frac{c^2}{2}\int_{-ct}^{\pi-ct}\phi''(y+ct)f(y)dy\\
+&=\frac{c^2}{2}\int_{-ct}^{\pi-ct}\phi''(y+ct)f(y)dy+\frac{c^2}{2}\int_{ct}^{\pi+ct}\phi''(y-ct)f(y)dy,\\
+\end{align*}
+and reversing the change of variables we get
+\begin{align*}
+\frac{d^2}{dt^2}\int_0^\pi\phi(x)v(x,t)dx&=\frac{c^2}{2}\int_{0}^{\pi}\phi''(x)f(x-ct)dx+\frac{c^2}{2}\int_{0}^{\pi}\phi''(x)f(x+ct)dx\\
+&=\int_{0}^{\pi}c^2\phi''(x)\frac{1}{2}\left[f(x+ct)+f(x-ct)\right] dx\\
+&=\int_{0}^{\pi}c^2\phi''(x)v(x,t) dx.
+\end{align*}
+Now we start working on $w$. Since $g$ is continuous, $w$ is differentiable with respect to $t$ and $x$ and
+\begin{align*}
+\partial_tw(x,t)=\frac{1}{2}\left[g(x+ct)+g(x-ct)\right],
+\end{align*}
+\begin{align*}
+\partial_xw(x,t)=\frac{1}{2c}\left[g(x+ct)-g(x-ct)\right].
+\end{align*}
+Note that 
+\begin{align*}
+\left.\partial_tw(x,t)\right|_{t=0}=g(x).
+\end{align*}
+Since $\partial_tw(x,t)$ is continuous, we can differentiate under the integral and obtain
+\begin{align*}
+\frac{d}{dt}\int_0^\pi\phi(x)w(x,t)dx=\int_0^\pi\phi(x)\frac{1}{2}\left[g(x+ct)+g(x-ct)\right]dx.
+\end{align*}
+Same consideration as before with $g$ replacin $f$ gives us
+\begin{align*}
+\frac{d^2}{dt^2}\int_0^\pi\phi(x)w(x,t)dx=-\frac{c}{2}\int_{ct}^{\pi+ct}\phi'(y-ct)g(y)dy+\frac{c}{2}\int_{-ct}^{\pi-ct}\phi'(y+ct)g(y)dy,
+\end{align*}
+which, after reversing the substitution yields
+\begin{align*}
+\frac{d^2}{dt^2}\int_0^\pi\phi(x)w(x,t)dx&=-\int_0^{\pi}\phi'(x)\frac{c}{2}\left[g(x+ct)-g(x-ct)\right]\\
+&=-\int_0^{\pi}\phi'(x)c^2\partial_xw(x,t)dx.
+\end{align*}
+Integrating by parts, recalling that $\phi'(0)=0=\phi'(\phi)$, we obtain
+\begin{align*}
+\frac{d^2}{dt^2}\int_0^\pi\phi(x)w(x,t)dx=\int_0^{\pi}\phi''(x)c^2w(x,t)dx.
+\end{align*}
+Since, by d'Alembert formula, $u(x,t)=v(x,t)+w(x,t)$, we have shown that $\int_0^{\pi}\phi(x)u(x,t)dx$ is twice differentiable and 
+\begin{align*}
+\frac{d^2}{dt^2}\int_0^\pi\phi(x)u(x,t)dx=\int_0^{\pi}c^2\phi''(x)u(x,t)dx
+\end{align*}
+and
+\begin{align*}
+\frac{d}{dt}\int_0^\pi\phi(x)u(x,t)dx=\int_0^{\pi}\phi(x)g(x)dx,~~~~t=0.
+\end{align*}
+\end{solution}
+\end{questions}

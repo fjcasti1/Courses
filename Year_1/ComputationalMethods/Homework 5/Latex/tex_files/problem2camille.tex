@@ -1,0 +1,287 @@
+Consider the wave propogation PDE,
+\begin{align*}
+& u_t = p_x, \\
+&p_t = u_x,~~x \in (0,\pi),~t>0,
+\end{align*}
+with boundary conditions $u(t,0) = u(t,\pi) = 0$ and initial conditions $u(0,x) = exp(-30(x - \pi / 2)^2)$ and $p(0,x) = 0$.
+
+\begin{questions}
+\question{ Show that the eigenvalues of the differential operator
+\begin{align*}
+\mathcal{L} \begin{bmatrix}
+u \\ p \end{bmatrix} = \begin{bmatrix}
+0 & \frac{\partial}{\partial x} \\
+\frac{\partial}{\partial x} & 0
+\end{bmatrix}\begin{bmatrix}
+u \\ p \end{bmatrix}
+\end{align*}
+are integers in the imaginary axis, i.e. $0, \pm1i,\pm2i,\pm3i, \dots$
+ }
+
+\begin{solution}
+
+given eigenvalues of $\mathcal{L}$, $\lambda$,
+\begin{align*}
+\mathcal{L}\begin{bmatrix}
+u \\ p \end{bmatrix} = \lambda\begin{bmatrix}
+u \\ p \end{bmatrix}~.
+\end{align*}
+Thus,
+\begin{align*}
+u_x = \lambda p,~~p_x = \lambda u~~\Rightarrow~~u_{xx} = \lambda p_x = \lambda^2 u,~~p_{xx} = \lambda u_x = \lambda^2p~.
+\end{align*}
+Now let, $\lambda^2 = -k^2$, since $u_{xx} = -k^2e^{ikx} = -k^2u$ for $u = e^{ikx}$, and then
+\begin{align*}
+u = A\cos(kx)+iB\sin(kx)~.
+\end{align*}
+Since $u(0,t)=u(\pi,t) = 0$, $A = 0$ and $iB\sin(k\pi) = 0$. Therefor, $B$ is either equal to $0$, giving the trivial solution, or $\sin(k\pi) = 0$ which implies $k = 0, \pm 1, \pm 2, \dots$. This gives us $\lambda = 0, \pm i, \pm 2i, \dots$.
+
+\end{solution}
+
+\question{Recall the finite-difference discretization from HW3,
+\begin{align*}
+M\begin{bmatrix}
+u \\ p
+\end{bmatrix} = \frac{1}{h} \left[ \begin{bmatrix}
+0 & D_p \\  D_u & 0
+\end{bmatrix} \right] \begin{bmatrix}
+u \\ p
+\end{bmatrix} ~,
+\end{align*}
+whose eigenvectors are
+\begin{align*}
+V_k = \begin{bmatrix}
+i\sin(kx_1) \\ i\sin(kx2) \\ \vdots \\ i\sin(kx_{N-1}) \\ cos(kx_{1/2}) \\ \vdots \\ cos(kx_{N - 1/2})
+\end{bmatrix},~~k = -(N-1), \dots, -1,0,1,\dots,N-1~.
+\end{align*}
+Find an analytic expression for the eigenvalues of $M$ and notice that they are also purely imaginary numbers. Use the command \texttt{eig(M)} in Matlab to double check your expression is correct.
+ }
+
+\begin{solution}
+
+First solve the equation $MV = \lambda V$ by looking at a single eigenvector $k$. Then,
+\begin{align*}
+MV^k = \begin{cases} 
+-V_{j+N-1}^k + V_{j+n}^k & j \leq N-1 \\
+V_1^k & j=N \\
+-V_{j-N}^k + V_{j-N+1}^k & N+1 \leq j < 2N-1 \\
+-V_{N-1}^k & j = 2N-1
+\end{cases}~.
+\end{align*}
+From here we can solve for the eigenvalues for each case of $j$. Let $j \leq N-1$. Then,
+\begin{align*}
+MV^k &= \frac{1}{h}\left[-V_{j+N-1}^k + V_{j+n}^k\right] \\ 
+&= -\cos(kx_{j-1/2}) + \cos(kx_{j+1/2}) \\
+& = -\cos\left(k\left(j-\frac{1}{2}\right)h\right)+cos\left(k\left(j+\frac{1}{2}\right)h\right) \\
+& = -2\sin(kjh)\sin\left(k\frac{h}{2}\right),~~\text{by the identity }\cos(a+b) - \cos(a - b) = -2\sin(a)(b)~.
+\end{align*}
+Then, we implement the right hand side of the equation to get
+\begin{align*}
+&-2\sin(kjh)\sin\left(k\frac{h}{2}\right) = ih\sin(kjh)\lambda_j \\ &\Rightarrow \lambda_j = \frac{2i}{h}\sin\left(k\frac{h}{2}\right)~.
+\end{align*}
+Next let $j = N$. Then,
+\begin{align*}
+& MV^k = \frac{1}{h}V_1^k = \frac{i}{h}\sin(kh)~,
+\end{align*}
+and
+\begin{align*}
+& \lambda_NV^k = \lambda_N\cos(kx_{1/2}) = \lambda_N\cos\left(k\frac{h}{2}\right)~,
+\end{align*}
+which implies
+\begin{align*}
+& \frac{i}{h}\sin(kh) = \lambda_N\cos\left(k\frac{h}{2}\right) \\
+& \Rightarrow i\sin(kh) = \lambda_Nh\cos\left(k\frac{h}{2}\right) \\
+& \Rightarrow 2i\sin\left(k\frac{h}{2}\right)\cos\left(k\frac{h}{2}\right) = \lambda_Nh \cos\left(k\frac{h}{2}\right) \\
+& \Rightarrow \lambda_N =\frac{2i}{h}\sin\left(k\frac{h}{2}\right)~.
+\end{align*}
+Now, let $j \in [N+1,2N-1)$, then
+\begin{align*}
+MV^k &= \frac{1}{h}\left[-V_{j-N}^k + V_{j-N+1}^k \right]\\ 
+&= \frac{i}{h}\left[-\sin\left(kx_{j-N}\right)+\sin\left(kx_{j-N+1}\right)\right] \\
+& = \frac{i}{h}\left[\sin(k(j-N+1)h) - \sin(k(j-N)h)\right]~,
+\end{align*}
+and
+\begin{align*}
+\lambda_j V_j^k = \lambda_j\cos(kx_{j-N+1/2}) = \lambda_j \cos(k(j-N+1/2)h)~.
+\end{align*}
+This gives us
+\begin{align*}
+& \frac{i}{h}\left[\sin(k(j-N+1)h) - \sin(k(j-N)h)\right] = \lambda_j \cos(k(j-N+1/2)h) \\
+& \Rightarrow \frac{2i}{h}\cos(k(j-N+1/2)h)\sin\left(k\frac{h}{2}\right) = \lambda_j \cos(k(j-N+1/2)h) \\
+& \Rightarrow \lambda_j = \frac{2i}{h}\sin\left(k\frac{h}{2}\right)~.
+\end{align*}
+Finally, let $j= 2N-1$, then
+\begin{align*}
+MV^k & = -\frac{1}{h}V_{N-1}^k = -\frac{i}{h}\sin(kx_{N-1}) = -\frac{i}{h}\sin(k(N-1)h) = -\frac{i}{h}\sin(k\pi - kh) \\
+& = -\frac{i}{h}\sin(k\pi)\cos(kh) + \frac{i}{h}\sin(kh)\cos(k\pi) = \frac{i}{h}\sin(kh)\cos(k\pi)~,
+\end{align*}
+and
+\begin{align*}
+\lambda_{2N-1}V^k &= \lambda_{2N-1}\cos(k(N-1/2)h) = \lambda_{2N-1}\cos\left(knh - k\frac{h}{2}\right) = \lambda_{2N-1}\cos\left(k\pi - k\frac{h}{2}\right) \\
+& = \lambda_{2N-1}\left[\cos(k\pi)\cos\left(k\frac{h}{2}\right) - \sin(k\pi)\sin\left(k\frac{h}{2}\right)\right] = \lambda_{2N-1}\cos(k\pi)\cos\left(k\frac{h}{2}\right)~.
+\end{align*}
+This ultimately gets us
+\begin{align*}
+& \lambda_{2N-1}\cos\left(k\pi - k\frac{h}{2}\right) = \frac{i}{h}\sin(kh)\cos(k\pi) \\
+& \Rightarrow \lambda_{2N-1} = \frac{2i}{h}\sin\left(k\frac{h}{2}\right)~.
+\end{align*}
+Thus,
+\begin{align*}
+\lambda= \frac{2i}{h}\sin\left(k\frac{h}{2}\right)~.
+\end{align*}
+
+\end{solution}
+
+\question{Show that the eigenvalues of $M$ are $\mathcal{O}(h^2)$ accurate if compared to the eigenvalues of part (1). More precisely, show that
+\begin{align*}
+\lambda_k = ki(1+\mathcal{O}(kh)^2),~~k = 0,\pm1,\dots,\pm(N-1)~.
+\end{align*}
+ }
+ 
+\begin{solution}
+
+We begin by computing the Taylor series expansion of $\lambda_k (h)$ about $0$:
+\begin{align*}
+\lambda_k(h) &= \lambda_k(0) + h\lambda'_k(0) + \frac{h^2}{2}\lambda''_k(0) + \frac{h^3}{6} \lambda'''_k(0) + \cdots \\
+& = h\lambda'_k(0) + \frac{h^3}{6} \lambda'''_k(0) + \mathcal{O}(h^4) \\
+& = \frac{ik}{h}h - \frac{h^3}{6}i\frac{k^3}{4h} + \mathcal{O}(h^4) \\
+& = ik\left[ 1 + \frac{k^2h^2}{6} + \mathcal{O}(h^4) \right]~.
+\end{align*}
+Thus,
+\begin{align*}
+\lambda_k(h)  = ik\left[1 + \mathcal{O}((kh)^2)\right]~.
+\end{align*}
+
+
+\end{solution}
+
+ 
+ \question{ Show that
+\begin{align*}
+\lambda_{\pm(N-1)} = \pm \frac{2i}{h}\cos(h/2), ~~\text{and}~~|\lambda_{\pm(N-1)}| < \frac{2}{h} = \frac{2}{\pi}N~.
+\end{align*}}
+
+\begin{solution}
+
+First,
+\begin{align*}
+\lambda_{\pm (N-1)} &= \frac{2i}{h}\sin\left(\pm N\frac{h}{2} \mp \frac{h}{2} \right) = \frac{2i}{h} \sin \left( \pm \frac{\pi}{2} \mp \frac{h}{2}\right) \\
+& = \frac{2i}{h} \left[\sin\left(\pm \frac{\pi}{2}\right)\cos\left(\mp\frac{h}{2}\right) + \cos\left(\pm \frac{\pi}{2}\right)\sin\left(\mp\frac{h}{2}\right) \right] \\
+& = \pm \frac{2i}{h}\cos\left(\frac{h}{2}\right)~.
+\end{align*}
+
+Using this, we note that $0 \leq |\cos\left(\frac{\pi}{2N}\right)| < 1$ and $|i| = 1$, so,
+\begin{align*}
+|\lambda_{\pm (N-1)}| =|\pm \frac{2i}{h}\cos\left(\frac{h}{2}\right)| < \frac{2}{h} = \frac{2N}{\pi}~.
+\end{align*}
+
+\end{solution}
+
+\question{Use \texttt{RK4} to time-step this PDE. Plot the stability region of \texttt{RK4} and find a stable $\Delta t$. Find the growth function $g$ for this method and plot $|g|$ using contour. }
+
+\begin{solution}
+ We must first solve for the growth function $g(z)$. Let , $z = \Delta t \lambda$ and $f(t,y) = \lambda y$. Then,
+ \begin{align*}
+ & K_1 = zy^n \\
+& k_2 = \left(z + \frac{z^2}{2}\right)y^n \\
+ & k_3 = \left(z + \frac{1}{2}\left(z^2 + \frac{z^3}{2}\right)\right)y^n \\
+ & k_4 = \left(z + z\left(z + \frac{1}{2} \left(z^2+\frac{z^3}{2}\right)\right)\right)y^n ~,
+ \end{align*}
+and
+\begin{align*}
+y^{n+1} = y^n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)y^n~.
+\end{align*}
+This implies,
+\begin{align*}
+g(z) = 1 + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)
+\end{align*}
+which simplifies to
+\begin{align*}
+g(z) = 1 + \frac{1}{6}\left(6z+3z^2+z^3+\frac{z^4}{4}\right)~.
+\end{align*}
+
+We then plug this into Matlab and get the stability region:
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P2F1.eps}}
+\caption{Stability region with RK4}
+\end{figure}
+
+\end{solution}
+
+\question{Assuming that the boundary of the stability region crosses the imaginary axis approximately at $\pm 2.81i$, estimate the stability requirement on $\Delta t$ (use part $(4)$ to find $c$ so that $\Delta t < ch$ for stability). For $N = 100$, plot the eigenvalues of $M$ multiplied by $\Delta t$ together with the stability region and verify that they fall inside the stability region.}
+
+\begin{solution}
+
+We use the conclusion from part (4), $|\lambda_{\pm (N-1)}| < \frac{2}{h}$ to see that,
+\begin{align*}
+\frac{2.81}{|\lambda_k|} > \frac{2.81}{|\lambda_{\pm (N-1)}|} > \frac{2.81}{2}h > \Delta t
+\end{align*}
+which implies
+\begin{align*}
+\Delta t = 1.405h~.
+\end{align*}
+
+The figure below shows that $(1.405h \lambda)$ falls within the stability region for all $\lambda$.
+\begin{figure}[H]
+\center{\includegraphics[scale=.5]{P2F2.eps}}
+\end{figure}
+
+\end{solution}
+
+\question{With $N=100$, solve the PDE using \texttt{RK4} and plot your solution at $t = \pi/2,\pi,3\pi/2,2\pi$. }
+
+\begin{solution}
+
+\begin{figure}[H]
+\centering
+\subfloat[t = $\pi/2$]{\label{figure:1} \includegraphics[width = 3in]{P2F3.eps}} 
+\subfloat[t = $\pi$]{\label{figure:2} \includegraphics[width = 3in]{P2F4.eps}} \\
+\subfloat[t = $3\pi/2$]{\label{figure:3} \includegraphics[width = 3in]{P2F5.eps}}
+\subfloat[t = $2\pi$]{\label{figure:4} \includegraphics[width = 3in]{P2F6.eps}} 
+\caption{Solutions for RK4 with stable time step}
+\label{figure}
+\end{figure}
+
+\end{solution}
+
+\question{with $N=100$, run you code with $\Delta t$ that is slightly bigger than the optimal (stable) choice, is the computation stable? }
+
+\begin{solution}
+
+The solution is no longer stable once $\Delta t$ becomes bigger than the optimal choice.
+\begin{figure}[H]
+\centering
+\subfloat[$\Delta t = 1.48h$]{\label{figure:1} \includegraphics[width = 3in]{P2F7.eps}} 
+\subfloat[$\Delta t = 1.49h$]{\label{figure:2} \includegraphics[width = 3in]{P2F8.eps}}
+\caption{Solutions for RK4 with un-stable time step}
+\label{figure}
+\end{figure}
+
+As the figure above shows, the solution begins to blow up with $\Delta t = 1.48h$ and a time frame of $2 \pi$. The solution really blows up with $\Delta t = 1.49h$.
+
+\end{solution}
+
+\question{Using the criteria derived in part $(6)$ for choosing $\Delta t$, plot the error at $t = 2\pi$ for several values of $N$ and verify that the error decays as $\mathcal{O}(h^2)$. Conclude that the error is dominated by the spatial discretization in this case. }
+
+\begin{solution}
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.6]{P2F9.eps}}
+\caption{Error Decay as N increases}
+\end{figure}
+
+The figure above tells us that, for a stable $\Delta t$, the error decays with an approximate order of 3.508 for the velocity and 1.993 for pressure. Thus, both errors decay close to $\mathcal{O}(h^2)$ or higher.
+
+The spatial discretization dominates the error as it decays with an order of $2$ and the time stepping algorithm is of order $4$, which means the spatial discretization leads the error.
+\end{solution}
+
+
+\question{ Repeat item $(7)$, but use 3rd order Adams-Bashforth for time-stepping. Use \texttt{RK4} to compute the first 2 time levels. Use a $\Delta t$ that is close to the stability limit for \texttt{AB3}.}
+
+\begin{solution}
+
+
+\end{solution}
+
+\end{questions}

@@ -1,0 +1,38 @@
+\begin{questions}
+
+\question{ Let $X$ and $Y$ be metric spaces, $S$ a nonempty subset of $X$, and
+$(f_n)$ be a sequence of continuous functions from $X$ to $Y$ and f a continuous
+function from $X$ to $Y$ . Assume that $f_n \rightarrow f$ uniformly on $S$. Show that
+$f_n \rightarrow f$ uniformly on $\bar{S}$.}
+
+\begin{solution}
+  \begin{proof}
+ Assume $f_n \rightarrow f$ as $n \rightarrow \infty$ uniformly on $S$ and let the same $d$ represent different metrics on $X$ and $Y$. Then, $\forall~\varepsilon > 0$, $\exists~N_1 \in \N$ such that,
+ \begin{align*}
+ d(f_n(t), f(t)) < \frac{ \varepsilon }{3} ~~ \forall~n \in \N,~\text{with}~n > N_1~\text{and}~ \forall~t \in S~.
+ \end{align*}
+ Let $x_1 \in X$. Then, since $(f_n)$ is a sequence of continuous functions on X, $\exists~\delta_n > 0$ such that, $\forall~x \in X$ with  $d(x, x_1) < \delta_n$,
+ \begin{align*}
+d(f_n(x), f_n(x_1)) < \frac{\varepsilon}{3}~.
+ \end{align*}
+ Similarly, since f is a continuous function, $\exists~\delta_f > 0$, such that, $\forall~x \in X$ with $d(x, x_1) < \delta_f$
+ \begin{align*}
+ d(f(x),f(x_1)) < \frac{\varepsilon}{3}~.
+ \end{align*}
+ Now let $s \in \bar{S}$ and $(s_n)$ be a sequence in $S$ such that $s_n \rightarrow s$ as $n \rightarrow \infty$. Define $\delta = inf\{(\delta_n),\delta_f\}$ and $N \in \N$ with $N \geq N_1$ such that,
+ \begin{align*}
+ d(s_n, s) < \delta~~ \forall~n \in \N,~\text{with}~ n > N~.
+ \end{align*}
+ Then,
+ \begin{align*}
+ d(f_n(s),f(s)) &\leq d(f_n(s),f_n(s_n)) + d(f_n(s_n), f(s_n)) + d(f(s_n),f(s)) \\
+ & < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon ~~~~ \forall~n > N~.
+ \end{align*}
+ Thus, since $s$ was chosen arbitrarily, $f_n \rightarrow f$ uniformly on $\bar{S}$.
+ 
+
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

@@ -1,0 +1,35 @@
+\begin{questions}
+
+\question{Let $I$ be a bounded interval and $Z$ a Banach space. Let $(f_n)$ be a sequence of differentiable functions $f_n : I \rightarrow Z$ such that $\sum_{n=1}^{\infty} f_n(x^o)$ converges in $Z$ for some $x^o\in I$ and there exists a sequence of positive numbers $(M_n)$ such that $||f'_n(x)||\leq M_n$ for all $n\in \N$ and $x\in I$ and $\sum_{n=1}^{\infty} M_n$ converges in $\R$.
+Show that $\sum_{n=1}^{\infty} f_n(x)$ converges uniformly for $x\in I$ and provides a differentiable function $f : I\rightarrow Z$ such that $f'(x) =\sum_{n=1}^{\infty} f'_n(x)$, with the convergence of the latter series being also uniform for $x\in I$.}
+
+\begin{solution}
+  \begin{proof}
+Let $(s_k(x))$ be a sequence of partial sums where  $s_k:I\rightarrow Z$ is defined by
+\begin{align*}
+s_k(x)=\sum_{n=1}^kf_n(x)~.
+\end{align*}
+Therefore $(s_k)$ is a sequence of differentiable functions since each element of the sequence is a sum of differentiable functions $f_n(x)$. Since $\sum_{n=1}^{\infty}f_n(x^o)$ converges in $Z$ for some $x^o$ in $I$, then $(s_k(x^o))$ converges in $Z$ as $k\rightarrow\infty$ for some $x^o\in I$.
+
+Now let $(s'_k(x))$ be a sequence of partial sums where $s'_k:I\rightarrow Z$ is defined by
+\begin{align*}
+s'_k(x)=\sum_{n=1}^kf'_n(x)~.
+\end{align*}
+Since there exists a sequence of positive numbers $(M_n)$ such that $\sum_{n=1}^{\infty}M_n$ converges and $||f'_n(x)||\leq M_n$ for all $x\in I$ and $n\in \N$, by the \textit{Weierstra\ss~Test}, the series $\sum_{n=1}^{\infty}f'_n(x)$ converges uniformly for all $x\in I$, therefore $(s'_k(x))$ converges as $k\rightarrow\infty$ uniformly for all $x\in I$ and provides a bounded function $f':I\rightarrow Z$, i.e. $s'_k(x)\rightarrow f'(x)$.
+
+Next, by \textit{Theorem 6.16}, $(s_k(x))$ converges as $k\rightarrow\infty$ uniformly in $x\in I$ to a differentiable function $f:I\rightarrow Z$, 
+\begin{align*}
+f(x)&=\lim_{k\rightarrow\infty}s_k(x)\\
+&=\lim_{k\rightarrow\infty}\sum_{n=1}^kf_n(x)\\
+&=\sum_{n=1}^{\infty}f_n(x)~,
+\end{align*}
+for all $x\in I$ and 
+\begin{align*}
+f'(x)&=\lim_{k\rightarrow\infty}s'_k(x)\\
+&=\lim_{k\rightarrow\infty}\sum_{n=1}^kf'_n(x)\\
+&=\sum_{n=1}^{\infty}f'_n(x)~,
+\end{align*}
+also for all $x\in I$. Note that the uniform convergence of the latter, for all $x\in I$, is proven by the \textit{Weierstra\ss~Test}.
+\end{proof}
+\end{solution}
+\end{questions}

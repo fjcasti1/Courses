@@ -1,0 +1,26 @@
+\begin{questions}
+\question{
+Let $g_1,g_2: \partial\Omega \to \mathbb{R}$ be continuous and $u_1,u_2 : \overline{\Omega} \to \mathbb{R}$ be continuous on $\overline{\Omega}$ and twice differentiable on $\Omega$ and 
+\begin{align*}
+Lu_j = 0 \quad \text{ on } \Omega, \quad u_j = g_j \quad \text{ on } \partial \Omega, \quad j =1,2.
+\end{align*} 
+Show:
+\begin{align*}
+\max_{\overline{\Omega}} |u_1-u_2| = \max_{\partial\Omega} |g_1-g_2|
+\end{align*}
+}
+\begin{solution}
+Let $v=u_1-u_2$. Therefore $v:\overline{\Omega}\to\R$ is continuous and twice partially differentiable on $\Omega$. Then,
+\begin{align*}
+L v=L u_1-L u_2=0,~~\text{ on }\Omega,
+\end{align*}
+and
+\begin{align*}
+v=g_1-g_2~~\text{ on }\partial\Omega.
+\end{align*}
+Then, by \textsl{Corollary 6.9},
+\begin{align*}
+\max_{\Omega}|v|=\max_{\partial\Omega}|v|=\max_{\partial\Omega}|u_1-u_2|=\max_{\partial\Omega}|g_1-g_2|.
+\end{align*}
+\end{solution}
+\end{questions}

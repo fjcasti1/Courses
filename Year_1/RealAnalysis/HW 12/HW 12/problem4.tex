@@ -1,0 +1,22 @@
+\begin{questions}
+
+\question{ Let $f: [a, b] \rightarrow X$, $f$ continuous on $[a, b]$ and differentiable on
+$(a, b)$. 
+
+Show: if $f'$ is bounded on $(a, b)$, then $f$ is Lipschitz continuous and $\sup_{t \in (a,b)} \|f'(t)\|$ is a Lipschitz constant for $f$.}
+
+\begin{solution}
+  \begin{proof}
+Let $f'$ be bounded on $(a, b)$. Then, there exists $\sup_{t \in (a,b)}f'(t)$ and also $\sup_{t \in (a,b)}\|f'(t)\|$. Since $f$ is a continuous function that is differentiable on $(a,b)$, then by theorem 6.13, there exists some $t \in (a,b)$ such that
+\begin{align*}
+\|f(b) - f(a)\| \leq \|f'(t)\|(b-a)~.
+\end{align*}
+Then, by definition of a supremum,
+\begin{align*}
+\|f(b) - f(a)\| \leq \sup_{t \in (a,b)}\|f'(t)\|(b-a)~.
+\end{align*}
+Therefore, $f$ is Lipschitz continuous on $[a,b]$ with Lipschitz constant $\sup_{t \in (a,b)}\|f'(t)\|$.
+
+\end{proof}
+\end{solution}
+\end{questions}

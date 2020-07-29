@@ -1,0 +1,21 @@
+\begin{enumerate}[label=(\alph*)]
+\item Prove that $x_1-x_0=\mathcal{O}(1/N^2)$.
+\begin{align*}
+x_1-x_0&=-\cos\left(\frac{\pi}{N}\right)+\cos(0)\\
+&=1-\cos\left(\frac{\pi}{N}\right)\\
+&=1-\left(1+\frac{1}{2}\left(\frac{\pi}{N}\right)^2+...\right)\\
+&=-\frac{1}{2}\left(\frac{\pi}{N}\right)^2+...\\
+&=\mathcal{O}(1/N^2),
+\end{align*}
+where we have expanded the cosine in Taylor series around zero since $\frac{\pi}{N}\rightarrow 0$ as $N\rightarrow\infty$.
+\item Prove that $x_{N/2}-x_{N/2-1}=\mathcal{O}(1/N)$.
+\begin{align*}
+x_{N/2}-x_{N/2-1}&=-\cos\left(\frac{\pi}{2}\right)+\cos\left(\frac{\left(\frac{N}{2}-1\right)\pi}{N}\right)\\
+&=\cos\left(\frac{\pi}{2}-\frac{\pi}{N}\right)\\
+&=\cos\left(\frac{\pi}{2}\right)\cos\left(-\frac{\pi}{N}\right)-\sin\left(\frac{\pi}{2}\right)\sin\left(-\frac{\pi}{N}\right)\\
+&=\sin\left(\frac{\pi}{N}\right)\\
+&=\left(\frac{\pi}{N}-\frac{1}{6}\left(\frac{\pi}{N}\right)^3+...\right)\\
+&=\mathcal{O}(1/N),
+\end{align*}
+where we have expanded the sine in Taylor series around zero since $\frac{\pi}{N}\rightarrow 0$ as $N\rightarrow\infty$.
+\end{enumerate}

@@ -1,0 +1,79 @@
+In the first figure we can see the plot of the initial condition given above. In the figure 2 we can see the solution $u(x,t)$ at different values of time for $M=256$ and $CFL=0.1$. We can see that in fact the periodic boundary conditions are satisfied, although the initial condition was not periodic. In the figure 3 we can see the same profiles of $u(x,t)$ at the same values of time but for $M=1024$. This value of $M$ was the one that the GCI study determined to satisfy the accuracy requirement given in the problem (see below). 
+\begin{figure}[H]
+\centering     %%% not \center
+%\hspace{-0.56in}
+\includegraphics[scale=0.65]{uinitial_M1024.eps}\caption{Initial condition for $u$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.1$ s.]{\includegraphics[scale=0.55]{u_M256_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.55]{u_M256_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{u_M256_3.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.55]{u_M256_4.eps}}
+\hspace*{\fill}
+
+\caption{Profiles of $u$ for M=256 and $CFL=0.1$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.1$ s.]{\includegraphics[scale=0.55]{u_M1024_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.55]{u_M1024_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{u_M1024_3.eps}}
+\hfill
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.55]{u_M1024_4.eps}}
+\hspace*{\fill}
+
+\caption{M=4096, CFL=0.8}
+\end{figure}
+
+
+The GCI analysis details are shown in the tables below. Note that 
+\begin{align*}
+\beta=\frac{GCI_{12}}{GCI_{23}}r^p,
+\end{align*}
+and $u_{h=0}$ is obtained by Richardson extrapolation. We can see that $\beta\in[0.95,1.05]$ which implies that we are in the asymptotic range of convergence, and for the last mesh we have a $GCI_{12}$ value less than $0.1\%$, the requested accuracy.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & $u(6,1)$ \\
+\hline
+$64$ & $0.863483397473951$ \\
+$128$ & $   0.827088879661215$ \\
+$256$ & $   0.797959995827032$ \\
+$512$ & $   0.810290219692641$ \\
+$1024$ & $   0.810473786888916$ \\
+\end{tabular}
+\caption{GCI analysis data.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & $u_{h=0}$ & $p$ & $GCI_{12}~(\%)$ & $GCI_{23}~(\%)$ & $\beta$ \\
+\hline
+
+$64$ & - & - & - & - & - \\
+$128$ & - & - & - & - & - \\
+$256$ & $0.681178462938105$ & $0.321270729334096$ & $18.293763706$ & $0.22051804272$ & $1.03650419066$\\
+$512$ & $   0.819340609477331$ & $1.240251427765663$ & $   1.396164850$ & $   0.03349261517$ & $   0.98478295360$\\
+$1024$ & $0.810476561060975$ & $6.069746913021977$ & $   0.000427862$ & $   0.00028746084$ & $   0.99977350631$\\
+\end{tabular}
+\caption{GCI analysis results.}
+\end{table}

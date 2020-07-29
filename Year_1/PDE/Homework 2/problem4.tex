@@ -1,0 +1,60 @@
+\begin{questions}
+
+\question{
+Solve the age-structured population problem
+\begin{align*}
+&\frac{\partial u}{\partial t}+\frac{\partial u}{\partial a}+\mu (a,t)u=0,~~a,t>0,a\neq t\\
+&u(a,0)=u_0(a),~~a>0,\\
+&u(0,t)=b(t),~~t>0.
+\end{align*}
+Under which conditions is $u$ continuous at $a=t$?
+}
+
+\begin{solution}
+First of all, note that we can rewrite the above PDE as
+\begin{align*}
+\partial_1u+\partial_2u=-\mu (x_1,x_2)u
+\end{align*}
+Let $v(z,y)=u(y,z+y)$ and $w(z,y)=u(z+y,y)$. Now compute
+\begin{align*}
+\frac{\partial v}{\partial y}=\frac{\partial}{\partial y}u(y,z+y)=\partial_1u+\partial_2u=-\mu (y,z+y)u(y,z+y)=-\mu(y,z+y)v(z,y),
+\end{align*}
+and observe that we obtained an ODE for $v(z,t)$ that we are able to solve,
+\begin{align*}
+v(z,y)=f_1(z)e^{-\int_0^y\mu (s,z+s)ds}.
+\end{align*}
+If we repeat the same procedure for $w(z,y)$ we obtain
+\begin{align*}
+w(z,y)=f_2(z)e^{-\int_0^y\mu (z+s,s)ds}.
+\end{align*}
+Imposing the initial condition for $v(z,y)$ we obtain $f_1(z)$
+\begin{align*}
+v(z,0)&=u(0,z),\\
+f_1(z)&=b(z),
+\end{align*}
+and for $w(z,y)$ we obtain $f_2(z)$
+\begin{align*}
+w(z,0)&=u(z,0),\\
+f_2(z)&=u_0(z).
+\end{align*}
+Thus, the solutions for $v(z,y)$ and $w(z,y)$ are
+\begin{align*}
+v(z,y)&=b(z)e^{-\int_0^y\mu (s,z+s)ds},\\
+w(z,y)&=u_0(z)e^{-\int_0^y\mu (z+s,s)ds}.
+\end{align*}
+Since the argument $z$ of both previous functions must be positive we obtain two situations. First, if $t>a>0$
+\begin{align*}
+u(a,t)=u(a,t-a+a)=v(t-a,a)=b(t-a)e^{-\int_0^a\mu (s,t-a+s)ds},
+\end{align*}
+and if $a>t>0$
+\begin{align*}
+u(a,t)=u(a-t+t,t)=w(a-t,t)=u_0(a-t)e^{-\int_0^t\mu (a-t+s,s)ds}.
+\end{align*}
+To find the condition under which $u$ would be continuous we simply make $t=a$
+\begin{align*}
+u(a,a)=v(0,a)&=b(0)e^{-\int_0^a\mu (s,s)ds},\\
+u(a,a)=w(0,t)&=u_0(0)e^{-\int_0^t\mu (s,s)ds}.
+\end{align*}
+Hence, $u$ will be continuous if and only if $b(0)=u_0(0)$.
+\end{solution}
+\end{questions}

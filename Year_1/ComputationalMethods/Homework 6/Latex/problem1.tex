@@ -1,0 +1,136 @@
+\textbf{Consider the differential equation}
+\begin{align*}
+y' = \sin(t)(y^2 - \cos^2(t) -1),~~y(0)=1,~~t>0.
+\end{align*}
+\textbf{The exact solution to this nonlinear ODE is $y(t) = \cos(t)$.}
+
+\textbf{Use \texttt{rk4} to solve this equation for $t \in [0,50]$. Plot the error vs. values of $\Delta t$ (use \texttt{loglog}). Does the error decay as $\mathcal{O}(\Delta t^4)$? }
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.75]{problem1_a.eps}}
+\caption{Error Vs. $\Delta t$}
+\end{figure}
+
+As we can see in the figure above, we have done a linear fit with the \textsl{Matlab} function \texttt{polyfit} obtaining a slope of $4$. Hence, the figure above shows that the error decays as $\mathcal{O}(\Delta t^4)$.
+
+
+\textbf{You will now compare \texttt{rk4}, forward-Euler, and modified Euler methods. Solve the problem with these three methods for several $\Delta t$. on a \texttt{loglog} plot, show the error vs. the number of function evaluations used by eahc method. Using the number of function evaluations as a measure of cost, is it worth using several stages in RK methods? }
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.75]{problem1_b.eps}}
+\caption{Error Vs. cost}
+\end{figure}
+
+As we can see in the previous figure, it is worth using several stages in RK methods despite their cost. With the same number of funciton evaluations, RK4 reaches much higher level of accuracy. 
+
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+clear variables; close all; format long; clc
+path='Latex/FIGURES/';
+
+linewidth=1.2;
+markersize=7.5;
+legendfontsize=12;
+axisfontsize=16;
+
+%% Problem 1
+% Part a)
+dt = 2e-1;
+dydt = @(t,y) sin(t)*(y.^2-(cos(t))^2-1);
+err=1;
+tol=1e-12;
+tspan=[0 50];
+y0=1;
+i=1;
+while err>tol
+    N=(tspan(2)-tspan(1))/dt(i);
+    [t,y] = rk4(dydt,tspan,y0,N);
+    err(i)=norm(y-cos(t),inf);
+    dt(i+1)=dt(i)/2;
+    i=i+1;
+end
+dt(end)=[];
+
+% Linear fit
+P=polyfit(log(dt),log(err),1);
+dtfit=2*dt(1):-0.001:dt(end)/2;
+errfit=exp(P(2))*dtfit.^(P(1));
+
+figure(1)
+loglog(dt,err,'r*','markersize',markersize)
+grid on
+hold on
+loglog(dtfit,errfit,'b-.','linewidth',linewidth)
+grid on
+xlabel('$\log(\Delta t)$','Interpreter','latex')
+ylabel('$\log(\epsilon)$','Interpreter','latex')
+set(gca,'fontsize',14)
+txt=[path,'problem1_a'];
+saveas(gcf,txt,'epsc')
+
+% Part b)
+N=2.^(4:12);
+for i=1:length(N);
+    [t1,y1] = euler(dydt,tspan,y0,N(i));
+    [t2,y2] = modEuler(dydt,tspan,y0,N(i));
+	[t4,y4] = rk4(dydt,tspan,y0,N(i));
+    err1(i)=norm(y1-cos(t1),inf);
+    err2(i)=norm(y2-cos(t2),inf);
+    err4(i)=norm(y4-cos(t4),inf);
+end
+figure
+loglog(N,err1,2*N,err2,4*N,err4)
+grid on
+ylabel('$\log(\epsilon)$','Interpreter','latex')
+set(gca,'fontsize',12)
+xlabel('Function Evaluations','Interpreter','latex')
+legend({'Euler','Modified Euler', 'RK4'},'fontsize',14)
+txt=[path,'problem1_b'];
+saveas(gcf,txt,'epsc')
+
+function [t,w] = rk4(dydt,tspan,y0,N)
+
+h = diff(tspan)/N;
+t = tspan(1) + h*(0:N)';
+w = zeros(length(y0),N+1);
+w(:,1) = y0(:).';
+
+for i = 1:N
+    k1 = h*dydt(t(i)    ,w(:,i)      );
+    k2 = h*dydt(t(i)+h/2, w(:,i)+k1/2);
+    k3 = h*dydt(t(i)+h/2, w(:,i)+k2/2);
+    k4 = h*dydt(t(i)+h  , w(:,i)+k3  );
+    w(:,i+1) = w(:,i) + (k1 + 2*k2 + 2*k3 + k4)/6;
+end
+w = w.';
+end
+
+function [t,w] = modEuler(dydt,tspan,y0,N)
+
+h = diff(tspan)/N;
+t = tspan(1) + h*(0:N)';
+w = zeros(length(y0),N+1);
+w(:,1) = y0(:).';
+
+for i = 1:N
+    k1 = h*dydt(t(i)    ,w(:,i)      );
+    k2 = h*dydt(t(i)+h, w(:,i)+k1);
+    w(:,i+1) = w(:,i) + (k1 + k2)/2;
+end
+w = w.';
+end
+
+function [t,w] = euler(dydt,tspan,y0,N)
+
+h = diff(tspan)/N;
+t = tspan(1) + h*(0:N)';
+w = zeros(length(y0),N+1);
+w(:,1) = y0(:).';
+
+for i = 1:N
+    k1 = h*dydt(t(i)    ,w(:,i)      );
+	w(:,i+1) = w(:,i) + k1;
+end
+w = w.';
+end
+\end{verbatim}

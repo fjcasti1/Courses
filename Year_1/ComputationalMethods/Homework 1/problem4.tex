@@ -1,0 +1,87 @@
+\begin{solution}
+In this problem we interpolate the different functions using polynomial interpolation on Chebishev nodes. The rate of convergence is given in the next figure. Observe that the rate of convergence is the highest for the function of part d,since it is infinitely smooth, followed by the function of part c,a and b. The order of this convergence is because of the smoothness of the different functions. In real numbers the function of part c is infinitely smooth as well, whereas the other two functions arent.
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$f(x)=|x|^3$.]{\includegraphics[scale=0.5]{IMAGES/problem4a.eps}}
+\hfill
+\subfigure[$f(x)=exp\left(\frac{-1}{\sin{(2x^2)}}\right)$.]{\includegraphics[scale=0.5]{IMAGES/problem4b.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$f(x)=\frac{1}{\sin{(1+x^2)}}$.]{\includegraphics[scale=0.5]{IMAGES/problem4c.eps}}
+\hfill
+\subfigure[$f(x)=\sinh{x}$.]{\includegraphics[scale=0.5]{IMAGES/problem4d.eps}}
+\hspace*{\fill}
+\caption{Error of the polynomial interpolation on Chebyshev nodes for the different functions.}
+\end{figure}
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+% Part a
+N = 1:100;
+err = 0*N;
+ff = @(x) abs(x).^3;
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+loglog(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4a','epsc')
+% Part b
+ff = @(x) exp(-1/sin(2*x^2));
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4b','epsc')
+
+% Part c
+ff = @(x) 1/sin(1+x^2);
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$ ','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4c','epsc')
+
+% Part d
+ff = @(x) sinh(x)^2;
+f = chebfun(ff,'splitting','on');
+for k = 1:length(N)
+    n = N(k);
+    g = chebfun(ff,n);
+    err(k) = norm(f-g,inf);
+end
+figure
+semilogy(N,err,'*',N,N.^-1,'--',N,N.^-3,'--')
+set(gca,'fontsize',14)
+grid on
+xlabel('$N$ (log scale)','fontsize',20,'interpreter','latex')
+ylabel('Error (log scale)','fontsize',20,'interpreter','latex')
+saveas(gcf,'IMAGES/problem4d','epsc')
+\end{verbatim}
+
+
+\end{solution}

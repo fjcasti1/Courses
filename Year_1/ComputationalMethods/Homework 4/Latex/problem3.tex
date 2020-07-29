@@ -1,0 +1,156 @@
+\textbf{Solve the nonlinear boundary value problem}
+\begin{align*}
+y''=y'+\cos(y),~~y(0)=0,~~y(\pi)=1.
+\end{align*}
+\textbf{Use finite differences to discretize the problem and Newton’s method to solve the resulting system of equations. Estimate (numerically) the number of discretized points needed to obtain a solution that is accurate to 4 digits at $x = \pi/6$.}
+
+We can express the previous differential equation as
+\begin{align*}
+y''-y'-\cos(y)=0,
+\end{align*}
+so that its roots will give us the solution. To do so we need to discretize the derivatives using finite differences in order to be able to use Newton's method. Then, the differential equation takes the linear form
+\begin{align*}
+y'' - y_x - cos(y) &= D_2y - D_1y - cos(y)\\
+&=My-\cos(y) =0~,
+\end{align*}
+where the matrix $M = D_2 - D_1$. The matrices $D_1$ and $D_2$ will give us the discrete values of the first and second derivative, respectively, and are obtained using second order centered finite differences. For $D_1$,
+\begin{align*}
+&y' = \frac{1}{2(\Delta x)}
+\begin{bmatrix}
+-1 & 0 & 1 & ~&  \dots & 0 \\
+0 & -1 & 0 & 1 & \dots & 0 \\ 
+\vdots & ~&  \ddots & \ddots & \ddots & \vdots \\
+0 & \dots & ~ & -1 & 0 & 1 \\
+\end{bmatrix}y +
+\begin{bmatrix}
+0 \\
+\vdots \\
+0 \\
+\frac{1}{2 \Delta x}
+\end{bmatrix} = D_1y + g_1,
+\end{align*}
+where the column vector $g_1$ contains is found by imposing the boundary conditions. Note that the matrices are calculated in such a way that they give us the derivatives for the interior nodes, since the boundary nodes we know their values thanks to the boundary conditions. For $D_2$,
+\begin{align*}
+& y'' = \frac{1}{(\Delta x)^2} \begin{bmatrix}
+1 & -2 & 1 & ~&  \dots & 0 \\
+0 & 1 & -2 & 1 & \dots & 0 \\ 
+\vdots & ~&  \ddots & \ddots & \ddots & \vdots \\
+0 & \dots & ~ & 1 & -2 & 1 \\
+\end{bmatrix}y + \begin{bmatrix}
+0 \\
+\vdots \\
+0 \\
+\frac{1}{( \Delta x)^2}
+\end{bmatrix} = D_2y + g_2~,
+\end{align*}
+where the column vector $g_2$ contains is found by imposing the boundary conditions. We now define
+\begin{align*}
+\vec{F}(\vec{y}) = My - cos(y) + g_2 - g_1~,
+\end{align*}
+where $\vec{y}$ contains the interior nodes. The solution to our differential equations will be the vector $y$ that makes $\vec{F}(\vec{y})=0$. To calculate those roots we will use Newton's method. In order to be able to use it, we need to calculate the Jacobian,
+\begin{align*}
+J_{jk}=\frac{\partial}{y_j}F(y_k).
+\end{align*}
+First note that
+\begin{align*}
+\frac{\partial }{\partial y_j} \sum_{l=1}^{N}M_{kl}y_l = M_{kl}
+\end{align*}
+and
+\begin{align*}
+\frac{\partial }{\partial y_j} \cos(y_k) = \begin{dcases}
+	-\sin(y_k) & \text{for}~k = j\\
+		0 & \text{for}~j \neq k 
+\end{dcases}
+\end{align*}
+Hence, the Jacobian can be coded as
+\begin{align*}
+J(\vec{F}(\vec{y})) = M + \text{diag}(\sin(y)).
+\end{align*}
+
+We will first run the code in a while loop to find out how many nodes we need to have an $L_1$ norm of $y^{new}(\pi/6)-y^{old}(\pi/6)$ less than a $tol=10^{-4}$. Using 31 nodes I obtained an $L_1$ norm of $7.269\cdot 10^{-5}$. To be safe, since it is a low number of nodes and the code runs fast, we could run it for double number of elements $N$. Using then 61 nodes we obtain an $L_1$ norm of the error of $7.603\cdot 10^{-6}$. Using 61 nodes we have obtained the solution showed in the next figure
+
+\begin{figure}[H]
+\center{\includegraphics[scale=.75]{prob3sol.eps}}
+\caption{Solution for 61 points}
+\end{figure}
+
+\subsection*{Matlab code for this problem}
+
+\begin{verbatim}
+%% Problem 3
+close all
+clc
+format long
+% Find an answer with sufficient level of convergence
+tol=1e-4;
+i=1;
+N=6;
+err=1;
+yy=zeros(6+1,1);
+while err>tol
+    i=i+1;
+    y_old=yy(N/6);
+    N = i*6;
+    xi=linspace(0,pi,N+1)';
+    [F,J,y0]=FandJ(N);
+    [yy,niter] = newton(F,J,y0,1e-14);
+    y_new=yy(N/6);
+    % Check solution
+    err=max(abs(y_new-y_old));
+end
+% Results
+nodes=N+1
+err
+% Run it for N=60
+N=60;
+xi=linspace(0,pi,N+1)';
+[F,J,y0]=FandJ(N);
+[yy,niter] = newton(F,J,y0,1e-14);
+y_new=yy(N/6);
+% Plot the solution
+figure
+plot(xi,[0; yy; 1],'linewidth',1.5)
+hold on
+plot(xi(N/6+1),y_new,'r.','markerSize',12)
+grid on
+leg1= legend('Solution', 'Value at $\pi/6$');
+set(leg1,'interpreter','latex','FontSize',17);
+set(gca,'fontsize',axisfontsize)
+xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
+ylabel('$y$','interpreter','latex','fontsize',labelfontsize)
+saveas(gcf,'Latex/FIGURES/prob3sol','epsc')
+\end{verbatim}
+\subsubsection*{Function to calculate F and J}
+\begin{verbatim}
+function [F,J,y0]=FandJ(N)
+x = linspace(0,pi,N+1)';
+h=pi/N;
+xi = x(2:N);
+y0 = xi/pi;
+
+D1 = (gallery('tridiag',N+1,-1,0,1))/(2*h);
+D1(1,:) = [];
+D1(end,:) = [];
+D1(:,1) = [];
+D1(:,end) = [];
+
+D2 = (gallery('tridiag',N+1,1,-2,1))/(h^2);
+D2(1,:) = [];
+D2(end,:) = [];
+D2(:,1) = [];
+D2(:,end) = [];
+
+% g1 = [zeros(N-2,1)];
+% g1(N-2) = (1/(2*h));
+% g2 = [zeros(N-2,1)];
+% g2(N-2) = (1/(h^2));
+% e1 = g2 - g1;
+
+M = D2 - D1;
+e1 = [zeros(N-1,1)];
+e1(N-1) = ((2-h)/(2*h^2));
+
+F = @(y) (M*y)-cos(y)+e1;
+J = @(y) M + diag(sin(y));
+end
+\end{verbatim}

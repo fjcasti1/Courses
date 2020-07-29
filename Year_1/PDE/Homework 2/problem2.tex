@@ -1,0 +1,163 @@
+\begin{questions}
+
+\question{
+Find the solution $u$ of two variables $x,y\in\R$ of 
+\begin{align*}
+(y+x)u_x+(y-x)u_y=u^2,\\
+u=1\text{ on the circle }x^2+y^2=1.
+\end{align*}
+Where is the solution defined?
+}
+
+\begin{solution}
+We can rewrite the PDE in terms of $x_1,x_2$ by making $x_1=x$ and $x_2=y$.
+\begin{align*}
+(x_2+x_1)\partial_1u+(x_2-x_1)\partial_2u=u^2,\\
+u=1\text{ on the circle }x_1^2+x_2^2=1.
+\end{align*}
+We can also parametrize the initial condition using sine and cosine functions,\begin{align*}
+u(\cos{z},\sin{z})=1.
+\end{align*}
+Therefore we get
+\begin{align*}
+g(z)=\begin{pmatrix*}[r]
+\cos{z}\\
+\sin{z}
+\end{pmatrix*}.
+\end{align*}
+We can now rewrite the PDE as a system of ODE, the \textit{Characteristic System},
+\begin{align*}
+&\partial_t\xi_1(z,t)=\xi_2+\xi_1,~~~~\xi_1(z,0)=\cos{z},\\
+&\partial_t\xi_2(z,t)=\xi_2-\xi_1,~~~~\xi_1(z,0)=\sin{z},\\
+&\partial_tv(z,t)=v^2,~~~~~~~~~~~v(z,0)=1.
+\end{align*}
+We solve first for $\xi_1,\xi_2$, which form a linear system of differential equations, we can solve it using the matrix exponential. We can rewrite the system in matrix form,
+\begin{align*}
+\xi'=A\xi,
+\end{align*}
+\begin{align*}
+\begin{pmatrix*}[r]
+\partial_t\xi_1\\
+\partial_t\xi_2
+\end{pmatrix*}=\begin{pmatrix*}[r]
+1 & 1\\
+-1 & 1
+\end{pmatrix*}
+\begin{pmatrix*}[r]
+\xi_1\\
+\xi_2
+\end{pmatrix*}.
+\end{align*}
+We can easily calculate the eigenvalues of the matrix $A$, $\lambda=1\pm i$, and its eigenvectors
+\begin{align*}
+V_1=\begin{pmatrix*}[r]
+1\\
+i
+\end{pmatrix*},~~~~~~
+V_2=\begin{pmatrix*}[r]
+1\\
+-i
+\end{pmatrix*}
+\end{align*}
+Thus, the solution of the system is
+\begin{align*}
+\xi(z,t)=f_1(z)e^{(1+i)t}\begin{pmatrix*}[r]
+1\\
+i
+\end{pmatrix*}+f_2(z)e^{(1-i)t}\begin{pmatrix*}[r]
+1\\
+-i
+\end{pmatrix*},
+\end{align*}
+which we can express in terms of sines and cosines,
+\begin{align*}
+\xi(z,t)&=f_1(z)e^t\left[\cos{t}+i\sin{t} \right]\begin{pmatrix*}[r]
+1\\
+i
+\end{pmatrix*}+f_2(z)e^t\left[\cos{t}-i\sin{t} \right]\begin{pmatrix*}[r]
+1\\
+-i
+\end{pmatrix*}\\
+&=\left[f_1(z)+f_2(z)\right]e^t\begin{pmatrix*}[r]
+\cos{t}\\
+-\sin{t}
+\end{pmatrix*}+i\left[f_1(z)-f_2(z)\right]e^t\begin{pmatrix*}[r]
+\sin{t}\\
+\cos{t}
+\end{pmatrix*}\\
+&=K_1(z)e^t\begin{pmatrix*}[r]
+\cos{t}\\
+-\sin{t}
+\end{pmatrix*}+iK_2(z)e^t\begin{pmatrix*}[r]
+\sin{t}\\
+\cos{t}
+\end{pmatrix*}.
+\end{align*}
+Imposing the initial conditions
+\begin{align*}
+\xi(z,0)&=K_1(z)\begin{pmatrix*}[r]
+1\\
+0
+\end{pmatrix*}+iK_2(z)\begin{pmatrix*}[r]
+0\\
+1
+\end{pmatrix*}\\
+&=\begin{pmatrix*}[r]
+K_1(z)\\
+iK_2(z)
+\end{pmatrix*}=\begin{pmatrix*}[r]
+\cos{z}\\
+\sin{z}
+\end{pmatrix*},
+\end{align*}
+we can find $K_1$ and $K_2$
+\begin{align*}
+K_1(z)=\cos{z},~~~~K_2(z)=-i\sin{z}.
+\end{align*}
+Now we can write the solution for $\xi$
+\begin{align*}
+\xi(z,t)&=\cos{(z)}e^t\begin{pmatrix*}[r]
+\cos{t}\\
+-\sin{t}
+\end{pmatrix*}+\sin{(z)}e^t\begin{pmatrix*}[r]
+\sin{t}\\
+\cos{t}
+\end{pmatrix*}.
+\end{align*}
+Now we solve for $v$
+\begin{align*}
+v(z,t)=\frac{-1}{t+f_3(z)},
+\end{align*}
+with initial condition
+\begin{align*}
+v(z,0)=\frac{-1}{f_3(z)}=1,
+\end{align*}
+giving us $f_3(z)=-1$. Therefore
+\begin{align*}
+v(z,t)=\frac{1}{1-t}=v(t),
+\end{align*}
+and we only have to find $t(x_1,x_2)$ to obtain the solution $u(x_1,x_2)=v(t(x_1,x_2))$. In order to find $t(x_1,x_2)$ we need to solve
+\begin{align*}
+x_1=e^t\left(\cos{z}\cos{t}+\sin{z}\sin{t}\right),\\
+x_2=e^t\left(\sin{z}\cos{t}-\cos{z}\sin{t}\right).
+\end{align*}
+Let us compute $x_1^2+x_2^2$,
+\begin{align*}
+x_1^2+x_2^2=e^{2t}(&\cos^2{z}\cos^2{t}+\sin^2{z}\sin^2{t}+2\sin{z}\cos{z}\sin{t}\cos{t}\\
+&+\sin^2{z}\cos^2{t}+\cos^2{z}\sin^2{t}-2\sin{z}\cos{z}\sin{t}\cos{t}),
+\end{align*}
+\begin{align*}
+x_1^2+x_2^2&=e^{2t}\left[\left(\sin^2{z}+\cos^2{z}\right)\cos^2{t}+\left(\sin^2{z}+\cos^2{z}\right)\sin^2{t}\right]\\
+&=e^{2t}.
+\end{align*}
+Now we can isolate $t(x_1,x_2)$ from the previous equation
+\begin{align*}
+t(x_1,x_2)=\frac{1}{2}\ln\left(x_1^2+x_2^2\right),
+\end{align*}
+which gives us the solution to the PDE
+\begin{align*}
+u(x_1,x_2)=\frac{1}{1-\frac{1}{2}\ln\left(x_1^2+x_2^2\right)}.
+\end{align*}
+It is clear that the solution is not defined at the origin since $\ln{(0)}$ is not defined. In addition we know that the denominator cannot be zero, therefore the solution is not defined in points that satisfy $x_1^2+x_2^2=e^2$ which describes the circle of radius $e>1$. Since the domain of existence has to be connected, the solution exists on the annulus $0<x_1^2+x_2^2<e^2$.
+\end{solution}
+\end{questions}

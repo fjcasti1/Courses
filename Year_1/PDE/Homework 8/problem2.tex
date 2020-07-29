@@ -1,0 +1,55 @@
+\begin{questions}
+\question{
+Let $T > 0$ and $u : \overline{\Omega} \times [0, T]$ be continuous. Further let $c, F : \Omega \times (0, T) \to \mathbb{R}$, $F$ bounded and $c$ bounded above. Assume that $u$ is once partially differentiable with respect to $t \in (0, T)$ and twice partially differentiable with respect to $x_k$ at each $x \in \Omega$, $k = 1,\hdots , n$. Assume that
+\begin{align*}
+(\partial_t - L - c)u = F(x, t), \quad x \in \Omega, t \in (0, T).
+\end{align*}
+Let $M, N \geq 0$ such that
+\begin{align*}
+|u(x, t)| \leq M \text{ whenever } x \in \partial \Omega, t \in [0, T] \text{ or } x \in \overline{\Omega}, t = 0
+\end{align*}
+
+and
+\begin{align*}
+|F(x, t)| \leq N \text{ for all } x \in \Omega, t \in (0, T).
+\end{align*}
+Show: $|u(x, t)| \leq (M + t N)e^{kt}$ for all $x \in \overline{\Omega}$, $t \in [0, T]$, where $k \geq 0$ is chosen such that $c(x, t) \leq k$ for all $x \in \Omega$, $t \in (0, T)$.
+
+}
+\begin{solution}
+Since $c$ is bounded, there exists some $k\geq 0$ such that $c(x,t)\leq k$ for all $x \in \Omega$, $t \in (0, T)$. Define $v(x,t)=u(x,t)e^{-kt}$. Then,
+\begin{align*}
+\left(\partial_t-L-c\right)v(x,t)&=e^{-kt}\left(\partial_t-L-c\right)u(x,t)-kv(x,t)\\
+&=e^{-kt}F(x,t)-kv(x,t).
+\end{align*}
+Reorganizing the terms we get
+\begin{align*}
+\left(\partial_t-L-(c-k)\right)v(x,t)&=F(x,t)e^{-kt}.
+\end{align*}
+Define $\beta=c-k\leq 0$. Then the previous equation yields
+\begin{align*}
+\left(\partial_t-L-\beta\right)v(x,t)&=F(x,t)e^{-kt}.
+\end{align*}
+We continue with
+\begin{align*}
+\left|v(x,0)\right|=\left|u(x,0)\right|\leq M,~~~~~~x\in\overline{\Omega},
+\end{align*}
+\begin{align*}
+\left|v(x,t)\right|=\left|u(x,t)e^{-kt}\right|=\left|u(x,t)\right|e^{-kt}\leq\left|u(x,t)\right|\leq M\leq M+tN,~~~~~~x\in\partial\Omega,t\in[0,T),
+\end{align*}
+and
+\begin{align*}
+\left|F(x,t)e^{-kt}\right|=\left|F(x,t)\right|e^{-kt}\leq\left|F(x,t)\right|\leq N,~~~~~~x\in\Omega,t\in(0,T).
+\end{align*}
+Then, by \textsl{Theorem 5.13}, $\left|v(x,t)\right|\leq M+tN$ for all $x\in\overline{\Omega},t\in[0,T]$. Therefore,
+\begin{align*}
+\left|v(x,t)\right|&=\left|u(x,t)e^{-kt}\right|\\
+&=\left|u(x,t)\right|e^{-kt}\\
+&\leq M+tN.
+\end{align*}
+Thus,
+\begin{align*}
+\left|u(x,t)\right|\leq (M+tN)e^{kt},~~~~~~x \in \overline{\Omega}, t \in [0, T].
+\end{align*}
+\end{solution}
+\end{questions}

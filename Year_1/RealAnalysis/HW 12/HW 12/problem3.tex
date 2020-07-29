@@ -1,0 +1,24 @@
+\begin{questions}
+
+\question{(Product rule of differentiation). Let $X$ be a normed vector space
+over $\K$ and $f: [a, b] \rightarrow X$, $\phi: [a, b] \rightarrow \K$. If $t \in [a, b]$ and $f$ and $\phi$ are
+differentiable at $t$, then $\phi f$, defined by $(\phi f)(t) = \phi (t)f(t)$, is differentiable at
+$t$ and $(\phi f)'(t) = \phi'(t)f(t) + \phi (t)f'(t)$. }
+
+\begin{solution}
+  \begin{proof}
+Let $s \in (a,b)$ and $t \in [a,b]$ with $f$ and $\phi$ differentiable at $t$. As $s \rightarrow t$,
+\begin{align*}
+&\|(\phi f)'(t) - (\phi'(t) f(t) + \phi (t)f'(t))\| =  \| \frac{(\phi f)(s) - (\phi f)(t)}{s - t} - (\phi'(t) f(t) + \phi (t)f'(t))\| \\
+&= \| \frac{\phi(s)f(s) - \phi(t)f(t) + \phi(s)f(t) - \phi(s)f(t)}{s-t} - (\phi'(t) f(t) + \phi (t)f'(t)) \| \\
+& = \| \phi(s) \frac{f(s) - f(t)}{s-t} + f(t) \frac{\phi(s) - \phi(t)}{s-t} - \phi'(t) f(t) - \phi (t)f'(t) \| \\
+& \leq \|\phi(s) \frac{f(s) - f(t)}{s-t} - \phi(t)f'(t) \| + \| f(t) \frac{\phi(s) - \phi(t)}{s-t} - f(t) \phi'(t) \| \\
+& = \|\phi(s) \frac{f(s) - f(t)}{s-t} - \phi(t)f'(t) + \phi(s)f'(t) - \phi(s)f'(t) \| + \| f(t) \frac{\phi(s) - \phi(t)}{s-t} - f(t) \phi'(t) \| \\
+& \leq \| \phi(s) \frac{f(s) - f(t)}{s-t} - \phi(s)f'(t) \| + \| \phi(s)f'(t) - \phi(t)f'(t)\| + | f(t) \frac{\phi(s) - \phi(t)}{s-t} - f(t) \phi'(t) \| \\
+&= |\phi(s)| \|\frac{f(s) - f(t)}{s-t} - f'(t) \| + |f'(t)| \|\phi(s) - \phi(t) \| + |f(t)| \|\frac{\phi(s) - \phi(t)}{s-t} - \phi'(t) \|  \rightarrow 0~,
+\end{align*}
+by the differentiability of $f$ and $\phi$ at $t$ and because $\|\phi(s) - \phi(t)\| \rightarrow 0$ as $s \rightarrow t$ since $\phi$ must be continuous in order to be differentiable. Therefore, $(\phi f)'(t) = \phi'(t)f(t) + \phi (t)f'(t)$.
+
+\end{proof}
+\end{solution}
+\end{questions}

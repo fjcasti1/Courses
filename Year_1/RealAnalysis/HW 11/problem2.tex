@@ -1,0 +1,31 @@
+\begin{questions}
+
+\question{Let $X$ be a compact metric space and $Z$ a normed vector space. Let
+$\mathcal{F}$ be an equicontinuous subset of $C(X, Z)$, the space of continuous functions
+from $X$ to $Z$. Show that $\mathcal{F}$ is uniformly equicontinuous.}
+
+\begin{solution}
+  \begin{proof}
+  Let's prove the statement by contradiction. Assume $\mathcal{F}$ is not uniformly continuous. Then, there exists an $\varepsilon >0$ such that, for all $\delta >0$ there is an $x$ and a $y$ in $X$ with $d(x,y)<\delta$ but $||f(x)-f(y)||\geq\varepsilon$ for some $f\in\mathcal{F}$. Now, for each $n\in\N$ and $\delta=\frac{1}{n}$, there exists a sequence $(x_n)$ and $(y_n)$ in $X$ with $d(x_n,y_n)<\delta$ but $||f_n(x_n)-f_n(y_n)||\geq\varepsilon$. Since $X$ is compact, there exists a subsequence $(x_{n_j})$ and $(y_{n_j})$ such that $x_{n_j}\rightarrow x\in X$ and $y_{n_j}\rightarrow y\in X$ with $d(x_{n_j},y_{n_j})<\frac{1}{n_j}\rightarrow 0$ as $j \rightarrow\infty$. By triangle inequality:
+  \begin{align*}
+  0\leq d(y,x)\leq d(y_{n_j},x_{n_j})+d(x_{n_j},x)\rightarrow 0~~\text{as}~j \rightarrow \infty~,
+  \end{align*}
+  which implies that $y_{n_j}\rightarrow x$. Therefore $x=y$ by uniqueness of limits. Then, let $\varepsilon > 0$ and $\delta$ be defined as above, then, since $\mathcal{F}$ is equicontinuous there exists $N_1,~N_2 \in \N$ such that, 
+  \begin{align*}
+  d(x_{n_j},x) < \delta ~~\Rightarrow~~||f_{n_j}(x_{n_j})-f_{n_j}(x)|| < \frac{\varepsilon}{2} ~~\text{for}~ f\in\mathcal{F}~\text{with}~n_j>N_1~,
+  \end{align*}
+and
+    \begin{align*}
+  d(y_{n_j},x) < \delta~~\Rightarrow~~||f_{n_j}(y_{n_j})-f_{n_j}(x)|| < \frac{\varepsilon}{2}~~\text{for}~ f\in\mathcal{F}~\text{with}~n_j>N_2~.
+  \end{align*}
+Lastly, let $N = \max\{N_1,N_2\}$, then 
+\begin{align*}
+||f_{n_j}(x_{n_j})-f_{n_j}(y_{n_j})|| &\leq \|f_{n_j}(x_{n_j})-f_{n_j}(x)\| + \|f_{n_j}(x) - f_{n_j}(y_{n_j})\| \\
+&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon~~\text{for} ~~n_j>N~.
+\end{align*}
+finding a contradiction. Thus, $\mathcal{F}$ is uniformly equicontinuous.
+  \end{proof}
+\end{solution}
+
+
+\end{questions}

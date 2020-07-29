@@ -1,0 +1,221 @@
+In the figures below we can see the surface plots of the horizontal velocity $u$, vertical velocity $v$ and mass fraction $Y$, for different values of $t$. They are all obtained using $M=256$, $N=128$ and $CFL=0.8$. Below the contour plots, and using the same parameters, we have the curve plots of the probe measurements together with the performance parameter $R$ $vs$ time. To finish, we have the $GCI$-analysis of the quantities required by the problem. At the very end, the same $GCI$-analysis will be performed to the steady state solution.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{u_11.eps}}
+\hfill
+\subfigure[$t=2$ s.]{\includegraphics[scale=0.55]{u_12.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.55]{u_13.eps}}
+\hfill
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.55]{u_14.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=7$ s.]{\includegraphics[scale=0.55]{u_15.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.55]{u_16.eps}}
+\hspace*{\fill}
+\caption{Profiles of horizontal velocity $u$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{v_21.eps}}
+\hfill
+\subfigure[$t=2$ s.]{\includegraphics[scale=0.55]{v_22.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.55]{v_23.eps}}
+\hfill
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.55]{v_24.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=7$ s.]{\includegraphics[scale=0.55]{v_25.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.55]{v_26.eps}}
+\hspace*{\fill}
+\caption{Profiles of the vertical velocity $v$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.55]{Y_31.eps}}
+\hfill
+\subfigure[$t=2$ s.]{\includegraphics[scale=0.55]{Y_32.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=3$ s.]{\includegraphics[scale=0.55]{Y_33.eps}}
+\hfill
+\subfigure[$t=5$ s.]{\includegraphics[scale=0.55]{Y_34.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=7$ s.]{\includegraphics[scale=0.55]{Y_35.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.55]{Y_36.eps}}
+\hspace*{\fill}
+\caption{Profiles of the mass fraction $Y$ for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Probe 1.]{\includegraphics[scale=0.55]{probeu.eps}}
+\hfill
+\subfigure[Probe 2.]{\includegraphics[scale=0.55]{probev.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[Probe 3.]{\includegraphics[scale=0.55]{probeY.eps}}
+\hfill
+\subfigure[Performance parameter.]{\includegraphics[scale=0.55]{Rplot.eps}}
+\hspace*{\fill}
+\caption{Probe curves and performance parameter with time for $M=256$, $N=128$ and $CFL=0.8$.}
+\end{figure}
+
+\subsection*{GCI analysis for u at t=5}
+
+The GCI analysis details are shown in the tables below. Note that 
+\begin{align*}
+\beta=\frac{GCI_{12}}{GCI_{23}}r^p,
+\end{align*}
+and $u_{h=0}$ is obtained by Richardson extrapolation. We can see that $\beta\in[0.95,1.05]$ which implies that we are in the asymptotic range of convergence, and for the last mesh we have a $GCI_{12}$ value less than $0.02\%$, the requested accuracy.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & N & $u(1,0.5)$ \\
+\hline
+$16$ & $8$ & $1.543690071443089$ \\
+$32$ & $16$ & $   1.335416609160283$ \\
+$64$ & $32$ & $   1.322019032777453$ \\
+$128$ & $64$ & $   1.319745850662477$ \\
+$256$ & $128$ & $   1.319205904441201$ \\
+$512$ & $256$ & $   1.319067860936907$ \\
+\end{tabular}
+\caption{GCI analysis data.}
+\end{table}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{ut5.png}
+\caption{GCI analysis results for the probe 1 measurement.}
+\end{figure}
+
+\subsection*{GCI analysis for v at t=5}
+
+We can see that $\beta\in[0.95,1.05]$ which implies that we are in the asymptotic range of convergence, and for the last mesh we have a $GCI_{12}$ value less than $0.02\%$, the requested accuracy.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & N & $v(1,1.5)$ \\
+\hline
+$16$ & $8$ & $  -0.757061737618705$ \\
+$32$ & $16$ & $  -0.625718980721275$ \\
+$64$ & $32$ & $  -0.622907528189143$ \\
+$128$ & $64$ & $  -0.622804506934971$ \\
+$256$ & $128$ & $  -0.622781023934629$ \\
+$512$ & $256$ & $	-0.622773391772338$ \\
+\end{tabular}
+\caption{GCI analysis data.}
+\end{table}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{vt5.png}
+\caption{GCI analysis results for the probe 2 measurement.}
+\end{figure}
+
+\subsection*{GCI analysis for Y at t=5}
+
+We can see that $\beta\in[0.95,1.05]$ which implies that we are in the asymptotic range of convergence, and for the last mesh we have a $GCI_{12}$ value less than $0.4\%$, the requested accuracy.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & N & $Y(2,0.5)$ \\
+\hline
+$16$ & $8$ & $   0.582656635075406$ \\
+$32$ & $16$ & $   0.588540399303644$ \\
+$64$ & $32$ & $   0.591682314985302$ \\
+$128$ & $64$ & $   0.594958713346013$ \\
+$256$ & $128$ & $   0.596429634107325$ \\
+$512$ & $256$ & $   0.597084423776656$ \\
+\end{tabular}
+\caption{GCI analysis data.}
+\end{table}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{Yt5.png}
+\caption{GCI analysis results for the probe 3 measurement.}
+\end{figure}
+
+\subsection*{GCI analysis for R at t=5}
+
+We can see that $\beta\in[0.95,1.05]$ which implies that we are in the asymptotic range of convergence, and for the last mesh we have a $GCI_{12}$ value less than $0.5\%$, the requested accuracy.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+M & N & $v(1,1.5)$ \\
+\hline
+$16$ & $8$ & $   0.168352427538196$ \\
+$32$ & $16$ & $   0.162648932748133$ \\
+$64$ & $32$ & $   0.161109373859052$ \\
+$128$ & $64$ & $   0.160690350976423$ \\
+$256$ & $128$ & $   0.160521007689289$ \\
+$512$ & $256$ & $   0.160443010433551$ \\
+\end{tabular}
+\caption{GCI analysis data.}
+\end{table}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{Rt5.png}
+\caption{GCI analysis results for the parameter $R$.}
+\end{figure}
+
+\subsection*{Steady state results}
+I ran the simulation using $M=256$ and $N=128$ up to a $t=30$ to reach the steady state solution of the problem. In the following tables are the results obtained, with the GCI analysis.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{ut30.png}
+\caption{GCI analysis results for the probe 1 measurement.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{vt30.png}
+\caption{GCI analysis results for the probe 2 measurement.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{Yt30.png}
+\caption{GCI analysis results for the probe 3 measurement.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\includegraphics[scale=0.55]{Rt30.png}
+\caption{GCI analysis results for the parameter $R$.}
+\end{figure}

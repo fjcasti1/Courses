@@ -1,0 +1,41 @@
+\begin{questions}
+
+\question{Let $\{v_m;m\in\N\}$ be an orthonormal set in a Hilbert space $H$ over $\K$ and $(\alpha_m)$ a sequence in $\K$. Show:
+The series $\sum_{m=1}^{\infty}\alpha_mv_m$ exists in $H$ if and only if $\sum_{m=1}^{\infty}|\alpha_m|^2<\infty$. Further, if one and then both of these statements hold,
+\begin{align*}
+\left|\left|\sum_{m=1}^{\infty}\alpha_mv_m\right|\right|^2=\sum_{m=1}^{\infty}|\alpha_m|^2
+\end{align*}
+}
+\begin{solution}
+Let $(s_k)\in H$ be the sequence of partial sums
+\begin{align*}
+\sum_{m=1}^{k}\alpha_mv_m,
+\end{align*}
+and $(\sigma_k)\in\K$ the sequence of partial sums
+\begin{align*}
+\sum_{m=1}^{k}|\alpha_m|^2.
+\end{align*}
+Then, for $k>l$,
+\begin{align*}
+\left|\left|s_k-s_l\right|\right|^2&=\left<\sum_{m=1}^{k}\alpha_mv_m-\sum_{m=1}^{l}\alpha_mv_m\left|\right.\sum_{j=1}^{k}\alpha_jv_j-\sum_{j=1}^{l}\alpha_jv_j\right>\\
+&=\left<\sum_{m=l+1}^{k}\alpha_mv_m\left|\right.\sum_{j=l+1}^{k}\alpha_jv_j\right>\\
+&=\sum_{j=l+1}^{k}\sum_{m=l+1}^{k}\left<\alpha_mv_m\left|\right.\alpha_jv_j\right>\\
+&=\sum_{j=l+1}^{k}\sum_{m=l+1}^{k}\alpha_m\alpha_j^*\left<v_m\left|\right.v_j\right>\\
+&=\sum_{j=l+1}^{k}\sum_{m=l+1}^{k}\alpha_m\alpha_j^*\delta_{jm}\\
+&=\sum_{m=l+1}^{k}\alpha_m\alpha_m^*\\
+&=\sum_{m=l+1}^{k}|\alpha_m|^2\\
+&=\sum_{m=1}^{k}|\alpha_m|^2-\sum_{m=1}^{l}|\alpha_m|^2\\
+&=\sigma_k-\sigma_l,
+\end{align*}
+where $\delta_{jm}$ denotes the Kronecker delta and $\alpha_j^*$ the complex conjugate of $\alpha_j$. Thus, $(s_k)$ is Cauchy if and only if $(\sigma_k)$ is Cauchy. Since $H$ is complete by the definition of a Hilbert space, a Cauchy sequence in this space is also convergent. Therefore, $(s_k)$ is convergent if and only if $(\sigma_k)$ is convergent. Hence, $\sum_{m=1}^{\infty}\alpha_mv_m$ exists in $H$ if and only if $\sum_{m=1}^{\infty}|\alpha_m|^2<\infty$. Further, if one and then both of these statements hold,
+\begin{align*}
+\left|\left|\sum_{m=1}^{\infty}\alpha_mv_m\right|\right|^2&=\left< \sum_{m=1}^{\infty}\alpha_mv_m \left|\right. \sum_{j=1}^{\infty}\alpha_jv_j \right>\\
+&=\sum_{j=1}^{\infty}\sum_{m=1}^{\infty}\left< \alpha_mv_m \left|\right. \alpha_jv_j \right>\\
+&=\sum_{j=1}^{\infty}\sum_{m=1}^{\infty}\alpha_m\alpha_j^*\left< v_m \left|\right. v_j \right>\\
+&=\sum_{j=1}^{\infty}\sum_{m=1}^{\infty}\alpha_m\alpha_j^*\delta_{jm}\\
+&=\sum_{m=1}^{\infty}\alpha_m\alpha_m^*\\
+&=\sum_{m=1}^{\infty}|\alpha_m|^2.
+\end{align*}
+\end{solution}
+
+\end{questions}

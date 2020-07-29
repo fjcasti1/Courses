@@ -1,0 +1,29 @@
+\textbf{Solve the system of equations}
+\begin{align*}
+& \frac{dx}{dt} = 10(y-x) \\
+& \frac{dy}{dt} = 28x - y - xz \\
+& \frac{dz}{dt} = xy - \frac{8}{3}z
+\end{align*}
+\textbf{using \textsc{ode45}, \textsc{ode113}, \textsc{ode15s}.Use the initial conditions $x(0) = 3$, $y(0) = 3$, $z(0) = 20$. Set absolute and relative tolerances to $10^{-6}$. use \textsc{plot3} to plot your solution in 3D for $t \in [0,100]$. The trajectory of your solution should have a butterfly shape. How accurate are your solutions at $t = 100$.}
+
+We implement the code given in the link to run with the three solvers and we perturb the initial conditions to check if our solution remains the same. In the following figure the Lorentz atractor obtained using the three different solvers.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Using ode45]{\includegraphics[scale=0.55]{prob4_ode45atractor.eps}}
+\hspace*{\fill}
+\subfigure[Using ode113]{\includegraphics[scale=0.55]{prob4_ode113atractor.eps}}
+\hspace*{\fill}
+\subfigure[Using ode15s]{\includegraphics[scale=0.55]{prob4_ode15atractor.eps}}
+\hspace*{\fill}
+\caption{Lorentz atractor using different solvers.}
+\end{figure}
+
+Perturbing the initial condition by $\epsilon=10^{-2}$, we have obtain a solution that differs a bit from the obtained with the original initial conditions, since the system is very sensitive to the initial conditions. The infinity norm of the difference is, for each solver
+\begin{itemize}
+\item Solver ode45: $L_1(err)=0.020995541619556$.
+\item Solver ode113:$L_1(err)= 0.020998997008590$.
+\item Solver ode15s: $L_1(err)=0.020998978476641$.
+\end{itemize}
+We can see how the solver ode45 seemed to be the less sensitive to the perturbation.

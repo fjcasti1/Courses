@@ -1,0 +1,137 @@
+In the following figure we can see the horizontal velocity contours at different values of time. The red dot represents the probe located to meassure such quantity. As we can see we have inputs through inlets 1 (positive $u$) and 2 (negative $u$). We can see how the fluid in the domain takes seconds to start moving.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.1$ s.]{\includegraphics[scale=0.5]{u_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.5]{u_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.5]{u_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.5]{u_4.eps}}
+\hspace*{\fill}
+\caption{Horizontal velocity contours.}
+\end{figure}
+
+In the next figure we can see the vertical velocity contours at different values of time. As we can see we only introduce fluid vertically through the inlet 3 and, like before, it takes seconds for the fluid to start moving.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.1$ s.]{\includegraphics[scale=0.5]{v_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.5]{v_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.5]{v_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.5]{v_4.eps}}
+\hspace*{\fill}
+\caption{Vertical velocity contours.}
+\end{figure}
+
+In the next figure we can see the mass fraction contours at different values of
+time. We can appreciate the Neumann boundary conditions as the lines are perpendicular to the boundary. We can also see in the inlets 1, 2 and 3 the fixed values due to the Dirichlet boundary conditions. Note how at $t=0.1$ the majority of the domain is with $Y=0$ and with time the fluid mixes and we have at time 10 a more clear contour indicating higher values of $Y$.
+
+In the following figure we can see the probes meassurements with time during the first 2 seconds. As commented above we can see how for both $u$ and $v$ the fluid takes a few seconds to start moving. The further from the source the longer the time, as it is logical. We can also see how $Y$ increases very fast as the probe is located very close to inlet 1, see contour.
+
+To finish with the results, we proceed with the GCI analysis. In the following table we have the data needed to perform it obtained by doing simulations with different meshes.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.1$ s.]{\includegraphics[scale=0.5]{Y_1.eps}}
+\hfill
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.5]{Y_2.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.5]{Y_3.eps}}
+\hfill
+\subfigure[$t=10$ s.]{\includegraphics[scale=0.5]{Y_4.eps}}
+\hspace*{\fill}
+\caption{Mass fraction contours.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+%\hspace*{\fill}
+\subfigure[Probe 1.]{\includegraphics[scale=0.6]{probe1.eps}}
+%\hfill
+\subfigure[Probe 2.]{\includegraphics[scale=0.6]{probe2.eps}}
+%\hfill
+\subfigure[Probe 3.]{\includegraphics[scale=0.6]{probe3.eps}}
+%\hspace*{\fill}
+\caption{Meassures of the probes.}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+Grid  & M & N & $u(1,0.5,1)$ & $v(1,1.5,1)$ & $Y(0.5,0.5,1)$ \\
+\hline
+$1$ & $128$ & $64$ & $0.135485658133256$& $  -0.208324448730563$ & $   0.624208222506483$\\
+$2$ & $64$ & $32$ & $0.135620186703791$& $  -0.208302837119943$ & $0.619301711442877$\\
+$3$ & $32$ & $16$ & $0.136145435462035$& $  -0.208215577613997$ & $0.608917592564123$\\
+
+\end{tabular}
+\caption{GCI analysis data.}
+\end{table}
+
+Taking the data from $u$, we can calculate an order of convergence $p=1.965088248178588$, close to the theoretical value two. Using Richardson extrapolation with the two finest grids we estimate the solution at $h=0$,
+\begin{align*}
+u_{h=0}=0.135439338703496.
+\end{align*}
+We obtain the following GCI values
+\begin{align*}
+GCI_{21}=4.273462445956238e-04,~~~~~~~GCI_{32}=0.001666861002506,
+\end{align*}
+which give us the following value
+\begin{align*}
+\frac{GCI_{21}}{GCI_{32}}r^p=1.000992935875199,
+\end{align*}
+where $r=2$. The previous value tells us that we are in the asymptotic range of convergence. Thus, we can say that the value meassured by the probe is
+\begin{align*}
+u(1,0.5,1)=0.135439338703496\pm 0.04273462445956238\%
+\end{align*}
+
+Now doing the same for $v$, we can calculate an order of convergence $p=2.013505711337656$, close to the theoretical value two. Using Richardson extrapolation with the two finest grids we estimate the solution at $h=0$,
+\begin{align*}
+v_{h=0}=  -0.208331563379270.
+\end{align*}
+We obtain the following GCI values
+\begin{align*}
+GCI_{12}=4.268971278965161e-05,~~~~~~~GCI_{23}=1.723827896664248e-04,
+\end{align*}
+which give us the following value
+\begin{align*}
+\frac{GCI_{12}}{GCI_{23}}r^p=   0.999896259844913.
+\end{align*}
+The previous value tells us that we are in the asymptotic range of convergence. Thus, we can say that the value meassured by the probe is
+\begin{align*}
+v(1,1.5,1)=-0.208331563379270\pm 0.004268971278965\%
+\end{align*}
+
+Lastly, doing the same for $Y$, we can calculate an order of convergence $p=1.081609386340197$, which is not close to the theoretical value two. Using Richardson extrapolation with the two finest grids we estimate the solution at $h=0$,
+\begin{align*}
+Y_{h=0}=    0.628603179507733.
+\end{align*}
+We obtain the following GCI values
+\begin{align*}
+GCI_{12}=   0.008801063576995,~~~~~~~GCI_{23}=   0.018774104553952,
+\end{align*}
+which give us the following value
+\begin{align*}
+\frac{GCI_{12}}{GCI_{23}}r^p=      0.992139624428682.
+\end{align*}
+The previous value tells us that we are in the asymptotic range of convergence. Thus, we can say that the value meassured by the probe is
+\begin{align*}
+Y(0.5,0.5,1)=0.628603179507733\pm    0.880106357699521\%
+\end{align*}

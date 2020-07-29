@@ -1,0 +1,51 @@
+\begin{questions}
+
+\question{Let $\phi:[0,L] \times [0, \infty) \to \mathbb{R}$ have continuous partial derivatives with respect to $x$, $\phi(0,t)=0 = \phi(L,t)$ for all $t \geq 0$. Solve the vibrating string equation with external force,
+\begin{eqnarray*}
+(\partial_t^2 - c^2 \partial_x^2)u(x,t) &=& \phi(x,t), \quad t \geq 0, 0 \leq x \leq L, \\
+u(x,0)&=&0, \quad x\in [0,L], \\
+\partial_t u(x,0)&=&0, \quad x\in [0,L], \\
+u(0,t)=u(L,t) &=& 0, \quad t \geq 0.
+\end{eqnarray*}
+Show that the formula you provide is a solution indeed.
+}
+\begin{solution}
+Given the zero boundary condition at $x=0$, we extend $\phi$ to $[-L,L]$ in an odd fashion:
+\begin{align*}
+&\phi(-x,t)=-\phi(x,t),~~~~x\in[-L,L],\\
+\end{align*}
+To take care of the zero boundary condition at $x=L$ we perform a $2L-$periodic extension of $\phi$ which gives us a function defined on all $\R$,
+\begin{align*}
+\phi(x+2kL):=\phi(x),~~k\in\Z,~x\in[-L,L],\\
+\end{align*}
+Now we can rewrite the PDE for the extended $\phi$,
+\begin{align*}
+(\partial_t^2 - c^2 \partial_x^2)u(x,t) &= \phi(x,t), \quad x,t\in\R, \\
+u(x,0)&=0, \quad x,t\in\R, \\
+\partial_t u(x,0)&=0, \quad x,t\in\R, \\
+u(0,t)=u(L,t) &=0, \quad t\in\R. \\
+\end{align*}
+The PDE above has the following solution
+\begin{align*}
+u(x,t)=\frac{1}{2c}\int_0^t\left(\int_{x-c(t-s)}^{x+c(t-s)}\phi(\rho,s)d\rho\right)ds,
+\end{align*}
+as it is solved in the notes. The above solution satisfies the PDE and the initial condition, we will check now that it also satisfies the boundary conditions.
+\begin{align*}
+u(0,t)&=\frac{1}{2c}\int_0^t\left(\int_{-c(t-s)}^{c(t-s)}\phi(\rho,s)d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{c(t-s)}\phi(\rho,s)d\rho-\int_0^{-c(t-s)}\phi(\rho,s)d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{c(t-s)}\phi(\rho,s)d\rho+\int_0^{c(t-s)}\phi(-\rho,s)d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{c(t-s)}\left[\phi(\rho,s)+\phi(-\rho,s)\right]d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{c(t-s)}\left[\phi(\rho,s)-\phi(\rho,s)\right]d\rho\right)ds=0\\
+\end{align*}
+since $\phi$ is an odd function around zero. Similarly, we prove the boundary condition for $x=L$,
+\begin{align*}
+u(L,t)&=\frac{1}{2c}\int_0^t\left(\int_{L-c(t-s)}^{L+c(t-s)}\phi(\rho,s)d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{L+c(t-s)}\phi(\rho,s)d\rho-\int_0^{L-c(t-s)}\phi(\rho,s)d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{c(t-s)}\phi(L+\rho,s)d\rho+\int_0^{c(t-s)}\phi(L-\rho,s)d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{c(t-s)}\left[\phi(L+\rho,s)+\phi(L-\rho,s)\right]d\rho\right)ds\\
+&=\frac{1}{2c}\int_0^t\left(\int_0^{c(t-s)}\left[\phi(L+\rho,s)-\phi(L+\rho,s)\right]d\rho\right)ds=0,\\
+\end{align*}
+since $\phi$ is an odd function around $L$. The function $u$ is twice differentiable with respect to $t$ and to $x$ if the extended $\phi$ is continuous and has partial derivatives with respect to $x$ which are continuous. Since the original $\phi$ has continuous partial derivatives with respect to $x$, and $\phi(0,t)=0=\phi(L,t)$, the extended $\phi$ has continuous partial derivatives with respect to $x$ as well. Thus, the function $u$ is twice differentiable and the solution to our problem.
+\end{solution}
+
+\end{questions}

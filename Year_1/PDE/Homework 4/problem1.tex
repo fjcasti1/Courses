@@ -1,0 +1,84 @@
+\begin{questions}
+
+\question{Solve the wave equation
+\begin{eqnarray*}
+\partial_t^2u - \partial_x^2u = 0,& x,t \in \mathbb{R} \\
+u(x,x) = f(x),& \partial_tu(x,0) = g(x), \quad x \in \mathbb{R},
+\end{eqnarray*}
+where $g, f : \mathbb{R} \to \mathbb{R}$.
+
+State appropriate assumptions for $f$ and $g$ such that you really have a solution.
+
+Notice that $c = 1$.
+}
+\begin{solution}
+Given the previous PDE, the wave equation, we can express the solution $u(x,t)$ as
+\begin{align*}
+u(x,t)=F(x+t)+G(x-t),
+\end{align*}
+where we have already taken into account that $c=1$. Imposing the first initial condition,
+\begin{align}\label{ec:A}
+u(x,x)=F(2x)+G(0)=f(x).
+\end{align}
+For the second initial condition, we calculate first $\partial_tu$,
+\begin{align*}
+\partial_tu(x,t)=F'(x+t)-G'(x-t),
+\end{align*}
+and impose the initial condition,
+\begin{align*}
+\partial u(x,0)=F'(x)-G'(x)=g(x).
+\end{align*}
+Integrating the equation we get
+\begin{align*}
+F(x)-G(x)=F(0)-G(0)+\int_0^xg(y)dy,
+\end{align*}
+or
+\begin{align*}
+F(2x)-G(2x)=F(0)-G(0)+\int_0^{2x}g(y)dy.
+\end{align*}
+Substract now equation (\ref{ec:A}) from the previous equation and get
+\begin{align*}
+-G(2x)-G(0)=F(0)-G(0)-f(x)+\int_0^{2x}g(y)dy,\\
+-G(2x)=F(0)-f(x)+\int_0^{2x}g(y)dy,
+G(2x)=f(x)-F(0)-\int_0^{2x}g(y)dy,
+\end{align*}
+or
+\begin{align*}
+G(x)=f(\frac{x}{2})-F(0)-\int_0^{x}g(y)dy.
+\end{align*}
+From the equation above we obtain $G(x-t)$ needed for our solution,
+\begin{align*}
+G(x-t)=f(\frac{x-t}{2})-F(0)-\int_0^{x-t}g(y)dy.
+\end{align*}
+Now, we retake equation (\ref{ec:A}) and rewrite it as
+\begin{align*}
+F(x+t)=f(\frac{x+t}{2})-G(0).
+\end{align*}
+Thus, the solution is
+\begin{align*}
+u(x,t)=f(\frac{x+t}{2})+f(\frac{x-t}{2})-\left(F(0)+G(0)\right)-\int_0^{x-t}g(y)dy,
+\end{align*}
+and it is left to calculate $F(0)+G(0)$, which we do by evaluating equation (\ref{ec:A}) at $x=0$,
+\begin{align*}
+F(0)+G(0)=f(0).
+\end{align*}
+Hence,
+\begin{align*}
+u(x,t)=f(\frac{x+t}{2})+f(\frac{x-t}{2})-f(0)-\int_0^{x-t}g(y)dy,
+\end{align*}
+which satisfies the initial conditions:
+\begin{itemize}
+\item $u(x,x)=f(x).$
+\begin{align*}
+u(x,x)=f(\frac{2x}{2})+f(0)-f(0)-\int_0^{0}g(y)dy=f(x).
+\end{align*}
+\item $\partial_tu(x,0)=g(x).$
+\begin{align*}
+\partial_tu(x,0)=\frac{1}{2}f(\frac{x}{2})-\frac{1}{2}f(\frac{x}{2})+g(x)=g(x),
+\end{align*}
+where to evaluate the derivative of the integral we have used the Fundamental Theorem of Calculus.
+\end{itemize}
+Thus, since the $u(x,t)$ given satisfies the PDE and the initial conditions, it is the solution provided that $f$ is twice differentiable and $g$ is once differentiable.
+\end{solution}
+
+\end{questions}

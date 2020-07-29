@@ -1,0 +1,76 @@
+\begin{questions}
+
+\question{
+Solve the vibrating string equation with external force, 
+\begin{eqnarray*}
+(\partial_t^2 - c^2 \partial_x^2)u(x,t) &=& t \sin(x), \quad t \geq 0, 0 \leq x \leq \pi, \\
+u(x,0)&=&\sin(x), \quad x\in [0,\pi], \\
+\partial_t u(x,0)&=&\sin(x), \quad x\in [0,\pi], \\
+u(0,t)&=&0=u(\pi,t), \quad t \geq 0.
+\end{eqnarray*}
+Show that the solution is of the form $u(x, t) = \psi(t) \sin(x)$. Determine $\psi(t)$ using d’Alembert. \textbf{Do not assume that the solution is of this form.}
+}
+\begin{solution}
+We start performing a $2\pi$-periodic extension of $f(x)=\sin{x}$ in an odd and $2\pi$-periodic fashion. We express the PDE as
+\begin{align*}
+(\partial_t^2 - c^2 \partial_x^2)u(x,t) =& t \sin(x),~~~~~~ x\in\R,t\in\R \\
+u(x,0)=&\sin(x),~~~~~~~ x\in\R\\
+\partial_t u(x,0)=&\sin(x),~~~~~~~ x\in\R\\
+u(0,t)=0=&u(\pi,t), ~~~~~~~t\in\R 
+\end{align*}
+Like in the previous problem, we can separate the PDE in two and, by the superposition principle, add the solutions of the two following PDEs:
+\begin{align*}
+(\partial_t^2 - c^2 \partial_x^2)u_1(x,t) =& t \sin(x),~~~~~~ x\in\R,t\in\R \\
+u_1(x,0)=&0,~~~~~~~ x\in\R\\
+\partial_t u_1(x,0)=&0,~~~~~~~ x\in\R\\
+u_1(0,t)=0=&u_1(\pi,t), ~~~~~~~t\in\R 
+\end{align*}
+and
+\begin{align*}
+(\partial_t^2 - c^2 \partial_x^2)u_2(x,t) =& 0,~~~~~~ x\in\R,t\in\R \\
+u_2(x,0)=&\sin(x),~~~~~~~ x\in\R\\
+\partial_t u_2(x,0)=&\sin(x),~~~~~~~ x\in\R\\
+u_2(0,t)=0=&u_2(\pi,t), ~~~~~~~t\in\R 
+\end{align*}
+We start with the first PDE. As it is proved in the notes, we can solve this inhomogeneous wave equation and the solution is
+\begin{align*}
+u_1(x,t)&=\frac{1}{2c}\int_0^t\int_{x-c(t-r)}^{x+c(t-r)}r\sin{\rho}~d\rho dr\\
+&=\frac{1}{2c}\int_0^tr\left[-\cos{\rho}\right]_{x-c(t-r)}^{x+c(t-r)}dr\\
+&=\frac{1}{2c}\int_0^tr\left[\cos{(x-c(t-r))}-\cos{(x+c(t-r))}\right]dr.
+\end{align*}
+By the trigonometric identities, $\cos{(x-c(t-r))}-\cos{(x+c(t-r))}=2\sin(x)\cos(ct-cr)$. Therefore,
+\begin{align*}
+u_1(x,t)&=\frac{1}{2c}\int_0^t2r\sin(x)\cos(ct-cr)dr\\
+&=\frac{\sin(x)}{c}\int_0^tr\cos(ct-cr)dr\\
+&=\frac{\sin(x)}{c}\left(\left[\frac{r}{c}\cos(ct-cr)\right]_0^t-\frac{1}{c}\int_0^t\cos(ct-cr)dr\right)\\
+&=\sin(x)\left(\frac{t}{c^2}-\frac{\sin(ct)}{c^3}\right),
+\end{align*}
+where we have used integration by parts in the last steps. For the second PDE, d'Alembert formula gives us the solution
+\begin{align*}
+u_2(x,t)&=\frac{1}{2}\left(f(x+ct)+f(x-ct)\right)+\frac{1}{2c}\int_{x-ct}^{x+ct}g(s)ds\\
+&=\frac{1}{2}\left(\sin(x+ct)+\sin(x-ct)\right)+\frac{1}{2c}\int_{x-ct}^{x+ct}\sin(s)ds\\
+&=\frac{1}{2}\left(\sin(x)\cos(ct)+\sin(ct)\cos(x)+\sin(x)\cos(ct)-\sin(ct)\cos(x)\right)+\frac{1}{2c}\left[-\cos(s)\right]_{x-ct}^{x+ct}\\
+&=\sin(x)\cos(ct)+\frac{1}{2c}\left[\cos(x-ct)-\cos(x+ct)\right]\\
+&=\sin(x)\cos(ct)+\frac{1}{2c}2\sin(x)\sin(ct)\\
+&=\sin(x)\left[\cos(ct)+\frac{1}{c}\sin(ct)\right].
+\end{align*}
+Finally, by superposition principle, we obtain
+\begin{align*}
+u(x,t)=\sin(x)\left[\frac{t}{c^2}+\cos(ct)+\frac{1}{c}\sin(ct)-\frac{\sin(ct)}{c^3}\right].
+\end{align*}
+We check now if the solution satisfies the initial condtions
+\begin{align*}
+u(x,0)=\sin(x),
+\end{align*}
+and
+\begin{align*}
+\partial_tu(x,t)&=\sin(x)\left[\frac{1}{c^2}-c\sin(ct)+\cos(ct)-\frac{\cos(ct)}{c^2}\right],\\
+\partial_tu(x,0)&=\sin(x)\left[\frac{1}{c^2}+1-\frac{1}{c^2}\right]=\sin(x).\\
+\end{align*}
+To finish, we check that satisfies the boundry conditions
+\begin{align*}
+u(0,t)=0=u(\pi,t),
+\end{align*}
+since the sine mutlplying the whole expression is zero at those points of $x$. Thus, $u(x,t)$ given is the solution to our problem.
+\end{solution}
+\end{questions}

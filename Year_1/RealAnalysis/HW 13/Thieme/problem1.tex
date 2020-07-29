@@ -1,0 +1,71 @@
+\begin{questions}
+
+\question{Let $X$ and $Z$ be normed vector spaces and $U$ an open subset of $X$.
+
+$(a)$ Assume that $U$ is convex: for all $x, y \in U$ we have that $(1−t)x+ty \in U$
+for all $t \in (0, 1)$.
+Assume that $f: \bar{U} \rightarrow Z$ is a continuous function and that $f$ is Gateaux
+differentiable on $U$ and that there exists some $M > 0$ such that
+\begin{align*}
+\| \partial f(x,v) \| \leq M~\text{for all}~x \in U~\text{and}~v \in X, \|v\| = 1~.
+\end{align*}
+
+Show: $f$ is Lipschitz continuous on $\bar{U}$ and $M$ is a Lipschitz constant for $f$
+on $\bar{U}$.}
+
+\begin{solution}
+  \begin{proof}
+  Define $x_t = (1-t)x +ty$ for all $x,y \in U$ and $t \in (0,1)$. Since, $U$ is convex, $x_t \in U$. By Theorem 6.29 part (a), there exists $t \in (0,1)$ such that, for $z \in Z$ and $x,y \in \bar{U}$
+  \begin{align*}
+  \|f(y) - f(x) - z\| \leq \| \partial f(x,y-x) -z\|~.
+  \end{align*}
+  For $z = 0$,
+  \begin{align*}
+  \|f(y) - f(x)\| \leq \| \partial f(x,y-x)\|~.
+  \end{align*}
+  Then, by Lemma 6.18,
+  \begin{align*}
+  \partial f(x_t, y-x) = \frac{\|y-x\|}{\|y - x\|} \partial f(x_t,y-x) = \|y-x\| \partial f\left(x_t, \frac{y-x}{\|y-x\|}\right)~.
+  \end{align*}
+This gives us,
+\begin{align*}
+\|f(y) - f(x)\| &\leq \| \partial f(x,y-x)\| \\ 
+&= \left| \left| \|y-x\| \partial f\left(x_t, \frac{y-x}{\|y-x\|}\right) \right| \right| \\
+&\leq \left| \left| \partial f\left(x_t, \frac{y-x}{\|y-x\|}\right)\ \right| \right| \|y-x\| \\
+& \leq M \|y-x\|~.
+\end{align*}
+Therefore, $f$ is Lipschitz continuous on $\bar{U}$ and $M$ is a Lipschitz constant for $f$ on $\bar{U}$.
+\end{proof}
+\end{solution}
+\newpage
+\question{$(b)$ Assume that $f: U \rightarrow Z$ is Frechet differentiable on $U$ and that
+$Df : U \rightarrow \mathscr{L}(X, Z)$ is continuous.
+
+
+Show: $f$ is locally Lipschitz continuous on $U$. Actually for every compact
+subset $K$ of $U$ there exists an open set $V$ such that $K \subseteq V \subseteq U$ and $f$ is
+Lipschitz continuous on $V$ .}
+
+\begin{solution}
+  \begin{proof}
+  Let $\varepsilon = 1$. By continuity definition 3.1, there exists some $r_1$ such that, for $y \in U_{r_1}(x)$, with $x \in U$,
+  \begin{align*}
+  \|Df(x) - Df(y)\| < 1~.
+  \end{align*}
+  Then, since $U$ is open, there exists some $r_2$ such that $U_{r_2} \in U$. Let $\delta = \min \{r_1, r_2\}$. Then, for all $y_1 \in U_{\delta}(x)$,
+  \begin{align*}
+  \|Df(x)\| &= \|Df(x) - Df(y_1) + Df(y_1)\| \\
+  & \leq \|Df(x) - Df(y_1)\| + \|Df(y_1)\| \\
+  & \leq 1 + \|Df(y_1)\|~.
+  \end{align*}
+Note, that $U_{\delta}(x)$ is a convex open set. Set $V = U_{\delta}(x)$  and $M = 1 + \|Df(y)\|$. Then, for $v \in X$ with $\|v\| = 1$ and $y_2 \in V$, $\|Df(y_2)\| < M$ and
+\begin{align*}
+\|\partial f(y_2, v)\| & = \|Df(y_2)v\| \leq \|Df(y_2)\| \|v\| \\
+& = \|Df(y_2)\| < M~.
+\end{align*}
+Finally, by theorem 6.23, since $f$ is Frechet differentiable on on $U$, $f$ is also Gateaux differentiable on $U$. Therefore, from part (a) shown above, $f$ is Lipschitz continuous on $V$, an open subset of $U$.
+
+\end{proof}
+\end{solution}
+
+\end{questions}

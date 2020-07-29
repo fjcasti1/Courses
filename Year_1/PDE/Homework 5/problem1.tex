@@ -1,0 +1,30 @@
+\begin{questions}
+
+\question{
+Let $X$ be a Hilbert space. Let $M = \{v_m; m \in \mathbb{N}\}$ be an orthonormal subset of $X$. 
+
+Show: $\sum_{m=1}^\infty \left\langle u|v_m \right\rangle v_m$ 
+converges for every $u \in X$.
+
+Warning: This means that the Fourier series of $u$ converges, but it may happen that it does not equal $u$ (unless $M$ is an orthonormal basis).
+}
+\begin{solution}
+As we showed in Problem $4.2.1$, $\sum_{m=1}^{\infty}\left<u|v_m\right>v_m$ converges in $X$ if and only if \newline $\sum_{m=1}^{\infty}\left|\left<u|v_m\right>\right|^2<\infty$. To prove the latter, we define the increasing sequence of partial sums $(s_n)\in M$,
+\begin{align*}
+s_n=\sum_{m=1}^n\left|\left<u|v_m\right>\right|^2,
+\end{align*}
+with $s=\lim_{n\rightarrow\infty} s_n$. Now, by Bessel's Inequality,
+\begin{align*}
+s_n=\sum_{m=1}^n\left|\left<u|v_m\right>\right|^2\leq||u||^2.
+\end{align*}
+Therefore,
+\begin{align*}
+s=\lim_{n\rightarrow\infty} s_n\leq\lim_{n\rightarrow\infty} ||u||^2=||u||^2.
+\end{align*}
+Thus,
+\begin{align*}
+s=\sum_{m=1}^{\infty}\left|\left<u|v_m\right>\right|^2\leq ||u||^2<\infty,
+\end{align*}
+and by Problem 4.2.1 the series $\sum_{m=1}^\infty \left\langle u|v_m \right\rangle v_m$ converges in $X$.
+\end{solution}
+\end{questions}

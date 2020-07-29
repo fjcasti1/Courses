@@ -1,0 +1,27 @@
+\begin{questions}
+
+\question{Let $(X, d)$ be a metric space, $f : X \rightarrow \R$ be continuous, and $D$ a compact subset of $X$. Then there exist $x^o$ and $x_0$ in $D$ such that $f(x^o) = \sup f(D)$ and $f(x_0) = \inf f(D)$.}
+
+\begin{solution}
+  \begin{proof}
+  Since $D$ is a compact subset of $X$ and $f$ is continuous, then by \textit{Theorem 4.50}, $f(D)$ is compact and $f$ is uniformly continuous on $D$. Then, by \textit{Theorem 4.39}, $f(D)$ is also complete and totally bounded. Next, by \textit{Lemma 4.23}, $f(D)$ is bounded. Therefore there exists a $c\in\R$ such that
+  \begin{align*}
+  -c\leq f(x)\leq c~~\forall x\in D~.
+  \end{align*}
+  Then, by the definitions of infimum and supremum,
+  \begin{align*}
+  -c\leq\inf f(D)\leq f(x)\leq\sup f(D)\leq c~~\forall x\in D~.  
+  \end{align*}
+  We know from advanced caluclus that there exists a sequence such that the limit is the supremum. Let $(y_n)$ in $f(D)$ be such a sequence and let $(x_n)$ be a sequence in $D$. Then there exists an $x'$ in $\R$ such that
+  \begin{align*}
+	y_n=f(x_n)\rightarrow\sup f(D)= f(x')=y'\in \R~~.
+\end{align*}
+Since $x_n\in D$ and $D$ is compact, there exists a subsequence $(x_{n_j})$ of $(x_n)$ that converges in $D$. Let $x^o$ in $D$ be such that $x_{n_j}\rightarrow x^o$. Since $f$ is uniformly continuous (and therefore continuous),
+\begin{align*}
+y_{n_j}=f(x_{n_j})\rightarrow f(x^o)=y^o\in f(D)~.
+\end{align*}
+By \textit{Theorem 2.17}, since $(y_{n_j})$ is a subsequence of the convergent sequence $(y_n)$, $(y_{n_j})$ converges itself to the same limit, the supremum of $f(D)$. Thus, there exists a point $x^o\in D$ such that\\ $f(x^o)=\sup f(D)$. Same procedure to prove that there exists a point $x_0\in D$ such that $f(x_0)=\inf f(D)$.
+
+\end{proof}
+\end{solution}
+\end{questions}

@@ -1,0 +1,64 @@
+\begin{questions}
+\question{
+Let $f$ be integrable and $\int^L_0|f(y)|dy < \infty$. Let $u$ be the solution of the heat equation with initial data $f$ and 0 boundary conditions. Show:
+\begin{align*}
+\int^L_0|u(t, x) - f(x)|dx \to 0,~~~~~~t \to 0.
+\end{align*}
+}
+\begin{solution}
+Let $\epsilon>0$. For $n\geq 3L$, define $f_n(x)$ as in the proof of \textsl{Proposition 5.18 (b)} and set $g_n(x)=g(x)\cdot f_n(x)$. Recall that $u(x,t)$ is given by 
+\begin{align*}
+u(x,t)=\int_0^LG(x,y,t)f(y)dy,
+\end{align*}
+and define
+\begin{align*}
+v_n(x,t)=\int_0^LG(x,y,t)g_n(y)dy.
+\end{align*}
+Then, by triangle inequality,
+\begin{align*}
+\int_0^L|u(x,t)-f(x)|dx\leq& \int_0^L|u(x,t)-v_n(x,t)|dx+\int_0^L|v_n(x,t)-g_n(x)|dx\\
+&+\int_0^L|g_n(x)-g(x)|dx+\int_0^L|g(x)-f(x)|dx.
+\end{align*}
+We will study each integral individually. First,
+\begin{align*}
+\int_0^L|g_n(x)-g(x)|dx&=\int_0^L|g(x)f_n(x)-g(x)|dx\\
+&=\int_0^L|g(x)[f_n(x)-1]|dx\\
+&\leq \frac{1}{n}\sup_{[0,L]}|g|=\frac{\epsilon}{6}.
+\end{align*}
+Furhter,
+\begin{align*}
+\int_0^L|u(x,t)-v_n(x,t)|dx&=\int_0^L\left|\int_0^LG(x,y,t)f(y)dy-\int_0^LG(x,y,t)g_n(y)dy\right|dx\\
+&=\int_0^L\left|\int_0^LG(x,y,t)\left[f(y)-g_n(y)\right]dy\right|dx\\
+&\leq\int_0^L\int_0^LG(x,y,t)\left|f(y)-g_n(y)\right|dydx,\\
+\end{align*}
+where we haven't written the absolute value of the Green's function since we know it is nonnegative. Reorganizing the last expression we get
+\begin{align*}
+\int_0^L|u(x,t)-v_n(x,t)|dx&\leq\int_0^L\left[\int_0^LG(x,y,t)dx\right]\left|f(y)-g_n(y)\right|dy\\
+&\leq\int_0^L\left|f(y)-g_n(y)\right|dy~~~~~~\text{by Proposition 5.18 (b)}\\
+&\leq\int_0^L\left|f(y)-g(y)\right|dy+\int_0^L\left|g(y)-g_n(y)\right|dy~~~~~~\text{by Triangle Inequality}\\
+&<\frac{\epsilon}{6}+\frac{\epsilon}{6}=\frac{\epsilon}{3}.
+\end{align*}
+Next,
+\begin{align*}
+\int_0^L|v_n(x,t)-g_n(x)|dx=\int_0^L\left|\int_0^LG(x,y,t)g_n(y)dy-g_n(x)\right|dx.
+\end{align*}
+Since
+\begin{align*}
+\int_0^LG(x,y,t)g_n(y)dy-g_n(x)\rightarrow 0
+\end{align*}
+by \textsl{Theorem 5.19},
+\begin{align*}
+\int_0^L|v_n(x,t)-g_n(x)|dx=\int_0^L\left|\int_0^LG(x,y,t)g_n(y)dy-g_n(x)\right|dx<\frac{\epsilon}{3}.
+\end{align*}
+To finish,
+\begin{align*}
+\int_0^L|u(x,t)-f(x)|dx\leq& \int_0^L|u(x,t)-v_n(x,t)|dx+\int_0^L|v_n(x,t)-g_n(x)|dx\\
+&+\int_0^L|g_n(x)-g(x)|dx+\int_0^L|g(x)-f(x)|dx\\
+&<\frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{6}+\frac{\epsilon}{6}=\epsilon,
+\end{align*}
+where we have used the hint for the last integral. Thus,
+\begin{align*}
+\int_0^L|u(x,t)-f(x)|dx\rightarrow 0,~~~~~~t\rightarrow 0
+\end{align*}
+\end{solution}
+\end{questions}

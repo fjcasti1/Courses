@@ -1,0 +1,57 @@
+\begin{questions}
+
+\question{
+Let $f : [0, L] \to \mathbb{R}$ be integrable and $\int^L_0|f(x)|dx < \infty$, i.e. $f \in L^1([0,L], \mathbb{R})$. Consider the heat equation with zero boundary condition and initial data $f$. Show: there exists a function $u : [0, L] \times (0,\infty) \to \mathbb{R}$ that solves (PDE) and (BC) and satisfies the initial condition in the following weak sense: if $\phi : [0, L] \to \mathbb{R}$ is Lipschitz continuous and $\phi(0) = 0 = \phi(L)$, then 
+\[
+\int_0^L \phi(x) u(x,t)dx \to \int_0^L \phi(x)f(x)dx, \quad t \to 0.
+\]
+
+Hint: Notice (and prove) that
+\[
+\int_0^L \phi(x) u(x,t)dx = \int_0^L f(x)v(x,t)dx
+\]
+where $v$ is the solution of the heat equation with initial data $\phi$.
+}
+\begin{solution}
+Let us express the solutions of the PDE $u(x,t)$ and $v(x,t)$ as
+\begin{align*}
+u(x,t)=\sum_{j=0}^{\infty}B_j(t)\sin(\lambda_jx),
+\end{align*}
+with
+\begin{align*}
+B_j(t)=B_j(0)e^{-a\lambda_jt}=\frac{2}{L}e^{-a\lambda_jt}\int_0^Lf(y)\sin(\lambda_jy)dy 
+\end{align*}
+and
+\begin{align*}
+v(x,t)=\sum_{j=0}^{\infty}\tilde{B}_j(t)\sin(\lambda_jx),
+\end{align*}
+with
+\begin{align*}
+\tilde{B}_j(t)=\tilde{B}_j(0)e^{-a\lambda_jt}&=\frac{2}{L}e^{-a\lambda_jt}\int_0^L\phi(y)\sin(\lambda_jy)dy\\
+\end{align*}
+Then,
+\begin{align*}
+\int_0^L\phi(x)u(x,t)dx&=\int_0^L\phi(x)\sum_{j=0}^{\infty}B_j(t)\sin(\lambda_jx)dx\\
+&=\int_0^L\phi(x)\sum_{j=0}^{\infty}\frac{2}{L}e^{-a\lambda_jt}\int_0^Lf(y)\sin(\lambda_jy)dy\sin(\lambda_jx)dx\\
+&=\sum_{j=0}^{\infty}\frac{2}{L}e^{-a\lambda_jt}\int_0^L\phi(x)\sin(\lambda_jx)dx\int_0^Lf(y)\sin(\lambda_jy)dy\\
+&=\sum_{j=0}^{\infty}\tilde{B}_j(t)\int_0^Lf(y)\sin(\lambda_jy)dy\\
+&=\int_0^Lf(y)\sum_{j=0}^{\infty}\tilde{B}_j(t)\sin(\lambda_jy)dy\\
+&=\int_0^Lf(y)v(y,t)dy.\\
+\end{align*}
+Hence,
+\begin{align*}
+\int_0^L\phi(x)u(x,t)dx=\int_0^Lf(x)v(x,t)dx.
+\end{align*}
+Then,
+\begin{align*}
+\lim_{t\rightarrow 0}\int_0^L\phi(x)u(x,t)dx&=\lim_{t\rightarrow 0}\int_0^Lf(x)v(x,t)dx\\
+&=\int_0^L\lim_{t\rightarrow 0}f(x)v(x,t)dx\\
+&=\int_0^Lf(x)\lim_{t\rightarrow 0}v(x,t)dx\\
+&=\int_0^Lf(x)\phi(x)dx,\\
+\end{align*}
+where we have introduced the limit inside the integral since $v(x,t)\rightarrow \phi(x)$ as $t\rightarrow 0$ uniformly in $x\in[0,L]$ according to \textsl{Theorem 5.6}. Thus,
+\begin{align*}
+\int_0^L\phi(x)u(x,t)dx\rightarrow\int_0^L\phi(x)f(x)dx,~~~~t\rightarrow 0.
+\end{align*}
+\end{solution}
+\end{questions}

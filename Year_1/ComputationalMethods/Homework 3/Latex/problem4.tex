@@ -1,0 +1,286 @@
+\textbf{Consider the numerical solution of the wave equation with Dirichlet boundary condition:
+\begin{align*}
+u_{tt} = u_{xx},~~~ x\in (−1, 1),~~~ u(t, −1) = u(t, 1) = 0,~~~ u(0, x) = e^{-32x^2},~~~ u_t(0, x) = 0.
+\end{align*}
+Assuming sufficient smoothness in u and appropriate initial conditions, show that solving (1) is equivalent to solving the acoustic equations
+\begin{align*}
+u_t = p_x,\\
+p_t = u_x,
+\end{align*}
+with boundary conditions $u(t, −1) = u(t, 1) = 0$. Find the appropriate initial condition for p.}
+
+\textbf{Solve this problem using second order centered finite differences in space and $ode45$ in time. Use a staggered equispaced grid. That is, discretize $u$ at the gridpoints $x_j = −1 + jh$ and $p$ at the nodes $x_{\frac{j+1}{2}}= −1 + (j+\frac{1}{2})h$. Notice that boundary conditions for $p$ are not required in this case. Plot your solution ($u$ and $p$ on the same figure) for $t = 0.5, 1, 1.5, 2$.}
+
+\textbf{Estimate the accuracy of your answer at $t = 4$, notice that $u(4, x) = u(0, x)$.}
+
+\vspace{0.3in}
+
+For the first part note that
+\begin{align*}
+u_{tt}=\frac{\partial}{\partial t}p_x=p_{xt},
+\end{align*}
+and
+\begin{align*}
+u_{xx}=\frac{\partial}{\partial x}p_t=p_{tx}.
+\end{align*}
+
+Since $u$ is sufficiently smooth, both $p_{xt}$ and $p_{tx}$ are continuous. Therefore they must be equal and
+\begin{align*}
+u_{tt}=p_{xt}=p_{tx}=u_{xx}.
+\end{align*}
+To find the initial condition for $p$ we simply use the initial conditions for $u$,
+\begin{align*}
+p_t(0,x)=u_x(0,x)=-64xe^{-32x^2}.
+\end{align*}
+and
+\begin{align*}
+p_x(0,x)=u_t(0,x)=0.
+\end{align*}
+
+For the second part of the problem, let us express the acoustic equations in matrix form
+\begin{align*}
+\frac{d}{dt}\begin{bmatrix} u \\ p \end{bmatrix}=\begin{bmatrix} 0 & \frac{\partial}{\partial x}\\ \frac{\partial}{\partial x} & 0\end{bmatrix}\begin{bmatrix} u \\ p \end{bmatrix}.
+\end{align*}
+We are using staggered meshes so the space derivative operator for $u$ and $p$ are going to be different, letting the previous equation in matrix form be like
+\begin{align*}
+\frac{d}{dt}\begin{bmatrix} u \\ p \end{bmatrix}=\begin{bmatrix} 0 & D_p\\ D_u & 0\end{bmatrix}\begin{bmatrix} u \\ p \end{bmatrix},
+\end{align*}
+or
+\begin{align*}
+\frac{d}{dt}\textbf{V}=M\textbf{V},
+\end{align*}
+where $\textbf{V}=\begin{bmatrix} u \\ p \end{bmatrix}$ and $M$ is the matrix composed by $D_u$, $D_p$ and zeros. Since we have $N+1$ nodes of $u$ and we only solve for the interior, our matrix  $D_u$ will only have $N-1$ columns. However, we want to evaluate $u_x$ in the $N$ nodes for $p$, therefore $D_u$ will have $N$ rows. Thus, $D_u$ is $N\times N-1$. We are going to use central finite differences to evaluate the first derivative of $u$, but since we are going to evaluate the result in the staggered $p$ nodes we have
+\begin{align*}
+\frac{\partial}{\partial t}p_j=\frac{\partial}{\partial x}u_{j+\frac{1}{2}}=\frac{u_{j+1}-u_{j}}{h},
+\end{align*}
+where $j=1,...N$, since we are using \textsl{Matlab} indices. Since we are only solving the interior for $u$ there is going to be a shift in the matrix and the real system we are going to solve is the following
+\begin{align*}
+\frac{\partial}{\partial t}\begin{bmatrix} u \\ p \end{bmatrix}=\begin{bmatrix} 0 & D_p\\ \tilde{D}_u & 0\end{bmatrix}\begin{bmatrix} u \\ p \end{bmatrix},
+\end{align*}
+or
+\begin{align*}
+\frac{\partial}{\partial t}\textbf{V}=\tilde{M}\textbf{V}.
+\end{align*}
+Therefore, the discretization yields
+\begin{align*}
+\frac{\partial}{\partial t}p_j=\frac{\partial}{\partial x}\tilde{u}_{j-\frac{1}{2}}=\frac{\tilde{u}_{j}-\tilde{u}_{j-1}}{h}.
+\end{align*}
+Note that $\tilde{u}_j=u_{j+1}$. For the first and last points we include the boundary conditions,
+\begin{align*}
+\frac{\partial}{\partial t}p_1=\frac{\partial}{\partial x}\tilde{u}_{-\frac{1}{2}}=\frac{\tilde{u}_{1}-\tilde{u}_{0}}{h}=\frac{u_{2}-u_{1}}{h}=\frac{u_2}{h}=\frac{\tilde{u_1}}{h},
+\end{align*}
+and
+\begin{align*}
+\frac{\partial}{\partial t}p_N=\frac{\partial}{\partial x}\tilde{u}_{N-\frac{1}{2}}=\frac{\tilde{u}_{N}-\tilde{u}_{N-1}}{h}=\frac{u_{N+1}-u_{N}}{h}=\frac{-u_{N}}{h}=-\frac{\tilde{u}_{N-1}}{h}.
+\end{align*}
+From the previous equations we obtain
+\begin{align*}
+\frac{\partial}{\partial t}\begin{bmatrix} p_1 \\ p_2 \\p_3\\ \vdots \\p_{N-1}\\p_N \end{bmatrix}=\frac{1}{h}\begin{bmatrix}
+1 & 0 & 0 & \cdots & 0\\
+-1 & 1 & 0 & \cdots & 0\\
+0 & -1 & 1 & \cdots & 0\\
+\vdots & \ddots & \ddots & \ddots  & \vdots\\
+0 & & 0 & -1 & 1 \\
+0 & \cdots & 0 & 0 & 1\\
+\end{bmatrix} \begin{bmatrix} \tilde{u}_1 \\ \tilde{u}_2 \\\tilde{u}_3\\ \vdots \\\tilde{u}_{N-2}\\\tilde{u}_{N-1} \end{bmatrix}.
+\end{align*}
+Therefore,
+\begin{align*}
+D_u=\frac{1}{h}\begin{bmatrix}
+1 & 0 & 0 & \cdots & 0\\
+-1 & 1 & 0 & \cdots & 0\\
+0 & -1 & 1 & \cdots & 0\\
+\vdots & \ddots & \ddots & \ddots  & \vdots\\
+0 & \cdots & 0 & -1 & 1 \\
+0 & \cdots & 0 & 0 & 1\\
+\end{bmatrix}.
+\end{align*}
+We repeat the process now for $D_p$,
+\begin{align*}
+\frac{\partial}{\partial t}\tilde{u}_j=\frac{\partial}{\partial x}p_{j+\frac{1}{2}}=\frac{p_{j+1}-p_{j}}{h},
+\end{align*}
+where we are only solving for the interior of $u$ which involves all the nodes of $p$ and we don't have to impose any boundary conditions. Thus, according to the previous discretization, the matrix
+\begin{align*}
+D_p=\frac{1}{h}\begin{bmatrix}
+-1 & 1 & 0 & \cdots & 0\\
+0 & -1 & 1 & \cdots & 0\\
+\vdots & \ddots & \ddots & \ddots  & \vdots\\
+0 & \cdots & 0 & -1 & 1
+\end{bmatrix},
+\end{align*}
+which has dimension $N-1\times N$. With this two matices and we can complete $M$ and solve the acoustic equations.
+
+The solution is shown in the next figure, where we can see the velocity and pressure waves at different values of time.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$t=0.5$ s.]{\includegraphics[scale=0.6]{P4_05}}
+\hfill
+\subfigure[$t=1.0$ s.]{\includegraphics[scale=0.6]{P4_1}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$t=1.5$ s.]{\includegraphics[scale=0.6]{P4_15}}
+\hfill
+\subfigure[$t=2.0$ s.]{\includegraphics[scale=0.6]{P4_2}}
+\hspace*{\fill}
+\caption{Solution of acoustic equations at different times.}
+\end{figure}
+
+In the next figure we can see the contour plot of the solutions. Note that in fact after four seconds the velocity profile is the same, allowing us to assume a period of four seconds. In the movies generated in \textsl{Matlab} but not shown in this document we could see how the velocity and pressure waves would travel together sometimes in phase and sometimes with a phase shift of $\pi$ radians. We can also observe this in the contours by "superposing" the images.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Velocity contours.]{\includegraphics[scale=0.5]{P4_contour1.eps}}
+\hfill
+\subfigure[Pressure contours.]{\includegraphics[scale=0.5]{P4_contour2.eps}}
+\hspace*{\fill}
+\caption{Solution of the acoustic equations.}
+\end{figure}
+
+For the last part of the problem we estimate the accuracy of the solution. In the following figure we can see the initial condition and the solution after one period. Using $N=80$ the accuracy seems to be good enough. The $L_1$-norm of the difference between the two is
+\begin{align*}
+e_{L1}=1.839686\cdot 10^{-2}.
+\end{align*}
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P4_periodic.eps}}
+\caption{Comparison of the solution after 1 period, $N=80$.}
+\end{figure}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 4
+clear all;close all;format long;clc
+legendfontsize=14;
+axisfontsize=14;
+labelfontsize=16;
+N = 80;
+L=2;
+h=L/N;
+xu=linspace(-1,1,N+1);
+xp=linspace(-1+h/2,1-h/2,N);
+
+Du = gallery('tridiag',N,-1,1,0); % In sparse form.
+Du(:,end)=[];
+Du=Du/h;
+Dp = gallery('tridiag',N,0,-1,1); % In sparse form.
+Dp(end,:)=[];
+Dp=Dp/h;
+Z1 = zeros(N-1,N-1);
+Z2 = zeros(N,N);
+M = [Z1 Dp ; Du Z2];
+
+% initial condition
+u0 = exp(-32*xu.^2)';
+p0 = zeros(N,1);
+v0 = [u0(2:end-1) ; p0];
+
+t = 0:0.01:4;
+
+[T,V] = ode45(@(t,v) M*v, t, v0);
+for k = 2:length(t)
+    plot(xu(2:end-1),V(k,1:N-1)','b*-',xp,V(k,N:2*N-1)','r*-')
+    grid on
+    ylim([-1 1])
+    shg
+    drawnow
+end
+%%
+
+[T,X] = meshgrid(t,xu(2:end-1));
+figure
+contourf(T,X,round(V(:,2:N)',3))
+xlabel('$t$','fontsize',labelfontsize,...
+            'interpreter','latex')
+ylabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P4_contour1';
+saveas(gcf,txt,'epsc')
+
+[T,X] = meshgrid(t,xp);
+figure
+contourf(T,X,round(V(:,N:end)',3))
+xlabel('$t$','fontsize',labelfontsize,...
+            'interpreter','latex')
+ylabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P4_contour2';
+saveas(gcf,txt,'epsc')
+%%
+figure
+plot(xu(2:end-1),V(find(t==0.5),1:N-1),'b*')
+hold on
+plot(xp,V(find(t==0.5),N:2*N-1),'r*')
+grid on
+axis([-1 1 -1 1])
+xlabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+legend({'$u(0.5,x)$','$p(0.5,x)$'},...
+        'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P4_05';
+saveas(gcf,txt,'epsc')
+
+figure
+plot(xu(2:end-1),V(find(t==1),1:N-1),'b*')
+hold on
+plot(xp,V(find(t==1),N:2*N-1),'r*')
+grid on
+axis([-1 1 -1 1])
+xlabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+legend({'$u(1,x)$','$p(1,x)$'},...
+        'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P4_1';
+saveas(gcf,txt,'epsc')
+
+figure
+plot(xu(2:end-1),V(find(t==1.5),1:N-1),'b*')
+hold on
+plot(xp,V(find(t==1.5),N:2*N-1),'r*')
+grid on
+axis([-1 1 -1 1])
+xlabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+legend({'$u(1.5,x)$','$p(1.5,x)$'},...
+        'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P4_15';
+saveas(gcf,txt,'epsc')
+
+figure
+plot(xu(2:end-1),V(find(t==2),1:N-1),'b*')
+hold on
+plot(xp,V(find(t==2),N:2*N-1),'r*')
+grid on
+axis([-1 1 -1 1])
+xlabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+legend({'$u(2,x)$','$p(2,x)$'},...
+        'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P4_2';
+saveas(gcf,txt,'epsc')
+
+
+u4=V(length(t),1:N-1)';
+figure
+plot(xu(2:end-1),u0(2:end-1),'b',xu(2:end-1),u4,'r*')
+grid on
+axis([-1 1 -0.3 1.3])
+xlabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+legend({'$u(0,x)$','$u(4,x)$'},...
+        'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P4_periodic';
+saveas(gcf,txt,'epsc')
+err=norm(u0(2:end-1)-u4,inf)
+\end{verbatim}

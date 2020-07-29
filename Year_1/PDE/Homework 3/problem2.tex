@@ -1,0 +1,107 @@
+\begin{questions}
+
+\question{Consider the Cauchy problem
+\begin{align*}
+&\frac{\partial u}{\partial t}+\sin{(\omega t)}u\frac{\partial u}{\partial x}=0,\\
+&u(x,0)=u_0(x).
+\end{align*}
+Assume that $u_0$ is continuously differentiable on $\R$ and $\sup_x\left|u'_0(x)\right|\leq M$ for some $M>0$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that the solution exists for all $t\geq 0$ provided that $\omega$ is large enough.
+\item What can be done if $\omega$ is not sufficiently large?
+\end{enumerate}
+}
+\begin{solution}
+We start the like in the previous problem, by proving that $\zeta_z>0$. Generally
+\begin{align*}
+\zeta(z,t)=z+\int_0^tb\left(s,u_0(z)e^{\gamma s}\right)ds,
+\end{align*}
+and
+\begin{align*}
+\zeta_z(z,t)=1+u'_0(z)\int_0^tb_u\left(s,u_0(z)e^{\gamma s}\right)e^{\gamma s}ds,
+\end{align*}
+In our problem $b(t,u)=\sin{(\omega t)}u$ and $\gamma=0$. Therefore,
+\begin{align*}
+\zeta(z,t)=z+u_0(z)\int_0^tsin{(\omega s)}ds
+\end{align*}
+which we can integrate and obtain
+\begin{align*}
+\zeta(z,t)=z+\frac{u_0(z)}{\omega}\left[1-\cos{(\omega t)}\right].
+\end{align*}
+Differentiating with respect to $z$ we easily obtain
+\begin{align*}
+\zeta_z(z,t)=1+\frac{u'_0(z)}{\omega}\left[1-\cos{(\omega t)}\right].
+\end{align*}
+Like in the previous problem we can find a lower bound
+\begin{align*}
+\zeta_z(z,t)&\geq1-\left|\frac{u'_0(z)}{\omega}\left[1-\cos{(\omega t)}\right]\right|\\
+&=1-\frac{\left|u'_0(z)\right|}{\left|\omega\right|}\left[1-\cos{(\omega t)}\right]\\
+&\geq1-\frac{M}{\left|\omega\right|}\left[1-\cos{(\omega t)}\right]\\
+&\geq1-2\frac{M}{\left|\omega\right|}.
+\end{align*}
+Thus, if $|\omega|>2M$, $\zeta_z(z,t)>0$ for all $z\in\R$ and $t\in[0,T)=[0,\infty)$. To prove that $\zeta\rightarrow\pm\infty$ as $z\rightarrow\pm\infty$ we use the Mean Value Theorem,
+\begin{align*}
+\zeta_z(\hat{z},t)=\frac{\zeta(z,t)-\zeta(0,t)}{z-0},
+\end{align*}
+where $\zeta(0,t)$ is independent of $z$, $\hat{z}$ is some value between $0$ and $z$, and $\zeta_z(\hat{z},t)>0$ for $\omega>2M$ as we just proved. Rearranging terms we get
+\begin{align*}
+\zeta(z,t)=z\zeta_z(\hat{z},t)+\zeta(0,t).
+\end{align*}
+Now we study two cases:
+\begin{itemize}
+\item If $z>0$,
+\begin{align*}
+\zeta(z,t)&=z\zeta_z(\hat{z},t)-\zeta(0,t)\\
+&>z(1-2M)-\zeta(0,t)\rightarrow\infty\text{ as } z\rightarrow\infty,
+\end{align*}
+since $1-2M>0$ and constant.
+\item If $z<0$,
+\begin{align*}
+\zeta(z,t)&=z\zeta_z(\hat{z},t)-\zeta(0,t)\\
+&<z(1-2M)-\zeta(0,t)\rightarrow -\infty\text{ as } z\rightarrow -\infty,
+\end{align*}
+\end{itemize}
+since $1-2M>0$ and constant. 
+
+Thus, if $|\omega|>2M$, $\zeta_z(z,t)>0$ and $\zeta\rightarrow\pm\infty$ as $z\rightarrow\pm\infty$ for all $z\in\R$ and $t\in[0,T)=[0,\infty)$. Therefore, by \textsl{Theorem 3.11}, the Cauchy problem has a unique solution $u$ on $\R\times[0,\infty)$.
+
+For part $b)$, if we want our solution to exist, but $\omega$ is not sufficiently large, i.e., $\omega<2M$, we have restrict $T$. We retake
+\begin{align*}
+\zeta_z(z,t)&=1+u'_0(z)\int_0^tb_u\left(s,u_0(z)e^{\gamma s}\right)e^{\gamma s}ds\\
+&=1+u'_0(z)\int_0^t\sin{(\omega s)}ds\\
+&\geq 1-\left|u'_0(z)\int_0^t\sin{(\omega s)}ds\right|\\
+&\geq 1-\left|u'_0(z)\right|\int_0^t\left|\sin{(\omega s)}\right|ds\\
+&\geq 1-M\int_0^tds\\
+&\geq 1-Mt,
+\end{align*}
+which, since we need $\zeta_z(z,t)$ to be strictly greater than zero, gives us
+\begin{align*}
+1-Mt>0,
+\end{align*}
+and we can obtain a condition for $t$,
+\begin{align*}
+t<\frac{1}{M}=T^*.
+\end{align*}
+Thus, if $\omega$ is not large enough, $\zeta_z(z,t)>0$ for all $z\in\R$ and $t\in[0,T^*)$. To prove that $\zeta\rightarrow\pm\infty$ as $z\rightarrow\pm\infty$ we use again the Mean Value Theorem. Like above,
+\begin{align*}
+\zeta(z,t)=z\zeta_z(\hat{z},t)+\zeta(0,t).
+\end{align*}
+Now we study two cases:
+\begin{itemize}
+\item If $z>0$,
+\begin{align*}
+\zeta(z,t)&=z\zeta_z(\hat{z},t)-\zeta(0,t)\\
+&>z(1-Mt)-\zeta(0,t)\rightarrow\infty\text{ as } z\rightarrow\infty,
+\end{align*}
+since $1-Mt>0$ and constant.
+\item If $z<0$,
+\begin{align*}
+\zeta(z,t)&=z\zeta_z(\hat{z},t)-\zeta(0,t)\\
+&<z(1-Mt)-\zeta(0,t)\rightarrow -\infty\text{ as } z\rightarrow -\infty,
+\end{align*}
+\end{itemize}
+since $1-Mt>0$ and constant. 
+
+Thus, if $|\omega|<2M$, $\zeta_z(z,t)>0$ and $\zeta\rightarrow\pm\infty$ as $z\rightarrow\pm\infty$ for all $z\in\R$ and $t\in[0,T^*)$. Therefore, by \textsl{Theorem 3.11}, the Cauchy problem has a unique solution $u$ on $\R\times[0,T^*)$.
+\end{solution}
+\end{questions}

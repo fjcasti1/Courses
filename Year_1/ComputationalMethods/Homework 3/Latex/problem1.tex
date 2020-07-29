@@ -1,0 +1,101 @@
+\textbf{Considering using cubic splines to interpolate the function
+\begin{align*}
+f(x)=\frac{e^{3x}\sin(200x^2)}{1+20x^2},~~~0\leq x\leq 1.
+\end{align*}
+Write a short MATLAB script using spline, interpolating this function at equidistant points $x_i =\frac{i}{n}$, $i =0,1,...,n$. Repeat this for $n = 2^j$, $j = 4, 5, . . . , 14$. For each calculation record the maximum error at the point $X = 0 : .001 : 1$. Plot these errors against $n$, using loglog.
+Make observations in comparison to Figure 10.8.}
+
+\vspace{0.3in}
+
+In this problem we explore spline approximation. Given the function above we are going to compute spline approximations for different number of interpolation points. In figure 1 we can see how for $n=16$ interpolation points the approximation is not good enough. Using $n=32$ interpolation points the approximation is good at the beginning of the domain, up to $x=0.2$, but soon it starts to be far from the actual value of the function. Incrementing the number of interpolation points once more to $n=64$ we see how the approximation matches the function further in the domain, up to $x=0.3$. This behaviour goes on until we use $n=256$ nodes, that the approximation seems to match the function very accurately. Incrementing number of interpolation points to $n=512$ doesn't seem to offer an appreciable improvement in accuracy. However, we will see in figure 2 that this is not true. The figures for higher $n$ are not shown since they are indistinguishable from $(f)$.
+
+In figure 2 we show the maximum error of the approximation against the number of interpolation points used. We can see how incresing $n$ from $256$ to $512$ reduces the maximum error in an order of magnitude, although we are not able to see it in the plots of figure 1. Notice the high frequency of the function to approximate, this requires high number of points for the spline interpolant to be accurate.
+
+In figure 3 is a \textit{semi-log} version of figure 2, we show it to compare to the figure in the book mentioned by the problem. We can see how with only $201$ interpolation points the Chebyshev's interpolation outcomes the spline we have done. The maximum error for the Chebyshev's interpolation using $201$ interpolation points is of the order of $10^{-14}$ and we haven't reached that level of accuracy using up to $16384$ points.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[$n=16$.]{\includegraphics[scale=0.5]{P1_n=16.eps}}
+\hfill
+\subfigure[$n=32$.]{\includegraphics[scale=0.5]{P1_n=32.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$n=64$.]{\includegraphics[scale=0.5]{P1_n=64.eps}}\hfill
+\subfigure[$n=128$.]{\includegraphics[scale=0.5]{P1_n=128.eps}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[$n=256$.]{\includegraphics[scale=0.5]{P1_n=256.eps}}\hfill
+\subfigure[$n=512$.]{\includegraphics[scale=0.5]{P1_n=512.eps}}
+\hspace*{\fill}
+\caption{Spline approximation of the function $f(x)$ defined above.}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P1_Error.eps}}
+\caption{Error of the spline approximation.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P1_Error_semilog.eps}}
+\caption{Error of the spline approximation.}
+\end{figure}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 1
+clear all; close all; format long; clc
+legendfontsize=14;
+axisfontsize=16;
+f = @(x) (exp(3*x).*(sin(200*x.^2)))./(1 + 20*x.^2);
+xx=0:0.001:1;
+for j=4:14
+    n=2^j;
+    x=linspace(0,1,n+1);
+    fx=f(x);
+    fxx=spline(x,fx,xx);
+    error=max(abs(f(xx)-fxx));
+    
+    figure(1)
+    loglog(n,error,'r*')
+    hold on
+    grid on
+    if j==14
+        xlabel('$n$','Interpreter','latex')
+        set(gca,'fontsize',14)
+        legend({'Error'},...
+         'Interpreter','latex','fontsize',legendfontsize)
+        txt='Latex/FIGURES/P1_Error';
+        saveas(gcf,txt,'epsc')
+    end
+    figure(2)
+    semilogy(n,error,'r*')
+    hold on
+    grid on
+    if j==14
+        xlabel('$n$','Interpreter','latex')
+        set(gca,'fontsize',14)
+        legend({'Error'},...
+         'Interpreter','latex','fontsize',legendfontsize)
+        txt='Latex/FIGURES/P1_Error_semilog';
+        saveas(gcf,txt,'epsc')
+    end
+    
+    figure
+    plot(xx,f(xx))
+    hold on
+    plot(xx,fxx)
+    grid on
+    xlabel('$x$','Interpreter','latex')
+    legend({'$f(x)$','Spline'},...
+        'Interpreter','latex','fontsize',legendfontsize)
+    set(gca,'fontsize',axisfontsize)
+    txt=['Latex/FIGURES/P1_n=',num2str(n)];
+    saveas(gcf,txt,'epsc')
+    end
+\end{verbatim}

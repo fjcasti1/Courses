@@ -1,0 +1,52 @@
+% A (minimal) template for problem sets and solutions using the exam document class
+
+% Organization:
+%% Define new commands, macros, etc. in macros.tex
+%% Anything that you would put before \begin{document} should go in prelude.tex
+
+%% For multiple psets, each should get its own file to \input into main with a \section{}
+\input{prelude}
+\begin{document}
+
+\title{Computational Fluid Dynamics\\Homework 5}
+\author{Francisco Jose Castillo Carrasco}
+\date{\today}
+\maketitle
+
+\input{macros}
+
+%% Content goes here
+\section*{Introduction}
+In this assignment I will be using the Crank-Nicholson method to solve the following PDE
+\begin{align*}
+\frac{\partial T}{\partial t}=\alpha\frac{\partial^2 T}{\partial x^2}+q(x,t),
+\end{align*}
+defined on the domain $x\in[-1,1]$ with boundary conditions 
+\begin{align*}
+T(-1,t)&=2-\sin\left(\frac{3\pi}{2}t\right),\\
+\frac{\partial T}{\partial x}(1,t)&=0,
+\end{align*}
+and initial condition $T(x,0)=2$, with $\alpha=0.1$. The source term $q$ for $t>0$ is given by
+\begin{align*}
+q(x,t)=\frac{3\pi}{2\sqrt{t}}&\sin\left(\frac{\pi}{2}\sqrt{t}\right)\cos\left(\frac{\pi}{2}\sqrt{t}\right)\left(x^3-x^2-x+1\right)+\frac{3\pi}{2}\cos\left(\frac{3\pi}{2}t\right)\sin\left(\frac{\pi}{2}x\right)\\
+&+\alpha\left(\sin^2\left(\frac{\pi}{2}\sqrt{t}\right)(6-18x)+\frac{\pi^2}{4}\sin\left(\frac{3\pi}{2}t\right)\sin\left(\frac{\pi}{2}x\right)\right),
+\end{align*}
+and $q(x,0)=0$.
+
+This first part of the assignment (the one typed) includes the formulation of the problem using the Crank Nicholson method for a node based and a cell based mesh.
+\subsection*{Node Based Mesh}
+\input{NodeMesh}
+
+\subsection*{Cell Based Mesh}
+\input{CellMesh}
+\section*{Maximum stable time step for the FTCS}
+As we saw in class, the maximum stable time step size for the FTCS is
+\begin{align*}
+\Delta t=\frac{h^2}{2\alpha},
+\end{align*}
+and the time step used in the code is four time this,
+\begin{align*}
+\Delta t=2\frac{h^2}{\alpha}.
+\end{align*}
+There is no index form for this.
+\end{document}

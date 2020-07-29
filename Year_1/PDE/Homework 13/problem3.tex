@@ -1,0 +1,36 @@
+\begin{questions}
+\question{Consider the following version of the Neumann boundary problem for
+the Laplace equation.
+\begin{align*}
+\Delta u(x)+c(x)u(x)&=f(x),\quad x\in\Omega,\\
+\partial_{\nu} u(x)&=g(x),\quad x\in\partial\Omega.
+\end{align*}
+
+Find a sign condition for the function $c$ that guarantees that there is at most
+one solution $u$ even if $\Omega$ is not path-connected.
+}
+\begin{solution}
+Let $c$ be continuous and negative for all $x\in\Omega$. Let $u$, $v$ be solutions to he previous PDE and boundary conditions. Define $w:\overline{\Omega}\rightarrow\R$ by $w(x)=u(x)-v(x)$. Then,
+\begin{align*}
+\Delta w(x)+c(x)w(x)&=0,\quad x\in\Omega,\\
+\partial\nu w(x)&=0,\quad x\in\partial\Omega.
+\end{align*}
+Making use of \textsc{Theorem 7.3} for $w$ we get
+\begin{align*}
+\int_{\Omega}w\Delta wdx+\int_{\Omega}\nabla w\cdot\nabla w dx=\int_{\partial\Omega}w\partial_{\nu}w d\sigma.
+\end{align*}
+Using the PDE into the previous equation,
+\begin{align*}
+-\int_{\Omega}c(x)w^2(x)dx+\int_{\Omega}\nabla w\cdot\nabla w dx=0.
+\end{align*}
+Multiplying the equation by $-1$ and noting that the inner product is always non-negative,
+\begin{align*}
+0=\int_{\Omega}c(x)w^2(x)dx-\int_{\Omega}\nabla w\cdot\nabla w dx\leq\int_{\Omega}c(x)w^2(x)dx\leq 0,
+\end{align*}
+since $c(x)<0$ for all $x\in\Omega$. Therefore,
+\begin{align*}
+\int_{\Omega}c(x)w^2(x)dx=0,
+\end{align*}
+which implies that $w(x)=0$ for all $x\in\Omega$ since $c(x)w^2(x)$ is continuous on the domain. Finally, since $c(x)\neq 0$, $w(x)=0$ for all $x\in\Omega$. Hence, we have that $u=v$ for all $x\in\Omega$, proving that there exists at most one solution for the PDE and boundary conditions given provided that $c(x)<0$ for all $x\in\Omega$.
+\end{solution}
+\end{questions}

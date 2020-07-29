@@ -1,0 +1,164 @@
+In this problem we start by plotting the lagrange polynomials
+\begin{align*}
+l(x)=\prod_{j=0}^N(x-x_j),
+\end{align*}
+for equispaced nodes (figure 1), for Chebishev's nodes of the first kind (figure 2) and for Chebishev's nodes of the second kind (figure 3). The nodes are placed on the zeroes of the functions and represented by the red asterisk. We see how the Chebishev's nodes are more concentrated towards the boundaries, being very useful for boundary conditions.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.6]{Lagrange.eps}}
+\caption{Equispaced nodes.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.6]{Chebishev1.eps}}
+\caption{First kind Chebishev's nodes.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.6]{Chebishev2.eps}}
+\caption{Second kind Chebishev's nodes.}
+\end{figure}
+
+Using those nodes we compute approximations to the function $f(x)=\cos(3x)$. In the following plots we show the error and the upper bound of the error given by the Cauchy interpolation error formula
+\begin{align*}
+f(x)-p_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}l(x),
+\end{align*}
+where $p_n(x)$ represents the approximation. Given the function to approximate, we can then find the upper bound
+\begin{align*}
+f(x)-p_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}l(x)\leq\frac{3^{n+1}}{(n+1)!}l(x):=e_{Cauchy}.
+\end{align*}
+In the following figures we can see how Cauchy error formula gives us the upper bound for equispaced nodes (figure 7), Chebishev nodes of the first kind (figure 8), Chebishev nodes of the second kind (figure 9). As in problem 2, the drops in the error are due to the fact that the error must be zero at those points used to run the interpolation and, since we are using logarithmic scale, are seen as these sudden drops in the error plot. 
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{Cauchy_equi.eps}}
+\caption{Error of equispaced nodes.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{Cauchy_cheb1.eps}}
+\caption{Error of Chebishev's nodes of first kind.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{Cauchy_cheb2.eps}}
+\caption{Error of Chebishev's nodes of second kind.}
+\end{figure}
+
+To finish, we also compute the $L_2$ norm of the error and check that in fact we obtain an over all upper bound for the different methdos (see table 1). As we can check, Cauchy's interpolation formula gives us a good upper bound of the error for each distribution of the nodes. Note that the error of the Chebishev's methods is smaller. As we saw in class, equispaced nodes have high errors at the boundaries.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{r|c c c }
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+  & Equispaced & First kind Chebishev & Second kind Chebishev\\
+\hline
+$e_{Cauchy}$ & $     3.54887848499\cdot 10^{-4}$ & $9.68648228641\cdot 10^{-5}$ & $1.58167667439\cdot 10^{-4}$\\
+$e_{Interpolation}$ & $7.05156144371\cdot 10^{-5}$ & $1.18371532261\cdot 10^{-5}$ & $1.49100947533\cdot 10^{-5}$\\
+\end{tabular}
+\caption{$L_2$ error norm of different methods.}
+\end{table}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 4
+N=10;
+f = @(x) cos(3*x);
+xx=linspace(-1,1,1000);
+xk0=linspace(-1,1,N+1)';
+xk1=chebpts(N+1,1);
+xk2=chebpts(N+1,2);
+l0 = @(x) prod(x-xk0);
+l1 = @(x) prod(x-xk1);
+l2 = @(x) prod(x-xk2);
+%
+figure
+plot(xk0,l0(xk0),'r*')
+hold on
+plot(xx,l0(xx))
+grid on
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Lagrange','epsc')
+saveas(gcf,'Latex/FIGURES/Lagrange','fig')
+
+%
+figure
+plot(xk1,l1(xk1),'r*')
+hold on
+plot(xx,l1(xx))
+grid on
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Chebishev1','epsc')
+saveas(gcf,'Latex/FIGURES/Chebishev1','fig')
+
+%
+figure
+plot(xx,l2(xx))
+hold on
+plot(xk2,l2(xk2),'r*')
+grid on
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Chebishev2','epsc')
+saveas(gcf,'Latex/FIGURES/Chebishev2','fig')
+
+w0 = baryWeights(xk0);
+p0 = @(x) bary(x,f(xk0),xk0,w0);
+err_bound0 = 3^(N+1)*l0(xx)/factorial(N+1);
+figure
+semilogy(xx,abs(err_bound0))
+hold on
+semilogy(xx,abs(f(xx)-p0(xx)))
+grid on
+axis([-1 1 1e-10 1e-4])
+legend({'$e_{Cauchy}$','$e_{equi}$'},...
+'fontsize',legendfontsize,'interpreter','latex','Location','north')
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+ylabel('$e(x)$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Cauchy_equi','epsc')
+saveas(gcf,'Latex/FIGURES/Cauchy_equi','fig')
+
+w1 = baryWeights(xk1);
+p1 = @(x) bary(x,f(xk1),xk1,w1);
+err_bound1 = 3^(N+1)*l1(xx)/factorial(N+1);
+figure
+semilogy(xx,abs(err_bound1))
+hold on
+semilogy(xx,abs(f(xx)-p1(xx)))
+grid on
+axis([-1 1 1e-10 1e-4])
+legend({'$e_{Cauchy}$','$e_{Cheb1}$'},...
+'fontsize',legendfontsize,'interpreter','latex','location','north')
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+ylabel('$e(x)$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Cauchy_cheb1','epsc')
+saveas(gcf,'Latex/FIGURES/Cauchy_cheb1','fig')
+
+w2 = baryWeights(xk2);
+p2 = @(x) bary(x,f(xk2),xk2,w2);
+err_bound2 = 3^(N+1)*l2(xx)/factorial(N+1);
+figure
+semilogy(xx,abs(err_bound2))
+hold on
+semilogy(xx,abs(f(xx)-p2(xx)))
+grid on
+axis([-1 1 1e-10 1e-4])
+legend({'$e_{Cauchy}$','$e_{Cheb2}$'},...
+'fontsize',legendfontsize,'interpreter','latex','location','north')
+xlabel('$x$','fontsize',labelfontsize,'interpreter','latex')
+ylabel('$e(x)$','fontsize',labelfontsize,'interpreter','latex')
+saveas(gcf,'Latex/FIGURES/Cauchy_cheb2','epsc')
+saveas(gcf,'Latex/FIGURES/Cauchy_cheb2','fig')
+
+E_equi=norm(f(xx)-p0(xx),2)
+E_Cauchy_equi=norm(err_bound0,2)
+E_Chebishev1=norm(f(xx)-p1(xx),2)
+E_Cauchy_cheb1=norm(err_bound1,2)
+E_Chebishev2=norm(f(xx)-p2(xx),2)
+E_Cauchy_cheb2=norm(err_bound2,2)
+
+\end{verbatim}

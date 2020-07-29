@@ -1,0 +1,85 @@
+\begin{questions}
+
+\question{Solve the Cauchy problem
+\begin{align*}
+&x_1^2\partial_1u+x_2^2\partial_2u=u^2~,\\
+&u(x_1,x_2)=1~\text{on the line}~x_2=2x_1~.
+\end{align*}
+Where is the solution defined?
+}
+
+\begin{solution}
+The PDE above has the form of the equation $(3.2)$ from the notes. Since $c$ and $a_j$ are partially differentiable in all variables and these partial derivatives are continuous, the solution $u$ must be unique acording to \textsl{Theorem 3.5}. Looking at the initial condition we identify the hypersurface $S=\{(z,2z);z\in\R\}$. Therefore $S=g(\R)$ with $g(z)=(z,2z)$. Now, we can write our \textit{Characteristic System} with the \textit{Initial Conditions}:
+\begin{align*}
+\partial_t\xi_1(z,t)=\xi_1^2(z,t),~~&~~\xi_1(z,0)=z,\\
+\partial_t\xi_2(z,t)=\xi_2^2(z,t),~~&~~\xi_2(z,0)=2z,\\
+\partial_tv(z,t)=v^2(z,t),~~&~~v(z,0)=1.
+\end{align*}
+We integrate the equation for $\xi_1$,
+\begin{align*}
+\xi_1(z,t)=-\frac{1}{t+f_1(z)}.
+\end{align*}
+Imposing the initial condition for $\xi_1$ we find the function $f_1(z)$,
+\begin{align*}
+\xi_1(z,0)=-\frac{1}{f_1(z)}=z,
+\end{align*}
+obtaining $f_1(z)=-1/z$. Therefore we have found, doing some modifications,
+\begin{align*}
+\xi_1(z,t)=\frac{z}{1-zt}.
+\end{align*}
+We integrate now the equation for $\xi_2$,
+\begin{align*}
+\xi_2(z,t)=-\frac{1}{t+f_2(z)}.
+\end{align*}
+Imposing the initial condition for $\xi_2$ we find the function $f_2(z)$,
+\begin{align*}
+\xi_2(z,0)=-\frac{1}{f_2(z)}=2z,
+\end{align*}
+obtaining $f_2(z)=-1/2z$. Therefore we have found, doing some modifications,
+\begin{align*}
+\xi_2(z,t)=\frac{2z}{1-2zt}.
+\end{align*}
+Lastly we integrate the equation for $v$
+\begin{align*}
+v(z,t)=-\frac{1}{t+f_3(z)}.
+\end{align*}
+Imposing the initial condition for $v$ we find the function $f_3(z)$,
+\begin{align*}
+v(z,0)=-\frac{1}{f_3(z)}=1,
+\end{align*}
+obtaining $f_3(z)=-1$. Therefore we have found
+\begin{align*}
+v(z,t)=\frac{1}{1-t}=v(t).
+\end{align*}
+We want to find the solution to the PDE
+\begin{align*}
+u(x_1,x_2)=v(z(x_1,x_2),t(x_1,x_2))
+=v(t(x_1,x_2)).
+\end{align*}
+To do so we need to find first $t(x_1,x_2)$ using
+\begin{align*}
+&x_1=\xi_1=\frac{z}{1-zt},\\
+&x_2=\xi_2=\frac{2z}{1-2zt}.
+\end{align*}
+From the first we can isolate $z$,
+\begin{align*}
+z=\frac{x_1}{1+x_1t},
+\end{align*}
+and insert it in the second,
+\begin{align*}
+x_2=\frac{\frac{2x_1}{1+x_1t}}{1-\frac{2x_1}{1+x_1t}t}=\frac{2x_1}{1-x_1t}.
+\end{align*}
+From the previous equation we find $t$ and, consequently $u$,
+\begin{align*}
+t=\frac{x_2-2x_1}{x_1x_2},
+\end{align*}
+\begin{align*}
+u(x_1,x_2)=v(t(x_1,x_2))=\frac{1}{1-\frac{x_2-2x_1}{x_1x_2}},
+\end{align*}
+\begin{align*}
+u(x_1,x_2)=\frac{x_1x_2}{x_1x_2-x_2+2x_1}
+\end{align*}
+This solution is defined in $\R^2\backslash\left\lbrace(x_1,0),(0,x_2),\left(x_1,\frac{2x_1}{1-x_1}\right)\right\rbrace$. The solution doesn't exist if either of $x_1$ or $x_2$ is zero since it would make $t$ infinite. Also the soltion is not defined in those points that make the denominator of the solution zero.
+\end{solution}
+
+\end{questions}

@@ -1,0 +1,22 @@
+\begin{questions}
+
+\question{Let $X$ and $Y$ be metric spaces and $f : X \rightarrow Y$ be continuous. Let
+$S\subseteq X$. Show:
+\begin{enumerate}[a)]
+\item $f(\overline{S})\subseteq \overline{f(S)}$.
+\item If $\overline{S}$ is compact, $f(\overline{S})= \overline{f(S)}$.
+\end{enumerate}
+
+}
+\begin{solution}
+  \begin{proof} a)
+  Let $y\in f(\overline{S})$, then there exists an $x$ in $\overline{S}$ such that $y=f(x)$. Since $x$ is a limit point of $S$ there exists a sequence $(x_n)$ in $S$ such that $x_n\rightarrow x $ as $n\rightarrow \infty$. Let $(y_n)$ be the sequence in $f(S)$ such that $y_n=f(x_n)$. Since $f$ is continuous and $x_n\rightarrow x$ as $n\rightarrow\infty$, $y_n\rightarrow y$ too as $n\rightarrow\infty$. Therefore $y$ is a limit point of $f(S)$, $y\in \overline{f(S)}$. Thus, $f(\overline{S})\subseteq \overline{f(S)}$.
+  \end{proof}
+\end{solution}
+\begin{solution}
+  \begin{proof} b)
+Since $\bar{S}$ is a compact subset of $X$ and $f$ is continuous, $f(\bar{S})$ is compact by Theorem 4.50. Since it is compact, it is complete by theorem 4.39. This implies $f(\bar{S})$ is closed by theorem 4.6. Then since $f(S) \subseteq f(\bar{S})$ , by proposition 4.3, $\overline{f(S)} \subseteq f(\bar{S})$. Finally, since $f(\bar{S}) \subseteq \overline{f(S)}$ from the proof in part (a), $f(\bar{S}) = \overline{f(S)}$.
+  \end{proof}
+\end{solution}
+
+\end{questions}

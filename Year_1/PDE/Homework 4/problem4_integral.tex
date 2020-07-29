@@ -1,0 +1,131 @@
+\begin{questions}
+
+\question{
+Solve the vibrating string equation with external force, 
+\begin{eqnarray*}
+(\partial_t^2 - c^2 \partial_x^2)u(x,t) &=& t \sin(x), \quad t \geq 0, 0 \leq x \leq \pi, \\
+u(x,0)&=&\sin(x), \quad x\in [0,\pi], \\
+\partial_t u(x,0)&=&\sin(x), \quad x\in [0,\pi], \\
+u(0,t)&=&0=u(\pi,t), \quad t \geq 0.
+\end{eqnarray*}
+Show that the solution is of the form $u(x, t) = \psi(t) \sin(x)$. Determine $\psi(t)$ using d’Alembert. \textbf{Do not assume that the solution is of this form.}
+}
+\begin{solution}
+We start performing a $2\pi$-periodic extension of $f(x)=\sin{x}$ in an odd fashion. We express the PDE as
+\begin{align*}
+(\partial_t-c\partial_x)(\partial_t+c\partial_x)u(x,t)&=t\sin{x},\\
+u(x,0)&=\sin{x},\\
+\partial_tu(x,0)&=\sin{x},
+\end{align*}
+and rewrite the second order PDE as a first order PDE system by setting $(\partial_t+c\partial_x)u(x,t)=\tilde{u}(x,t)$,
+\begin{align*}
+(\partial_t+c\partial_x)u(x,t)=\tilde{u}(x,t),~~~~~~u(x,0)=\sin{x},\\
+(\partial_t-c\partial_x)\tilde{u}(x,t)=t\sin{x},~~~~~~\tilde{u}(x,0)=\sin{x}.
+\end{align*}
+The associated characteristic system is
+\begin{align*}
+\partial_t\xi(z,t)&=c,\\
+\partial_tv(z,t)&=\tilde{u}(x,t),\\
+\xi(z,0)&=z,~~~~~~v(z,0)=\sin{z},\\
+\partial_t\tilde{\xi}(z,t)&=-c,\\
+\partial_t\tilde{v}(z,t)&=t\sin{\tilde{\xi}},\\
+\tilde{\xi}(z,0)&=z,~~~~~~\tilde{v}(z,0)=\sin{z}.
+\end{align*}
+We start integrating the second subsystem of the characteristic system,
+\begin{align*}
+\tilde{\xi}=z-ct,
+\end{align*}
+and
+\begin{align*}
+\tilde{v}(z,t)=\int_0^ty\sin{\tilde{\xi}(z,y)}dy+f_1(z)=\int_0^ty\sin{(z-cy)}dy+f_1(z).
+\end{align*}
+Imposing its initial condition,
+\begin{align*}
+\tilde{v}(z,0)=f_1(z)=\sin{z},
+\end{align*}
+we obtain
+\begin{align*}
+\tilde{v}(z,t)=\sin{z}+\int_0^ty\sin{(z-cy)}dy,
+\end{align*}
+and, since $\tilde{u}(x,t)=\tilde{v}(x+ct,t)$,
+\begin{align*}
+\tilde{u}(x,t)=\sin{(x+ct)}+\int_0^ty\sin{(x+ct-cy)}dy.
+\end{align*}
+We now integrate the first subsystem,
+\begin{align*}
+\xi=z+ct,
+\end{align*}
+and
+\begin{align*}
+v(z,t)=\int_0^t\tilde{u}(z+cr,r)dr+f_2(z)=\int_0^t\left[\sin{(z+2cr)}+\int_0^ry\sin{(z+2cr-cy)}dy\right]dr+f_2(z).
+\end{align*}
+Imposing its initial condition,
+\begin{align*}
+v(z,0)=f_2(z)=\sin{z},
+\end{align*}
+we obtain
+\begin{align*}
+v(z,t)=\sin{z}+\int_0^t\left[\sin{(z+2cr)}+\int_0^ry\sin{(z+2cr-cy)}dy\right]dr.
+\end{align*}
+and, since $u(x,t)=v(x-ct,t)$,
+\begin{align*}
+u(x,t)=v(x-ct,t)=\sin{(x-ct)}+\int_0^t\left[\sin{(x-ct+2cr)}+\int_0^ry\sin{(x-ct+2cr-cy)}dy\right]dr.
+\end{align*}
+Distributing the integrals we obtain
+\begin{align*}
+u(x,t)=\sin{(x-ct)}+\int_0^t\sin{(x-ct+2cr)}dr+\int_0^t\int_0^ry\sin{(x-ct+2cr-cy)}dydr,
+\end{align*}
+and changing the order of integration of the double integral we get
+\begin{align*}
+u(x,t)&=\sin{(x-ct)}+\int_0^t\sin{(x-ct+2cr)}dr+\int_0^t\int_y^ty\sin{(x-ct+2cr-cy)}drdy\\
+&=\sin{(x-ct)}+\frac{1}{2c}\left[-\cos{(x-ct+2cr)}\right]_0^t+\int_0^t\left[-y\frac{1}{2c}\cos{(x-ct+2cr-cy)}\right]_y^tdy\\
+&=\sin{(x-ct)}-\frac{1}{2c}\cos{(x+ct)}+\frac{1}{2c}\cos{(x-ct)}+\frac{1}{2c}\int_0^ty\left[\cos{(x-ct+cy)}-\cos{(x+ct-cy)}\right]dy\\
+&=\sin{(x-ct)}-\frac{1}{2c}\cos{(x+ct)}+\frac{1}{2c}\cos{(x-ct)}+\frac{1}{2c}\int_0^ty\cos{(x-ct+cy)}dy-\frac{1}{2c}\int_0^ty\cos{(x+ct-cy)}dy.
+\end{align*}
+The last two integrals are solve using integration by parts,
+\begin{align*}
+\int_0^ty\cos{(x-ct+cy)}dy&=\left[\frac{y}{c}\sin{(x-ct+cy)}\right]_0^t-\frac{1}{c}\int_0^t\sin{(x-ct+cy)}dy\\
+&=\frac{t}{c}\sin{(x)}-\frac{1}{c}\left[-\frac{1}{c}\cos{(x-ct+cy)}\right]_0^t\\
+&=\frac{t}{c}\sin{(x)}+\frac{1}{c^2}\cos{(x)}-\frac{1}{c^2}\cos{(x-ct)},
+\end{align*}
+and similarly
+\begin{align*}
+\int_0^ty\cos{(x+ct-cy)}dy&=\left[-\frac{y}{c}\sin{(x+ct-cy)}\right]_0^t+\frac{1}{c}\int_0^t\sin{(x+ct-cy)}dy\\
+&=-\frac{t}{c}\sin{(x)}+\frac{1}{c}\left[\frac{1}{c}\cos{(x+ct-cy)}\right]_0^t\\
+&=-\frac{t}{c}\sin{(x)}+\frac{1}{c^2}\cos{(x)}-\frac{1}{c^2}\cos{(x+ct)}.
+\end{align*}
+Plugging this values results in the solution $u(x,t)$,
+\begin{align*}
+u(x,t)&=\sin{(x-ct)}-\frac{1}{2c}\cos{(x+ct)}+\frac{1}{2c}\cos{(x-ct)}\\
+&~~~~~~~~~~~~+\frac{t}{2c^2}\sin{(x)}+\frac{1}{2c^3}\cos{(x)}-\frac{1}{2c^3}\cos{(x-ct)}+\frac{t}{2c^2}\sin{(x)}-\frac{1}{2c^3}\cos{(x)}+\frac{1}{2c^3}\cos{(x+ct)}\\
+&=\sin{(x-ct)}-\frac{1}{2c}\cos{(x+ct)}+\frac{1}{2c}\cos{(x-ct)}+\frac{t}{2c^2}\sin{(x)}-\frac{1}{2c^3}\cos{(x-ct)}+\frac{t}{2c^2}\sin{(x)}+\frac{1}{2c^3}\cos{(x+ct)}\\
+&=\sin{(x-ct)}-\frac{1}{2c}\left[\cos{(x+ct)}-\cos{(x-ct)}\right]+\frac{t}{c^2}\sin{(x)}+\frac{1}{2c^3}\left[\cos{(x+ct)}-\cos{(x-ct)}\right].
+\end{align*}
+Applying some trigonometric rules,
+\begin{align*}
+\sin{(x-ct)}=\sin(x)\cos(ct)-\cos(x)\sin(ct),
+\end{align*}
+and
+\begin{align*}
+\cos{(x+ct)}-\cos{(x-ct)}=-2\sin(x)\sin{(ct)}.
+\end{align*}
+Therefore,
+\begin{align*}
+u(x,t)&=\sin(x)\cos(ct)-\cos(x)\sin(ct)+\frac{1}{c}\sin(x)\sin{(ct)}+\frac{t}{c^2}\sin{(x)}-\frac{1}{c^2}\sin(x)\sin{(ct)}\\
+&=\sin(x)\left[\cos(ct)+\frac{1}{c}\sin{(ct)}+\frac{t}{c^2}-\frac{1}{c^2}\sin{(ct)}\right]-\cos(x)\sin(ct)
+\end{align*}
+Now we impose the boundary conditions,
+\begin{align*}
+u(0,t)=\sin(0)\left[\cos(ct)+\frac{1}{c}\sin{(ct)}+\frac{t}{c^2}-\frac{1}{c^2}\sin{(ct)}\right]-\cos(0)\sin(ct)=-\sin(ct)=0,
+\end{align*}
+and
+\begin{align*}
+u(\pi,t)=\sin(\pi)\left[\cos(ct)+\frac{1}{c}\sin{(ct)}+\frac{t}{c^2}-\frac{1}{c^2}\sin{(ct)}\right]-\cos(\pi)\sin(ct)=\sin(ct)=0,
+\end{align*}
+concluding that $\sin(ct)=0$ so that $t=k\frac{\pi}{c}$, $k\in\Z$.
+Hence,
+\begin{align*}
+u(x,t)=\left[\cos(ct)+\frac{t}{c^2}\right]\sin(x)=\psi(t)\sin(x)
+\end{align*}
+\end{solution}
+\end{questions}

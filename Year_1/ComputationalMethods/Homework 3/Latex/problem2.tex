@@ -1,0 +1,135 @@
+\textbf{Modify the code to} \verb+diffusion_eq1_FD.m+  \textbf{with sparse matrices}
+
+\vspace{0.3in}
+
+In this problem we want to show the need to take advantage of some properties of matrices. In particular, the need to use the fact that in some problems the matrices involved have a majority of its entries being zero. This type of matrices are called sparse matrices. If we code using this fact, the computer will store the value and position of the nonzero entries instead of the whole matrix, resulting in a much short computation time, as we will show. The code generates the following solution to the diffusion differential equation (for the case of $N=100$ nodes).
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P2_surf1.eps}}
+\caption{Solution of the diffusion equation, $N=100$.}
+\end{figure}
+
+We have measured the time used to calculate the solution for different number of nodes. In figure 2 we can see how using sparse matrices makes our code run faster and the bigger $N$ the bigger the difference between the two speeds. 
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P2_times.eps}}
+\caption{Elapsed time for regular and sparse matrices.}
+\end{figure}
+
+In the next table we can see the measured times for both cases for different values for $N$ as well as the ratio between the two. As we could observe in figure 2, the ratio gets bigger as we increase the dimesion of the matrices, which proves the importance of taking advantage of sparse matrices specially for bigger systems.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c}
+%\hline
+%\multicolumn{3}{|c|}{Datos}\\
+N  & Regular Matrices & Sparse Matrices & Ratio\\
+\hline
+$100$ & $0.6716$ & $   0.3347$ & $   2.0064$\\
+$200$ & $3.0701$ & $    1.4052$ & $    2.1848$\\
+$300$ & $8.3650$ & $    3.4260$ & $    2.4416$\\
+$400$ & $18.4907$ & $    6.4504$ & $    2.8666$\\
+$500$ & $36.2399$ & $   11.1142$ & $    3.2607$\\
+$600$ & $62.5694$ & $   16.6995$ & $    3.7468$\\
+$700$ & $118.2346$ & $   24.1097$ & $    4.9040$\\
+$800$ & $  217.2509$ & $   34.0877$ & $    6.3733$\\
+\end{tabular}
+\caption{$L_2$ error norm of different methods.}
+\end{table}
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 2
+clear all; close all
+legendfontsize=14;
+axisfontsize=14;
+labelfontsize=16;
+%% Original code, non-sparse matrices.
+time=zeros(8,1);
+for j=1:8
+    tic
+    N = 100*j;
+    x = linspace(-1,1,N)';
+    dx = x(2)-x(1);
+
+    unos = ones(N-2,1);
+    D2 = ( diag(unos(1:end-1),-1)+diag(unos(1:end-1),1)-2*diag(unos,0) )/dx^2;
+    B = zeros(N-2,2);
+    B(1,1) = 1/dx^2; B(end,end) =1/dx^2;
+    % initial condition
+    u0 = sin(pi*x)+0.2*sin(5*pi*x);
+    % boundary conditions
+    g1 = @(t) .5*sin(50*t);
+    g2 = @(t) 0*t;
+
+    t = 0:0.001:.5;
+
+    [T,U] = ode45(@(t,u) D2*u+B*[g2(t);g1(t)], t, u0(2:end-1));
+%     for k = 2:length(t)
+%         plot(x,[0;U(k,:)';g1(t(k))],'*-')
+%         ylim([-1.5 1.5])
+%         shg
+%         drawnow
+%     end
+    time(j)=toc;
+    if N==100
+        figure
+        [T,X]= meshgrid(t,x(2:end-1));
+        surf(T,X,U','edgecolor','none')
+        xlabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+        ylabel('$y$','fontsize',labelfontsize,...
+            'interpreter','latex')
+        zlabel('$\phi_V(x,y)$','fontsize',labelfontsize,...
+            'interpreter','latex')
+        set(gca,'fontsize',axisfontsize)
+        txt='Latex/FIGURES/P2_surf1';
+        saveas(gcf,txt,'epsc')
+    end
+end
+
+%% Modified code, sparse matrices.
+sparsetime=zeros(8,1);
+for j=1:8
+    tic
+    N = 100*j;
+    x = linspace(-1,1,N)';
+    dx = x(2)-x(1);
+
+    unos = ones(N-2,1);
+    D2 = sparse(( diag(unos(1:end-1),-1)+diag(unos(1:end-1),1)-2*diag(unos,0) )/dx^2);
+    B = sparse(zeros(N-2,2));
+    B(1,1) = 1/dx^2; B(end,end) =1/dx^2;
+    % initial condition
+    u0 = sin(pi*x)+0.2*sin(5*pi*x);
+    % boundary conditions
+    g1 = @(t) .5*sin(50*t);
+    g2 = @(t) 0*t;
+
+    t = 0:0.001:.5;
+
+    [T,U] = ode45(@(t,u) D2*u+B*[g2(t);g1(t)], t, u0(2:end-1));
+%     for k = 2:length(t)
+%         plot(x,[0;U(k,:)';g1(t(k))],'*-')
+%         ylim([-1.5 1.5])
+%         shg
+%         drawnow
+%     end
+    sparsetime(j)=toc;
+    if N==100
+        figure
+        [T,X]= meshgrid(t,x(2:end-1));
+        surf(T,X,U','edgecolor','none')
+        txt='Latex/FIGURES/P2_surf2';
+        saveas(gcf,txt,'epsc')
+    end
+end
+%%
+figure
+Nj=100:100:800;
+plot(Nj,time,'r*',Nj,sparsetime,'b*')
+legend('Non-Sparse','Sparse')
+grid on
+txt='Latex/FIGURES/P2_times';
+saveas(gcf,txt,'epsc')
+\end{verbatim}

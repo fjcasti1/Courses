@@ -1,0 +1,95 @@
+\begin{questions}
+\question{
+a) Find the solution $w$ of 
+\begin{align*}
+-\partial_x^2w(x)=2,~~~~~~0<x<1,\\
+w(0)=0=w(1).
+\end{align*}
+}
+\begin{solution}
+We can rewrite the PDE as
+\begin{align*}
+\partial_x^2w(x)=-2,~~~~~~0<x<1,\\
+w(0)=0=w(1),
+\end{align*}
+which clearly has a polynomial solution
+\begin{align*}
+w(x)=-x^2+C_1x+C_2.
+\end{align*}
+Imposing the boundary conditions
+\begin{align*}
+w(0)=C_2=0,\\
+w(1)=-1+C_1+C_2=-1+C_1=0,
+\end{align*}
+we get $C_1=1$ and $C_2=0$. Hence, the solution is
+\begin{align*}
+w(x)=x(1-x),~~~~~~x\in[0,1].
+\end{align*}
+\end{solution}
+\question{
+b) Suppose that $u$ is the solution to
+\begin{align*}
+(\partial_t-\partial_x^2)u&=2~~~~~~~~~~~~\text{on }(0,1)\times(0,\infty),\\
+u(0,t)&=0=u(1,t)~~~~~~~~~t\geq 0\\
+u(x,0)&=0~~~~~~~~~~~~~~~~~0\leq x\leq 1.
+\end{align*}
+Show that 
+\begin{align*}
+x(1-x)\left(1-e^{-8t}\right)\leq u(x,t)\leq x(1-x),~~~~x\in[0,1].
+\end{align*}
+}
+\begin{solution}
+Set $v(x,t)=x(1-x)$. Then
+\begin{align*}
+(\partial_t-\partial_x^2)v(x,t)=0-(-2)=2.
+\end{align*}
+Define $w(x,t)=u(x,t)-v(x,t)$. Then
+\begin{align*}
+(\partial_t-\partial_x^2)w(x,t)=(\partial_t-\partial_x^2)u(x,t)-(\partial_t-\partial_x^2)v(x,t)=2-2=0\leq 0,~~~~~~x\in[0,1],t\in(0,\infty).
+\end{align*}
+Further,
+\begin{align*}
+w(x,0)=u(x,0)-v(x,0)=0-x(1-x)=x(x-1)\leq 0,~~~~~~x\in[0,1],
+\end{align*}
+and
+\begin{align*}
+w(0,t)=u(0,t)-v(0,t)=0=u(1,t)-v(1,t)=w(1,t),~~~~~~t\in[0,\infty).
+\end{align*}
+Therefore, by \textsl{Theorem 5.11}, $w(x,t)\leq 0$ for all $x\in[0,1]$ and $t\in[0,\infty)$. Thus,
+\begin{align*}
+u(x,t)\leq v(x,t)=x(1-x),~~~~~~x\in[0,1].
+\end{align*}
+To prove the other side of the inequality we proceed similarly. Now set $v(x,t)=x(1-x)\left(1-e^{-8t}\right)$. Then
+\begin{align*}
+(\partial_t-\partial_x^2)v(x,t)&=8x(1-x)e^{-8t}+2\left(1-e^{-8t}\right)\\
+&=8x(1-x)e^{-8t}+2-2e^{-8t}.
+\end{align*}
+The function $f(x)=x(1-x)$ has a maximum at $x=\frac{1}{2}$ of value $\frac{1}{4}$. Therefore
+\begin{align*}
+(\partial_t-\partial_x^2)v(x,t)&=8x(1-x)e^{-8t}+2-2e^{-8t}\\
+&\leq 2e^{-8t}+2-2e^{-8t}\\
+&=2.
+\end{align*}
+Define $w(x,t)=v(x,t)-u(x,t)$. Then
+\begin{align*}
+(\partial_t-\partial_x^2)w(x,t)=(\partial_t-\partial_x^2)v(x,t)-(\partial_t-\partial_x^2)u(x,t)\leq 0,~~~~~~x\in[0,1],t\in(0,\infty).
+\end{align*}
+Further,
+\begin{align*}
+w(x,0)=v(x,0)-u(x,0)=x(1-x)(1-1)-0=0\leq 0,~~~~~~x\in[0,1],
+\end{align*}
+and
+\begin{align*}
+w(0,t)=v(0,t)-u(0,t)=0=v(1,t)-u(1,t)=w(1,t),~~~~~~t\in[0,\infty).
+\end{align*}
+Therefore, by \textsl{Theorem 5.11}, $w(x,t)\leq 0$ for all $x\in[0,1]$ and $t\in[0,\infty)$. Thus,
+\begin{align*}
+v(x,t)\leq u(x,t),
+x(1-x)\left(1-e^{-8t}\right)\leq u(x,t),~~~~~~x\in[0,1],t\in[0,\infty).
+\end{align*}
+Hence, we have proved that
+\begin{align*}
+x(1-x)\left(1-e^{-8t}\right)\leq u(x,t)\leq x(1-x),~~~~~~x\in[0,1],t\in[0,\infty).
+\end{align*}
+\end{solution}
+\end{questions}

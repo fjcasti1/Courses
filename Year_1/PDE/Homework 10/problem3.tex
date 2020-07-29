@@ -1,0 +1,53 @@
+\begin{questions}
+\question{
+Let $F:[0,L]\times[0,T)\rightarrow\R$ be continuous. Define
+\begin{align*}
+u(x,t)=\int_0^L\int_0^tG(x,y,t-s)F(y,s)dsdy,~~~~x\in[0,L],~t\in(0,T).
+\end{align*}
+Show: For every twice continuously differentiable function $\phi:[0,L]\rightarrow\R$ with $\phi(0)=0\phi(L)$, $\int_0^L\phi(x)u(x,t)dx$ is differentiable in $t\in(0,T)$ and
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx=\int_0^La\phi''(x)u(x,t)dx+\int_0^L\phi(x)F(x,t)dx,~~~~~~t\in(0,T).
+\end{align*}
+}
+\begin{solution}
+First, since given its definition, $u$ is continuous on $[0,L]\times(0,T)$ and $\phi$ is continuous, they satisfy the assumptions of the \textsl{Problem 5.4.2}. Therefore, the integral $\int_0^L\phi(x)u(x,t)dx$ is differentiable by the result of said problem. Define
+\begin{align*}
+v(y,t)=\int_0^L\phi(x)G(x,y,t)dx=\int_0^LG(y,z,t)\phi(z)dz,~~~~t>0,~y\in[0,L].
+\end{align*}
+Then,
+\begin{align*}
+\int_0^L\phi(x)u(x,t)dx&=\int_0^L\phi(x)\left(\int_0^L\int_0^tG(x,y,t-s)F(y,s)dsdy\right)dx\\
+&=\int_0^L\int_0^t\left(\int_0^LG(y,x,t-s)\phi(x)dx\right)F(y,s)dsdy\\
+&=\int_0^L\int_0^tv(y,t-s)F(y,s)dsdy,
+\end{align*}
+where we have used that $G(x,y,t)=G(y,x,t)$. Then,
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx&=\frac{d}{dt}\int_0^L\int_0^tv(y,t-s)F(y,s)dsdy\\
+&=\int_0^L\frac{\partial}{\partial t}\int_0^tv(y,t-s)F(y,s)dsdy.
+\end{align*}
+Using Leibniz rule,
+\begin{align*}
+\frac{\partial}{\partial t}\int_0^tv(y,t-s)F(y,s)ds=v(y,0)F(y,t)+\int_0^tF(y,s)\partial_tv(y,t-s)ds,
+\end{align*}
+where
+\begin{align*}
+\partial_tv(y,t-s)&=\partial_t\int_0^LG(y,z,t-s)\phi(z)dz=\int_0^La\phi''(z)G(y,z,t-s)dz
+\end{align*}
+by \textsl{Problem 5.3.4}. Putting all these pieces together we get
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx&=\int_0^L\frac{\partial}{\partial t}\int_0^tv(y,t-s)F(y,s)dsdy\\
+&=\int_0^L\left[v(y,0)F(y,t)+\int_0^tF(y,s)\left(\int_0^La\phi''(z)G(y,z,t-s)dz\right)ds\right]dy.
+\end{align*}
+Note that $v(y,0)=f(y)$ by \textsl{Proposition 5.18} and reorganize the terms
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx&=\int_0^L\phi(y)F(y,t)dy+\int_0^La\phi''(z)
+\left(\int_0^t\int_0^LG(z,y,t-s)F(y,s)dsdy\right)dz\\
+&=\int_0^L\phi(y)F(y,t)dy+\int_0^La\phi''(z)u(z,t)dz.
+\end{align*}
+Rewriting the integrals in terms of $x$ and reorganizing we obtain the desired result,
+\begin{align*}
+\frac{d}{dt}\int_0^L\phi(x)u(x,t)dx=\int_0^La\phi''(x)u(x,t)dx+\int_0^L\phi(x)F(x,t)dx.
+\end{align*}
+
+\end{solution}
+\end{questions}

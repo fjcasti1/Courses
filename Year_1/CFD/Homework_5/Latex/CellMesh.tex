@@ -1,0 +1,68 @@
+In the case of a cell based mesh we use a similar approach. Since the points of study are the centers of the cells, on the domain $-1\leq x\leq 1$, the points are located at $-\frac{h}{2}-1,-1+\frac{h}{2},-1+\frac{3h}{2},...,1-\frac{h}{2},1+\frac{h}{2}$, where the first and last points correspond to the ghost cells. Therefore, having $N$ elements we will have $N+2$ cell centers. To follow \textsc{Matlab} indices, $x_1=-1-\frac{h}{2}$, $x_2=-1+\frac{h}{2}$, and so on. The temperature values $T_i$ are the ones corresponding to the cell centered positions $x_i$. Hence, for $N$ elements we have $T_i$ values of tempereature, $i=1,2,...,T_{N+2}$, where $T_1$ and $T_{N+2}$ correspond to ghost cells. Like before we only need to solve for the interior of our vector $T$. The discretized PDE is the same as before
+\begin{align*}
+\left.\frac{\partial T}{\partial t}\right|_i^n=\alpha\left.\frac{\partial^2 T}{\partial x^2}\right|_i^n+q_i^n,
+\end{align*}
+where $n$ is a superscript and not a power. Note that, to follow \textsc{Matlab} indices, $i=1,2,...,N+2$. The boundary conditions in index form are expressed as
+\begin{align*}
+&T_{1+1/2}^n=\frac{T_1^n+T_2^n}{2}=2-\sin\left(\frac{3\pi}{2}t_n\right)=g^n~~\Rightarrow~~T_1^n=2g^n-T_2^n,\\
+&\left.\frac{\partial T}{\partial x}\right|_{N+1+1/2}^n=0~~\Rightarrow~~T_{N+2}^n=T_{N+1}^n,\\
+\end{align*}
+and the initial condition as $T_i^0=2$. In the time coordinate we don't follow \textsc{Matlab} indices since we are overwriting the solution, therefore there is no problem with the index $n=0$. Note that the point $T_{1+1/2}$ corresponds to the temperature value between the cells $1$ and $2$, between the ghost cell and the first cell of the domainat the boundary, i.e. at the boundary. Same thing for the other boundary. The code is going to work following this process: calculate tridiagonal vectors for the present time step, solve the tridiagonal system for the interior cells and obtain the solution for the interior in the next time step, update the ghost cells, recalculate the tridiagonal vectors and repeat. The Crank-Nicholson index equation, thanks to the index formulation chosen in both cases, is the same as in the previous section
+\begin{align*}
+-BT_{i-1}^{n+1}+(1+2B)T_i-BT_{i+1}^{n+1}=T_i^n+B\left(T_{i+1}^n-2T_{i}^n+T_{i-1}^n\right)+\frac{\Delta t}{2}\left(q_i^n+q_i^{n+1}\right),
+\end{align*}
+where $B$ is defined as above
+\begin{align*}
+B=\frac{\alpha\Delta t}{2h^2}.
+\end{align*}
+The index equation has the tridiagonal form that we were looking form
+\begin{align*}
+a_iT_{i-1}^{n+1}+b_iT_i+c_iT_{i+1}^{n+1}=d_i, i=1,...,N+2.
+\end{align*}
+
+We only need to solve this tridiagonal system for the interior nodes, $i=2,...,N+1$, since we have the ghost cells at $i = 1$ and $i = N + 2$. Therefore the vectors $a, b, c, d$ have dimension $N$, and will start at the first node of the interior. Hence, there is a $+1$ shift in the space index to account for this difference in size and the previous equation can be written as
+\begin{align*}
+-BT_{i}^{n+1}+(1+2B)T_{i+1}-BT_{i+2}^{n+1}=T_{i+1}^n+B\left(T_{i+2}^n-2T_{i+1}^n+T_{i}^n\right)+\frac{\Delta t}{2}\left(q_{i+1}^n+q_{i+1}^{n+1}\right),
+\end{align*}
+\begin{align*}
+a_iT_{i}^{n+1}+b_iT_{i+1}+c_iT_{i+2}^{n+1}=d_i,~~~~i=1,...,N.
+\end{align*}
+The vectors $a,b,c,d$ have dimension $N$ (whereas they had dimension $N-1$ in the node based mesh). Hence,
+\begin{align*}
+&a_i=-B,\\
+&b_i=1+2B,\\
+&c_i=-B,\\
+d_i=T_{i+1}^n+&B\left(T_{i+2}^n-2T_{i+1}^n+T_{i}^n\right)+\frac{\Delta t}{2}\left(q_{i+1}^n+q_{i+1}^{n+1}\right).
+\end{align*}
+for $i=2,...,N-1$. To obtain the values of the tridiagonal vector at the first and last cell we solve the equation at those locations.
+\begin{itemize}
+\item Solve for $i=1$.
+\begin{align*}
+-BT_{1}^{n+1}+(1+2B)T_2^{n+1}-BT_{3}^{n+1}&=T_2^n+B\left(T_{3}^n-2T_{2}^n+T_{1}^n\right)+\frac{\Delta t}{2}\left(q_2^n+q_2^{n+1}\right),\\
+-2Bg^{n+1}+BT_2^{n+1}+(1+2B)T_2^{n+1}-BT_{3}^{n+1}&=T_2^n+B\left(T_{3}^n-2T_{2}^n+2g^n-T_2^n\right)+\frac{\Delta t}{2}\left(q_2^n+q_2^{n+1}\right),\\
+(1+3B)T_2^{n+1}-BT_{3}^{n+1}&=T_2^n+B\left(T_{3}^n-3T_{2}^n+2g^n+2g^{n+1}\right)+\frac{\Delta t}{2}\left(q_2^n+q_2^{n+1}\right),
+\end{align*}
+where we have used that $T_1^n=2g^n-T_2^n$ and $T_1^{n+1}=2g^{n+1}-T_2{n+1}$. Hence,
+\begin{align*}
+&a_1=0,\\
+&b_1=1+3B,\\
+&c_1=-B,\\
+d_1=T_2^n+&B\left(T_{3}^n-3T_{2}^n+2g^n+2g^{n+1}\right)+\frac{\Delta t}{2}\left(q_2^n+q_2^{n+1}\right).
+\end{align*}
+However, since $a_1$ does not affect the solution, there is no need to change its value.
+\item Solve for $i=N$.
+\begin{align*}
+-BT_{N}^{n+1}+(1+2B)T_{N+1}^{n+1}-BT_{N+2}^{n+1}=T_{N+1}^n+B\left(T_{N+2}^n-2T_{N+1}^n+T_{N}^n\right)+\frac{\Delta t}{2}\left(q_{N+1}^n+q_{N+1}^{n+1}\right),\\
+-BT_{N}^{n+1}+(1+2B)T_{N+1}^{n+1}-BT_{N+1}^{n+1}=T_{N+1}^n+B\left(T_{N+1}^n-2T_{N+1}^n+T_{N}^n\right)+\frac{\Delta t}{2}\left(q_{N+1}^n+q_{N+1}^{n+1}\right),\\
+-BT_{N}^{n+1}+(1+B)T_{N+1}^{n+1}=T_{N+1}^n+B\left(-T_{N+1}^n+T_{N}^n\right)+\frac{\Delta t}{2}\left(q_{N+1}^n+q_{N+1}^{n+1}\right),
+\end{align*}
+where we have used that $T_{N+2}=T_{N+1}$. Hence,
+\begin{align*}
+&a_{N}=-B,\\
+&b_{N}=1+B,\\
+&c_{N}=0,\\
+d_{N}=T_{N+1}^n+&B\left(-T_{N+1}^n+T_{N}^n\right)+\frac{\Delta t}{2}\left(q_{N+1}^n+q_{N+1}^{n+1}\right).
+\end{align*}
+However, since $c_{N}$ does not affect the solution, there is no need to change its value.
+\end{itemize}
+The values specified in both the node base mesh and the cell based mesh will be implemented in \textsc{Matlab} to obtain the solutions.

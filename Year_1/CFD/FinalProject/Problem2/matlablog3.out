@@ -1,0 +1,171 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2016 The MathWorks, Inc.
+                   R2016a (9.0.0.341360) 64-bit (glnxa64)
+                             February 11, 2016
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+>> >> >> >> >> >> >> >> >> Starting parallel pool (parpool) using the 'local' profile ... connected to 4 workers.
+ 
+--> STARTED Movie Simulation with M=64, N=128, CFL=0.8 and design number 2
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 2 has reached time=1, and having a InfNorm(rhs)=4.0414e-06. Elapsed time is 0 hours, 3 minutes and 54.752 seconds.
+ 
+--> STARTED Movie Simulation with M=64, N=128, CFL=0.8 and design number 3
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 3 has reached time=1, and having a InfNorm(rhs)=4.0414e-06. Elapsed time is 0 hours, 3 minutes and 56.9365 seconds.
+ 
+--> STARTED Movie Simulation with M=64, N=128, CFL=0.8 and design number 1
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 1 has reached time=1, and having a InfNorm(rhs)=4.2876e-06. Elapsed time is 0 hours, 4 minutes and 11.3375 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 5 minutes and 54.1375 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 6 minutes and 25.1592 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 6 minutes and 34.7002 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 11 minutes and 24.6624 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 11 minutes and 49.4473 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 3 has reached time=3, and having a InfNorm(rhs)=4.4793e-06. Elapsed time is 0 hours, 11 minutes and 54.2557 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 2 has reached time=3, and having a InfNorm(rhs)=4.3555e-06. Elapsed time is 0 hours, 12 minutes and 1.5228 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 12 minutes and 12.898 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 1 has reached time=3, and having a InfNorm(rhs)=2.5016e-06. Elapsed time is 0 hours, 12 minutes and 13.8248 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 16 minutes and 58.0586 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 17 minutes and 26.3246 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 17 minutes and 33.2018 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 3 has reached time=5, and having a InfNorm(rhs)=7.4062e-06. Elapsed time is 0 hours, 19 minutes and 38.3867 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 2 has reached time=5, and having a InfNorm(rhs)=7.1755e-06. Elapsed time is 0 hours, 19 minutes and 55.3871 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 1 has reached time=5, and having a InfNorm(rhs)=7.5724e-06. Elapsed time is 0 hours, 20 minutes and 1.1242 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 22 minutes and 23.2509 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 22 minutes and 51.7877 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 22 minutes and 54.554 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 27 minutes and 37.6798 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 27 minutes and 56.706 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 28 minutes and 6.3815 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 32 minutes and 53.0282 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 33 minutes and 11.2133 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 33 minutes and 13.5398 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 38 minutes and 5.2839 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 38 minutes and 25.607 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 38 minutes and 34.5592 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 43 minutes and 22.3691 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 43 minutes and 37.7257 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 43 minutes and 50.7651 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 48 minutes and 27.8945 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 48 minutes and 47.4738 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 49 minutes and 9.3013 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 53 minutes and 45.3319 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 53 minutes and 56.7581 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 54 minutes and 21.435 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 3 has reached time=15, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 0 hours, 57 minutes and 9.2515 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 2 has reached time=15, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 0 hours, 57 minutes and 48.2814 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 1 has reached time=15, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 0 hours, 57 minutes and 49.5817 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 59 minutes and 3.4617 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 59 minutes and 21.3193 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 59 minutes and 37.8148 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 4 minutes and 20.1498 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 4 minutes and 34.5992 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 4 minutes and 52.071 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6500 iterations. Time step=0.0027903. Elapsed time is 1 hours, 9 minutes and 40.5756 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6500 iterations. Time step=0.0027903. Elapsed time is 1 hours, 9 minutes and 46.1832 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6500 iterations. Time step=0.0027903. Elapsed time is 1 hours, 10 minutes and 6.3304 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 7000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 14 minutes and 52.1668 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 7000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 14 minutes and 53.213 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 7000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 15 minutes and 25.3545 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 3 has reached time=20, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 1 hours, 16 minutes and 2.1579 seconds.
+ 
+--> FINISHED Movie Simulation with M=64, N=128, CFL=0.8 and design number 3 obtaining T=0.48161
+Elapsed time is 1 hours, 16 minutes and 19.0345 seconds.
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 2 has reached time=20, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 1 hours, 16 minutes and 45.3706 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 1 has reached time=20, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 1 hours, 16 minutes and 52.738 seconds.
+ 
+--> FINISHED Movie Simulation with M=64, N=128, CFL=0.8 and design number 2 obtaining T=0.48167
+Elapsed time is 1 hours, 16 minutes and 59.8732 seconds.
+ 
+ 
+--> FINISHED Movie Simulation with M=64, N=128, CFL=0.8 and design number 1 obtaining T=0.48229
+Elapsed time is 1 hours, 17 minutes and 5.7469 seconds.
+ 
+>> >> >> >>  
+--> STARTED Movie Simulation with M=64, N=128, CFL=0.8 and design number 6
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 6 has reached time=1, and having a InfNorm(rhs)=4.0414e-06. Elapsed time is 0 hours, 3 minutes and 42.7072 seconds.
+ 
+--> STARTED Movie Simulation with M=64, N=128, CFL=0.8 and design number 5
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 5 has reached time=1, and having a InfNorm(rhs)=4.0414e-06. Elapsed time is 0 hours, 3 minutes and 45.3698 seconds.
+ 
+--> STARTED Movie Simulation with M=64, N=128, CFL=0.8 and design number 4
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 4 has reached time=1, and having a InfNorm(rhs)=4.0414e-06. Elapsed time is 0 hours, 3 minutes and 44.8977 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 500 iterations. Time step=0.0033311. Elapsed time is 0 hours, 6 minutes and 15.8596 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 500 iterations. Time step=0.0033311. Elapsed time is 0 hours, 6 minutes and 23.7028 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 500 iterations. Time step=0.0033311. Elapsed time is 0 hours, 6 minutes and 23.4168 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 6 has reached time=3, and having a InfNorm(rhs)=7.6449e-06. Elapsed time is 0 hours, 11 minutes and 0.13774 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 5 has reached time=3, and having a InfNorm(rhs)=3.2979e-06. Elapsed time is 0 hours, 11 minutes and 26.4282 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 4 has reached time=3, and having a InfNorm(rhs)=4.1959e-06. Elapsed time is 0 hours, 11 minutes and 27.4465 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 11 minutes and 56.8904 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1000 iterations. Time step=0.0025653. Elapsed time is 0 hours, 11 minutes and 56.7523 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 12 minutes and 8.5721 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 17 minutes and 23.9201 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 17 minutes and 25.1698 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 1500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 17 minutes and 34.602 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 6 has reached time=5, and having a InfNorm(rhs)=2.6539e-06. Elapsed time is 0 hours, 18 minutes and 58.7403 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 5 has reached time=5, and having a InfNorm(rhs)=9.5143e-06. Elapsed time is 0 hours, 19 minutes and 20.1431 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 4 has reached time=5, and having a InfNorm(rhs)=8.332e-06. Elapsed time is 0 hours, 19 minutes and 23.636 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 22 minutes and 52.9494 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 22 minutes and 54.7729 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 23 minutes and 0.59859 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 28 minutes and 7.3677 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 28 minutes and 17.0597 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 2500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 28 minutes and 17.9739 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 33 minutes and 21.9222 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 33 minutes and 24.0674 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3000 iterations. Time step=0.0025653. Elapsed time is 0 hours, 33 minutes and 26.3663 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 38 minutes and 28.8759 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 38 minutes and 40.7043 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 3500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 38 minutes and 47.2024 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 43 minutes and 40.8836 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 43 minutes and 56.1155 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 44 minutes and 2.3343 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 48 minutes and 56.5435 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 49 minutes and 16.4872 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 4500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 49 minutes and 18.7556 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 53 minutes and 57.5721 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5000 iterations. Time step=0.0025653. Elapsed time is 0 hours, 54 minutes and 12.3634 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5000 iterations. Time step=0.0027903. Elapsed time is 0 hours, 54 minutes and 20.0293 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 6 has reached time=15, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 0 hours, 56 minutes and 7.3504 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 5 has reached time=15, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 0 hours, 56 minutes and 42.8894 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 4 has reached time=15, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 0 hours, 56 minutes and 52.0764 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5500 iterations. Time step=0.0025653. Elapsed time is 0 hours, 58 minutes and 32.4447 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 58 minutes and 58.073 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 5500 iterations. Time step=0.0027903. Elapsed time is 0 hours, 58 minutes and 58.7239 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 3 minutes and 4.6398 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 3 minutes and 31.4716 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 3 minutes and 32.0197 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6500 iterations. Time step=0.0027903. Elapsed time is 1 hours, 7 minutes and 32.7817 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6500 iterations. Time step=0.0027903. Elapsed time is 1 hours, 8 minutes and 2.1055 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 6500 iterations. Time step=0.0027903. Elapsed time is 1 hours, 8 minutes and 4.001 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 7000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 12 minutes and 3.5855 seconds.
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 6 has reached time=20, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 1 hours, 12 minutes and 23.4368 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 7000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 12 minutes and 29.2726 seconds.
+Movie Simulation with M=64, N=128 and CFL=0.8 has performed 7000 iterations. Time step=0.0027903. Elapsed time is 1 hours, 12 minutes and 33.7593 seconds.
+ 
+--> FINISHED Movie Simulation with M=64, N=128, CFL=0.8 and design number 6 obtaining T=0.48173
+Elapsed time is 1 hours, 12 minutes and 36.6069 seconds.
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 5 has reached time=20, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 1 hours, 12 minutes and 57.7112 seconds.
+ 
+--> FINISHED Movie Simulation with M=64, N=128, CFL=0.8 and design number 5 obtaining T=0.48167
+Elapsed time is 1 hours, 13 minutes and 9.7577 seconds.
+ 
+Movie Simulation with M=64, N=128, CFL=0.8 and design number 4 has reached time=20, and having a InfNorm(rhs)=7.6492e-06. Elapsed time is 1 hours, 13 minutes and 11.0698 seconds.
+ 
+--> FINISHED Movie Simulation with M=64, N=128, CFL=0.8 and design number 4 obtaining T=0.48162
+Elapsed time is 1 hours, 13 minutes and 22.7122 seconds.
+ 
+>> >> >> >> >> >> >> 

@@ -1,0 +1,180 @@
+\subsection{Step 1}
+Let's start by rewriting our ADI equation for the Step 1 (given in class 13 slide 13), for an staggered mesh for the horizontal velocity $u$:
+\begin{align*}
+-d_1u_{i-1/2,j}^{n+1/2}+(1+2d_1)u_{i+1/2,j}^{n+1/2}-d_1u_{i+3/2,j}^{n+1/2}=d_2u_{i+1/2,j+1}^{n}+(1-2d_2)u_{i+1/2,j}^{n}+d_2u_{i+1/2,j-1}^{n},
+\end{align*}
+which has the form 
+\begin{align*}
+au_{i-1/2,j}^{n+1/2}+bu_{i+1/2,j}^{n+1/2}+cu_{i+3/2,j}^{n+1/2}=d,
+\end{align*}
+a tridiagonal system. The staggered mesh for $u$ gives us a matrix $u$ that is $(M+1)\times(N+2)$. We only need to solve the previous equation for the interior with two $for$ loops in \textsl{Matlab},
+\begin{verbatim}
+for j=2:N+1
+for i=2:M
+		...
+	end
+end
+\end{verbatim}.
+We will now include the boundary conditions for each case.
+\subsubsection*{Case $j=2$ and $i=2$}
+In this case the general equation becomes
+\begin{align*}
+-d_1u_{3/2,2}^{n+1/2}+(1+2d_1)u_{5/2,2}^{n+1/2}-d_1u_{7/2,2}^{n+1/2}=d_2u_{5/2,3}^{n}+(1-2d_2)u_{5/2,2}^{n}+d_2u_{5/2,1}^{n}.
+\end{align*}
+Note that I will be using \textsl{Maltab} indices, so the first index is $1$. Since we know that $u_{3/2,2}^{n+1/2}=0$ since it corresponds to the left wall, we can then impose that $a(1)=0$. The value $u_{5/2,1}$ will also be determined by the boundary conditions. Since it is a cell-like boundary conditions in this case, we can impose it by updating the ghost cells. Thus, $d(1)$ is the right hand side of the previous equation.
+
+\subsubsection*{Case $j=2$ and $i\in [3,M-1]$}
+In this case the general equation becomes
+\begin{align*}
+-d_1u_{i-1/2,2}^{n+1/2}+(1+2d_1)u_{i+1/2,2}^{n+1/2}-d_1u_{i+3/2,2}^{n+1/2}=d_2u_{i+1/2,3}^{n}+(1-2d_2)u_{i+1/2,2}^{n}+d_2u_{i+1/2,1}^{n}.
+\end{align*}
+Like in the previous case, the value $u_{i+1/2,1}$ will also be determined by the boundary conditions. Since it is a cell-like boundary conditions in this case, we can impose it by updating the ghost cells. Thus, $d$ is the right hand side of the previous equation.
+
+\subsubsection*{Case $j=2$ and $i=M$}
+In this case the general equation becomes
+\begin{align*}
+-d_1u_{M-1/2,2}^{n+1/2}+(1+2d_1)u_{M+1/2,2}^{n+1/2}-d_1u_{M+3/2,2}^{n+1/2}=d_2u_{M+1/2,3}^{n}+(1-2d_2)u_{M+1/2,2}^{n}+d_2u_{M+1/2,1}^{n}.
+\end{align*}
+In this case we can see that the value $u_{M+3/2,2}^{n+1/2}$ corresponds to the horizontal velocity at the right wall, hence it is zero and so it is $c$ in this case. Like in the previous case, the value $u_{M+1/2,1}$ will also be determined by the boundary conditions. Since it is a cell-like boundary condition in this case, we can impose it by updating the ghost cells. Thus, $d$ is the right hand side of the previous equation.
+
+\subsubsection*{Case $j\in[3,N]$ and $i=2$}
+In this case the general equation becomes
+\begin{align*}
+-d_1u_{3/2,j}^{n+1/2}+(1+2d_1)u_{5/2,j}^{n+1/2}-d_1u_{7/2,j}^{n+1/2}=d_2u_{5/2,j+1}^{n}+(1-2d_2)u_{5/2,j}^{n}+d_2u_{5/2,j-1}^{n}.
+\end{align*}
+In this case the value $u_{3/2,j}^{n+1/2}$ corresponds to the horizontal velocity at the left wall. Since its value will depend on $j$ because of the inlet 1, it will be moved to the right hand side, getting
+\begin{align*}
+(1+2d_1)u_{5/2,j}^{n+1/2}-d_1u_{7/2,j}^{n+1/2}=d_2u_{5/2,j+1}^{n}+(1-2d_2)u_{5/2,j}^{n}+d_2u_{5/2,j-1}^{n}+d_1u_{3/2,j}^{n+1/2},
+\end{align*}
+which makes $a=0$ for this case and $d$ being the right hand side of the previous equation.
+
+\subsubsection*{Case $j\in[3,N]$ and $i\in[3,M-1]$}
+In this case the general equation does not include any boundary conditions, therefore it is unaltered.
+\subsubsection*{Case $j\in[3,N]$ and $i=M$}
+In this case the general equation becomes
+\begin{align*}
+-d_1u_{M-1/2,j}^{n+1/2}+(1+2d_1)u_{M+1/2,j}^{n+1/2}-d_1u_{M+3/2,j}^{n+1/2}=d_2u_{M+1/2,j+1}^{n}+(1-2d_2)u_{M+1/2,j}^{n}+d_2u_{M+1/2,j-1}^{n}.
+\end{align*}
+Like before the value of $u_{M+3/2,j}^{n+1/2}$ will depend on the value of $j$ because of the inlet 2. Therefore we will move it to the right hand side and get
+\begin{align*}
+-d_1u_{M-1/2,j}^{n+1/2}+(1+2d_1)u_{M+1/2,j}^{n+1/2}=d_2u_{M+1/2,j+1}^{n}+(1-2d_2)u_{M+1/2,j}^{n}+d_2u_{M+1/2,j-1}^{n}+d_1u_{M+3/2,j}^{n+1/2},
+\end{align*}
+which gives us, for this case, $c=0$ and $d$ being the right hand side of the previous equation.
+
+\subsubsection*{Case $j=N+1$ and $i=2$}
+In this case the general equation becomes
+\begin{align*}
+-d_1u_{3/2,N+1}^{n+1/2}+(1+2d_1)u_{5/2,N+1}^{n+1/2}-d_1u_{7/2,N+1}^{n+1/2}=d_2u_{5/2,N+2}^{n}+(1-2d_2)u_{5/2,N+1}^{n}+d_2u_{5/2,N}^{n}.
+\end{align*}
+In this case the value of $u_{3/2,N+1}^{n+1/2}$ corresponds to the horizontal velocity at the left wall, which is zero imposed by the boundary conditions. This implies that $a=0$ for this case. The value of $u_{5/2,N+2}^{n}$ will be determined by the boundary conditions as well. Since it is a cell-like boundary condition in this case, we can impose it by updating the ghost cells. Thus, $d$ is the right hand side of the previous equation.
+
+\subsubsection*{Case $j=N+1$ and $i\in[3,M-1]$}
+\begin{align*}
+-d_1u_{i-1/2,N+1}^{n+1/2}+(1+2d_1)u_{i+1/2,N+1}^{n+1/2}-d_1u_{i+3/2,N+1}^{n+1/2}=d_2u_{i+1/2,N+2}^{n}&+(1-2d_2)u_{i+1/2,N+1}^{n}\\&+d_2u_{i+1/2,N}^{n},
+\end{align*}
+Like in the previous case, the value of $u_{i+1/2,N+2}^{n}$ will be determined by the boundary conditions as well. Since it is a cell-like boundary condition in this case, we can impose it by updating the ghost cells. Thus, $d$ is the right hand side of the previous equation. We will see how its value does not depend on the value of $i$ since the horizontal velocity in the inlet 3 is zero.
+
+\subsubsection*{Case $j=N+1$ and $i=M$}
+\begin{align*}
+-d_1u_{M-1/2,N+1}^{n+1/2}+(1+2d_1)u_{M+1/2,N+1}^{n+1/2}-d_1u_{M+3/2,N+1}^{n+1/2}=d_2u_{M+1/2,N+2}^{n}&+(1-2d_2)u_{M+1/2,N+1}^{n}\\&+d_2u_{M+1/2,N}^{n},
+\end{align*}
+In this case the value of $u_{M+3/2,N+1}^{n+1/2}$ corresponds to the horizontal velocity at the right wall, imposed to be zero by the boundary conditions. Therefore $c=0$ for this case. The value of $u_{M+1/2,N+2}^{n}$ will be determined by the boundary conditions as well. Since it is a cell-like boundary condition in this case, we can impose it by updating the ghost cells.
+
+\subsection{Step 2}
+We start by rewriting our ADI equation for the Step 2 (given in class 13 slide 14), for an staggered mesh for the horizontal velocity $u$:
+\begin{align*}
+-d_2u_{i+1/2,j-1}^{n+1}+(1+2d_2)u_{i+1/2,j}^{n+1}-d_2u_{i+1/2,j+1}^{n+1}=d_1u_{i+3/2,j}^{n+1/2}+(1-2d_1)u_{i+1/2,j}^{n+1/2}+d_1u_{i-1/2,j}^{n+1/2}
+\end{align*}
+which has the form 
+\begin{align*}
+au_{i+1/2,j-1}^{n+1}+bu_{i+1/2,j}^{n+1}+cu_{i+1/2,j+1}^{n+1}=d
+\end{align*}
+a tridiagonal system. The staggered mesh for $u$ gives us a matrix $u$ that is $(M+1)\times(N+2)$. We only need to solve the previous equation for the interior with two $for$ loops in \textsl{Matlab},
+\begin{verbatim}
+for j=2:M
+for i=2:N+1
+		...
+	end
+end
+\end{verbatim}.
+We will now include the boundary conditions for each case.
+\subsubsection*{Case $i=2$ and $j=2$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{5/2,1}^{n+1}+(1+2d_2)u_{5/2,2}^{n+1}-d_2u_{5/2,3}^{n+1}=d_1u_{7/2,2}^{n+1/2}+(1-2d_1)u_{5/2,2}^{n+1/2}+d_1u_{3/2,2}^{n+1/2}.
+\end{align*}
+The value of $u_{5/2,1}^{n+1}$ does not correspond to the interior and will be determined by the boundary conditions to be $-u_{5/2,2}^{n+1}$. Since it is a cell-like boundary condition in this case, we can impose it by updating the ghost cells. The value of $u_{3/2,2}^{n+1/2}$ corresponds to the left wall and it is then imposed to be zero. The previous equation then gives us
+\begin{align*}
+(1+3d_2)u_{5/2,2}^{n+1}-d_2u_{5/2,3}^{n+1}=d_1u_{7/2,2}^{n+1/2}+(1-2d_1)u_{5/2,2}^{n+1/2}.
+\end{align*}
+
+Thus, for this case $a=0$, $b=1+3d_2$ and $d$ is given by the right hand side. 
+
+\subsubsection*{Case $i=2$ and $j\in[3,N]$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{5/2,j-1}^{n+1}+(1+2d_2)u_{5/2,j}^{n+1}-d_2u_{5/2,j+1}^{n+1}=d_1u_{7/2,j}^{n+1/2}+(1-2d_1)u_{5/2,j}^{n+1/2}+d_1u_{3/2,j}^{n+1/2}.
+\end{align*}
+The value of $u_{3/2,j}^{n+1/2}$ corresponds to the left wall and it is then imposed to be zero and $d$ is given by the right hand side. 
+
+\subsubsection*{Case $i=2$ and $j=N+1$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{5/2,N}^{n+1}+(1+2d_2)u_{5/2,N+1}^{n+1}-d_2u_{5/2,N+2}^{n+1}=d_1u_{7/2,N+1}^{n+1/2}+(1-2d_1)u_{5/2,N+1}^{n+1/2}+d_1u_{3/2,N+1}^{n+1/2}.
+\end{align*}
+The value of $u_{3/2,N+1}^{n+1/2}$ corresponds to the left wall and it is then imposed to be zero. The value of $u_{5/2,N+2}^{n+1}=-u_{5/2,N+1}^{n+1}$ by the boundary conditions. Thus, for this case $c=0$, $b=1+3d_2$ and $d$ is given by the right hand side. 
+
+\subsubsection*{Case $i\in[3,M-1]$ and $j=2$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{i+1/2,1}^{n+1}+(1+2d_2)u_{i+1/2,2}^{n+1}-d_2u_{i+1/2,3}^{n+1}=d_1u_{i+3/2,2}^{n+1/2}+(1-2d_1)u_{i+1/2,2}^{n+1/2}+d_1u_{i-1/2,2}^{n+1/2}.
+\end{align*}
+By the boundary conditions, $u_{i+1/2,1}^{n+1}=-u_{i+1/2,2}^{n+1}$ and the previous equation yields
+\begin{align*}
+(1+3d_2)u_{i+1/2,2}^{n+1}-d_2u_{i+1/2,3}^{n+1}=d_1u_{i+3/2,2}^{n+1/2}+(1-2d_1)u_{i+1/2,2}^{n+1/2}+d_1u_{i-1/2,2}^{n+1/2}.
+\end{align*}
+Thus, for this case $a=0$, $b=1+3d_2$ and $d$ is given by the right hand side.
+\subsubsection*{Case $i\in[3,M-1]$ and $j\in[3,N]$}
+In this case the general equation does not include any boundary conditions, therefore it is unaltered.
+
+\subsubsection*{Case $i\in[3,M-1]$ and $j=N+1$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{i+1/2,N}^{n+1}+(1+2d_2)u_{i+1/2,N+1}^{n+1}-d_2u_{i+1/2,N+2}^{n+1}=d_1u_{i+3/2,N+1}^{n+1/2}&+(1-2d_1)u_{i+1/2,N+1}^{n+1/2}\\&+d_1u_{i-1/2,N+1}^{n+1/2}.
+\end{align*}
+By the boundary conditions, $u_{i+1/2,N+2}^{n+1}=-u_{i+1/2,N+1}^{n+1}$ and the previous equation yields
+\begin{align*}
+-d_2u_{i+1/2,N}^{n+1}+(1+3d_2)u_{i+1/2,N+1}^{n+1}=d_1u_{i+3/2,N+1}^{n+1/2}+(1-2d_1)u_{i+1/2,N+1}^{n+1/2}+d_1u_{i-1/2,N+1}^{n+1/2}.
+\end{align*}
+Thus, for this case $c=0$, $b=1+3d_2$ and $d$ is given by the right hand side.
+
+
+
+\subsubsection*{Case $i=M$ and $j=2$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{M+1/2,1}^{n+1}+(1+2d_2)u_{M+1/2,2}^{n+1}-d_2u_{M+1/2,3}^{n+1}=d_1u_{M+3/2,2}^{n+1/2}+(1-2d_1)u_{M+1/2,2}^{n+1/2}+d_1u_{M-1/2,2}^{n+1/2}.
+\end{align*}
+By the boundary conditions, $u_{M+1/2,1}^{n+1}=-u_{M+1/2,2}^{n+1}$ and $u_{M+3/2,2}^{n+1/2}=0$ since it corresponds to the right wall. The previous equation yields
+\begin{align*}
+(1+3d_2)u_{M+1/2,2}^{n+1}-d_2u_{M+1/2,3}^{n+1}=(1-2d_1)u_{M+1/2,2}^{n+1/2}+d_1u_{M-1/2,2}^{n+1/2}.
+\end{align*}
+Thus, for this case $a=0$, $b=1+3d_2$ and $d$ is given by the right hand side.
+
+\subsubsection*{Case $i=M$ and $j\in[3,N]$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{M+1/2,j-1}^{n+1}+(1+2d_2)u_{M+1/2,j}^{n+1}-d_2u_{M+1/2,j+1}^{n+1}=d_1u_{M+3/2,j}^{n+1/2}+(1-2d_1)u_{M+1/2,j}^{n+1/2}+d_1u_{M-1/2,j}^{n+1/2}
+\end{align*}
+The value of $u_{M+3/2,j}^{n+1/2}$ depends on $j$ because of inlet 2. It will be imposed by the corresponding boundary condition in the code. In this case, $d$ is given by the right hand side.
+
+\subsubsection*{Case $i=M$ and $j=N+1$}
+In this case the general equation becomes
+\begin{align*}
+-d_2u_{M+1/2,N}^{n+1}+(1+2d_2)u_{M+1/2,N+1}^{n+1}-d_2u_{M+1/2,N+2}^{n+1}=d_1u_{M+3/2,N+1}^{n+1/2}&+(1-2d_1)u_{M+1/2,N+1}^{n+1/2}\\&+d_1u_{M-1/2,N+1}^{n+1/2}
+\end{align*}
+By the boundary conditions, $u_{M+1/2,N+2}^{n+1}=-u_{M+1/2,N+1}^{n+1}$ and $u_{M+3/2,N+1}^{n+1/2}=0$ since it corresponds to the right wall. The previous equation yields
+\begin{align*}
+-d_2u_{M+1/2,N}^{n+1}+(1+3d_2)u_{M+1/2,N+1}^{n+1}=(1-2d_1)u_{M+1/2,N+1}^{n+1/2}+d_1u_{M-1/2,N+1}^{n+1/2}.
+\end{align*}
+Thus, for this case $c=0$, $b=1+3d_2$ and $d$ is given by the right hand side.

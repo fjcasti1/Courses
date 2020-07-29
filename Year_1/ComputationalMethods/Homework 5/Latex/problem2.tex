@@ -1,0 +1,618 @@
+\textbf{Consider the wave propagation PDE solved in HW 3,}
+\begin{align*}
+u_t&=p_x,\\
+p_t&=u_x,\quad x\in(0,\pi),t>0,
+\end{align*}
+\textbf{with boundary conditions $u(t,0)=u(t,\pi)=0$ and initial conditions $u(0,x)=e^{-30(x-\pi/2)^2}$ and $p(0,x)=0$.}
+\vskip.00005in
+\noindent\rule{\textwidth}{1pt}
+\vspace{0.1in}
+\begin{enumerate}
+\item[a)] \textbf{Show that the eigenvalues of the differential operator $\mathcal{L}$ are integers in the imaginary axis.}
+
+\proof By making use of the PDE,
+\begin{align*}
+u_{xx}=\lambda p_x=\lambda^2u.
+\end{align*}
+Let $\lambda^2=-k^2$. Then, 
+\begin{align*}
+u=A\cos(kx)+iB\sin(kx).
+\end{align*}
+Applying the boundary conditions,
+\begin{align*}
+u(t,0)=A=0,
+\end{align*}
+and
+\begin{align*}
+u(t,\pi)=iB\sin(k\pi)=0,
+\end{align*}
+which implies either $B=0$ (trivial solution) or $\sin(k\pi)=0$. Hence we get
+\begin{align*}
+k=0,\pm 1,\pm 2,...~\Rightarrow~\lambda=0,\pm i,\pm 2i,...
+\end{align*}
+since $\lambda=\pm\sqrt{-k^2}=\pm k i$.
+
+\item[b)] \textbf{Consider the finite difference discretization used in HW3 for the spatial derivatives. The eigenvectors of the discrete FD matrix are}
+$$
+V^k=\begin{bmatrix}i\sin(kx_1)\\i\sin(kx_2)\\\vdots\\i\sin(kx_{N-1})\\cos(kx_{1/2})\\cos(kx_{3/2})\\\vdots\\cos(kx_{N-1/2})\\\end{bmatrix},\quad k=-(N-1),\ldots, -1, 0, 1, \ldots, N-1.
+$$
+\textbf{Find the analytical expression for the eigenvalues and check it with \texttt{eig(M)} in \textsl{Matlab}.}
+
+From the matrix $M$ given and the $k$-th eigenvector above, we can compute $MV^k$,
+\begin{align*}
+MV^k = \begin{cases} 
+-V_{j+N-1}^k + V_{j+n}^k & j \leq N-1 \\
+V_1^k & j=N \\
+-V_{j-N}^k + V_{j-N+1}^k & N+1 \leq j < 2N-1 \\
+-V_{N-1}^k & j = 2N-1
+\end{cases}~,
+\end{align*}
+where $V^k$ represents the $k$-th eigenvector, and $j$ is the column inside the vector. From here we can solve for the eigenvalues for the different values of $j$. Let $j \leq N-1$. Then,
+\begin{align*}
+MV^k &= \frac{1}{h}\left[-V_{j+N-1}^k + V_{j+n}^k\right] \\ 
+&= -\cos(kx_{j-1/2}) + \cos(kx_{j+1/2}) \\
+& = -\cos\left(k\left(j-\frac{1}{2}\right)h\right)+\cos\left(k\left(j+\frac{1}{2}\right)h\right) \\
+& = -2\sin(kjh)\sin\left(k\frac{h}{2}\right),
+\end{align*}
+where we have used the identity $\cos(a+b) - \cos(a - b) = -2\sin(a)(b)$. Then, since we are looking for the eigenvalue that satisfies $MV^k=\lambda^kV^k$, we have
+\begin{align*}
+&-2\sin(kjh)\sin\left(k\frac{h}{2}\right) = ih\sin(kjh)\lambda_j \\ &\Rightarrow \lambda_j^k = \frac{2i}{h}\sin\left(k\frac{h}{2}\right)=\lambda^k.
+\end{align*}
+Note that the $k$-th eigenvalue does not depend on $j$. This is the desired result since the $k$-th eigenvalue is the same for the each entry of the $k$-th eigenvector. 
+
+Next let $j = N$. Then,
+\begin{align*}
+& MV^k = \frac{1}{h}V_1^k = \frac{i}{h}\sin(kh)~,
+\end{align*}
+and
+\begin{align*}
+& \lambda_N^kV^k = \lambda^k_N\cos(kx_{1/2}) = \lambda^k_N\cos\left(k\frac{h}{2}\right)~,
+\end{align*}
+which implies
+\begin{align*}
+& \frac{i}{h}\sin(kh) = \lambda^k_N\cos\left(k\frac{h}{2}\right) \\
+& \Rightarrow i\sin(kh) = \lambda^k_Nh\cos\left(k\frac{h}{2}\right) \\
+& \Rightarrow 2i\sin\left(k\frac{h}{2}\right)\cos\left(k\frac{h}{2}\right) = \lambda^k_Nh \cos\left(k\frac{h}{2}\right) \\
+& \Rightarrow \lambda^k_N =\frac{2i}{h}\sin\left(k\frac{h}{2}\right)=\lambda^k.
+\end{align*}
+Now, let $j \in [N+1,2N-1)$, then
+\begin{align*}
+MV^k &= \frac{1}{h}\left[-V_{j-N}^k + V_{j-N+1}^k \right]\\ 
+&= \frac{i}{h}\left[-\sin\left(kx_{j-N}\right)+\sin\left(kx_{j-N+1}\right)\right] \\
+& = \frac{i}{h}\left[\sin(k(j-N+1)h) - \sin(k(j-N)h)\right]~,
+\end{align*}
+and
+\begin{align*}
+\lambda^k_j V_j^k = \lambda^k_j\cos(kx_{j-N+1/2}) = \lambda^k_j \cos(k(j-N+1/2)h)~.
+\end{align*}
+This gives us
+\begin{align*}
+& \frac{i}{h}\left[\sin(k(j-N+1)h) - \sin(k(j-N)h)\right] = \lambda^k_j \cos(k(j-N+1/2)h) \\
+& \Rightarrow \frac{2i}{h}\cos(k(j-N+1/2)h)\sin\left(k\frac{h}{2}\right) = \lambda^k_j \cos(k(j-N+1/2)h) \\
+& \Rightarrow \lambda^k_j = \frac{2i}{h}\sin\left(k\frac{h}{2}\right)=\lambda^k.
+\end{align*}
+Finally, for the last entry of the vector, let $j= 2N-1$, then
+\begin{align*}
+MV^k & = -\frac{1}{h}V_{N-1}^k = -\frac{i}{h}\sin(kx_{N-1}) = -\frac{i}{h}\sin(k(N-1)h) = -\frac{i}{h}\sin(k\pi - kh) \\
+& = -\frac{i}{h}\sin(k\pi)\cos(kh) + \frac{i}{h}\sin(kh)\cos(k\pi) = \frac{i}{h}\sin(kh)\cos(k\pi)~,
+\end{align*}
+and
+\begin{align*}
+\lambda^k_{2N-1}V^k &= \lambda^k_{2N-1}\cos(k(N-1/2)h) = \lambda^k_{2N-1}\cos\left(knh - k\frac{h}{2}\right) = \lambda^k_{2N-1}\cos\left(k\pi - k\frac{h}{2}\right) \\
+& = \lambda^k_{2N-1}\left[\cos(k\pi)\cos\left(k\frac{h}{2}\right) - \sin(k\pi)\sin\left(k\frac{h}{2}\right)\right] = \lambda^k_{2N-1}\cos(k\pi)\cos\left(k\frac{h}{2}\right)~.
+\end{align*}
+Joining the two results we get the following equation,
+\begin{align*}
+& \lambda^k_{2N-1}\cos\left(k\pi - k\frac{h}{2}\right) = \frac{i}{h}\sin(kh)\cos(k\pi) \\
+& \Rightarrow \lambda^k_{2N-1} = \frac{2i}{h}\sin\left(k\frac{h}{2}\right)=\lambda^k.
+\end{align*}
+Thus,
+\begin{align*}
+\boxed{\lambda^k= \frac{2i}{h}\sin\left(k\frac{h}{2}\right)}~.
+\end{align*}
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+%% Problem 2b
+clear variables
+close all
+
+N=100;
+h=pi/N;
+
+Du = gallery('tridiag',N,-1,1,0)/h; % In sparse form.
+Du(:,end)=[];
+Dp = gallery('tridiag',N,0,-1,1)/h; % In sparse form.
+Dp(end,:)=[];
+Z1 = zeros(N-1,N-1);
+Z2 = zeros(N,N);
+
+M = [Z1 Dp ; Du Z2];
+
+E=eig(full(M));
+E=sort(E);
+k=-(N-1):(N-1);
+E_analytic=2*1i/h*sin(k*h/2)';
+E_analytic=sort(E_analytic); 
+
+difference=norm(E-E_analytic,inf) 
+% The expression in part b is correct
+\end{verbatim}
+\item[c)] \textbf{Show that the eigenvalues of $M$ are $\mathcal{O}(h^2)$.}
+\proof We can prove the state ment by simply Taylor expanding the previous expression for the eigenvalues :
+\begin{align*}
+\lambda_k(h) &= \lambda_k(0) + h\lambda'_k(0) + \frac{h^2}{2}\lambda''_k(0) + \frac{h^3}{6} \lambda'''_k(0) + \cdots \\
+& = \frac{ik}{h}h - \frac{h^3}{6}i\frac{k^3}{4h} + \mathcal{O}(h^4) \\
+& = ik\left[ 1 + \frac{k^2h^2}{6} + \mathcal{O}(h^4) \right].
+\end{align*}
+Note that we have dropped the $k$ for convenience. Thus,
+\begin{align*}
+\lambda_k(h)  = ik\left[1 + \mathcal{O}((kh)^2)\right].
+\end{align*}
+
+\item[d)] \textbf{Show that}
+\begin{align*}
+\lambda_{\pm(N-1)} = \pm \frac{2i}{h}\cos(h/2), ~~\text{and}~~|\lambda_{\pm(N-1)}| < \frac{2}{h} = \frac{2}{\pi}N~.
+\end{align*}
+By simply plugging $\pm(N-1)$ into the eigenvalue equation,
+\begin{align*}
+\lambda_{\pm (N-1)} &= \frac{2i}{h}\sin\left(\pm N\frac{h}{2} \mp \frac{h}{2} \right) = \frac{2i}{h} \sin \left( \pm \frac{\pi}{2} \mp \frac{h}{2}\right) \\
+& = \frac{2i}{h} \left[\sin\left(\pm \frac{\pi}{2}\right)\cos\left(\mp\frac{h}{2}\right) + \cos\left(\pm \frac{\pi}{2}\right)\sin\left(\mp\frac{h}{2}\right) \right] \\
+& = \pm \frac{2i}{h}\cos\left(\frac{h}{2}\right)~.
+\end{align*}
+
+Using this, we note that $0 \leq |\cos\left(\frac{\pi}{2N}\right)| < 1$ and $|i| = 1$, so,
+\begin{align*}
+|\lambda_{\pm (N-1)}| =\left|\pm \frac{2i}{h}\cos\left(\frac{h}{2}\right)\right| < \frac{2}{h} = \frac{2N}{\pi}~.
+\end{align*}
+\item[e)] \textbf{Use \texttt{RK4} to time-step this PDE. Plot the stability region of \texttt{RK4} and find a stable $\Delta t$. Find the growth function $g$ for this method and plot $|g|$ using contour.}
+
+To obtain the growth function $g(z)$ let $z = \Delta t \lambda$ and $f(t,y) = \lambda y$. Then,
+ \begin{align*}
+ & k_1 = zy^n \\
+& k_2 = \left(z + \frac{z^2}{2}\right)y^n \\
+ & k_3 = \left(z + \frac{1}{2}\left(z^2 + \frac{z^3}{2}\right)\right)y^n \\
+ & k_4 = \left(z + z\left(z + \frac{1}{2} \left(z^2+\frac{z^3}{2}\right)\right)\right)y^n ~,
+ \end{align*}
+and
+\begin{align*}
+y^{n+1} &= y^n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)y^n\\
+&=\left(1 + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)\right)y^n\\
+&=\left[1 + \frac{1}{6}\left(6z+3z^2+z^3+\frac{z^4}{4}\right)\right]y^n.
+\end{align*}
+Hence,
+\begin{align*}
+g(z) = 1 + \frac{1}{6}\left(6z+3z^2+z^3+\frac{z^4}{4}\right).
+\end{align*}
+
+We can plot $g(z)$ in \textsl{Matlab} to obtain the stability region, shown in part f).
+
+\item[f)] \textbf{Assuming that the boundary of the stability region crosses the imaginary axis approximately at $\pm 2.81i$, estimate the stability requirement on $\Delta t$ (use part $(4)$ to find $c$ so that $\Delta t < ch$ for stability). For $N = 100$, plot the eigenvalues of $M$ multiplied by $\Delta t$ together with the stability region and verify that they fall inside the stability region.}
+
+For stability we know that
+\begin{align*}
+\left|\Delta t \lambda_k\right|<2.81,
+\end{align*}
+for all the eigenvalues $\lambda_k$. Since the largest eigenvalue is going to be the one from part d),
+\begin{align*}
+\frac{2.81}{|\lambda_k|} > \frac{2.81}{|\lambda_{\pm (N-1)}|} > \frac{2.81}{2}h > \Delta t.
+\end{align*}
+Thus,
+\begin{align*}
+\Delta t < 1.405h.
+\end{align*}
+
+The figure below shows that $1.405h \lambda_k$ falls within the stability region for all $\lambda_k$.
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P2_ef.eps}}
+\caption{Stability region and eigenvalues.}
+\end{figure}
+
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+a=-20;
+b=20;
+c=-20;
+d=20;
+dx=0.1;
+dy=dx;
+
+[zr,zi]=meshgrid(a:dx:b,c:dy:d);
+z=zr+1i*zi;
+g=1+1/6*(6*z+3*z.^2+z.^3+z.^4/4);
+dt=1.405*h;
+lambda=dt*E;
+
+figure
+contourf(zr,zi,abs(g),[-inf 1 inf], 'k'), colorbar
+hold on
+grid on
+plot(real(lambda),imag(lambda),'r*')
+xlabel('$x(t)$','interpreter','latex','fontsize',16)
+ylabel('$y(t)$','interpreter','latex','fontsize',16)
+axis('image', [-4 1 -3 3])
+set(gca,'fontsize',12)
+txt='Latex/FIGURES/P2_ef';
+saveas(gcf,txt,'epsc')
+\end{verbatim}
+
+\item[g)] \textbf{With $N=100$, solve the PDE using \texttt{RK4} and plot your solution at times $t = \pi/2$, $\pi,3$, $\pi/2$, $2\pi$.}
+
+We can see the solutions at those values of time in the next figure.
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Solutions at $t = \pi/2$.]{\includegraphics[scale=0.55]{P2_g1}}
+\hfill
+\subfigure[Solutions at $t = \pi$.]{\includegraphics[scale=0.55]{P2_g2}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[Solutions at $t = 3\pi/2$.]{\includegraphics[scale=0.55]{P2_g3}}
+\hfill
+\subfigure[Solutions at $t = 2\pi$.]{\includegraphics[scale=0.55]{P2_g4}}
+\hspace*{\fill}
+\caption{Solutions of the acoustic equation.}
+\end{figure}
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+%% Problem 2g
+clear variables
+close all
+format long
+clc
+
+linewidth=1.7;
+legendfontsize=14;
+axisfontsize=14;
+
+N=100;
+L=pi;
+h=L/N;
+xu=linspace(0,pi,N+1);
+xp=linspace(0+h/2,pi-h/2,N);
+
+Du = gallery('tridiag',N,-1,1,0); % In sparse form.
+Du(:,end)=[];
+Du=Du/h;
+Dp = gallery('tridiag',N,0,-1,1); % In sparse form.
+Dp(end,:)=[];
+Dp=Dp/h;
+Z1 = zeros(N-1,N-1);
+Z2 = zeros(N,N);
+M = [Z1 Dp ; Du Z2];
+
+u0 = exp(-30*(xu-pi/2).^2)';
+p0 = zeros(N,1);
+V0 = [u0(2:end-1) ; p0];
+
+t = 0:pi/200:2*pi;
+dydt = @(t,V) M*V;
+[t,V] = rk4(dydt,[0 2*pi],V0,length(t)-1);
+% Plots
+figure(1)
+plot(xu,[0 V(101,1:N-1) 0],'linewidth',linewidth)
+hold on
+plot(xp,V(101,N:2*N-1),'linewidth',linewidth)
+grid on
+axis([0 pi -1 1])
+xlabel('$x(t)$','interpreter','latex')
+legend({' $u(x,t)$',' $p(x,t)$'},...
+ 'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P2_g1';
+saveas(gcf,txt,'epsc')
+
+
+figure(2)
+plot(xu,[0 V(201,1:N-1) 0],'linewidth',linewidth)
+hold on
+plot(xp,V(201,N:2*N-1),'linewidth',linewidth)
+grid on
+axis([0 pi -1 1])
+xlabel('$x(t)$','interpreter','latex')
+legend({' $u(x,t)$',' $p(x,t)$'},...
+ 'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P2_g2';
+saveas(gcf,txt,'epsc')
+
+figure(3)
+plot(xu,[0 V(301,1:N-1) 0],'linewidth',linewidth)
+hold on
+plot(xp,V(301,N:2*N-1),'linewidth',linewidth)
+grid on
+axis([0 pi -1 1])
+xlabel('$x(t)$','interpreter','latex')
+legend({' $u(x,t)$',' $p(x,t)$'},...
+ 'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P2_g3';
+saveas(gcf,txt,'epsc')
+
+figure(4)
+plot(xu,[0 V(401,1:N-1) 0],'linewidth',linewidth)
+hold on
+plot(xp,V(401,N:2*N-1),'linewidth',linewidth)
+grid on
+axis([0 pi -1 1])
+xlabel('$x(t)$','interpreter','latex')
+legend({' $u(x,t)$',' $p(x,t)$'},...
+ 'Interpreter','latex','fontsize',legendfontsize)
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P2_g4';
+saveas(gcf,txt,'epsc')
+\end{verbatim}
+
+\item[h)] \textbf{With $N=100$, run you code with $\Delta t$ that is slightly bigger than the optimal (stable) choice, is the computation stable?}
+
+With a choice of $\Delta t=1.471 h$, the solution is unstable as we can see in the next figure.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P2_h.eps}}
+\caption{Unstable solution.}
+\end{figure}
+
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+%% Problem 2h
+t = 0:1.48*h:2*pi;
+dydt = @(t,V) M*V;
+[t,V] = rk4(dydt,[0 2*pi],V0,length(t)-1);
+figure 
+plot(xu,[0 V(end,1:N-1) 0])
+hold on
+plot(xp,V(end,N:2*N-1))
+grid on
+% axis([0 pi -1 1])
+xlim([0 pi])
+xlabel('$x(t)$','interpreter','latex')
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P2_h';
+saveas(gcf,txt,'epsc')
+\end{verbatim}
+
+\item[i)] \textbf{Using the stability criteria for choosing $\Delta t$, plot the error at $t = 2\pi$ for several values of $N$ and verify that the error decays as $\mathcal{O}(h^2)$. Conclude that the error is dominated by the spatial discretization in this case.}
+
+The spatial discretization dominates the error since the method used is second order in space and fourth order in time, which means the spatial discretization leads the error. However, we can see in the following figure that the observed order of convergence is not the theoretical one. We have obtained a observed order of convergence of $3.998$ for $u$ and $1.993$ for $p$ using the infinity norm for the errors of both. For the interpolation we have not used the first two data points.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Error of $u$ with $N$.]{\includegraphics[scale=0.55]{P2_iu}}
+\hfill
+\subfigure[Error of $p$ with $N$.]{\includegraphics[scale=0.55]{P2_ip}}
+\hspace*{\fill}
+\caption{Order of convergence.}
+\end{figure}
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+%% Problem 2i
+clear variables
+close all
+format long
+clc
+%Calculate exact solution with a large number of N
+axisfontsize=14;
+L=pi;
+
+% Check order of convergence
+Nvector=[50 100 200 400 800 1600];
+for i=1:length(Nvector)
+    N=Nvector(i)
+    h=L/N;
+    xu=linspace(0,pi,N+1);
+    xp=linspace(0+h/2,pi-h/2,N);
+    
+    Du = gallery('tridiag',N,-1,1,0); % In sparse form.
+    Du(:,end)=[];
+    Du=Du/h;
+    Dp = gallery('tridiag',N,0,-1,1); % In sparse form.
+    Dp(end,:)=[];
+    Dp=Dp/h;
+    Z1 = zeros(N-1,N-1);
+    Z2 = zeros(N,N);
+    M = [Z1 Dp ; Du Z2];
+    
+    u0 = exp(-30*(xu-pi/2).^2)';
+    p0 = zeros(N,1);
+    V0 = [u0(2:end-1) ; p0];
+    dt=h;
+    t = 0:dt:2*pi;
+    dydt = @(t,V) M*V;
+    [t,V] = rk4(dydt,[0 2*pi],V0,length(t)-1);
+    
+    difNormu(i)=norm(V(end,1:N-1)'-u0(2:end-1),inf);
+    index=find(xp>=pi/2,1);
+    difNormp(i)=norm(V(end,N:2*N-1)'-p0,inf);
+end
+% Order of convergence of u and p
+hvector=pi/1600:1e-5:pi/50;
+NvectorCont=20:500:7e3;
+
+% Fitting curves for the error.
+% Ignore first 2 points. No asymptotic regime.
+
+cu=polyfit(log(Nvector(3:end)),log(difNormu(3:end)),1);
+ufit=exp(cu(2))*NvectorCont.^cu(1);
+cp=polyfit(log(Nvector(3:end)),log(difNormp(3:end)),1);
+pfit=exp(cp(2))*NvectorCont.^cp(1);
+cu(1)
+cp(1)
+
+figure
+loglog(Nvector,difNormu,'r*')
+hold on
+loglog(NvectorCont,ufit,'linewidth',2)
+grid on
+xlim([30 2000])
+set(gca,'fontsize',axisfontsize)
+xlabel('$N$','interpreter','latex','fontsize',16)
+ylabel('$e_u$','interpreter','latex','fontsize',16)
+txt='Latex/FIGURES/P2_iu';
+saveas(gcf,txt,'epsc')
+
+figure
+loglog(Nvector,difNormp,'r*')
+hold on
+loglog(NvectorCont,pfit,'linewidth',2)
+grid on
+xlim([30 2000])
+set(gca,'fontsize',axisfontsize)
+xlabel('$N$','interpreter','latex','fontsize',16)
+ylabel('$e_p$','interpreter','latex','fontsize',16)
+txt='Latex/FIGURES/P2_ip';
+saveas(gcf,txt,'epsc')
+\end{verbatim}
+
+\item[j)] \textbf{Repeat part g), but use 3rd order Adams-Bashforth for time-stepping. Use \texttt{RK4} to compute the first 2 time levels. Use a $\Delta t$ that is close to the stability limit for \texttt{AB3}.}
+First we calculate the stability region for 3rd order Adams-Bashforth, which has the following form,
+\begin{align*}
+y^{n+1} = y^n = \frac{\Delta t}{12}(23f^n - 16f^{n-1} + 5f^{n-2}).
+\end{align*}
+We begin with the substitution $f^n = \lambda y^n$: 
+\begin{align*}
+y^{n+1} = y^n = \frac{\lambda \Delta t}{12}(23y^n - 16y^{n-1} + 5y^{n-2}).
+\end{align*}
+Note that $y^n = gy^{n-1}$ and let $z = \lambda \Delta t$,
+\begin{align*}
+gy^n = y^n + \frac{z}{12}\left(23y^n - 16\frac{y^n}{g} + 5\frac{y^n}{g^2}\right).
+\end{align*}
+Factoring out $y^n$ we get
+\begin{align*}
+g^3 = g^2 + \frac{z}{12}(23g^2 - 16g +5),
+\end{align*}
+and solving for $z$,
+\begin{align*}
+z = 12 \left( \frac{g^3-g^2}{23g^2-16g+5} \right).
+\end{align*}
+
+
+Using Matlab, we find the stability region crosses the imaginary axis just shy of $\pm 0.72$. Thus we calculate a stable time step to be
+\begin{align*}
+\Delta t\leq 0.36h.
+\end{align*}
+We will choose in the code $\Delta t = 0.36h$. In the next figure we can see how all the eigenvalues are inside the stability region for the time step chosen.
+
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.55]{P2_jRegion.eps}}
+\caption{Stability region and eigenvalues.}
+\end{figure}
+
+Finally, in the next figure we can see that we obtained the same solution as in part g).
+
+\begin{figure}[H]
+\centering     %%% not \center
+\hspace*{\fill}
+\subfigure[Solutions at $t = \pi/2$.]{\includegraphics[scale=0.55]{P2_j1}}
+\hfill
+\subfigure[Solutions at $t = \pi$.]{\includegraphics[scale=0.55]{P2_j2}}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\subfigure[Solutions at $t = 3\pi/2$.]{\includegraphics[scale=0.55]{P2_j3}}
+\hfill
+\subfigure[Solutions at $t = 2\pi$.]{\includegraphics[scale=0.55]{P2_j4}}
+\hspace*{\fill}
+\caption{Solutions of the acoustic equation.}
+\end{figure}
+\subsection*{Matlab code for this part}
+\begin{verbatim}
+%% Problem 2j
+clear variables
+close all
+clc
+
+legendfontsize=14;
+axisfontsize=14;
+
+L=pi;
+N=100;
+h=L/N;
+
+theta=linspace(0,2*pi,N);
+g=exp(1i*theta);
+z=12*(g.^3-g.^2)./(23*g.^2-16*g+5);
+
+xu=linspace(0,pi,N+1);
+xp=linspace(0+h/2,pi-h/2,N);
+
+Du = gallery('tridiag',N,-1,1,0); % In sparse form.
+Du(:,end)=[];
+Du=Du/h;
+Dp = gallery('tridiag',N,0,-1,1); % In sparse form.
+Dp(end,:)=[];
+Dp=Dp/h;
+Z1 = zeros(N-1,N-1);
+Z2 = zeros(N,N);
+M = [Z1 Dp ; Du Z2];
+
+e=eig(full(M));
+dt=0.36*h;
+lambdadt=dt*e;
+
+%Plot eigenvalues in stability region
+figure
+plot(z,'b','linewidth',2)
+hold on
+plot(real(lambdadt),imag(lambdadt),'r*')
+grid on
+xlabel('$\Re(z)$','interpreter','latex'...
+    ,'fontsize',16)
+ylabel('$\Im(z)$','interpreter','latex'...
+    ,'fontsize',16)
+txt='Latex/FIGURES/P2_jRegion';
+saveas(gcf,txt,'epsc')
+
+
+u0 = exp(-30*(xu-pi/2).^2)';
+p0 = zeros(N,1);
+V0 = [u0(2:end-1) ; p0];
+
+
+F2=@(t,v) M*v;
+
+[t,V]=rk4(F2,[0 2*dt],V0,2);
+
+F1=@(v) M*v;
+f0=F1(V(1,:)');
+f1=F1(V(2,:)');
+f=F1(V(3,:)');
+
+V=V(3,:)'+dt/12*(23*f-16*f1+5*f0);
+
+t=t(end);
+outputTime=[pi/2 pi 3*pi/2 2*pi];
+n=1;
+while t<2*pi
+    if (t < outputTime(n) && t+dt >= outputTime(n))
+        dt=outputTime(n)-t;
+    else
+        dt=0.36*h;
+    end
+    f=F1(V);
+    V=V+dt/12*(23*f-16*f1+5*f0);
+    %Advance variables
+    f0=f1;
+    f1=f;
+    t=t+dt;
+    if (t==outputTime(n))
+        figure
+        plot(xu',[0; V(1:N-1); 0],'linewidth',2)
+        hold on
+        plot(xp',V(N:2*N-1),'linewidth',2)
+        grid on
+        legend({' $u(x,t)$',' $p(x,t)$'},...
+        'Interpreter','latex','fontsize',legendfontsize)
+        set(gca,'fontsize',axisfontsize)
+        xlabel('$x(t)$','interpreter','latex','fontsize',16)
+        axis([0 pi -1 1])
+        txt=['Latex/FIGURES/P2_j' num2str(n)];
+        saveas(gcf,txt,'epsc')
+        n=n+1;
+    end
+end
+\end{verbatim}
+\end{enumerate}

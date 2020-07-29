@@ -1,0 +1,72 @@
+\begin{questions}
+
+\question{Let $L > 0$. Solve the wave equation
+\begin{align*}
+\partial_t^2u - c^2 \partial_x^2u &= 0, &0 \leq x \leq & L,t \geq 0, \\
+u(x,0) &=  f(x), & 0 \leq & x \leq L, \\
+\partial_t u(x,0) &=g(x),& 0 \leq & x \leq L, \\
+\partial_xu(0,t) &= 0 = \partial_xu(L,t), & t &\geq 0.
+\end{align*}
+
+Hint: Extend $f$, $g$ in an even and 2$L$-periodic fashion.
+
+Which assumptions do $f$ and $g$ have to satisfy to make $u$ a solution?
+}
+\begin{solution}
+Given the zero Neumann boundary condition at $x=0$, we extend $f$ and $g$ to $[-L,L]$ in an even fashion:
+\begin{align*}
+&f(-x)=f(x),~~~~x\in[0,L],\\
+&g(-x)=g(x),~~~~x\in[0,L],
+\end{align*}
+and noticing that the derivative of $f$ is odd
+\begin{align*}
+&f'(-x)=-f'(x),~~~~x\in[0,L].\\
+\end{align*}
+To take care of the zero Neumann boundary condition at $x=L$ we perform a $2L-$periodic extension of $f$ and $g$ which gives us functions defined on all $\R$,
+\begin{align*}
+f(x+2kL):=f(x),~~k\in\Z,~x\in[-L,L],\\
+g(x+2kL):=g(x),~~k\in\Z,~x\in[-L,L].
+\end{align*}
+We can prove that the extended $f$ is $2L$ periodic and even in a similar way as the \textsl{Lemma 3.13} is proved in the notes. Indeed, let $x\in\R$. Then $x=y+2kL$ with $-L\leq y \leq L$ and $k\in\Z$. By extension,
+\begin{align*}
+f(x+2L)=f(y+2(k+1)L)=f(y)=f(y+2kL)=f(x).
+\end{align*}
+Further
+\begin{align*}
+f(-x)=f(-y-2kL)=f(-y)=f(y)=f(x),
+\end{align*}
+so $f$ is even around zero. Since $f$ is even about zero and $2L$-periodic,
+\begin{align*}
+f(L+x)=f(L+x-2L)=f(-L+x)=f(-(L-x))=f(L-x),
+\end{align*}
+it is also even about $L$. We can prove the same for $g$. The conditions for $f$ and $g$ imply that their extensions to $\R$ are twice and once differentiable, respectively. The D'Alembert's formula provides a solution to the PDE and the initial conditions,
+\begin{align*}
+u(x,t)=\frac{1}{2}\left[f(x+ct)+f(x-ct)\right]+\frac{1}{2c}\int_{x-ct}^{x+ct}g(s)ds.
+\end{align*}
+We check now that the boundary conditions are satisfied. First we calculate
+\begin{align*}
+\partial_xu(x,t)=\frac{1}{2}\left[f'(x+ct)+f'(x-ct)\right]+\frac{1}{2c}\left[g(x+ct)-g(x-ct)\right],
+\end{align*}
+where we have used the Fundamental Theorem of Calculus to differentiate the integral, and we make $x=0$,
+\begin{align*}
+\partial_xu(0,t)&=\frac{1}{2}\left[f'(ct)+f'(-ct)\right]+\frac{1}{2c}\left[g(ct)-g(-ct)\right]\\
+&=\frac{1}{2}\left[f'(ct)-f'(ct)\right]+\frac{1}{2c}\left[g(ct)-g(ct)\right]\\
+&=0.
+\end{align*}
+For the boundary condition at $x=L$,
+\begin{align*}
+\partial_xu(0,t)&=\frac{1}{2}\left[f'(L+ct)+f'(L-ct)\right]+\frac{1}{2c}\left[g(L+ct)-g(L-ct)\right]\\
+&=\frac{1}{2}\left[f'(L+ct)-f'(L+ct)\right]+\frac{1}{2c}\left[g(L+ct)-g(L+ct)\right]\\
+&=0.
+\end{align*}
+since $f'$ and $g$ are odd and even around $L$, respectively. Thus, $u(x,t)$ is the solution provided that extended $f$ and $g$ are twice and once differentiable, respectively. The extended $f$ is twice differentiable if and only if the original $f$ is twice differentiable and
+\begin{align*}
+f(0)=f(L),~~~~f'(0)=0=f'(L).
+\end{align*}
+The extended $g$ is once differentiable if and only if the original $g$ is once differentiable and
+\begin{align*}
+g(0)=g(L).
+\end{align*}
+\end{solution}
+
+\end{questions}

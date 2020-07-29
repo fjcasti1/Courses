@@ -1,0 +1,15 @@
+*.aux
+*.png
+*.jpg
+*.mat
+*.html
+*.fig
+*.log
+*.gz
+*.tar
+*.bbl
+*.blg
+*.dvi
+*.eps
+*-eps-converted*
+*.m~

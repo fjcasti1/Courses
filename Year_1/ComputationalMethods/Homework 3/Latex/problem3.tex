@@ -1,0 +1,93 @@
+\textbf{Modify the code diffusion} \verb+eq1_Neumann.m+ \textbf{to solve the diffusion equation with Neumann boundary conditions using finite differences.}
+
+In this problem we use second order centered finite differences to calculate the second derivative in the interior
+\begin{align*}
+u''_j=\frac{u_{j-1}-2u_{j}+u_{j+1}}{h^2}.
+\end{align*}
+This discretization, if expressed in matrix form, gives us a tridiagonal matrix with $1,-2,1$ as lower diagonal, diagonal and upper diagonal, respectively. We only need to solve the following matrix equation
+\begin{align*}
+\frac{d}{dt}\textbf{u}=D_2\textbf{u},
+\end{align*}
+for the interior since we have the boundary conditions. They have been taking into account using a first order sided finite differences
+\begin{align*}
+u'_1=\frac{u_2-u_1}{h}=g_1(t)~\Rightarrow~u_1=u_2-hg_1(t),
+\end{align*}
+\begin{align*}
+u'_{N+1}=\frac{u_{N+1}-u_N}{h}=g_2(t)~\Rightarrow~u_{N+1}=hg_2(t)+u_N,
+\end{align*}
+We will get rid of the first and last row and column the matrix $D_2$, obtaining $\tilde{D}_2$ and add another term to account for the boundary conditions of the Neumann kind in this case. The system obtained is the following
+\begin{align*}
+\frac{d}{dt}\tilde{\textbf{u}}=\tilde{D}_2\tilde{\textbf{u}}+\frac{1}{h}\begin{pmatrix} -1 & 1 \end{pmatrix}\begin{pmatrix} g_1(t) \\ g_2(t) \end{pmatrix},
+\end{align*}
+where $g_1(t)$ and $g_2(t)$ are the Neumann boundary condition functions at $x=-1$ and $x=1$, respectively. We defined them generally althought in this problem $g_1(t)=g_2(t)=1$. When solving for the interior, we will need the values at the boundaries that will be substituted by the two equations above. As a result, including the boundary conditions hasn't just altered the system adding that extra term, but it also changes the first and last entries of the matrix $\tilde{D}_2$. Computing the first and last nodes of the interior, and including the boundary conditions, we have
+\begin{align*}
+u''_2=\frac{u_1-2u_2+u_3}{h^2}&=\frac{u_2-hg_1(t)-2u_2+u_3}{h^2}\\
+&=\frac{-u_2+u_3}{h^2}-\frac{1}{h} g_1(t),
+\end{align*}
+and
+\begin{align*}
+u''_N=\frac{u_{N-1}-2u_N+u_{N+1}}{h^2}&=\frac{u_{N-1}-2u_N+hg_2(t)+u_N}{h^2}\\
+&=\frac{u_{N-1}-u_N}{h^2}+\frac{1}{h} g_2(t).
+\end{align*}
+This implies that the system is modified as showed above and the first and second entries of the matrix $\tilde{D}_2$ are
+\begin{align*}
+\tilde{D}_2(1,1)=\tilde{D}_2(N-1,N-1)=-\frac{1}{h^2}.
+\end{align*}
+Note that the $1/h^2$ factor is already included in $\tilde{D}_2$. The solution for the PDE is shown in the next figure.
+\begin{figure}[H]
+\centering     %%% not \center
+{\includegraphics[scale=0.75]{P3_surf.eps}}
+\caption{Solution of the diffusion equation, $N=50$.}
+\end{figure}
+We can see how at time zero we have the initial condition and in two seconds we reach the steady state where the whole domain has a slope 1, as imposed by the boundary conditions in the first and last nodes.
+
+\subsection*{Matlab code for this problem}
+\begin{verbatim}
+%% Problem 3
+% Simple code to solve the diffusion equation
+% u_t = u_xx -1<x<1, with Neumann boundary conditions
+clear all; close all; clc
+legendfontsize=14;
+axisfontsize=14;
+labelfontsize=16;
+N = 50;
+L=2;
+h=L/N;
+x=-1:h:1;
+D2 = gallery('tridiag',N+1,1,-2,1); % In sparse form.
+%%
+
+% initial condition
+u0 = cos(pi*x)+0.2*cos(5*pi*x)+1;
+% boundary conditions
+g1 = @(t) 0*t+1;
+g2 = @(t) 0*t+1;
+
+A = D2(2:N,2:N)/h^2;
+A(1,1)=-1/h^2;
+A(end,end)=-1/h^2;
+B = zeros(N-1,2);
+B(1,1) = -1/h;
+B(end,end) = 1/h;
+
+t = 0:0.001:2;
+%%
+[T,U] = ode45(@(t,u) A*u+B*[g1(t);g2(t)], t, u0(2:end-1));
+for k = 2:length(t)
+    plot(x(2:end-1),U(k,:)','*-')
+    ylim([-1 2])
+    shg
+    drawnow
+end
+[T,X]= meshgrid(t,x(2:end-1));
+surf(T,X,U','edgecolor','none')
+xlabel('$t$','fontsize',labelfontsize,...
+            'interpreter','latex')
+ylabel('$x$','fontsize',labelfontsize,...
+            'interpreter','latex')
+zlabel('$u(x,t)$','fontsize',labelfontsize,...
+            'interpreter','latex')
+set(gca,'fontsize',axisfontsize)
+txt='Latex/FIGURES/P3_surf';
+saveas(gcf,txt,'epsc')
+\end{verbatim}
