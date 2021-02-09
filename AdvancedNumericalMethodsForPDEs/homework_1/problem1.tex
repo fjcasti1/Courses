@@ -1,0 +1,61 @@
+\begin{questions}
+\question{Derive an analytic expression for the solution $u(x,t)$ of problem $(1)$ for a general initial function $u^I(x)$ and general stepsizes $\Delta x$, $\Delta t$, using Fourier transforms.}
+\begin{solution}
+We will use the Fourier transform 
+\begin{align}\label{eq:FourierTransf}
+\hat{u}(w,t)=\frac{1}{\sqrt{2\pi}}\int_{-1}^{1}u(x,t)e^{-i\omega x}dx,
+\end{align}
+to turn our $1-D$ PDE into an ODE. Taking the Fourier transform of the PDE \eqref{eq:PDE} we obtain
+\begin{align*}
+\partial_t\hat{u}(w,t)+iaw\hat{u}(w,t)+bw^2\hat{u}(w,t)=0,
+\end{align*} 
+which can be manipulated into
+\begin{align*}
+\partial_t\hat{u}(w,t)=-(bw^2+iaw)\hat{u}(w,t).
+\end{align*}
+The previous equation has a simple analytical solution,
+\begin{align*}
+\hat{u}(w,t)=e^{-(bw^2+iaw)t}\hat{u}(w,0),
+\end{align*}
+which we can conveniently rewrite as
+\begin{align}\label{eq:freqDomSol}
+\hat{u}(w,t)=e^{-b\omega^2t}\hat{u}^I(w)e^{-iawt}
+\end{align}
+To obtain the solution, we will use the following property of Fourier transforms,
+\begin{align}
+\mathcal{F}\left[f*g\right] = \mathcal{F}\left[f\right] \mathcal{F}\left[g\right],
+\end{align}
+where $*$ represents convolution. In our case, we have
+\begin{align*}
+\mathcal{F}\left[f\right](w,t) &= e^{-b\omega^2t},\\
+\mathcal{F}\left[g\right](w,t) &= \hat{u}^I(w)e^{-iawt}.
+\end{align*}
+By using the inverse Fourier transform on the previous equations we obtain
+\begin{align}\label{eq:convPartF}
+f(x,t)=\mathcal{F}^{-1}\left[\mathcal{F}\left[f\right](w,t)\right](x,t) &= \frac{e^{-x^2/4bt}}{\sqrt{2bt}},\\
+g(x,t)=\mathcal{F}^{-1}\left[\mathcal{F}\left[g\right](w,t)\right](x,t) &= \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{u}^I(w)e^{-iw(x-at)}dw\nonumber\\ \nonumber
+& = u^I(x-at).
+\end{align}
+Hence, we have proved so far that
+\begin{align}
+\hat{u}(w,t)=e^{-b\omega^2t}\hat{u}^I(w)e^{-iawt} = \mathcal{F}\left[f\right](w,t) \mathcal{F}\left[g\right](w,t)=\mathcal{F}\left[f*g\right](w,t),
+\end{align}
+Then, we can finally obtain the solution to the problem,
+\begin{align*}
+u(x,t)&=\mathcal{F}^{-1}\left[\hat{u}(w,t)\right](x,t)\\
+& =\mathcal{F}^{-1}\left[\mathcal{F}\left[f*g\right](w,t)\right](x,t)\\
+& =\left[f*g\right](x,t).
+\end{align*}
+
+To conclude,
+\begin{align}
+u(x,t)&=\left[f*u^I(x-at)\right](x,t),
+\end{align}
+with $f$ given by \eqref{eq:convPartF}.
+
+\end{solution}
+\question{Derive an analytic expression for the solution $U(x,t)$ of problem $(2)$ for a general initial function $u^I(x)$ and general stepsizes $\Delta x$, $\Delta t$, using discrete Fourier transforms.}
+\begin{solution}
+CACA
+\end{solution}
+\end{questions}

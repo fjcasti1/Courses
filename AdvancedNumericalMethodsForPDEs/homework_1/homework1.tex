@@ -1,0 +1,131 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt,answers]{exam}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage[comma, authoryear]{natbib}
+\bibliographystyle{plainnat}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage{pythontex} 
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{darkblue}{rgb}{0.1,0.1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{darkblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\graphicspath{{../figures/}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\zero}{\mathbb{O}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+ 
+\title{\textbf{Advanced Numerical Methods for PDEs}\\ \Large{Homework 1}}%replace X with the appropriate number
+\author{Francisco Castillo}
+ 
+
+\maketitle
+Consider the initial - boundary value problem for the scalar advection diffusion equation
+\begin{align}\label{eq:PDE}
+\partial_tu(x,t)+a\partial_xu(x,t)-b\partial_x^2u(x,t)=0,~~~~
+u(x,t=0)=u^I(x),
+\end{align}
+on the interval $x\in[-1, 1]$ with periodic boundary conditions $u(x + 2, t) = u(x, t), \forall x, t$.
+Consider the explicit difference method 
+\begin{align}
+U(x, t+\Delta t) = U(x, t)-\frac{a\Delta t}{ 2\Delta x}(T-T^{-1})U(x,t)+\frac{b}{\Delta x^2}(T-2+T^{-1})U(x, t)
+\end{align}
+for the problem (1).
+\section*{Problem 1}
+\input{problem1}
+\newpage
+\section*{Problem 2}
+%\input{problem2}
+\newpage
+\section*{Problem 3}
+%\input{problem3}
+
+%\begin{figure}[H]
+%\centering     %%% not \center
+%\hspace*{\fill}
+%\subfigure[$f(x)=|x|^3$.]{\includegraphics[scale=0.5]{IMAGES/problem4a.eps}}
+%\hfill
+%\subfigure[$f(x)=exp\left(\frac{-1}{\sin{(2x^2)}}\right)$.]{\includegraphics[scale=0.5]{IMAGES/problem4b.eps}}
+%\hspace*{\fill}
+
+%\hspace*{\fill}
+%\subfigure[$f(x)=\frac{1}{\sin{(1+x^2)}}$.]{\includegraphics[scale=0.5]{IMAGES/problem4c.eps}}
+%\hfill
+%\subfigure[$f(x)=\sinh{x}$.]{\includegraphics[scale=0.5]{IMAGES/problem4d.eps}}
+%\hspace*{\fill}
+%\caption{Error of the polynomial interpolation on Chebyshev nodes for the different functions.}
+%\end{figure}
+
+\bibliography{hw}
+
+\end{document}
