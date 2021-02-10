@@ -54,8 +54,47 @@ u(x,t)&=\left[f*u^I(x-at)\right](x,t),
 with $f$ given by \eqref{eq:convPartF}.
 
 \end{solution}
-\question{Derive an analytic expression for the solution $U(x,t)$ of problem $(2)$ for a general initial function $u^I(x)$ and general stepsizes $\Delta x$, $\Delta t$, using discrete Fourier transforms.}
+\newpage
+\question{Derive an analytic expression for the solution $U(x,t)$ of problem $(2)$ for a general initial function $u^I(x)$ and general stepsizes $\Delta x$, $\Delta t$, using Discrete Fourier transforms.}
 \begin{solution}
-CACA
+We will use the Discrete Fourier transform 
+\begin{align}\label{eq:DiscrFourierTransf}
+\hat{u}(w_{\nu},t_n)=\frac{\Delta x}{\sqrt{2\pi}}\sum_{j=-N}^N u(x_j,t_n)e^{-i\omega_{\nu} x_j},
+\end{align}
+and its inverse,
+\begin{align}\label{eq:DiscrInvFourierTransf}
+u(x_j,t_n)=\frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N \hat{u}(w_{\nu},t_n)e^{ix_jw_{\nu}},
+\end{align}
+where $x_j = j\Delta_x$, $t_n=n\Delta t$, $w_{\nu}=\nu\Delta w$ and $N\Delta x\Delta w=\pi$. It is simple to prove that
+\begin{align*}
+TU(x_j,t_n)=U(x_{j+1},t_n)&=\frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N \hat{u}(w_{\nu},t_n)e^{-i(x_{j+1})w_{\nu}}\\
+&=\frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N e^{-i\Delta xw_{\nu}}\hat{u}(w_{\nu},t_n)e^{-ix_jw_{\nu}},\\
+T^{-1}U(x_j,t_n)=U(x_{j-1},t_n)&=\frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N \hat{u}(w_{\nu},t_n)e^{-i(x_{j-1})w_{\nu}}\\
+&=\frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N e^{i\Delta xw_{\nu}}\hat{u}(w_{\nu},t_n)e^{-ix_jw_{\nu}},\\
+\end{align*}
+We can substitute into equation\eqref{eq:discrPDE} and simplify to obtain,
+\begin{align}\label{eq:discrPDE}
+\hat{u}(w_{\nu}, t_{n+1}) &= \left[1-\frac{a\Delta t}{ 2\Delta x}(e^{-i\Delta xw_{\nu}}-e^{i\Delta xw_{\nu}})+\frac{b}{\Delta x^2}(e^{-i\Delta xw_{\nu}}-2+e^{i\Delta xw_{\nu}})\right]\hat{u}(x_j, t_n)\nonumber\\
+&= \left[1+i\frac{a\Delta t}{ \Delta x}\sin\left(\Delta xw_{\nu}\right)-\frac{4b}{\Delta x^2}\sin^2\left(\frac{\Delta xw_{\nu}}{2}\right)\right]\hat{u}(w_{\nu}, t_n).
+\end{align}
+Define $g(\omega_{\nu})$ as
+\begin{align}
+g(\omega_{\nu}) = \left[1+i\frac{a\Delta t}{ \Delta x}\sin\left(\Delta xw_{\nu}\right)-\frac{4b}{\Delta x^2}\sin^2\left(\frac{\Delta xw_{\nu}}{2}\right)\right].
+\end{align}
+Then, $\hat{u}(w_{\nu}, t_{n+1}) = g(\omega_{\nu} )\hat{u}(w_{\nu}, t_n)$. We can now find the solution, in frequency domain, as a function of the initial condition.
+\begin{align*}
+\hat{u}(w_{\nu}, t_n) &= g(\omega_{\nu} )\hat{u}(w_{\nu}, t_{n-1})= g^2(\omega_{\nu} )\hat{u}(w_{\nu}, t_{n-2})= g^3(\omega_{\nu} )\hat{u}(w_{\nu}, t_{n-3}),\\
+&= \dots = g^n(\omega_{\nu} )\hat{u}(w_{\nu}, 0),\\
+&= g^n(\omega_{\nu} )\hat{u}^I(w_{\nu}).
+\end{align*}
+We now use equation \eqref{eq:DiscrInvFourierTransf} to obtain the solution in space domain,
+\begin{align}
+u(x_j,t_n)&=\frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N \hat{u}(w_{\nu},t_n)e^{ix_jw_{\nu}}\nonumber\\
+&= \frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N g^n(\omega_{\nu} )\hat{u}^I(w_{\nu})e^{ix_jw_{\nu}}.
+\end{align}
+To finish, it must be mentioned that the above solution is stable if and only if $|g(w)|\leq 1, \forall w\in[-\frac{\pi}{\Delta x},\frac{\pi}{\Delta x}]$. This condition will produce the following conditions on the parameters:
+\begin{align*}
+\Delta t a^2\leq 2b,\text{  and  }2\Delta tb\leq\Delta x^2.
+\end{align*}
 \end{solution}
 \end{questions}
