@@ -1,0 +1,69 @@
+\begin{questions}
+\question{Write a program to solve \eqref{eq:PDE} for $0<t<T$ using the discretization \eqref{eq:discrPDE} for general values of $a,b,\Delta x,\Delta t$ and a general initial function $u^I(x)$.}
+
+\begin{solution}
+Let $u_j^n = u(x_0+j\Delta x,n\Delta t)$, with $x_0 = -1$. Then, we can rewrite equation \eqref{eq:discrPDE} into
+\begin{align*}
+u_j^{n+1} &= u_j^n - \frac{a\Delta t}{2\Delta x}\left(u_{j+1}^n-u_{j-1}^n\right) + \frac{b\Delta t}{\Delta x^2}\left(u_{j+1}^n-2u_{j}^n+u_{j-1}^n\right),\\
+&= u_j^n - c\frac{a\Delta x}{2}\left(u_{j+1}^n-u_{j-1}^n\right) + cb\left(u_{j+1}^n-2u_{j}^n+u_{j-1}^n\right),
+\end{align*}
+where $c = \frac{\Delta t}{\Delta x^2}$. Regrouping terms we obtain
+\begin{align}\label{eq:reducedForm}
+u_j^{n+1} &= c\left(b+\frac{a\Delta x}{2}\right)u_{j-1}^n + \left(1-2bc\right)u_j^n + c\left(b-\frac{a\Delta x}{2}\right)u_{j+1}^n,\nonumber\\
+&= Au_{j-1}^n +Bu_j^n + Cu_{j+1}^n,
+\end{align}
+where $A = c\left(b+\frac{a\Delta x}{2}\right)$, $B = 1-2bc$ and $C = c\left(b-\frac{a\Delta x}{2}\right)$. The previous equation can be represented as a tridiagonal system,
+\begin{align}\label{eq:matrixForm}
+\vec{u}^{n+1} = M\vec{u}^n,
+\end{align}
+where $M$ is a tridiagonal matrix with $A$, $B$ and $C$ being its lower, main, and upper diagonal, respectively. Note that 
+\begin{align*}
+\vec{u} &= \left(\begin{matrix}
+           u_{0} \\
+           \vdots \\
+           u_{j} \\
+           \vdots \\
+           u_{N}
+         \end{matrix}\right)
+\end{align*}
+
+We can advance in time by simply using \eqref{eq:matrixForm}. To implement the periodic boundary conditions we consider the end points $x_0$ and $x_N$ in equation \eqref{eq:reducedForm}.
+At $x_0$:
+\begin{align*}
+u_0^{n+1} &= Au_{-1}^n +Bu_0^n + Cu_{1}^n,\\
+&= Au_{N-1}^n +Bu_0^n + Cu_{1}^n,
+\end{align*}
+since $u_{-1} = u_{N-1}$.
+At $x_0$:
+\begin{align*}
+u_N^{n+1} &= Au_{N-1}^n +Bu_N^n + Cu_{N+1}^n,\\
+&= Au_{N-1}^n +Bu_N^n + Cu_{2}^n,
+\end{align*}
+since $u_{N+1} = u_{2}$. This method was coded in Matlab (code at the end of this problem) and used to solve the next question.
+\end{solution}
+
+\question{Solve the discretized problem \eqref{eq:discrPDE} for $0<t<1$, using the values $a=1,b=0.5$ and
+\begin{equation}
+u^I(x) = \begin{dcases}
+        1 & x\leq 0 \\
+        0 & x > 0 \\
+\end{dcases}
+\end{equation}
+Use stepsizes $\Delta x = 0.1$, $\Delta x = 0.01$ and $\Delta x = 0.001$. Use the analysis of Problem 1 to determine an appropriate stepsize $\Delta t$.}
+\begin{solution}
+The method above was implemented. See figure 1 for the solution profiles at different times and using different mesh sizes. We can barely see any difference between the solutions for $\Delta x=0.01$ (b) and $\Delta x=0.001$ (c). Since the compute time is considerably larger for $\Delta x=0.001$, with very little gain in accuracy, we don't see the need for such a fine mesh. At the same time, it can be observed that $\Delta x = 0.1$ is too big.
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$\Delta x=0.1$.]{\includegraphics[scale=0.53]{step_dx1e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$\Delta x=0.01$.]{\includegraphics[scale=0.53]{step_dx1e-2.png}}
+\hspace{-0.9cm}
+\subfigure[$\Delta x=0.001$.]{\includegraphics[scale=0.53]{step_dx1e-3.png}}
+\caption{Solution $u(x,t)$ against $x$ for different values of $t$.}
+\end{figure}
+Find the code that produced the plots in figure 1 below. The reader is welcome to set \textsf{enableVideo = true}, to see the evolution of the signal in real time. Further, if $b$ were to be set to a value very close to zero, we would see a travelling wave that doesn't suffer any diffusion, as expected.To conclude, $\Delta t$ has been chosen following the \textit{CFL} condition given by \eqref{eq:CFL}, implemented in the function \textsf{calculate\_dt}.
+
+Matlab code:
+\lstinputlisting[language=Matlab]{./src/problem2.m}
+\end{solution}
+\end{questions}

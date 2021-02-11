@@ -55,7 +55,7 @@
 
 \lstset{style=mystyle}
 
-\graphicspath{{../figures/}}
+\graphicspath{{./figures/}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -98,17 +98,17 @@ u(x,t=0)=u^I(x),
 on the interval $x\in[-1, 1]$ with periodic boundary conditions $u(x + 2, t) = u(x, t), \forall x, t$.
 Consider the explicit difference method 
 \begin{align}\label{eq:discrPDE}
-U(x, t+\Delta t) = U(x, t)-\frac{a\Delta t}{ 2\Delta x}(T-T^{-1})U(x,t)+\frac{b}{\Delta x^2}(T-2+T^{-1})U(x, t)
+U(x, t+\Delta t) = U(x, t)-\frac{a\Delta t}{ 2\Delta x}(T-T^{-1})U(x,t)+\frac{b\Delta t}{\Delta x^2}(T-2+T^{-1})U(x, t)
 \end{align}
 for the problem (1).
 \section*{Problem 1}
 \input{problem1}
 \newpage
 \section*{Problem 2}
-%\input{problem2}
+\input{problem2}
 \newpage
 \section*{Problem 3}
-%\input{problem3}
+\input{problem3}
 
 %\begin{figure}[H]
 %\centering     %%% not \center
