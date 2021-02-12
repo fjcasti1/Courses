@@ -1,0 +1,58 @@
+\subsection*{CFL conditions}
+\subsubsection*{Problem 1-2}
+For stability we need 
+\begin{align*}
+|g(w)|&\leq 1,\\
+\left|1+i\frac{a\Delta t}{ \Delta x}\sin\left(\Delta xw_{\nu}\right)-\frac{4b\Delta t}{\Delta x^2}\sin^2\left(\frac{\Delta xw_{\nu}}{2}\right)\right| &\leq 1.
+\end{align*}
+We can use the identity $|g(w)|^2 = \Re\left[g\right]^2+\Im\left[g\right]^2$ to obtain
+\begin{align*}
+\left(1-4bcy^2\right)^2+\left(2ac\Delta xy\sqrt{1-y^2}\right)^2 &\leq 1,
+\end{align*}
+where $c$ is the Courant Number and $y = \sin\left(w\Delta x/2\right)\in[-1,1]$. We continue expanding the terms,
+\begin{align*}
+1+16b^2c^2y^4-8bcy^2+4a^2c^2\Delta x^2y^2(1-y^2) &\leq 1,\\
+16b^2c^2y^4-8bcy^2+4a^2c^2\Delta x^2y^2(1-y^2) &\leq 0,
+\end{align*}
+Let $z = y^2$,
+\begin{align*}
+16b^2c^2z^2-8bcz+4a^2c^2\Delta x^2z(1-z) &\leq 0,\\
+16b^2c^2z-8bc+4a^2c^2\Delta x^2(1-z) &\leq 0,
+\end{align*}
+The previous equation represents a straight line on $z\in[0,1]$. To guarantee that the entire line is negative, the endpoints must be.
+\begin{itemize}
+\item $z=1$:
+\begin{align*}
+16b^2c^2-8bc &\leq 0,\\
+2bc &\leq 1,\\
+2b\frac{\Delta t}{\Delta x^2} &\leq 1,\\
+2b\Delta t &\leq \Delta x^2.
+\end{align*}
+\item $z=0$:
+\begin{align*}
+-8bc+4a^2c^2\Delta x^2&\leq 0,\\
+a^2c\Delta x^2&\leq 2b,\\
+a^2\Delta t&\leq 2b.
+\end{align*}
+\end{itemize}
+Thus, the CFL conditions are
+\begin{align}
+2b\Delta t &\leq \Delta x^2,\label{eq:CFL_1}\\
+a^2\Delta t&\leq 2b.\label{eq:CFL_2}
+\end{align}
+\subsubsection*{Problem 3}
+For this problem the we have introduced an artificial diffusion by modifying the discrete PDE when adopting the Lax-Friedrichs scheme. We can obtain the desired CFL condition by removing $b$ from the 2 previous CFL conditions. From \eqref{eq:CFL_1} and \eqref{eq:CFL_2},
+\begin{align*}
+a^2\Delta t&\leq 2b,\\
+2b &\leq \frac{\Delta x^2}{\Delta t}.
+\end{align*}
+Joining both together we get
+\begin{align*}
+a^2\Delta t&\leq 2b\leq \frac{\Delta x^2}{\Delta t},\\
+a^2\Delta t&\leq \frac{\Delta x^2}{\Delta t},\\
+\Delta t^2&\leq \frac{\Delta x^2}{a^2}.
+\end{align*}
+Finally, we obtain the desired CFL condition when $b=0$,
+\begin{align*}
+\Delta t&\leq \left|\frac{\Delta x}{a}\right|.
+\end{align*}

@@ -41,7 +41,7 @@ where $A' = \frac{1}{2}\left(1+ac\Delta x\right)$, $B' = 0$ and $C' = \frac{1}{2
 \begin{align}\label{eq:matrixForm}
 \vec{u}^{n+1} = M'\vec{u}^n,
 \end{align}
-where $M'$ is a tridiagonal matrix with $A'$, $B'$ and $C'$ being its lower, main, and upper diagonal, respectively. We close the problem by implementing the boundary conditions in the same manner as  in Problem 2, but with the new values $A'$, $B'$, $C'$. The new CFL condition is 
+where $M'$ is a tridiagonal matrix with $A'$, $B'$ and $C'$ being its lower, main, and upper diagonal, respectively. We close the problem by implementing the boundary conditions in the same manner as  in Problem 2, but with the new values $A'$, $B'$, $C'$. The new CFL condition, derived in the appendix, is 
 \begin{align*}
 \Delta t\leq\frac{\Delta x}{a}.
 \end{align*}
