@@ -92,7 +92,7 @@ We now use equation \eqref{eq:DiscrInvFourierTransf} to obtain the solution in s
 u(x_j,t_n)&=\frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N \hat{u}(w_{\nu},t_n)e^{ix_jw_{\nu}}\nonumber\\
 &= \frac{\Delta w}{\sqrt{2\pi}}\sum_{\nu=-N}^N g^n(\omega_{\nu} )\hat{u}^I(w_{\nu})e^{ix_jw_{\nu}}.
 \end{align}
-To finish, it must be mentioned that the above solution is stable if and only if $|g(w)|\leq 1, \forall w\in[-\frac{\pi}{\Delta x},\frac{\pi}{\Delta x}]$. This condition will produce the following conditions on the parameters:
+To finish, it must be mentioned that the above solution is stable if and only if $|g(w)|\leq 1, \forall w\in[-\frac{\pi}{\Delta x},\frac{\pi}{\Delta x}]$. This condition will produce the following conditions, CFL conditions, on the parameters:
 \begin{align}\label{eq:CFL}
 a^2\Delta t \leq 2b,\text{  and  }2b\Delta t\leq\Delta x^2.
 \end{align}

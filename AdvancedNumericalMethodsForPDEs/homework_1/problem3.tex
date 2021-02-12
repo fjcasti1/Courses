@@ -1,0 +1,68 @@
+\begin{questions}
+\question{Show that for $b = 0$ the exact solution of \eqref{eq:PDE} is given by $u(x, t) = u^I(x − at)$.}
+\begin{solution}
+We retake \eqref{eq:freqDomSol}, with $b=0$,
+\begin{align*}
+\hat{u}(w,t)&=e^{-\cancel{b}\omega^2t}\hat{u}^I(w)e^{-iawt},\\
+&=\hat{u}^I(w)e^{-iawt}.
+\end{align*}
+We then find the solution using the inverse Fourier transform,
+\begin{align*}
+u(x,t) &= \int_{-\infty}^{\infty}\hat{u}(w,t)e^{iwx}dw,\\
+&= \int_{-\infty}^{\infty}\hat{u}^I(w)e^{-iawt}e^{iwx}dw,\\
+&= \int_{-\infty}^{\infty}\hat{u}^I(w)e^{iw(x-at)}dw,\\
+&= u^I(x-at).
+\end{align*}
+It can also be proved by simplty substituting $u^I(x-at)$ into the PDE (with $b=0$).
+
+\end{solution}
+\question{Use the program of Problem 2 to solve the equation
+\begin{align}\label{eq:PDE_b0}
+\partial_t u + a\partial_x u = 0,
+\end{align}
+with $a=0.5$, in $t\in[0,4]$, $x\in[-1,1]$ with periodic boundary conditions
+and the initial function $u^I(x)$ from \eqref{eq:uI_step}. Again, use $\Delta x = 0.1$, $\Delta x = 0.01$,  $\Delta x = 0.001$.}
+\begin{solution}
+The program for problem 2 cannot be used in this problem because $b=0$. This causes $M$ to be the identity and, more importantly, the CFL conditions cannot be met. We will adapt this problem using the Lax-Friedrichs scheme, which introduces an artificial diffusion to the problem. We will modify equation \eqref{eq:discrPDE}, with $b=0$, a bit for this purpose:
+\begin{align}\label{eq:modDiscrPDE}
+U(x, t+\Delta t) =\frac{1}{2}\left(T+T^{-1}\right) U(x, t)-\frac{a\Delta t}{ 2\Delta x}(T-T^{-1})U(x,t)
+\end{align}
+Not that we have substituted $U(x,t)$ for $\frac{1}{2}\left(T+T^{-1}\right) U(x, t)$. Then, we can rewrite equation \eqref{eq:modDiscrPDE} into
+\begin{align*}
+u_j^{n+1} &= \frac{1}{2}\left(u_{j+1}^n+u_{j-1}^n\right)-\frac{a\Delta t}{2\Delta x}\left(u_{j+1}^n-u_{j-1}^n\right),\\
+&= \frac{1}{2}\left(u_{j+1}^n+u_{j-1}^n\right)-\frac{1}{2}ac\Delta x\left(u_{j+1}^n-u_{j-1}^n\right).
+\end{align*}
+where $c = \frac{\Delta t}{\Delta x^2}$, as before. Regrouping terms we obtain
+\begin{align}\label{eq:reducedForm}
+u_j^{n+1} &= \frac{1}{2}\left(1+ac\Delta x\right)u_{j-1}^n+\frac{1}{2}\left(1-ac\Delta x\right)u_{j+1}^n,\nonumber\\
+&= A'u_{j-1}^n + B'u_j^n + C'u_{j+1}^n,
+\end{align}
+where $A' = \frac{1}{2}\left(1+ac\Delta x\right)$, $B' = 0$ and $C' = \frac{1}{2}\left(1-ac\Delta x\right)$. The previous equation can be represented as a tridiagonal system,
+\begin{align}\label{eq:matrixForm}
+\vec{u}^{n+1} = M'\vec{u}^n,
+\end{align}
+where $M'$ is a tridiagonal matrix with $A'$, $B'$ and $C'$ being its lower, main, and upper diagonal, respectively. We close the problem by implementing the boundary conditions in the same manner as  in Problem 2, but with the new values $A'$, $B'$, $C'$. The new CFL condition is 
+\begin{align*}
+\Delta t\leq\frac{\Delta x}{a}.
+\end{align*}
+
+Hence, to implement this new method, it sufices with modifying the code from Problem 2. We will check the value of $b$ and, if zero, we will define $A$, $B$, $C$ with the new values just presented. In addition, the value of $\Delta t$ will be also derived from the new CFL condition. In figure 3 we can see that, without diffusion (other than the negligible artificial diffusion introduced by the Lax-Friedrichs scheme) we obtain a travelling solution $u(x,t)=u^I(x-at)$.
+
+As we can see, $\Delta x =0.1$ is not good enough, as it doesn't capture the step function well enough. In this case, we can appreciate an improvement when using $\Delta x=0.001$ vs $\Delta x=0.01$, and the simulation doesn't take that much longer. In fact, the all simulations take considerably less time than when $b\neq 0$ like in the previous problem. We can then raise the conclusion that most of the compute time is spent on the diffussion term. It is somewhat difficult to see the solutions at different times $t$, since they are supperposed because of the lack of diffusion. We recommend enabling video to see the step function move with time. Note that, because $a = 0.5$ the wave travels $0.5$ units in $x$ every unit of time $t$.
+
+Please find the Matlab code below figure 2.
+\newpage
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$\Delta x=0.1$.]{\includegraphics[scale=0.52]{sol_b0_dx1e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$\Delta x=0.01$.]{\includegraphics[scale=0.52]{sol_b0_dx1e-2.png}}
+\hspace{-0.9cm}
+\subfigure[$\Delta x=0.001$.]{\includegraphics[scale=0.52]{sol_b0_dx1e-3.png}}
+\caption{Solution $u(x,t)$ against $x$ for the PDE in \eqref{eq:PDE_b0} for different values of $t$ and $a=0.5$.}
+\end{figure}
+Matlab code:
+\lstinputlisting[language=Matlab]{./src/problem3.m}
+\end{solution}
+\end{questions}

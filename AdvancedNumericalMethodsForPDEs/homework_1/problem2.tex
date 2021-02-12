@@ -43,7 +43,7 @@ since $u_{N+1} = u_{2}$. This method was coded in Matlab (code at the end of thi
 \end{solution}
 
 \question{Solve the discretized problem \eqref{eq:discrPDE} for $0<t<1$, using the values $a=1,b=0.5$ and
-\begin{equation}
+\begin{equation}\label{eq:uI_step}
 u^I(x) = \begin{dcases}
         1 & x\leq 0 \\
         0 & x > 0 \\
@@ -54,12 +54,12 @@ Use stepsizes $\Delta x = 0.1$, $\Delta x = 0.01$ and $\Delta x = 0.001$. Use th
 The method above was implemented. See figure 1 for the solution profiles at different times and using different mesh sizes. We can barely see any difference between the solutions for $\Delta x=0.01$ (b) and $\Delta x=0.001$ (c). Since the compute time is considerably larger for $\Delta x=0.001$, with very little gain in accuracy, we don't see the need for such a fine mesh. At the same time, it can be observed that $\Delta x = 0.1$ is too big.
 \begin{figure}[H]
 \centering     %%% not \center
-\subfigure[$\Delta x=0.1$.]{\includegraphics[scale=0.53]{step_dx1e-1.png}}
+\subfigure[$\Delta x=0.1$.]{\includegraphics[scale=0.52]{sol_b5e-1_dx1e-1.png}}
 \hspace{-0.9cm}
-\subfigure[$\Delta x=0.01$.]{\includegraphics[scale=0.53]{step_dx1e-2.png}}
+\subfigure[$\Delta x=0.01$.]{\includegraphics[scale=0.52]{sol_b5e-1_dx1e-2.png}}
 \hspace{-0.9cm}
-\subfigure[$\Delta x=0.001$.]{\includegraphics[scale=0.53]{step_dx1e-3.png}}
-\caption{Solution $u(x,t)$ against $x$ for different values of $t$.}
+\subfigure[$\Delta x=0.001$.]{\includegraphics[scale=0.52]{sol_b5e-1_dx1e-3.png}}
+\caption{Solution $u(x,t)$ against $x$ for the PDE in \eqref{eq:PDE} for different values of $t$ and $a=1$, $b=0.5$.}
 \end{figure}
 Find the code that produced the plots in figure 1 below. The reader is welcome to set \textsf{enableVideo = true}, to see the evolution of the signal in real time. Further, if $b$ were to be set to a value very close to zero, we would see a travelling wave that doesn't suffer any diffusion, as expected.To conclude, $\Delta t$ has been chosen following the \textit{CFL} condition given by \eqref{eq:CFL}, implemented in the function \textsf{calculate\_dt}.
 
