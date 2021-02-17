@@ -5,14 +5,14 @@
 Let $u_j^n = u(x_0+j\Delta x,n\Delta t)$, with $x_0 = -1$. Then, we can rewrite equation \eqref{eq:discrPDE} into
 \begin{align*}
 u_j^{n+1} &= u_j^n - \frac{a\Delta t}{2\Delta x}\left(u_{j+1}^n-u_{j-1}^n\right) + \frac{b\Delta t}{\Delta x^2}\left(u_{j+1}^n-2u_{j}^n+u_{j-1}^n\right),\\
-&= u_j^n - c\frac{a\Delta x}{2}\left(u_{j+1}^n-u_{j-1}^n\right) + cb\left(u_{j+1}^n-2u_{j}^n+u_{j-1}^n\right),
+&= u_j^n - \frac{1}{2}ac\left(u_{j+1}^n-u_{j-1}^n\right) + \frac{bc}{\Delta x}\left(u_{j+1}^n-2u_{j}^n+u_{j-1}^n\right),
 \end{align*}
-where $c = \frac{\Delta t}{\Delta x^2}$. Regrouping terms we obtain
+where $c = \frac{\Delta t}{\Delta x}$. Regrouping terms we obtain
 \begin{align}\label{eq:reducedForm}
-u_j^{n+1} &= c\left(b+\frac{a\Delta x}{2}\right)u_{j-1}^n + \left(1-2bc\right)u_j^n + c\left(b-\frac{a\Delta x}{2}\right)u_{j+1}^n,\nonumber\\
+u_j^{n+1} &= c\left(\frac{b}{\Delta x}+\frac{a}{2}\right)u_{j-1}^n + \left(1-\frac{2bc}{\Delta x}\right)u_j^n + c\left(\frac{b}{\Delta x}-\frac{a}{2}\right)u_{j+1}^n,\nonumber\\
 &= Au_{j-1}^n +Bu_j^n + Cu_{j+1}^n,
 \end{align}
-where $A = c\left(b+\frac{a\Delta x}{2}\right)$, $B = 1-2bc$ and $C = c\left(b-\frac{a\Delta x}{2}\right)$. The previous equation can be represented as a tridiagonal system,
+where $A = c\left(\frac{b}{\Delta x}+\frac{a}{2}\right)$, $B = \left(1-\frac{2bc}{\Delta x}\right)$ and $C = c\left(\frac{b}{\Delta x}-\frac{a}{2}\right)$. The previous equation can be represented as a tridiagonal system,
 \begin{align}\label{eq:matrixForm}
 \vec{u}^{n+1} = M\vec{u}^n,
 \end{align}
@@ -64,6 +64,6 @@ The method above was implemented. See figure 1 for the solution profiles at diff
 Find the code that produced the plots in figure 1 below. The reader is welcome to set \textsf{enableVideo = true}, to see the evolution of the signal in real time. Further, if $b$ were to be set to a value very close to zero, we would see a travelling wave that doesn't suffer any diffusion, as expected.To conclude, $\Delta t$ has been chosen following the \textit{CFL} condition given by \eqref{eq:CFL}, implemented in the function \textsf{calculate\_dt}.
 
 Matlab code:
-\lstinputlisting[language=Matlab]{./src/problem2.m}
+\lstinputlisting[language=Matlab]{../src/problem2.m}
 \end{solution}
 \end{questions}

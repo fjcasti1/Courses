@@ -1,0 +1,62 @@
+\begin{questions}
+\question{Repeat problem 3 using the Lax-Wendroff scheme.}
+\begin{solution}
+As we did before, we are going to use matrix form for the Lax-Wendroff scheme. This is possible because in our PDE
+\begin{align*}
+\partial_tu(x,t)+\partial_xf(u(x,t)) = 0,
+\end{align*}
+we have $f(u(x,t)) = au(x,t)$ and,
+\begin{align*}
+\partial_tu(x,t)+\partial_xf(u(x,t)) = \partial_tu(x,t)+a\partial_xu(x,t) = 0.
+\end{align*}
+This is very important to "join" both steps and represent it in matrix form. For the first half-step, we use Lax-Friedrichs in a staggered mesh:
+\begin{align*}
+u_{j+1/2}^{n+1/2} &= \frac{1}{2}\left(u_{j+1}^n+u_{j}^n\right)-\frac{a\Delta t/2}{2\Delta x/2}\left(u_{j+1}^n-u_{j}^n\right),\\
+ &= \frac{1}{2}\left(1+ac\right)u_{j}^n + \frac{1}{2}\left(1-ac\right)u_{j+1}^n,
+\end{align*}
+where $c = \frac{\Delta t}{\Delta x}$. Moving to the second step, $FTCS$,
+\begin{align*}
+u_{j}^{n+1} &= u_{j}^{n}-\frac{\Delta t/2}{\Delta x/2}\left(f\left(u_{j+1/2}^{n+1/2}\right)-f\left(u_{j-1/2}^{n+1/2}\right)\right).
+\end{align*}
+Thanks to that $f(u(x,t)) = au(x,t)$, we can write:
+\begin{align*}
+u_{j}^{n+1} &= u_{j}^{n}-a\frac{\Delta t/2}{\Delta x/2}\left(u_{j+1/2}^{n+1/2}-u_{j-1/2}^{n+1/2}\right),\\
+&= u_{j}^{n}-ac\left(u_{j+1/2}^{n+1/2}-u_{j-1/2}^{n+1/2}\right).
+\end{align*}
+Substituting the half grid values from the previous half-step, we get
+\begin{align*}
+u_{j}^{n+1} &= u_{j}^{n}-ac\left(u_{j+1/2}^{n+1/2}-u_{j-1/2}^{n+1/2}\right),\\
+&= u_{j}^{n}-ac\left(\frac{1}{2}\left(1+ac\right)u_{j}^n + \frac{1}{2}\left(1-ac\right)u_{j+1}^n-\frac{1}{2}\left(1+ac\right)u_{j-1}^n - \frac{1}{2}\left(1-ac\right)u_{j}^n\right),\\
+&= \frac{1}{2}ac\left(ac+1\right)u_{j-1}^n+\left(1-a^2c^2\right)u_{j}^n+\frac{1}{2}ac\left(ac-1\right)u_{j+1}^n,\\
+&= A''u_{j-1}^n+B''u_{j}^n+C''u_{j+1}^n,\\
+\end{align*}
+where $A'' = \frac{1}{2}ac\left(ac+1\right)$, $B'' = 1-a^2c^2$ and $C' = \frac{1}{2}ac\left(ac-1\right)$. The previous equation can be represented as a tridiagonal system,
+\begin{align}\label{eq:matrixForm}
+\vec{u}^{n+1} = M''\vec{u}^n,
+\end{align}
+where $M''$ is a tridiagonal matrix with $A''$, $B''$ and $C''$ being its lower, main, and upper diagonal, respectively. We close the problem by implementing the boundary conditions in the same manner as  in Problem 2, but with the new values $A''$, $B''$, $C''$. The new CFL condition, derived in the appendix, is 
+\begin{align*}
+\Delta t\leq\frac{\Delta x}{|a|}.
+\end{align*}
+Please find the Matlab code below figure 3.
+\end{solution}
+
+
+\question{Discuss the difference to the Lax-Friedrichs solution.}
+\begin{solution}
+In figure 3 we can find the solution to the PDE \eqref{eq:PDE_b0}, using Lax-Wendroff instead of Lax-Friedrichs. Compating figure 2 and 3, we can observe that for a coarser mesh, the Lax-Wendroff is far more accurate. In other words, the method converges faster. This is because the Lax-Wendroff method is a second order accurate both in space and time. On the other hand, Lax-Friedrichs is only first order accurate. 
+
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$\Delta x=0.1$.]{\includegraphics[scale=0.52]{sol_wendroff_b0_dx1e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$\Delta x=0.01$.]{\includegraphics[scale=0.52]{sol_wendroff_b0_dx1e-2.png}}
+\hspace{-0.9cm}
+\subfigure[$\Delta x=0.001$.]{\includegraphics[scale=0.52]{sol_wendroff_b0_dx1e-3.png}}
+\caption{Solution $u(x,t)$ against $x$ for the PDE in \eqref{eq:PDE_b0} for different values of $t$ and $a=0.5$.}
+\end{figure}
+Matlab code:
+\lstinputlisting[language=Matlab]{../src/problem4.m}
+\end{solution}
+\end{questions}

@@ -52,7 +52,24 @@ a^2\Delta t&\leq 2b\leq \frac{\Delta x^2}{\Delta t},\\
 a^2\Delta t&\leq \frac{\Delta x^2}{\Delta t},\\
 \Delta t^2&\leq \frac{\Delta x^2}{a^2}.
 \end{align*}
-Finally, we obtain the desired CFL condition when $b=0$,
+Wehre we have used the fact that the artificial diffusion introduced is $2b = \Delta x^2/\Delta t$. Finally, we obtain the desired CFL condition when $b=0$,
+\begin{align*}
+\Delta t&\leq \left|\frac{\Delta x}{a}\right|.
+\end{align*}
+
+\subsubsection*{Problem 4}
+For this problem the we have introduced an artificial diffusion by modifying the discrete PDE when adopting the Lax-Wendroff scheme. We can obtain the desired CFL condition by removing $b$ from the 2 previous CFL conditions. From \eqref{eq:CFL_1} and \eqref{eq:CFL_2},
+\begin{align*}
+a^2\Delta t&\leq 2b,\\
+2b &\leq \frac{\Delta x^2}{\Delta t}.
+\end{align*}
+Joining both together we get
+\begin{align*}
+a^2\Delta t&\leq 2b\leq \frac{\Delta x^2}{\Delta t},\\
+a^2\Delta t&\leq \frac{\Delta x^2}{\Delta t},\\
+\Delta t^2&\leq \frac{\Delta x^2}{a^2}.
+\end{align*}
+Where we have used the fact that the artificial diffusion introduced is $2b = a^2\Delta t$. Finally, we obtain the desired CFL condition when $b=0$,
 \begin{align*}
 \Delta t&\leq \left|\frac{\Delta x}{a}\right|.
 \end{align*}
