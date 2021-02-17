@@ -5,7 +5,7 @@ enableVideo = false;
 
 a = 0.5;
 b = 0;
-dx = 0.1;
+dx = 0.001;
 dt_default = calculate_dt(a,b,dx);
 dt = dt_default;
 
@@ -95,10 +95,10 @@ end
 
 function [A,B,C] = calculateDiagonals(a,b,dx,dt)
     c = dt/dx; % Courant Number
-    if (b==0) % Lax-Friedrichs
-        A = (1 + a*c)/2; % Lower diagonal
-        B = 0;           % Main diagonal
-        C = (1 - a*c)/2; % Upper diagonal
+    if (b==0) % Lax-Wendroff
+        A = 0.5*a*c*(a*c+1);
+        B = 1-a^2*c^2;
+        C = 0.5*a*c*(a*c-1);
     else % FTCS
         A = c*(b/dx + a/2); % Lower diagonal
         B = 1 - 2*b*c/dx;   % Main diagonal
@@ -131,7 +131,7 @@ function round_number = round_down(number, decimals)
 end
 
 function dt = calculate_dt(a,b,dx)
-    if (b==0) % Lax-Friedrichs
+    if (b==0) % Lax-Wendroff
         dt = round_down(dx/abs(a), 6);
     else % FTCS
         dt = round_down(min(2*b/a^2, dx^2/(2*b)), 6);        

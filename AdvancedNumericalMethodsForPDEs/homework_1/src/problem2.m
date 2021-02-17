@@ -5,7 +5,7 @@ enableVideo = false;
 
 a = 1.0;
 b = 1/2;
-dx = 1/1000;
+dx = 1/100;
 dt_default = calculate_dt(a,b,dx);
 dt = dt_default;
 
@@ -34,7 +34,7 @@ dtHasChanged = false;
 while t<T
     if (dtHasChanged) % Need to reset values
         dt = dt_default;
-        [A,B,C] = calculateDiagonals(a,b,dx,dt);
+        [A,B,C] = calculateDiagonals(a,b,dx,dt); % Lower Diag, Diag, Upper Diag
         Mtilde = Mtilde_default;
         dtHasChanged = false;
     end
@@ -94,10 +94,10 @@ function Mtilde = calculate_Mtilde(A,B,C,N)
 end
 
 function [A,B,C] = calculateDiagonals(a,b,dx,dt)
-    c = dt/dx^2; % Courant Number
-    A = c*(b + a*dx/2);
-    B = c*(1/c - 2*b);
-    C = c*(b - a*dx/2);
+    c = dt/dx; % Courant Number
+    A = c*(b/dx + a/2); % Lower diagonal
+    B = 1 - 2*b*c/dx;   % Main diagonal
+    C = c*(b/dx - a/2); % Upper diagonal
 end
 
 function plot_solutions(x,times,solutions,axisLimits,figName)
