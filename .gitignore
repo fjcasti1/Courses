@@ -14,3 +14,6 @@
 *-eps-converted*
 *.m~
 *.pytxcode
+*.nav
+*.out
+*.snm
