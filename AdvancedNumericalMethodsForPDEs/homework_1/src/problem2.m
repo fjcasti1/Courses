@@ -23,7 +23,9 @@ t = 0;
 u = u0;
 T = 1;
 
-plotTimes = [.1,.2,.5,T];
+k = 1:5;
+plotTimes = k*T/5
+% plotTimes = [.1,.2,.5,T]
 storeCounter = 1;
 shouldStore = false;
 storedSolutions = [];
