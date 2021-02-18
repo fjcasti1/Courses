@@ -2,6 +2,7 @@
 \hypersetup{pdfpagemode=FullScreen}
 \input{BEAMERoptions.tex}					                                         \usepackage[english]{babel}
 \usepackage{graphics}
+\usepackage{amsmath}
 \usepackage{multimedia} % for movies and sound
 \usepackage{times}
 \usepackage{tikz}
@@ -9,17 +10,20 @@
 %\usepackage{subcaption}
 \captionsetup[sub]{font=small}
 \usepackage{stackengine}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}% redefines the caption setup of the figures environment in the beamer class.
 
 
 
-\title{The Knife Edge Viscometer}
+
+\title{Advance Numerical Methods for PDEs}
 \author[F. Castillo-Carrasco]{\emph{Francisco Castillo-Carrasco} }
 \date{\today}
 % Show ASU logo in title page
 %%%%%%%%%%%%%%%%%%%%%%
 \institute[Mathematics and Statistics]{
 \includegraphics[height=.9cm]{ASUlogo.pdf} \\
-{\color{ASUred} SCHOOL OF \textbf{MATHEMATICAL AND STATISTICAL SCIENCES}}}
+{\color{ASUred} \textbf{SCHOOL OF MATHEMATICAL AND STATISTICAL SCIENCES}}}
 %%%%%%%%%%%%%%%%%%%%%
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,6 +31,8 @@
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
 %%% Title frame %%%%%
 \begin{frame}[plain]
 	\titlepage
@@ -39,298 +45,146 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section[Introduction]{Introduction}
 
-\subsection{The Knife Edge Viscometer}
-\begin{frame} \frametitle{The Knife Edge Viscometer}
-\begin{figure}
-\centering
-\includegraphics[scale=0.8]{KEviscometer.png}
-\end{figure}
-\end{frame}
-
-\subsection{Quick Motivation}
-\begin{frame} \frametitle{Quick Motivation}
-Why do we study this problem?
-\begin{itemize}
-\item How to measure surface shear viscosity remains a controversial issue.
-
-\item Monomolecular layers are key in broad areas
-\begin{itemize}
-\item Pharmaceuticals: interfacial processing.
-\item Food processing: surfactants.
-\item Natural: Gas absorption into a fluid (lungs, oceans).
-\end{itemize}
-\item Applications where a high degree of mixing is desired (microbioreactors), although at a low level of shear stress.
-\end{itemize}
-\end{frame}
-
-
-\subsection{Non-Dimensionalization}
-\begin{frame} \frametitle{Non-Dimensionalization}
+\section{Discretization}
+\begin{frame} \frametitle{Discretization}
 \begin{columns}
-\column{0.5\textwidth}
-\includegraphics[scale=.8]{scheme.pdf}
-\includegraphics[scale=.8]{scheme_ND.pdf}
-\column{0.5\textwidth}
-\vspace{-8mm}
-{\footnotesize
-\begin{block}{Using Varialbes $a,\Omega_0, \rho$}
+\column{0.45\textwidth}
+\vspace*{-0.6cm}
+\begin{block}{PDE}
+$\partial_tu(x,t)+a\partial_xu(x,t)=0$
+\end{block}
+We can discretize using finite differences, forward in time and central in space:
 \begin{align*}
-A_z &= H/a & A_r &= R/a \\
-\alpha &= A/\Omega_0 & \omega_f &= \Omega_f/\Omega_0 \\
-\nu &= \mu/\rho & Re &= \nu/a^2\Omega_0 \\
-& & Bo &= \mu^s/\mu a \\
+u_j^{n+1}=u_j^{n}-a\frac{\Delta t}{\Delta x}\left(u_{j+1}^n-u_{j-1}^n\right)
 \end{align*}
-\end{block}}
-We have mantained a constant aspect ratio of $A_z = A_r = 2$ .
-\end{columns}
-\end{frame}
-
-
-\subsection{Governing Equations}
-\begin{frame} \frametitle{Governing Equations (Non-Dimensional)}
-\begin{columns}
+\color{red} NOT STABLE FOR THIS PDE!
+\newline
+\newline
+\color{black}
+Instead, we substitute $u_j^n$ by the average of its two neighboring grid points.
 \column{0.5\textwidth}
-\includegraphics[scale=.9]{scheme_ND.pdf}
-\column{0.5\textwidth}
-\vspace{-8mm}
-{\footnotesize
-\begin{block}{Cylindrical Coordinates}
-$\psi\equiv$ Stream function\\
-$\gamma\equiv$ Angular momentum\\
-$\eta\equiv$ Azimuthal vorticity
+\vspace*{-1.5cm}
+\footnotesize{
 \begin{align*}
-\textbf{u} = (u,v,w) &= \left(-\frac{1}{r}\frac{\partial\psi}{\partial z},\frac{\gamma}{r},\frac{1}{r}\frac{\partial\psi}{\partial r}\right)\\
-\nabla\times\textbf{u} &= \left(-\frac{1}{r}\frac{\partial\gamma}{\partial z},\eta,\frac{1}{r}\frac{\partial\gamma}{\partial r}\right)
-\end{align*}
-\vspace{-4mm}
-\end{block}}
-\end{columns}
-\pause
-{\small
-\vspace{-5mm}
-\begin{align*}
-\frac{\partial\gamma}{\partial
-t}-\frac{1}{r}\frac{\partial\psi}{\partial
-z}\frac{\partial\gamma}{\partial
-r}+\frac{1}{r}\frac{\partial\psi}{\partial
-r}\frac{\partial\gamma}{\partial
-z}&=\frac{1}{Re}\left(\frac{\partial^2\gamma}{\partial
-z^2}+\frac{\partial^2\gamma}{\partial
-r^2}-\frac{1}{r}\frac{\partial\gamma}{\partial
-r}\right)\\
-\frac{\partial \eta}{\partial t}-\frac{1}{r}\frac{\partial
-\psi}{\partial z}\frac{\partial \eta}{\partial
-r}+\frac{1}{r}\frac{\partial \psi}{\partial r}\frac{\partial
-\eta}{\partial z}+\frac{\eta}{r^2}\frac{\partial \psi}{\partial
-z}-\frac{2\gamma}{r^3}\frac{\partial \gamma}{\partial
-z}&=\frac{1}{Re}\left(\frac{\partial^2\eta}{\partial
-z^2}+\frac{\partial^2\eta}{\partial
-r^2}+\frac{1}{r}\frac{\partial\eta}{\partial
-r}-\frac{\eta}{r^2}\right)\\
-\frac{\partial^2\psi}{\partial z^2}+\frac{\partial^2\psi}{\partial
-r^2}-\frac{1}{r}\frac{\partial\psi}{\partial r}&=-r\eta
+u_j^{n+1}=\color{blue}\frac{1}{2}\left(u_{j+1}^{n}+u_{j-1}^{n}\right)\color{black}-a\frac{\Delta t}{\Delta x}\left(u_{j+1}^n-u_{j-1}^n\right)
 \end{align*}}
+\vspace*{-0.5cm}
+\begin{block}{Lax-Friedrichs Discretization}
+\footnotesize{
+\begin{align*}
+u_j^{n+1}=\frac{1}{2}\left(u_{j+1}^{n}+u_{j-1}^{n}\right)-ac\left(u_{j+1}^n-u_{j-1}^n\right)
+\end{align*}}
+\end{block}
+This change introduces an artificial viscosity.
+\begin{columns}
+\column{0.4\columnwidth}
+\begin{block}{Artificial Viscosity}
+$$2b = \frac{\Delta x^2}{\Delta t}$$
+\end{block}
+\column{0.4\columnwidth}
+\begin{block}{Courant Number}
+$$c = \frac{\Delta t}{\Delta x}$$
+\end{block}
+%\begin{block}{CFL Condition}
+%$$\Delta t\leq\frac{\Delta x}{|a|}$$
+%\end{block}
+\end{columns}
+\end{columns}
 \end{frame}
 
 
-\subsection{Boundary Conditions}
+\section{Changing to Matrix Form}
+\begin{frame} \frametitle{Changing to Matrix Form}
+Rearranging terms,
+\begin{align*}
+u_j^{n+1} &= \frac{1}{2}\left(1+ac\right)u_{j-1}^n+\frac{1}{2}\left(1-ac\right)u_{j+1}^n,\nonumber\\
+&= Au_{j-1}^n + Bu_j^n + Cu_{j+1}^n,
+\end{align*}
+where $A = \frac{1}{2}\left(1+ac\right)$, $B = 0$ and $C = \frac{1}{2}\left(1-ac\right)$. 
+\begin{columns}
+\column{0.4\columnwidth}
+\begin{block}{Lax-Friedrichs Matrix Form}
+$$\vec{u}^{n+1} = M\vec{u}^n,$$
+\end{block}
+\column{0.4\columnwidth}
+\begin{block}{Tridiagonal Matrix}
+\begin{align*}
+M =
+  \begin{pmatrix}
+    B & C & \\
+    A & B & C\\
+      & \ddots & \ddots & \ddots\\
+      &  & A & B & C\\    
+      &  &  & A & B
+  \end{pmatrix}
+\end{align*}
+\end{block}
+\end{columns}
+\end{frame}
 
+
+\section{Boundary Conditions}
 \begin{frame} \frametitle{Boundary Conditions}
 \begin{columns}
-\column{0.4\textwidth}
-\includegraphics[scale=0.76]{scheme_ND.pdf}
-\column{0.6\textwidth}
-\pause
-\vspace{-6mm}
-{\small
-\begin{block}{Bottom (no slip)}
-\vspace{-5mm}
-\begin{align*}
-\psi=\gamma=0~\text{ at } z=0\\
-\eta=\left.-\frac{1}{r}\frac{\partial^2\psi}{\partial z^2}\right|_{z=0}
-\end{align*}
-\end{block}}
-\pause
-\vspace{-1mm}
-{\small
-\begin{block}{End Wall (no slip)}
-\vspace{-5mm}
-\begin{align*}
-\psi=\gamma=0~\text{ at } r=A_r\\
-\eta=\left.-\frac{1}{A_r}\frac{\partial^2\psi}{\partial r^2}\right|_{r=A_r}
-\end{align*}
-\end{block}}
-\pause
-\vspace{-1mm}
-{\small
-\begin{block}{Axis (symmetry)}
-\vspace{-5mm}
-\begin{align*}
-\psi=\gamma=\eta=0~\text{ at } r=0\\
-\text{Sure?  }
-\left(\left.-\frac{1}{r}\frac{\partial\psi}{\partial r}\right|_{r=0}= 0\right)
-\end{align*}
-\end{block}}
-\end{columns}
-\end{frame}
-
-
-\begin{frame} \frametitle{Boundary Conditions (II)}
-\begin{columns}
-\vspace{-5mm}
-\column{0.7\textwidth}
-{\small
-\begin{block}{Top (stress balance)}
-\vspace{-5mm}
-\begin{align*}
-\psi=0~\text{ at } z=A_z\\
-\eta=\left.-\frac{1}{r}\frac{\partial^2\psi}{\partial z^2}\right|_{z=A_z}\\
-\frac{\partial^2 v}{\partial r^2}+\frac{1}{r}\frac{\partial v}{\partial r}-\frac{v}{r^2} = \frac{1}{Bo}\frac{\partial v}{\partial z}~~~~ \forall r\neq A_r/2, z=A_r\\
-v=r\left[1+\alpha\cos(\omega_ft)\right] ~~~~ r= A_r/2, z=A_r
-\end{align*}
-\end{block}}
-\column{0.3\textwidth}
-$$v = \frac{\gamma}{r}$$
-\end{columns}
-\pause
-{\small
-\begin{block}{The limit $Bo\rightarrow\infty$}
-\vspace{-4mm}
-\begin{align*}
-\frac{\partial^2 v}{\partial r^2}+\frac{1}{r}\frac{\partial v}{\partial r}-\frac{v}{r^2} = 0
-\end{align*}
-The bulk flow and the monolayer are decoupled.
-Analytic solution is possible.
-\end{block}}
-
-\end{frame}
-
-\section[Results]{Results}
-
-\subsection{Observables}
-\begin{frame}\frametitle{Observables}
-\begin{columns}
-\column{0.4\textwidth}
-\begin{block}{Global}
-\begin{itemize}
-\item Kinetic Energy
-\begin{align*}
-E_k = \frac{1}{2}\int \|\textbf{u}\|^2dV
-\end{align*}
-\item Enstrophy
-\begin{align*}
-E_w = \int \|\nabla\times\textbf{u}\|^2dV
-\end{align*}
-\item Angular Momentum
-\begin{align*}
-E_{\gamma} = \int \gamma^2dV
-\end{align*}
-\end{itemize}
+\column{0.45\columnwidth}
+We will solve the matrix system \textbf{only for the interior}.
+\begin{block}{Solve for the interior}
+$$\vec{u}^{n+1} = \tilde{M}\vec{u}^n,$$
+$\tilde{M}$ is $M$ where we have removed the first and last rows.
 \end{block}
-\column{0.4\textwidth}
-\begin{block}{Local}
-We probe the value of the three velocity components:
-\begin{align*}
-u &= -\frac{1}{r}\frac{\partial\psi}{\partial z}\\
-v &= \frac{\gamma}{r}\\
-w &= \frac{1}{r}\frac{\partial\psi}{\partial r}
-\end{align*}
- at the point $\left(\frac{3}{4}A_r,\frac{3}{4}A_r\right)$.
+The algorithm updates the solution for the interior, then updates the end points using the periodic boundary conditions.
+\begin{block}{Periodic Boundary Conditions}
+$$u_{j} = u_{j\pm N}$$
 \end{block}
+\column{0.4\columnwidth}
+More specifically,
+\begin{align*}
+u^{n+1}_{0} &= \color{red}Au^n_{-1}\color{black} + Bu^n_{0} + Cu^n_{1},\\
+ &= \color{blue}Au^n_{N-1}\color{black} + Bu^n_{0} + Cu^n_{1},\\
+u^{n+1}_{N} &= Au^n_{N-1} + Bu^n_{N} + \color{red}Cu^n_{N+1}\\
+ &= Au^n_{N-1} + Bu^n_{N} + \color{blue}Cu^n_{1}\\
+\end{align*}
+\vspace*{-1.2cm}
+\begin{block}{Applied Boundary Conditions}
+$u^{n+1}_{0} = Au^n_{-1} + Bu^n_{0} + Cu^n_{1}$
+$u^{n+1}_{N} = Au^n_{N-1} + Bu^n_{N} + Cu^n_{N+1}$
+\end{block}
+*NOTE: in MATLAB the subindeces are shifted +1 since the arrays start at 1, not at 0.
 \end{columns}
 \end{frame}
 
-\subsection{Parameter Sweep}
-
-\begin{frame}\frametitle{Parameter Sweep}
+\section{Results}
+\begin{frame}
+\begin{columns}
+\hspace{-0.75cm}
+\column{0.3\columnwidth}
 \begin{figure}
-\centering
-\includegraphics[scale=1.2]{parGraphalpha0e0.pdf}
+\includegraphics[scale=0.3]{../figures/sol_b0_dx1e-1.png}
+\vspace{-0.75cm}
+\caption{\footnotesize{$\Delta x = 0.1$}}
 \end{figure}
-\end{frame}
-
-\begin{frame}\frametitle{Scaling}
+\column{0.3\columnwidth}
 \begin{figure}
-\centering
-\includegraphics[scale=1]{bifCurveScaled_E.pdf}
+\includegraphics[scale=0.3]{../figures/sol_b0_dx1e-2.png}
+\vspace{-0.75cm}
+\caption{\footnotesize{$\Delta x = 0.01$}}
 \end{figure}
-\end{frame}
-
-\subsection{Time-series at the bifurcation}
-
-\begin{frame}\frametitle{At the Hopf Bifurcation}
-\vspace{2mm}
-{\footnotesize
-We now focus on the results for $Bo = 1$ and $Re = 1700$ (right before the bifurcation, $Re_c = 1760$ and $\omega_H = 0.073154$). With this parameters a steady state is reached. We force the system using $\omega = 1+\alpha\cos(\omega_ft)$ using amplitudes $\alpha=0.03,0.05$ and frequencies $\omega_f\in[0.01,0.2]$. 
-
-We plot the standard deviation of the global kinetic energy versus the angular forcing frequency.}
-\includegraphics[scale=0.26]{AmpVsFreq_Bo1e0.png}
-\end{frame}
-
-\begin{frame}\frametitle{At the Hopf Bifurcation}
-\vspace{-2mm}
-\includegraphics[scale=0.26]{AmpVsFreq_Bo1e1.png}
-\vspace{-2mm}
-\includegraphics[scale=0.26]{AmpVsFreq_Bo1e2.png}
-\end{frame}
-
-\begin{frame}\frametitle{Time Series $Bo=1$, $Re=1700$, $\alpha=0.05$}
-\begin{center}
+\column{0.3\columnwidth}
 \begin{figure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf01e-2.png}}{\tiny{$\omega_f = 0.01$}}%
-\end{subfigure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf650e-4.png}}{\tiny{$\omega_f = 0.0650$}}%
-\end{subfigure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf675e-4.png}}{\tiny{$\omega_f = 0.0675$}}%
-\end{subfigure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf700e-4.png}}{\tiny{$\omega_f = 0.0700$}}%
-\end{subfigure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf725e-4.png}}{\tiny{$\omega_f = 0.0725$}}%
-\end{subfigure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf750e-4.png}}{\tiny{$\omega_f = 0.0750$}}%
-\end{subfigure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf775e-4.png}}{\tiny{$\omega_f = 0.0775$}}%
-\end{subfigure}
-\begin{subfigure}{.2\textwidth}
-\centering
-\stackunder[5pt]{\includegraphics[scale=0.18]{Ekwf20e-2.png}}{\tiny{$\omega_f = 0.20$}}%
-\end{subfigure}
+\includegraphics[scale=0.3]{../figures/sol_b0_dx1e-3.png}
+\vspace{-0.75cm}
+\caption{\footnotesize{$\Delta x = 0.001$}}
 \end{figure}
-\end{center}
+\end{columns}
 \end{frame}
 
-\begin{frame}\frametitle{At the Hopf Bifurcation}
-To see the time-series, FFTs and orbits go to:
-\centering
-\vspace{1cm}
-\href{https://mathpost.asu.edu/~kiko/Website/research/monitor_alpha3e-2.html}{\beamergotobutton{Results Webpage}}
-\end{frame}
 
-%\subsection{Movies}
-%\begin{frame}\frametitle{Flow Field Animations}
-%\movie[externalviewer]{MOVIES IMPOSSIBLE TO EMBED IN THE BEAMER PRESENTATION}{movie.mp4}
-%\end{frame}
 
 \begin{frame}
 \centering
 \Huge
-Thank you.
+Thank you
 \end{frame}
 
 \end{document}

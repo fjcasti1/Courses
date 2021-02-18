@@ -1,0 +1,5 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Discretization}{6}{0}{1}
+\beamer@sectionintoc {2}{Changing to Matrix Form}{7}{0}{2}
+\beamer@sectionintoc {3}{Boundary Conditions}{8}{0}{3}
+\beamer@sectionintoc {4}{Results}{9}{0}{4}
