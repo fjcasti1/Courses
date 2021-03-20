@@ -5,7 +5,7 @@ enableVideo = false;
 
 a = 0.5;
 b = 0;
-dx = 0.001;
+dx = 0.1;
 dt_default = calculate_dt(a,b,dx);
 dt = dt_default;
 
