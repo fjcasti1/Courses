@@ -1,7 +1,6 @@
 clear all; close all; clc
 format long
 
-enableVideo = false;
 %% Parameter Values
 L = 50;
 c = 100;
@@ -27,14 +26,18 @@ v0 = calculate_v0(x,v_slow_interval,v_slow,v_fast);
 %% Prepare for the loop
 t = 0;
 u = u0;
+vp = v0.*(1-2*u/c);
 u_new = zeros(size(u)); % Just to allocate for its size
 
 saveTimes = 0.2:0.2:T;
 save_idx = 1;
 
 % Plot initial condition
-plot_solution(x,t,u,c,L,v_slow_interval)
-saveas(gcf,'../figures/u_t0','png')
+plot_u(x,t,u,c,L,v_slow_interval)
+saveas(gcf,'../figures/p3_u_t0','png')
+% Plot initial phase velocity
+plot_vp(x,t,vp,c,L,v_slow_interval)
+saveas(gcf,'../figures/p3_vp_t0','png')
 
 while t<T
     v_g = calculate_group_speed(v0,u,c); % Speed of the particles
@@ -62,11 +65,22 @@ while t<T
     % Update u and t  
     u = u_new; 
     t = t +dt;
+    % Update phase velocity
+    vp = v0.*(1-2*u/c);
+
     
-    % Plot solution and save if appropriate
-    plot_solution(x,t,u,c,L,v_slow_interval)
+    % Plot solutions and save if appropriate
+    plot_u(x,t,u,c,L,v_slow_interval)  % Density u
+    plot_vp(x,t,vp,c,L,v_slow_interval) % Phase velocity
     if (ismember(t,saveTimes))
-        figName = create_figName(t);
+        % Density solution
+        figName = create_figName('u',t);
+        figure(1)
+        saveas(gcf,figName,'png')
+        disp(['Saved figure -> "',figName,'.png"'])
+        
+        figName = create_figName('vp',t);
+        figure(2)
         saveas(gcf,figName,'png')
         disp(['Saved figure -> "',figName,'.png"'])
     end
@@ -96,7 +110,7 @@ function round_number = round_down(number,decimals)
     round_number = floor(number * multiplier)/multiplier;
 end
 
-function plot_solution(x,t,u,c,L,v_slow_interval)
+function plot_u(x,t,u,c,L,v_slow_interval)
     % Plot parameters
     a = v_slow_interval(1);
     b = v_slow_interval(2);
@@ -117,9 +131,30 @@ function plot_solution(x,t,u,c,L,v_slow_interval)
     alpha(0.3)
 end
 
-function figName = create_figName(t)
+function plot_vp(x,t,vp,c,L,v_slow_interval)
+    % Plot parameters
+    a = v_slow_interval(1);
+    b = v_slow_interval(2);
+    linewidth = 2;
+    labelfontsize = 18;
+
+    figure(2)
+    plot(x,vp,'linewidth',linewidth)
+    grid on
+    axis([0 L -c c])
+    xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
+    ylabel(['$v_P(x,t=',num2str(t),')$'],'interpreter','latex','fontsize',labelfontsize)
+
+    % Plot shaded area
+    xx = [a a b b];
+    yy = [-c c c -c];
+    patch(xx,yy,'red')
+    alpha(0.3)
+end
+
+function figName = create_figName(field,t)
     exponent = floor(log10(t));
     base = t/10^exponent;
     path = '../figures/';
-    figName = append(path,'p3_u_t',num2str(base),'e',num2str(exponent));
+    figName = append(path,'p3_',field,'_t',num2str(base),'e',num2str(exponent));
 end

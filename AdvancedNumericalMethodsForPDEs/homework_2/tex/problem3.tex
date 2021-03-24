@@ -1,0 +1,105 @@
+\begin{questions}
+\question{Consider the Lighthill - Whitham - Richardson (LWR) mean field model for this problem 
+\begin{align*}
+& \partial_tu(x,t) + \partial_x[v(u, x)u(x,t)] = 0,\\
+& v(u, x) = v_0(x)\left(1 - \frac{u}{c}\right),
+\end{align*}
+with the initial and periodic boundary conditions
+\begin{align*}
+&u(x, t = 0) = u^I(x),\\
+&u(x + L, t) = u(x).
+\end{align*}
+Write a code to solve the problem with the Lax-Friedrichs
+method for $t\in[0, T]$ with the parameters $L = 50(km)$, $c = 100(cars/km)$, $T = 1(h)$,
+\begin{align*}
+v_0(x) = \begin{dcases}
+         20(km/h) & 30<x<40 \\
+        100(km/h) & else
+\end{dcases}
+\end{align*}
+and 
+\begin{align*}
+u^I(x) = \begin{dcases}
+        50(cars/km) & 0<x<10 \\
+         0 & else \\
+\end{dcases}
+\end{align*}
+Use $N = 100$ gridpoints ($\Delta x = L/N$) and compute the time
+step $\Delta t$ adaptively according to the CFL condition.}
+\begin{solution}
+We start with the Lax-Friedrichs scheme,
+\begin{align}\label{eq:Lax-F}
+u_j^{n+1} &= \frac{1}{2}\left(u_{j+1}^n+u_{j-1}^n\right)-\frac{\Delta t}{2\Delta x}\left(f_{j+1}^n-f_{j-1}^n\right),
+\end{align}
+where the flux function 
+\begin{align}
+f_j^n = v_j^nu_j^n,
+\end{align}
+with
+\begin{align}
+v_j^n = v_{0j}\left(1-\frac{u_j^n}{c}\right),~~
+\end{align}
+Note that we use \eqref{eq:Lax-F} only for the interior $j=2:N$. We need to calculate $\Delta t$. To do so, since $v(u,x)$ is clearly not constant, we use the most restrictive of cases, i.e., the maximum value of $v$.
+\begin{align}
+\Delta t = \frac{\Delta x}{\max_j\{v_j\}},~~~~j=1,\dots,N+1
+\end{align}
+To close the problem, we enforce periodic boundary conditions:
+\begin{align*}
+u_0 = u_{N+1},\\
+u_{N+2} = u_1.
+\end{align*}
+Which, applied to \eqref{eq:Lax-F}, gives us
+\begin{align}\label{eq:Lax-F}
+u_1^{n+1} &= \frac{1}{2}\left(u_{2}^n+u_{N+1}^n\right)-\frac{\Delta t}{2\Delta x}\left(f_{2}^n-f_{N+1}^n\right),\\
+u_{N+1}^{n+1} &= \frac{1}{2}\left(u_{1}^n+u_{N}^n\right)-\frac{\Delta t}{2\Delta x}\left(f_{1}^n-f_{N}^n\right).
+\end{align}
+To finish, we wish to see the behaviour of the phase velocity $v_P$, defined as
+\begin{align}
+v_P(x,t) &= \frac{\partial}{\partial u}\left[v(u,x)u(x,t)\right],\\
+&= \frac{\partial}{\partial u}\left[v_0(x)\left(1 - \frac{u(x,t)}{c}\right)
+u(x,t)\right],\\
+&= v_0(x)\frac{\partial}{\partial u}\left[u(x,t) - \frac{u^2(x,t)}{c}\right],\\
+&= v_0(x)\left(1 - \frac{2}{c}u(x,t)\right).
+\end{align}
+See the matlab code at the end of the problem after the results. In figures \ref{fig:p3_u} and \ref{fig:p3_vp} I show the solutions $u(x,t)$ and $v_P(x,t)$, respectively, every $0.2$ seconds.
+
+
+\newpage
+\begin{figure}[H]\label{fig:p3_u}
+\centering     %%% not \center
+\subfigure[$t=0$ s.]{\includegraphics[scale=0.52]{p3_u_t0.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.2$ s.]{\includegraphics[scale=0.52]{p3_u_t2e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.4$ s.]{\includegraphics[scale=0.52]{p3_u_t4e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.6$ s.]{\includegraphics[scale=0.52]{p3_u_t6e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.8$ s.]{\includegraphics[scale=0.52]{p3_u_t8e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.52]{p3_u_t1e0.png}}
+\hspace{-0.9cm}
+\caption{Density $u(x,t)$ against $x$ for different values of time $t$. The red shaded area corresponds to the zone where the cars have to go slower.} 
+\end{figure}
+
+\begin{figure}[H]\label{fig:p3_vp}
+\centering     %%% not \center
+\subfigure[$t=0$ s.]{\includegraphics[scale=0.52]{p3_vp_t0.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.2$ s.]{\includegraphics[scale=0.52]{p3_vp_t2e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.4$ s.]{\includegraphics[scale=0.52]{p3_vp_t4e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.6$ s.]{\includegraphics[scale=0.52]{p3_vp_t6e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.8$ s.]{\includegraphics[scale=0.52]{p3_vp_t8e-1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.52]{p3_vp_t1e0.png}}
+\hspace{-0.9cm}
+\caption{Phase velocity $v_P(x,t)$ against $x$ for different values of time $t$. The red shaded area corresponds to the zone where the cars have to go slower.} 
+\end{figure}
+
+Matlab code:
+\lstinputlisting[language=Matlab]{../src/problem3.m}
+\end{solution}
+\end{questions}
