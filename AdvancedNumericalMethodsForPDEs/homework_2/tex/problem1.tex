@@ -1,0 +1,48 @@
+\begin{questions}
+\question{Write a program that solves the problem
+with the particle iteration
+\begin{align}\label{eq:p1}
+\xi(t + \Delta t) = \xi(t) + \Delta tq(\xi),~~dP[q(\xi) = x] = \phi(x,\xi) dx.
+\end{align}
+Choose $\phi(x, \xi)$ to be uniformly distributed in an interval $[a,a+b]$ with $a,b$ chosen such that the mean and variance of $\phi$ match the transport coefficients in \eqref{eq:p1}. Explain how you compute $q$ from a random variable $\eta$, uniformly distributed in $[0,1]$.}
+\begin{solution}
+The matlab program is shown after Problem 2. Here, we explain how we choose $\phi(x,\xi)$, $a$, and $b$.
+We start by noting that a $\phi(x)$ is uniformly distributed,
+\begin{align}
+\phi(x,\xi) = \begin{dcases}
+   \frac{1}{b} & x\in[a,a+b] \\
+             0 & other
+\end{dcases}
+\end{align}
+It's cumulative probability function
+\begin{align}
+\mathcal{P}(q(\xi)<x) = P(x) &= \int_{-\infty}^x\phi(x,\xi)dx,\nonumber \\ &= \begin{dcases}
+   \frac{x-a}{b} & x\in[a,a+b] \\
+             0 & other
+\end{dcases}
+\end{align}
+Let $\eta$ be a random variable uniformly distributed on $[0,1]$. Choose $q(\xi) = g(\eta)$. To find $g$ and the placement of the particles we note that
+\begin{align}
+\mathcal{P}(q(\xi)<x) = \mathcal{P}(g(\eta)<x) = \mathcal{P}(\eta<g^{-1}(x)) = g^{-1}(x) = P(x).
+\end{align}
+Hence, 
+\begin{align}
+g^{-1}(x) = \frac{x-a}{b},~~ x\in[a,b].
+\end{align}
+We now can determing $g$,
+\begin{align}
+q_j = q(\xi_j) = g(\eta_j) = a+\eta_j(b-a).
+\end{align}
+Now that we know how to compute $q$, we have to determine the size of the interval $[a,a+b]$. To do so, we recall that the convective constant, $v$, is equal to the mean of the distribution and the diffusion coefficient, $d$, is half of its variance scaled by $\Delta t$:
+\begin{align}
+v &= \textsc{E}(q(\xi)) = \frac{1}{2}(b+2a),\\
+d &= \frac{1}{2}\sigma'^2(q(\xi)) = \frac{\Delta t}{2}\sigma^2(q(\xi)) = \frac{\Delta t}{2}\frac{1}{12}b^2 = \frac{\Delta t}{24}b^2,
+\end{align}
+where the scaled variance $\sigma'^2(q(\xi)) = \Delta t\sigma^2(q(\xi))$. Finally, we obtain $a$ and $b$,
+\begin{align}
+b &= \sqrt{\frac{24d}{\Delta t}},\\
+a &= v-\frac{1}{2}b.
+\end{align}
+Now that we know how to compute $q(\xi)$ from the coefficientes $v$ and $d$ (from the PDE), we can solve the problem via particle methods. See problem 2 for the numerical solution.
+\end{solution}
+\end{questions}
