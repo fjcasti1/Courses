@@ -25,9 +25,6 @@ xi_0 = 0.5;
 u_0  = calculate_density(x,xi_0);
 u(:,1) = u_0;
 
-% figure(1)
-% plot(x,u(:,1),'.-')
-
 for r = 1:R
     
     n = 1; % time-step counter
@@ -50,26 +47,23 @@ for r = 1:R
         
         n = n + 1;
     end
-    
 end
 
-whos u
+% Average across realizations
 u = mean(u,3);
 
-whos u
-
+% Plot solution
 [tt,xx] = meshgrid(t,x);
-
 figure(2)
 plot3(tt,xx,u)
-xx
+saveas(gcf,'../figures/p2_sol','png')
 
 function u = calculate_density(x, xi)
     M = length(x)-1;
     dx = (x(end)-x(1))/M;
     x_staggered = linspace(x(1)-dx,x(end)+dx,M+2);
-    N = 1;
-    dx = 1;
+    N = 1; % Only one particle moving
+%     dx = 1;
     for m=1:M+1
         I=find((x_staggered(m)<xi)&(xi<x_staggered(m+1)));
         u(m)=length(I)/N/dx;

@@ -42,7 +42,7 @@ while t<T
     dt = calculate_dt(v_g,dx);
     
     % Check for plotting times
-    if ( saveTimes & t+dt > saveTimes(save_idx)) %#ok<AND2,BDSCI,BDLGI>
+    if ( saveTimes & t+dt > saveTimes(save_idx))
         dt = saveTimes(save_idx) -t;
         save_idx = save_idx +1;
     elseif ( t+dt > T)
@@ -98,28 +98,28 @@ end
 
 function plot_solution(x,t,u,c,L,v_slow_interval)
     % Plot parameters
-   a = v_slow_interval(1);
-   b = v_slow_interval(2);
-   linewidth = 2;
-   labelfontsize = 18;
+    a = v_slow_interval(1);
+    b = v_slow_interval(2);
+    linewidth = 2;
+    labelfontsize = 18;
 
-   figure(1)
-   plot(x,u,'linewidth',linewidth)
-   grid on
-   axis([0 L 0 c])
-   xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
-   ylabel(['$u(x,t=',num2str(t),')$'],'interpreter','latex','fontsize',labelfontsize)
+    figure(1)
+    plot(x,u,'linewidth',linewidth)
+    grid on
+    axis([0 L 0 c])
+    xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
+    ylabel(['$u(x,t=',num2str(t),')$'],'interpreter','latex','fontsize',labelfontsize)
 
-   % Plot shaded area
-   xx = [a a b b];
-   yy = [0 c c 0];
-   patch(xx,yy,'red')
-   alpha(0.3)
+    % Plot shaded area
+    xx = [a a b b];
+    yy = [0 c c 0];
+    patch(xx,yy,'red')
+    alpha(0.3)
 end
 
 function figName = create_figName(t)
     exponent = floor(log10(t));
     base = t/10^exponent;
     path = '../figures/';
-    figName = append(path,'u_t',num2str(base),'e',num2str(exponent));
+    figName = append(path,'p3_u_t',num2str(base),'e',num2str(exponent));
 end
