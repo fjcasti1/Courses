@@ -2,7 +2,7 @@ clear all; close all; clc
 
 %% Parameter values
 v = -1;
-d = 0.01;
+d = 0.001;
 L = 1;
 
 T = 0.5;
@@ -53,10 +53,28 @@ end
 u = mean(u,3);
 
 % Plot solution
+linewidth = 2;
+labelfontsize = 18;
+
 [tt,xx] = meshgrid(t,x);
+
 figure(2)
 plot3(tt,xx,u)
-saveas(gcf,'../figures/p2_sol','png')
+xlabel('$t$','interpreter','latex','fontsize',labelfontsize)
+ylabel('$x$','interpreter','latex','fontsize',labelfontsize)
+zlabel('$u(x,t)$','interpreter','latex','fontsize',labelfontsize)
+figName = create_figName(d,R);
+saveas(gcf,figName,'png')
+
+function figName = create_figName(d,R)
+    exponent_d = floor(log10(d));
+    base_d = d/10^exponent_d;
+    path = '../figures/';
+    
+    exponent_R = floor(log10(R));
+    base_R = R/10^exponent_R;
+    figName = append(path,'p2_sol_d',num2str(base_d),'e',num2str(exponent_d),'_R',num2str(base_R),'e',num2str(exponent_R));
+end
 
 function u = calculate_density(x, xi)
     M = length(x)-1;

@@ -1,0 +1,39 @@
+\begin{questions}
+\question{Solve the resulting stochastic process numerically for the parameter values $v=-1$, $d=0.1$, $L=1$, $T=0.5$, $\Delta t=T/100$, and 
+\begin{align*}
+u^I(x) = \delta(x-0.5) \iff \xi(0)=0.5.
+\end{align*}
+Solve it once with $1$ realization and once with the average over $10,000$ realizations. Compute and plot the corresponding density $u(x,t)$.}
+
+\begin{solution}
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$d = 0.1,~R=1$.]{\includegraphics[scale=0.52]{p2_sol_d1e-1_R1e0.png}}
+\hspace{-0.9cm}
+\subfigure[$d = 0.1,~R=10000$.]{\includegraphics[scale=0.52]{p2_sol_d1e-1_R1e4.png}}
+\hspace{-0.9cm}
+\caption{Solution $u(x,t)$ against $x$ and $t$ for different number of realizations.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$d = 0.01,~R=1$.]{\includegraphics[scale=0.52]{p2_sol_d1e-2_R1e0.png}}
+\hspace{-0.9cm}
+\subfigure[$d = 0.01,~R=10000$.]{\includegraphics[scale=0.52]{p2_sol_d1e-2_R1e4.png}}
+\hspace{-0.9cm}
+\caption{Solution $u(x,t)$ against $x$ and $t$ for different number of realizations.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$d = 0.001,~R=1$.]{\includegraphics[scale=0.52]{p2_sol_d1e-3_R1e0.png}}
+\hspace{-0.9cm}
+\subfigure[$d = 0.001,~R=10000$.]{\includegraphics[scale=0.52]{p2_sol_d1e-3_R1e4.png}}
+\hspace{-0.9cm}
+\caption{Solution $u(x,t)$ against $x$ and $t$ for different number of realizations.}
+\end{figure}
+
+Matlab code:
+\lstinputlisting[language=Matlab]{../src/problem2.m}
+\end{solution}
+\end{questions}
