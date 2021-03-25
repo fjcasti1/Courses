@@ -1,0 +1,60 @@
+\begin{questions}
+\question{Simulate the same scenario by using a particle method, according to the Follow The Leader (FTL) model, given by the rule 
+\begin{align}
+\xi_j(t+\Delta t) = \xi_j(t) + \Delta tv(\xi_j(t),\xi_{j+1}(t)).
+\end{align}
+The velocity $v$ is determined by
+\begin{align}
+v(\xi_j,\xi_{j+1}) = \begin{dcases}
+         v_0(\xi_j)~~~~~~~~~~~~ if~~~~ \xi_j(t) + \Delta tv_0(\xi_j) + d \leq \xi_{j+1},\\
+         v(\xi_{j+1},\xi_{j+2})~~~~ if~~~~ \xi_j(t) + \Delta tv_0(\xi_j) + d > \xi_{j+1},
+\end{dcases}
+\end{align}
+with $j=1:Npart$. Solve the problem for $Npart=500$ cars, $d=0.01$ km, and an initial condition (corresponding to Problem 3) $\xi_j(0) = 0.02j$, $j=1:Npart$.
+
+Repeat the computation by artificially splitting one car into ten (virtual) cars, $Npart=5000$, occupying a space $d=0.001$ km and $\xi_j(0) = 0.002j$, $j = 1 : Npart$. }
+
+\begin{solution}
+In the following figure we can see the solution every $0.2s$. We can see how the initial density of cars increases rapidly once we hit the "slow zone" (b), represented by the red shaded area. In the track we can see that the cars turn red to represent those ones travelling at a slower speed than they're allowed by the track, to not hit the one in front of them. The green and magenta points represent the first and last car, respectively. Once inside the slow zone, all cars are blue colored, which means that they're not limited by the one in front of them (c). This is because they all travel at the same lower speed imposed by the track. As particles leave the slow zone, the density diminishes even lower than the initial density (d),(e). This is because once the car leaves the slow zone, it travels much faster. In the time that it takes the next car to leave the slow zone, the car ahead has increased their distance, therefore lowering the density. It has now been reached an equilibrium, and the density will stay constant as is, inside and outside the slow zone. This may seem counter intuitive. The reason behind it is that every given period of time the one particle leaves the slow zone and another one enters, at the same rate. Therefore, the density will stay constant, given this conditions.
+
+Since the system is ergodic, dividing the system into ten virtual cars will yield the same qualitative results. We could even do the opposite. We could contract 10 cars into 1, which gives better images. See this new scenarion in figure 7. We can see that we obtain the solution with just less nodes leading to poor resolution.
+
+Finally, the peaks in the density are due to the way I have computed it. The moment one car exits a cell and enters the next one, the density may change if the measuring mesh is not properly chosen, which I have not.
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$t=0$ s.]{\includegraphics[scale=0.52]{p4_sol_t0e0_N5e2.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.2$ s.]{\includegraphics[scale=0.52]{p4_sol_t2e-1_N5e2.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.4$ s.]{\includegraphics[scale=0.52]{p4_sol_t4e-1_N5e2.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.6$ s.]{\includegraphics[scale=0.52]{p4_sol_t6e-1_N5e2.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.8$ s.]{\includegraphics[scale=0.52]{p4_sol_t8e-1_N5e2.png}}
+\hspace{-0.9cm}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.52]{p4_sol_t1e0_N5e2.png}}
+
+\caption{Density $u(x,t)$ against $x$ for different values of time $t$. The red shaded area corresponds to the zone where the cars have to go slower. The smaller figure represents the circular track and the particles travelling on it.} 
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$t=0$ s.]{\includegraphics[scale=0.52]{p4_sol_t0e0_N5e1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.2$ s.]{\includegraphics[scale=0.52]{p4_sol_t2e-1_N5e1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.4$ s.]{\includegraphics[scale=0.52]{p4_sol_t4e-1_N5e1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.6$ s.]{\includegraphics[scale=0.52]{p4_sol_t6e-1_N5e1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=0.8$ s.]{\includegraphics[scale=0.52]{p4_sol_t8e-1_N5e1.png}}
+\hspace{-0.9cm}
+\subfigure[$t=1$ s.]{\includegraphics[scale=0.52]{p4_sol_t1e0_N5e1.png}}
+
+\caption{Density $u(x,t)$ against $x$ for different values of time $t$. The red shaded area corresponds to the zone where the cars have to go slower. The smaller figure represents the circular track and the particles travelling on it.} 
+\end{figure}
+Matlab code:
+\lstinputlisting[language=Matlab]{../src/problem4.m}
+\end{solution}
+\end{questions}

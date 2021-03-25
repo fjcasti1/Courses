@@ -64,7 +64,7 @@ while t<T
     
     % Update u and t  
     u = u_new; 
-    t = t +dt;
+    t = t + dt;
     % Update phase velocity
     vp = v0.*(1-2*u/c);
 

@@ -2,17 +2,17 @@ close all; clear all; clc;
 
 %% Global variables
 global Npart L slow_interval v_slow v_fast
-figure(1)
-set(gcf, 'Position', get(0, 'Screensize'));
+% figure(1)
+% set(gcf, 'Position', get(0, 'Screensize'));
 %% Parameter values
 Npart = 500; % Number of particles
 L = 50;
 d = 0.0099; % Floating point error can cause the conditions to fail if exactly 0.01
 T = 1;
-dt = 1e-4;
+dt = 0.0001;
 
 % Fixed grid to compute density
-M = Npart/2; % Number of grid cells
+M = 100; % Number of grid cells
 dy = L/M;
 y = 0:dy:L;
 u_max = (1/d+1/dy)/Npart; % Maximum posible density
@@ -25,10 +25,17 @@ v_fast = 100;
 % Initial placement of particles
 alpha= 0.02;
 xi_0 = alpha*linspace(1,Npart,Npart);
-% plot_particles(xi_0,[1:Npart],[])
+u  = calculate_density(y,dy,M,xi_0);
+plot_density(y,u,0,u_max)
 plot_particles(xi_0,1:Npart,[])
+figName = create_figName(0,Npart);
+saveas(gcf,figName,'png')
+disp(['Saved figure -> "',figName,'.png"'])
+clf
 
 % Prepare for the loop
+saveTimes = [0.2 0.4 0.6 0.8 1]*T;
+save_idx = 1;
 xi = xi_0;
 v = zeros(size(xi));
 t = 0;
@@ -51,13 +58,16 @@ while t < T
     xi = mod(xi + dt*v,L);
     u  = calculate_density(y,dy,M,xi);
 
-    t = t + dt;
+    t = round(t + dt,4); % Round avoids floating point errors, I don't know why they appear here
 	tstep = tstep + 1;
-    
-    % Plot solutions every 10 timesteps
-    if (mod(tstep,20)==0)
-        plot_particles(xi,idx_leaders,idx_followers)
+
+    if (ismember(t,saveTimes))
         plot_density(y,u,t,u_max)
+        plot_particles(xi,idx_leaders,idx_followers)
+        figName = create_figName(t,Npart);
+        saveas(gcf,figName,'png')
+        disp(['Saved figure -> "',figName,'.png"'])
+        clf
     end
 end
 
@@ -153,7 +163,9 @@ function plot_particles(xi,idx_leaders,idx_followers)
     theta_slow = 2*pi*slow_interval/L;
     
     figure(1)
-    subplot(1,2,1)
+    axes('Position',[0.2 0.55 0.35 0.35])
+    box on
+
     % Plot track
     plot(x,y,'k', 'linewidth',linewidth/4)
     hold on
@@ -179,18 +191,18 @@ function plot_particles(xi,idx_leaders,idx_followers)
     % Some options
     grid on
     pbaspect([1 1 1])
-    hold off
+    set(gca,'Xtick',[])
+    set(gca,'Ytick',[])
 end
 
 function plot_density(y, u, t, u_max)
     global L slow_interval
     % Plotting parameters
     linewidth = 2;
-    labelfontsize = 18;
+    labelfontsize = 20;
 
     
     figure(1)
-    subplot(1,2,2)
     plot(y,u, 'linewidth',linewidth)
     grid on
     xlabel('$x$','interpreter','latex','fontsize',labelfontsize)
@@ -205,4 +217,18 @@ function plot_density(y, u, t, u_max)
     patch(xx,yy,'red')
     alpha(0.3)
     pbaspect([1 1 1])
+end
+
+function figName = create_figName(t,N)
+    
+    exponent_t = floor(log10(t));
+    base_t = t/10^exponent_t;
+    if t==0
+        exponent_t = 0;
+        base_t = 0;
+    end
+    exponent_N = floor(log10(N));
+    base_N = N/10^exponent_N;
+    path = '../figures/';
+    figName = append(path,'p4_sol_t',num2str(base_t),'e',num2str(exponent_t),'_N',num2str(base_N),'e',num2str(exponent_N));
 end
