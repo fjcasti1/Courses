@@ -1,0 +1,74 @@
+\begin{questions}
+\question{Write a code which solves the problem using the implicit Cranck - Nicholson scheme (the trapezoidal
+rule in time), using an $M\times N$ grid with $\Delta x = \Delta y$. Explain how you solve the linear systems, using sparse Gauss
+elimination.}
+\begin{solution}
+We can represent the PDE as
+\begin{align*}
+\frac{\partial u}{\partial t} + \frac{\partial u}{\partial x} - \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) =0
+\end{align*}
+Next, we discretize the equation using Forward Euler in time and Crank-Nicholson, central differences in space:
+\begin{align*}
+\frac{u_{i,j}^{n+1}-u_{i,j}^{n}}{\Delta t} &+ \frac{1}{2}\left( \frac{u_{i+1,j}^{n+1}-u_{i-1,j}^{n+1}}{2\Delta x} + \frac{u_{i+1,j}^{n}-u_{i-1,j}^{n}}{2\Delta x} \right) \\
+&- \frac{1}{2}\left( \frac{u_{i+1,j}^{n+1}-2u_{i,j}^{n+1}+u_{i-1,j}^{n+1}}{\Delta x^2} + \frac{u_{i+1,j}^{n}-2u_{i,j}^{n}+u_{i-1,j}^{n}}{\Delta x^2} \right)\\
+&- \frac{1}{2}\left( \frac{u_{i,j+1}^{n+1}-2u_{i,j}^{n+1}+u_{i,j-1}^{n+1}}{\Delta y^2} + \frac{u_{i,j+1}^{n}-2u_{i,j}^{n}+u_{i,j-1}^{n}}{\Delta y^2} \right) = 0
+\end{align*}
+Regrouping the $n+1$ terms on the left and the $n$ terms on the right we obtaind
+\begin{align*}
+&u_{i,j}^{n+1} + \frac{C}{4}\left( u_{i+1,j}^{n+1} - u_{i-1,j}^{n+1} \right) - \frac{\mu_x}{2}\left( u_{i+1,j}^{n+1} -2u_{i,j}^{n+1} + u_{i-1,j}^{n+1} \right) - \frac{\mu_y}{2}\left( u_{i,j+1}^{n+1} -2u_{i,j}^{n+1} + u_{i,j-1}^{n+1} \right) \\
+& = u_{i,j}^{n} - \frac{C}{4}\left( u_{i+1,j}^{n} - u_{i-1,j}^{n} \right) + \frac{\mu_x}{2}\left( u_{i+1,j}^{n} -2u_{i,j}^{n} + u_{i-1,j}^{n} \right) + \frac{\mu_y}{2}\left( u_{i,j+1}^{n} -2u_{i,j}^{n} + u_{i,j-1}^{n} \right),
+\end{align*}
+with $C = \Delta t/\Delta x$, $\mu_x = \Delta t/\Delta x^2$, and $\mu_y = \Delta t/\Delta y^2$. 
+
+Before we continue, let us define the grid with $M$ and $N$ horizontal and vertical cells, respectively. Note that the domain is then defined by $(M+1)(N+1)$ grid nodes. Hence the coordinates $x_i = (i-2)\Delta_x$ with $i\in[1,M+3]$ and $y_j = (j-2)\Delta_y$ with $j\in[1,N+3]$ include the \textit{ghost nodes} at indeces $1$ and $M+3$, $N+3$ (chosen this way to match the \textsl{MATLAB} array indexing) . We can collapse this 2D array into 1 column vector by stacking the columns one after another. We will obtain a vector of dimensions $(M+3)(N+3)$, including ghost nodes. Thus, our solution vector is $U_k = U_{i+(M+3)(j-1)} = u_{i,j}$. It is easy to show that
+\begin{align*}
+u_{i\pm 1,j} &= U_{i\pm 1+(M+3)(j-1)} = U_{k\pm 1},\\
+u_{i,j\pm 1} &= U_{i+(M+3)(j\pm 1-1)} = U_{k\pm (M+3)}.
+\end{align*}
+Then, we can turn our discretization to be in terms of the solution vector $U$,
+\begin{align*}
+&U_k^{n+1} + \frac{C}{4}\left( U_{k+1}^{n+1} - U_{k-1}^{n+1} \right) - \frac{\mu_x}{2}\left( U_{k+1}^{n+1} -2U_{k}^{n+1} + U_{k-1}^{n+1} \right) - \frac{\mu_y}{2}\left( U_{k+M+3}^{n+1} -2U_{k}^{n+1} + U_{k-M-3}^{n+1} \right) \\
+& = U_{k}^{n} - \frac{C}{4}\left( U_{k+1}^{n} - U_{k-1}^{n} \right) + \frac{\mu_x}{2}\left( U_{k+1}^{n} -2U_{k}^{n} + U_{k-1}^{n} \right) + \frac{\mu_y}{2}\left( U_{k+M+3}^{n} -2U_{k}^{n} + U_{k-M-3}^{n} \right).
+\end{align*}
+Reorganizing the equation we get
+\begin{align*}
+&- \frac{\mu_y}{2}U_{k-M-3}^{n+1} - \left(\frac{C}{4}+\frac{\mu_x}{2}\right)U_{k-1}^{n+1} + \left(1 + \mu_x + \mu_y\right)U_{k}^{n+1} + \left(\frac{C}{4}-\frac{\mu_x}{2}\right)U_{k+1}^{n+1} - \frac{\mu_y}{2}U_{k+M+3}^{n+1}\\
+& = \frac{\mu_y}{2}U_{k-M-3}^{n} + \left(\frac{C}{4}+\frac{\mu_x}{2}\right)U_{k-1}^{n+1} + \left(1 - \mu_x - \mu_y\right)U_{k}^{n+1} + \left(\frac{\mu_x}{2}-\frac{C}{4}\right)U_{k+1}^{n+1} + \frac{\mu_y}{2}U_{k+M+3}^{n+1},
+\end{align*}
+\begin{align*}
+&a_{-M-3}U_{k-M-3}^{n+1} + a_{-1}U_{k-1}^{n+1} + a_{0}U_{k}^{n+1} + a_{+1}U_{k+1}^{n+1} +a_{M+3}U_{k+M+3}^{n+1}\\
+& = b_{-M-3}U_{k-M-3}^{n} + b_{-1}U_{k-1}^{n+1} + b_{0}U_{k}^{n+1} + b_{+1}U_{k+1}^{n+1} + b_{M+3}U_{k+M+3}^{n+1},
+\end{align*}
+This system of equations can be represented in matrix form, $AU^{n+1}=BU^{n}$, where $A$ and $B$ are sparse matrices defined by the 5 $a$ diagonals and 5 $b$ diagonals given in the equation above.
+To solve the system we use the \textsl{MATLAB} command backslash operator $U^{n+1}=A$\textbackslash $BU^{n}$. Lastly, we need to implement the boundary conditions after updating the solution. The boundary conditions in index form are:
+\begin{itemize}
+\item Bottom boundary: $\left.\partial_yu\right|_{y=0} = 0$:
+\begin{align*}
+\left.\frac{u_{i,j+1}-u_{i,j-1}}{2\Delta y}\right|_{j=2} &= 0 \\
+\frac{u_{i,3}-u_{i,1}}{2\Delta y} &= 0\\
+u_{i,1} &= u_{i,3} ~~ \Rightarrow ~~ \boxed{U_{i} = U_{i+2(M+3)}}
+\end{align*}
+\item Top boundary: $\left.\partial_yu\right|_{y=1} = 0$:
+\begin{align*}
+\left.\frac{u_{i,j+1}-u_{i,j-1}}{2\Delta y}\right|_{j=N+2} &= 0\\
+\frac{u_{i,N+3}-u_{i,N+1}}{2\Delta y} &= 0 \\
+u_{i,N+3} &= u_{i,N+1} ~~ \Rightarrow ~~ \boxed{U_{i+(N+2)(M+3)} = U_{i+N(M+3)}}
+\end{align*}
+\item Left boundary: $\left.u\right|_{x=0} - \left.\partial_xu\right|_{x=0} = 0$:
+\begin{align*}
+\left.u_{i,j}\right|_{i=2}-\left.\frac{u_{i+1,j}-u_{i-1,j}}{2\Delta x}\right|_{i=2} &= 0 \\
+u_{2,j}-\frac{u_{3,j}-u_{1,j}}{2\Delta x} &= 0 \\
+u_{1,j} &= u_{3,j} - 2\Delta x u_{2,j} \\
+&\boxed{U_{1+(M+3)(j-1)} = U_{3+(M+3)(j-1)}-2\Delta xU_{2+(M+3)(j-1)}}
+\end{align*}
+\item Right boundary: $\left.u\right|_{x=1} - \left.\partial_xu\right|_{x=1} = 0$:
+\begin{align*}
+\left.u_{i,j}\right|_{i=M+2}-\left.\frac{u_{i+1,j}-u_{i-1,j}}{2\Delta x}\right|_{i=M+2} &= 0 \\
+u_{M+2,j}-\frac{u_{M+3,j}-u_{M+1,j}}{2\Delta x} &= 0 \\
+u_{M+3,j} &= u_{M+1,j} + 2\Delta x u_{M+2,j} \\
+&\boxed{U_{(M+3)j} = U_{M+1+(M+3)(j-1)}+2\Delta xU_{M+2+(M+3)(j-1)}}
+\end{align*}
+\end{itemize}
+The four boundary conditions are imposed after updating the solution by solving $U^{n+1}=A$\textbackslash $BU^{n}$ every time-step.
+\end{solution}
+\end{questions}

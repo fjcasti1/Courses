@@ -1,0 +1,125 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt,answers]{exam}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage[comma, authoryear]{natbib}
+\bibliographystyle{plainnat}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage{pythontex} 
+\usepackage[makeroom]{cancel}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{darkblue}{rgb}{0.1,0.1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{darkblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=1pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\graphicspath{{../figures/}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\zero}{\mathbb{O}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+ 
+\title{\textbf{Advanced Numerical Methods for PDEs}\\ \Large{Homework 2}}%replace X with the appropriate number
+\author{Francisco Castillo}
+ 
+
+\maketitle
+Consider the 2D problem
+\begin{align*}
+\partial_tu(x,y,t) + \partial_xf^x &+ \partial_yf^y = 0,~~ x,y\in[0,1]\\
+f^x = u - \partial_xu,&~~ f^y = - \partial_yu
+\end{align*}
+with boundary conditions
+\begin{align*}
+f^x(x=0,y,t) = 0,~~f^x(x=1,y,t) = 0,\\
+f^y(x,y=0,t) = 0,~~f^y(x,y=1,t) = 0,
+\end{align*}
+and initial conditions
+\begin{align*}
+u(x,y,t=0) = u^I(x,y) = \delta(x-0.5)\delta(y-0.5)
+\end{align*}
+\section*{Problem 1}
+\input{problem1}
+\newpage
+\section*{Problem 2}
+\input{problem2}
+\newpage
+
+Consider an ensemble of cars, distributed on a circular course of length $L$ (so $x\in[0, L]$), trying to travel at a desired speed $v_0(x)$. Assume that there is a minimal distance $d$ between cars and a corresponding congestion density $c$. Simulate for a time $t\in[0,T]$.
+Plot a solution of the congestion backward wave and the
+distribution of cars at $t = T$.
+
+\section*{Problem 3}
+%\input{problem3}
+\newpage
+\section*{Problem 4}
+%\input{problem4}
+
+\end{document}
