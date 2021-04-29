@@ -1,0 +1,26 @@
+\begin{questions}
+\question{Using the Cranck - Nicholson scheme with a time and spatial step $\Delta t = \Delta x = 0.01$ for $0 < t < 1$. Solve the linear equations resulting from the implicit discretization in \textsl{MATLAB} sparse mode.}
+
+\begin{solution}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$t = 0$.]{\includegraphics[scale=0.52]{p2_u_t00e0.png}}
+\hspace{-0.9cm}
+\subfigure[$t = 0.02$.]{\includegraphics[scale=0.52]{p2_u_t02e-2.png}}
+\hspace{-0.9cm}
+\subfigure[$t = 0.04$.]{\includegraphics[scale=0.52]{p2_u_t04e-2.png}}
+\hspace{-0.9cm}
+\subfigure[$t = 0.06$.]{\includegraphics[scale=0.52]{p2_u_t06e-2.png}}
+\hspace{-0.9cm}
+\subfigure[$t = 0.09$.]{\includegraphics[scale=0.52]{p2_u_t09e-2.png}}
+\hspace{-0.9cm}
+\subfigure[$t = 0.15$.]{\includegraphics[scale=0.52]{p2_u_t15e-2.png}}
+\hspace{-0.9cm}
+\caption{Solution $u(x,t)$ against $x$ and $t$ for different number of realizations.}
+\end{figure}
+
+
+\lstinputlisting[language=Matlab]{../src/problem2.m}
+\end{solution}
+\end{questions}
