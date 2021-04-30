@@ -29,6 +29,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -112,14 +113,19 @@ u(x,y,t=0) = u^I(x,y) = \delta(x-0.5)\delta(y-0.5)
 \input{problem2}
 \newpage
 
-Consider an ensemble of cars, distributed on a circular course of length $L$ (so $x\in[0, L]$), trying to travel at a desired speed $v_0(x)$. Assume that there is a minimal distance $d$ between cars and a corresponding congestion density $c$. Simulate for a time $t\in[0,T]$.
-Plot a solution of the congestion backward wave and the
-distribution of cars at $t = T$.
+Consider the Schroedinger equation
+\begin{align*}
+i\hbar \frac{\partial\psi(x, t)}{\partial t}  = -\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}\psi(x,t) + V (x)\psi(x,t).
+\end{align*}
+Here $\hbar$ is Planck’s constant, $m$ is the mass of the particle,
+and $V (x)$ is the external potential energy. $\psi$ is the wave
+function. The particle density is given by $u(x, t) = |\psi(x, t)|^2$.
+Assume units for space, time and mass such that $\hbar = m = 1$ holds.
 
 \section*{Problem 3}
-%\input{problem3}
+\input{problem3}
 \newpage
 \section*{Problem 4}
-%\input{problem4}
+\input{problem4}
 
 \end{document}

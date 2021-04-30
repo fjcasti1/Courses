@@ -1,0 +1,32 @@
+\begin{questions}
+  \question{Solve the SE for $0 < t < 1$ for $N = 3, 10, 50$ with a time step
+$\Delta t$ such that 
+\begin{align*}
+\Delta t||A||^2 = \Delta t\sqrt{ρ(A^HA)} = 1
+\end{align*} holds. Here $ρ$ is the spectral radius $\rho(A^HA) = max_n |\lambda_n|$ with $\lambda_n$ the eigenvalues of $A^HA$ and $A^H$ the hermitian of the complex matrix $A$: $A^H = (A^T)^*$. Use the \textsc{Matlab} function \texttt{eig} to compute the eigenvalues. Use
+\begin{align*}
+\psi^I(x) = \left\{\begin{array}{ll}
+      1 & -\pi < x < -\frac{\pi}{2} \\
+      0 &  -\frac{\pi}{2} < x < \pi \\
+\end{array}\right.
+\end{align*}
+as an initial condition, and the Cranck - Nicholson scheme for the time discretization.}
+\begin{solution}
+From the previous problem, recover the equation
+\begin{align*}
+\overrightarrow{c}' (t) = A\overrightarrow{c}(t),
+\end{align*}
+and apply the Crank-Nicholson scheme,
+\begin{align*}
+\frac{\overrightarrow{c}^{k+1}-\overrightarrow{c}^{k}}{\Delta t} = A\frac{1}{2}\left(\overrightarrow{c}^{k+1}+\overrightarrow{c}^{k}\right),
+\end{align*}
+which yields
+\begin{align*}
+\overrightarrow{c}^{k+1} - A\frac{\Delta t}{2} \overrightarrow{c}^{k+1} = \overrightarrow{c}^{k} + A\frac{\Delta t}{2} \overrightarrow{c}^{k}.
+\end{align*}
+Solving for $\overrightarrow{c}^{k+1}$,
+\begin{align*}
+\overrightarrow{c}^{k+1}= \left(\mathbb{I} - A\frac{\Delta t}{2}\right)^{-1}\left(\mathbb{I} + A\frac{\Delta t}{2}\right) \overrightarrow{c}^{k}.
+\end{align*}
+\end{solution}
+\end{questions}

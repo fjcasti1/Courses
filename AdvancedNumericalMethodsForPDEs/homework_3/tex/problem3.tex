@@ -1,0 +1,71 @@
+\begin{questions}
+  \question{In these units derive the equations for a spectral Galerkin
+method on the interval $x \in [−\pi, pi]$ with periodic boundary
+conditions, using the basis functions 
+\begin{align*}
+\phi_n(x) = e^{inx},~~ n = -N : N,
+\end{align*}
+and the weighted complex $L2$ scalar product $\left\langle u, v\right\rangle = \frac{1}{2\pi}\int_{-\pi}^{\pi}u^*vdx$ for a potential energy
+given by
+\begin{align*}
+V(x) = \left\{\begin{array}{ll}
+      0 & -\pi < x < 0 \\
+      1 &  ~~~0 < x < \pi \\
+\end{array}\right.
+\end{align*}}
+\begin{solution}
+Multiplying Schroedinger's equation by the complex constant $i$ and making $\hbar = m = 1$ we obtain
+\begin{align*}
+\frac{\partial\psi(x, t)}{\partial t}  = \frac{i}{2}\frac{\partial^2}{\partial x^2}\psi(x,t) - iV (x)\psi(x,t).
+\end{align*}
+Let us approximate the solution using the basis functions $\phi_n(x)$ given,
+\begin{align*}
+\psi(x,t)\approx\psi_N(x,t) = \sum_{n=-N}^Nc_n(t)\phi_n(x) = \sum_{n=-N}^Nc_n(t)e^{inx}
+\end{align*}
+Define 
+\begin{align*}
+F(\psi_N)&:= \frac{i}{2}\frac{\partial^2}{\partial x^2}\psi_N(x,t) - iV (x)\psi_N(x,t)\\
+&= \frac{i}{2}\frac{\partial^2}{\partial x^2}\sum_{n=-N}^Nc_n(t)e^{inx} - iV (x)\sum_{n=-N}^Nc_n(t)e^{inx}\\
+&= -\frac{i}{2}\sum_{n=-N}^Nc_n(t)n^2e^{inx} - iV (x)\sum_{n=-N}^Nc_n(t)e^{inx}\\
+&= -i\sum_{n=-N}^N\left[c_n(t)\left(V (x) + \frac{n^2}{2}\right)e^{inx}\right].
+\end{align*}
+Further, 
+\begin{align*}
+b_m &= \left\langle \phi_m,F(\psi_N)\right\rangle\\
+&= -i\frac{1}{2\pi}\int_{-\pi}^{\pi}\left\lbrace e^{-imx}\sum_{n=-N}^N\left[c_n(t)\left(V (x) + \frac{n^2}{2}\right)e^{inx}\right]\right\rbrace dx\\
+&= -i\sum_{n=-N}^Nc_n(t)\int_{-\pi}^{\pi}\frac{1}{2\pi} \left(V (x) + \frac{n^2}{2}\right)e^{i(n-m)x} dx\\
+&= -i\sum_{n=-N}^Nc_n(t)\left[\int_{-\pi}^{\pi}\frac{1}{2\pi} V (x) e^{i(n-m)x} dx + \int_{-\pi}^{\pi}\frac{1}{2\pi}\frac{n^2}{2}e^{i(n-m)x} dx \right] \\
+&= -i\sum_{n=-N}^Nc_n(t)\left[I^V_{m,n} + \frac{n^2}{2}\delta_{m,n} \right],
+\end{align*}
+where $I^V_{m,n} = \frac{1}{2\pi}\int_{-\pi}^{\pi} V (x) e^{i(n-m)x} dx$ and $\delta_{m,n}$ is the Kronecker delta. Both $I^V_{m,n}$, and $\delta_{m,n}$ can be expressed in matrix form. Hence,
+\begin{align*}
+\overrightarrow{b} (t) = A\overrightarrow{c}(t),
+\end{align*}
+where $A = -i\left[I^V_{m,n} + \frac{n^2}{2}\delta_{m,n} \right]$. Since $\overrightarrow{c}' (t) =\overrightarrow{b} (t)$, we conclude
+\begin{align*}
+\overrightarrow{c}' (t) = A\overrightarrow{c}(t),
+\end{align*}
+where the entries of $A$ are determined by the entries of $I^V_{m,n}$, and $\delta_{m,n}$, which are detailed below:
+\begin{align*}
+I^V_{m,n} &= \frac{1}{2\pi}\int_{-\pi}^{\pi} V (x) e^{i(n-m)x} dx\\
+&= \frac{1}{2\pi}\int_{0}^{\pi} e^{i(n-m)x} dx,
+\end{align*}
+since $V(x) = 0$ from $-\pi$ to $0$. Hence,
+\begin{itemize}
+\item For $n=m$:
+\begin{align*}
+I^V_{m,n} &= \frac{1}{2\pi}\int_{0}^{\pi} e^{i(n-m)x} dx\\
+&= \frac{1}{2\pi}\int_{0}^{\pi} dx\\
+&= \frac{1}{2}.
+\end{align*}
+\item For $n \neq m$:
+\begin{align*}
+I^V_{m,n} &= \frac{1}{2\pi}\int_{0}^{\pi} e^{i(n-m)x} dx\\
+&= \frac{1}{2\pi}\frac{i\left(1-e^{i(n-m)\pi}\right)}{(n-m)}\\
+&= \frac{i}{2\pi(n-m)}\left[ 1-(-1)^{(n-m)}\right].
+\end{align*}
+\end{itemize}
+
+
+\end{solution}
+\end{questions}
