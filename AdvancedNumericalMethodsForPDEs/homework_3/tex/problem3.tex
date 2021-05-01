@@ -18,30 +18,30 @@ Multiplying Schroedinger's equation by the complex constant $i$ and making $\hba
 \begin{align*}
 \frac{\partial\psi(x, t)}{\partial t}  = \frac{i}{2}\frac{\partial^2}{\partial x^2}\psi(x,t) - iV (x)\psi(x,t).
 \end{align*}
-Let us approximate the solution using the basis functions $\phi_n(x)$ given,
+Let us approximate the solution using the orthonormal basis functions $\phi_n(x)$ given,
 \begin{align*}
-\psi(x,t)\approx\psi_N(x,t) = \sum_{n=-N}^Nc_n(t)\phi_n(x) = \sum_{n=-N}^Nc_n(t)e^{inx}
+\psi(x,t)\approx\psi_N(x,t) = \sum_{n=-N}^Nc_n(t)\phi_n(x) = \frac{1}{\sqrt{2\pi}}\sum_{n=-N}^Nc_n(t)e^{inx}
 \end{align*}
 Define 
 \begin{align*}
 F(\psi_N)&:= \frac{i}{2}\frac{\partial^2}{\partial x^2}\psi_N(x,t) - iV (x)\psi_N(x,t)\\
-&= \frac{i}{2}\frac{\partial^2}{\partial x^2}\sum_{n=-N}^Nc_n(t)e^{inx} - iV (x)\sum_{n=-N}^Nc_n(t)e^{inx}\\
-&= -\frac{i}{2}\sum_{n=-N}^Nc_n(t)n^2e^{inx} - iV (x)\sum_{n=-N}^Nc_n(t)e^{inx}\\
-&= -i\sum_{n=-N}^N\left[c_n(t)\left(V (x) + \frac{n^2}{2}\right)e^{inx}\right].
+&= \frac{1}{\sqrt{2\pi}}\frac{i}{2}\frac{\partial^2}{\partial x^2}\sum_{n=-N}^Nc_n(t)e^{inx} - \frac{1}{\sqrt{2\pi}}iV (x)\sum_{n=-N}^Nc_n(t)e^{inx}\\
+&= -\frac{1}{\sqrt{2\pi}}\frac{i}{2}\sum_{n=-N}^Nc_n(t)n^2e^{inx} - \frac{1}{\sqrt{2\pi}}iV (x)\sum_{n=-N}^Nc_n(t)e^{inx}\\
+&= \frac{-i}{\sqrt{2\pi}}\sum_{n=-N}^N\left[c_n(t)\left(V (x) + \frac{n^2}{2}\right)e^{inx}\right].
 \end{align*}
 Further, 
 \begin{align*}
 b_m &= \left\langle \phi_m,F(\psi_N)\right\rangle\\
-&= -i\frac{1}{2\pi}\int_{-\pi}^{\pi}\left\lbrace e^{-imx}\sum_{n=-N}^N\left[c_n(t)\left(V (x) + \frac{n^2}{2}\right)e^{inx}\right]\right\rbrace dx\\
+&= \frac{-i}{\sqrt{2\pi}}\frac{1}{\sqrt{2\pi}}\int_{-\pi}^{\pi}\left\lbrace e^{-imx}\sum_{n=-N}^N\left[c_n(t)\left(V (x) + \frac{n^2}{2}\right)e^{inx}\right]\right\rbrace dx\\
 &= -i\sum_{n=-N}^Nc_n(t)\int_{-\pi}^{\pi}\frac{1}{2\pi} \left(V (x) + \frac{n^2}{2}\right)e^{i(n-m)x} dx\\
 &= -i\sum_{n=-N}^Nc_n(t)\left[\int_{-\pi}^{\pi}\frac{1}{2\pi} V (x) e^{i(n-m)x} dx + \int_{-\pi}^{\pi}\frac{1}{2\pi}\frac{n^2}{2}e^{i(n-m)x} dx \right] \\
 &= -i\sum_{n=-N}^Nc_n(t)\left[I^V_{m,n} + \frac{n^2}{2}\delta_{m,n} \right],
 \end{align*}
 where $I^V_{m,n} = \frac{1}{2\pi}\int_{-\pi}^{\pi} V (x) e^{i(n-m)x} dx$ and $\delta_{m,n}$ is the Kronecker delta. Both $I^V_{m,n}$, and $\delta_{m,n}$ can be expressed in matrix form. Hence,
 \begin{align*}
-\overrightarrow{b} (t) = A\overrightarrow{c}(t),
+\overrightarrow{b} = A\overrightarrow{c}(t),
 \end{align*}
-where $A = -i\left[I^V_{m,n} + \frac{n^2}{2}\delta_{m,n} \right]$. Since $\overrightarrow{c}' (t) =\overrightarrow{b} (t)$, we conclude
+where $A = -i\left[I^V_{m,n} + \frac{n^2}{2}\delta_{m,n} \right]$. Since $\overrightarrow{c}' (t) =\overrightarrow{b} (\overrightarrow{c})$, we conclude
 \begin{align*}
 \overrightarrow{c}' (t) = A\overrightarrow{c}(t),
 \end{align*}

@@ -26,19 +26,96 @@ which yields
 \end{align*}
 Solving for $\overrightarrow{c}^{k+1}$,
 \begin{align*}
-\overrightarrow{c}^{k+1}= \left(\mathbb{I} - A\frac{\Delta t}{2}\right)^{-1}\left(\mathbb{I} + A\frac{\Delta t}{2}\right) \overrightarrow{c}^{k}.
+\overrightarrow{c}^{k+1}&= \left(\mathbb{I} - A\frac{\Delta t}{2}\right)^{-1}\left(\mathbb{I} + A\frac{\Delta t}{2}\right) \overrightarrow{c}^{k}\\
+&= M \overrightarrow{c}^{k}.
+\end{align*}
+Hence, we can find the solution at any time step $k$ by 
+\begin{align*}
+\overrightarrow{c}^{k} = M^k \overrightarrow{c}^{0}.
 \end{align*}
 Note that we use the Crank-Nicholson scheme on the \textit{coefficients} of the expansion. Hence, we need to calculate the coefficients of the initial condition,
 \begin{align*}
-c_n(0) = \left\langle\phi_n,\psi^I(x)\right\rangle &= \frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-inx}\psi^I(x)dx\\
-&= \frac{1}{2\pi}\int_{-\pi}^{-\pi/2}e^{-inx}dx\\
-&= \frac{i}{2\pi n}e^{in\pi/2}\left(1-e^{in\pi/2}\right), ~~\text{for}~~ n\neq 0,
+c_n(0) = \left\langle\phi_n,\psi^I(x)\right\rangle &= \frac{1}{\sqrt{2\pi}}\int_{-\pi}^{\pi}e^{-inx}\psi^I(x)dx\\
+&= \frac{1}{\sqrt{2\pi}}\int_{-\pi}^{-\pi/2}e^{-inx}dx\\
+&= \frac{i}{n\sqrt{2\pi}}e^{in\pi/2}\left(1-e^{in\pi/2}\right), ~~\text{for}~~ n\neq 0,
 \end{align*}
 and, 
 \begin{align*}
-c_0(0) = \left\langle\phi_0,\psi^I(x)\right\rangle &= \frac{1}{2\pi}\int_{-\pi}^{\pi}\psi^I(x)dx\\
-&= \frac{1}{2\pi}\int_{-\pi}^{-\pi/2}dx\\
-&= \frac{1}{4}.
+c_0(0) = \left\langle\phi_0,\psi^I(x)\right\rangle &= \frac{1}{\sqrt{2\pi}}\int_{-\pi}^{\pi}\psi^I(x)dx\\
+&= \frac{1}{\sqrt{2\pi}}\int_{-\pi}^{-\pi/2}dx\\
+&= \sqrt{\frac{\pi}{8}}.
 \end{align*}
+
+In the following figures, we can see the effect of the number of terms, $N$, used in the expansion. In the first figure we can see the dramatic effect that $N$ has on the accuracy of the approximation of the initial condition. The remaining figures show the evolution with time of the solution $\psi$ and the probability density $u$ for each choice of $N$. Find the \textsc{Matlab} code at the end.
+
+\newpage
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure[$N=3$]{\includegraphics[scale=0.52]{p4_psi_N3_sample0.png}}
+\hspace{-0.6cm}
+\subfigure[$N=3$]{\includegraphics[scale=0.52]{p4_u_N3_sample0.png}}
+
+\subfigure[$N=10$]{\includegraphics[scale=0.52]{p4_psi_N10_sample0.png}}
+\hspace{-0.6cm}
+\subfigure[$N=10$]{\includegraphics[scale=0.52]{p4_u_N10_sample0.png}}
+
+\subfigure[$N=50$]{\includegraphics[scale=0.52]{p4_psi_N50_sample0.png}}
+\hspace{-0.9cm}
+\subfigure[$N=50$]{\includegraphics[scale=0.52]{p4_u_N50_sample0.png}}
+\caption{Initial condition of the wave function (left) and probability density function (right) for different number of terms in the approximation.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N3_sample1.png}}
+\hspace{-0.6cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N3_sample1.png}}
+
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N3_sample2.png}}
+\hspace{-0.6cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N3_sample2.png}}
+
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N3_sample3.png}}
+\hspace{-0.6cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N3_sample3.png}}
+\caption{Evolution with time ot the wave function $\psi$ (left) and probability density function $u$ (right) for $N = 3$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N10_sample1.png}}
+\hspace{-0.6cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N10_sample1.png}}
+
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N10_sample2.png}}
+\hspace{-0.6cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N10_sample2.png}}
+
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N10_sample3.png}}
+\hspace{-0.6cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N10_sample3.png}}
+\caption{Evolution with time ot the wave function $\psi$ (left) and probability density function $u$ (right) for $N = 10$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering     %%% not \center
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N50_sample1.png}}
+\hspace{-0.9cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N50_sample1.png}}
+
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N50_sample2.png}}
+\hspace{-0.9cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N50_sample2.png}}
+
+\subfigure{\includegraphics[scale=0.52]{p4_psi_N50_sample3.png}}
+\hspace{-0.9cm}
+\subfigure{\includegraphics[scale=0.52]{p4_u_N50_sample3.png}}
+\caption{Evolution with time ot the wave function $\psi$ (left) and probability density function $u$ (right) for $N = 50$.}
+\end{figure}
+
+\newpage
+
+\lstinputlisting[language=Matlab]{../src/problem4.m}
 \end{solution}
 \end{questions}
